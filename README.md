@@ -1026,13 +1026,6 @@ There are a few additional styleguides for libraries commonly used at Shopify th
     'by the iniquities of the selfish and the tyranny of evil men. ' +
     'Blessed is he who, in the name of charity and good will, ' +
     'shepherds the weak through the valley of darkness';
-
-  let goodStringTwo = [
-    'The path of the righteous man is beset on all sides ',
-    'by the iniquities of the selfish and the tyranny of evil men. ',
-    'Blessed is he who, in the name of charity and good will, ',
-    'shepherds the weak through the valley of darkness',
-  ].join('');
   ```
 
 - [8.3](#8.3) <a name="8.3"></a> Use template strings instead of concatenation.
@@ -1342,7 +1335,7 @@ There are a few additional styleguides for libraries commonly used at Shopify th
   let goodStringNum = String(number);
   ```
 
-- [10.2](#10.2) <a name="10.2"></a> Use the `Number` function for type casting and `parseInt` for parsing strings. Always include the radix parameter when using `parseInt`.
+- [10.2](#10.2) <a name="10.2"></a> Use the `Number` function for type casting and `Number.parseInt` for parsing strings. Always include the radix parameter when using `Number.parseInt`.
 
   > Why? Forgetting to include the radix when your string starts with `0` will result in it being parsed as a hexadecimal number, which is not usually what you want. Providing a radix forces you to specify the way in which the string is parsed.
 
@@ -1355,11 +1348,12 @@ There are a few additional styleguides for libraries commonly used at Shopify th
   let badOne = new Number(input);
   let badTwo = +input;
   let badThree = input >> 0;
-  let badFour = parseInt(input);
+  let badFour = Number.parseInt(input);
+  let badFive = parseInt(input, 10);
 
   // good
   let goodOne = Number(input);
-  let goodTwo = parseInt(input, 10);
+  let goodTwo = Number.parseInt(input, 10);
   ```
 
 - [10.3](#10.3) <a name="10.3"></a> Use the `Boolean` function for casting to a boolean value. Never use double negation (`!!`), the `Boolean` constructor, or other "clever" techniques for getting a boolean value.
