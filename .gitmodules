@@ -1,0 +1,12 @@
+[submodule "packages/eslint-config-shopify"]
+	path = packages/eslint-config-shopify
+	url = git@github.com:Shopify/eslint-config-shopify.git
+[submodule "packages/eslint-plugin-shopify"]
+	path = packages/eslint-plugin-shopify
+	url = git@github.com:Shopify/eslint-plugin-shopify.git
+[submodule "packages/generator-eslint-shopify"]
+	path = packages/generator-eslint-shopify
+	url = git@github.com:Shopify/generator-eslint-shopify.git
+[submodule "packages/shopify-flow-fixes"]
+	path = packages/shopify-flow-fixes
+	url = git@github.com:Shopify/flow-fixes.git
