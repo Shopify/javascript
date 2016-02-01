@@ -74,7 +74,7 @@
   };
   ```
 
-- [6.4](#6.4) <a name="6.4"></a> Single-line object literals are permisible, but beware objects with more than a few, short keys: they can quickly become unreadable. Object literals on a single line should not have any spaces after the opening brace or before the closing brace.
+- [6.4](#6.4) <a name="6.4"></a> Single-line object literals are permissible, but beware objects with more than a few, short keys: they can quickly become unreadable. Object literals on a single line should not have any spaces after the opening brace or before the closing brace.
 
   > Why? Objects on a single line use no interior spaces to differentiate them from functions (particular arrow functions) on a single line (which *should* have interior spaces between braces, if present).
 

@@ -168,8 +168,8 @@
   // good
   function goodFunction(arg) { return true; }
 
-  let goodObject = {'is-bad': true};
-  goodObject['is-bad'];
+  let goodObject = {'is-good': true};
+  goodObject['is-good'];
 
   let goodArray = [1, 2, 3];
   ```

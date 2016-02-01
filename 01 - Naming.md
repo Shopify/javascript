@@ -1,6 +1,6 @@
 ## Naming
 
-- [1.1](#1.1) <a name="1.1"></a> Use camelCase when naming functions, objects, and instances.
+- [1.1](#1.1) <a name="1.1"></a> Use camelCase when naming functions, objects, and instances. Snake case is acceptable when interacting with an external API that provides objects with snake-cased keys, like Rails.
 
   ESLint rule: [`camelcase`](http://eslint.org/docs/rules/camelcase.html)
 
@@ -8,13 +8,18 @@
   // bad
   let bad_snake_name = 'Larry';
   let UGLYname = 'this';
+  let badObject = {some_prop: 'some-value'};
 
   // good
   let goodSnakeName = 'Basilisk';
   let prettyName = 'this';
+  let goodObject = {someProp: 'some-value'};
+
+  // not ideal, but sometimes necessary and acceptable
+  let objectProvidedByRails = {some_rails_provided_prop: 'some-value'};
   ```
 
-- [1.2](#1.2) <a name="1.2"></a> Use PascalCase when naming classes, factories, or singletons.
+- [1.2](#1.2) <a name="1.2"></a> Use PascalCase when naming classes, factories, enumerations, or singletons (cases of enums are written in screaming snake case).
 
   ESLint rule: [`new-cap`](http://eslint.org/docs/rules/new-cap.html)
 
@@ -34,9 +39,9 @@
   let good = new GoodClass();
 
   let Type = {
-    Water: 0,
-    Fire: 1,
-    Ghost: 2,
+    WATER: 0,
+    FIRE: 1,
+    GHOST: 2,
   };
   ```
 
