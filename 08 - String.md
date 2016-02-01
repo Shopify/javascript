@@ -18,7 +18,7 @@
   let goodThree = "Double quotes are 'fine' in this case.";
   ```
 
-- [8.2](#8.2) <a name="8.2"></a> Avoid long strings if possible. If you must include a long string, you can include multiline strings in code using backticks (`\``). If the whitespace of multiline strings is unacceptable, you can use multiline string concatenation or an array of reasonable-length strings joined together.
+- [8.2](#8.2) <a name="8.2"></a> Avoid long strings if possible. If you must include a long string, you can include multiline strings in code using backticks (`` ` ``). If the whitespace of multiline strings is unacceptable, you can use multiline string concatenation or an array of reasonable-length strings joined together.
 
   ```javascript
   // bad
@@ -31,7 +31,7 @@
   `;
 
   // good
-  let goodStringOne = 'The path of the righteous man is beset on all sides ' +
+  let goodString = 'The path of the righteous man is beset on all sides ' +
     'by the iniquities of the selfish and the tyranny of evil men. ' +
     'Blessed is he who, in the name of charity and good will, ' +
     'shepherds the weak through the valley of darkness';

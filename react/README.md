@@ -135,6 +135,8 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
 - [2.4](#2.4) <a name="2.4"></a> Do not place a space on either side of the `=` in prop declarations.
 
+  ESLint rule: [`jsx-equals-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-equals-spacing.md)
+
   ```js
   // bad
   <Bad status = "is not very good" />

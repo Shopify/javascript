@@ -42,7 +42,7 @@
     return `${firstName} ${lastName}`;
   }
 
-  // better
+  // best
   function fullNameForUser({firstName, lastName}) {
     return `${firstName} ${lastName}`;
   }
@@ -170,9 +170,33 @@
   }
   ```
 
+- [11.11](#11.11) <a name="11.11"></a> When declaring static members or properties, prefer the `static` keyword to direct assignment to the class object. Put `static` members at the top of your class definition.
+
+  > Why? Using the `static` keyword is more expressive and keeps the entire class definition in one place.
+
+  ```js
+  // bad
+  class BadClass {
+    constructor() {}
+    instanceMethod() {}
+  }
+
+  BadClass.staticProperty = 'foo';
+  BadClass.staticMethod = function() {}
+
+  // good
+  class GoodClass {
+    static staticProperty = 'foo';
+    static staticMethod() {}
+
+    constructor() {}
+    instanceMethod() {}
+  }
+  ```
+
 ### Modules
 
-- [11.11](#11.11) <a name="11.11"></a> Always use modules (`import`/ `export`) over a non-standard module system (CommonJS being the most popular of these).
+- [11.12](#11.12) <a name="11.12"></a> Always use modules (`import`/ `export`) over a non-standard module system (CommonJS being the most popular of these).
 
   > Why? Modules are the future, so let's get a head start. You can always transpile to a preferred module system.
 
@@ -186,7 +210,7 @@
   export default feelGoodAboutIt;
   ```
 
-- [11.12](#11.12) <a name="11.12"></a> Do not export directly from an import.
+- [11.13](#11.13) <a name="11.13"></a> Do not export directly from an import.
 
   > Why? Exporting directly from an import trades clarity for brevity, which is not a good trade to make when you are writing things for humans.
 
