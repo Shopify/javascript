@@ -20,7 +20,7 @@
 
 - [2.2](#2.2) <a name="2.2"></a> Do not use leading commas.
 
-  > Why? It's ugle to look at and trailing commas are a better solution to the same problems.
+  > Why? It’s ugly to look at and trailing commas are a better solution to the same problems.
 
   ESLint rule: [`comma-style`](http://eslint.org/docs/rules/comma-style.html)
 
@@ -55,6 +55,8 @@
 - [2.3](#2.3) <a name="2.3"></a> Objects and arrays should use trailing commas, unless they are on a single line. Commas should always be followed by a space, but never preceded by one.
 
   > Why? Trailing commas allow you to add and remove a given property of an object without also editing the surrounding lines, which keeps the change isolated to the property in question.
+
+  > **Note:** trailing commas are not permitted in JSON, so be sure to omit them.
 
   ESLint rules: [`comma-dangle`](http://eslint.org/docs/rules/comma-dangle.html), [`comma-spacing`](http://eslint.org/docs/rules/comma-spacing.html)
 

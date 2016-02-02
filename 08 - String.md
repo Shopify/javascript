@@ -2,7 +2,7 @@
 
 - [8.1](#8.1) <a name="8.1"></a> Use single quotes for strings. Using double quotes is acceptable only to avoid escaping contained single quotes.
 
-  > Why? We don't want to argue about this. Like, ever. Please use single quotes!
+  > Why? We don’t want to argue about this. Like, ever. Please use single quotes!
 
   ESLint rule: [`quotes`](http://eslint.org/docs/rules/quotes.html)
 

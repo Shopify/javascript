@@ -1,6 +1,6 @@
 ## Objects
 
-- [6.1](#6.1) <a name="6.1"></a> Use object literal syntax for object creation. Use `Object.create` in order to define objects with more complex property descriptors, or to set the object's prototype.
+- [6.1](#6.1) <a name="6.1"></a> Use object literal syntax for object creation. Use `Object.create` in order to define objects with more complex property descriptors, or to set the object’s prototype.
 
   ESLint rule: [`no-new-object`](http://eslint.org/docs/rules/no-new-object.html).
 
@@ -157,7 +157,7 @@
 
 - [6.8](#6.8) <a name="6.8"></a> When using object literals, place computed properties first, non-function properties second, and function properties third.
 
-  > Why? It's easier to see which properties are using shorthand, and will generally result in increasing line length of property declarations (which is easier to scan than random line lengths).
+  > Why? It’s easier to see which properties are using shorthand, and will generally result in increasing line length of property declarations (which is easier to scan than random line lengths).
 
   ```javascript
   let propertyOne = 1;
@@ -182,7 +182,7 @@
 
 - [6.9](#6.9) <a name="6.9"></a> Only quote properties that are invalid identifiers.
 
-  > Why? It's easier to read properties, matches well to how we encourage Ruby hashes with symbols to be written, and encourages you use camelcased, valid identifiers.
+  > Why? It’s easier to read properties, matches well to how we encourage Ruby hashes with symbols to be written, and encourages you use camelCased, valid identifiers.
 
   ESLint rule: [`quote-props`](http://eslint.org/docs/rules/quote-props.html)
 
@@ -191,14 +191,14 @@
   let bad = {
     'foo': 1,
     'bar': 2,
-    'data-baz': 3,
+    'some-invalid-identifier': 3,
   };
 
   // good
   let good = {
     foo: 1,
     bar: 2,
-    'data-baz': 3,
+    'some-invalid-identifier': 3,
   };
   ```
 

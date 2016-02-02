@@ -2,28 +2,11 @@
 
 - [11.1](#11.1) <a name="11.1"></a> When using features that are not natively supported in some target environments (typically, browsers), use [`core-js`](https://github.com/zloirock/core-js) to provide polyfills. **Do not** include the entire `core-js` shim; `core-js` is extremely modular and allows you to be selective of what polyfills you want to include based on the features you need and your [target environments' feature support](https://kangax.github.io/compat-table/es6/).
 
-- [11.2](#11.2) <a name="11.2"></a> Avoid the use of iterators.
-
-  > Why? Functions like `map` and `reduce` are generally better as they promote pure functions and immutability, reducing side effects.
-
-  ESLint rule: [`no-iterator`](http://eslint.org/docs/rules/no-iterator.html)
-
-  ```js
-  let numbers = [1, 2, 3, 4, 5];
-
-  // bad
-  let sum = 0;
-  for (let number of numbers) { sum += number; }
-
-  // good
-  let sum = numbers.reduce((total, number) => total + number, 0);
-  ```
-
-- [11.3](#11.3) <a name="11.3"></a> Limit use of generators and proxies, as these don't transpile well (or at all) to ES5.
+- [11.2](#11.2) <a name="11.2"></a> Limit use of generators and proxies, as these don’t transpile well (or at all) to ES5.
 
 ### Destructuring
 
-- [11.4](#11.4) <a name="11.4"></a> Use object destructuring to retrieve multiple properties from an object.
+- [11.3](#11.3) <a name="11.3"></a> Use object destructuring to retrieve multiple properties from an object.
 
   > Why? Destructuring removes a lot of boilerplate and encourages you to refer to properties by the same name everywhere they are referenced.
 
@@ -48,7 +31,7 @@
   }
   ```
 
-- [11.5](#11.5) <a name="11.5"></a> Use array destructuring rather than manually accessing items by their index. If your array has more than a few entries, and you are selecting only a small number of them, continue to use index notation.
+- [11.4](#11.4) <a name="11.4"></a> Use array destructuring rather than manually accessing items by their index. If your array has more than a few entries, and you are selecting only a small number of them, continue to use index notation.
 
   ```js
   let array = [1, 2];
@@ -67,7 +50,7 @@
   let fifthLong = longArray[4];
   ```
 
-- [11.6](#11.6) <a name="11.6"></a> If you need to return multiple values from a function, return them using an object rather than an array.
+- [11.5](#11.5) <a name="11.5"></a> If you need to return multiple values from a function, return them using an object rather than an array.
 
   > Why? Call sites that use destructuring to access your return values need to care about the ordering when returning an array, making them fragile to change.
 
@@ -89,7 +72,7 @@
   let {left, top} = positionForNode(node);
   ```
 
-- [11.7](#11.7) <a name="11.7"></a> You can create highly readable functions by using one positional argument, followed by a destructured object. You can even provide different local names for the destructured arguments to have both an expressive external API and concise internal references.
+- [11.6](#11.6) <a name="11.6"></a> You can create highly readable functions by using one positional argument, followed by a destructured object. You can even provide different local names for the destructured arguments to have both an expressive external API and concise internal references.
 
   ```js
   // fine, but too many positional arguments, so it's hard for call sites to know what to do
@@ -116,9 +99,50 @@
 
 ### Classes
 
-- [11.8](#11.8) <a name="11.8"></a> Use classes with care: they do not behave in exactly the way you would expect in other languages, and JavaScript provides many mechanisms (closures, simple objects, etc) that solve problems for which you might use a class in another language. The rule of thumb is: use the right tool for the job!
+- [11.7](#11.7) <a name="11.7"></a> Use classes with care: they do not behave in exactly the way you would expect in other languages, and JavaScript provides many mechanisms (closures, simple objects, etc) that solve problems for which you might use a class in another language. The rule of thumb is: use the right tool for the job!
 
-- [11.9](#11.9) <a name="11.9"></a> If you want to use constructor functions, use `class` syntax. Avoid creating them by manually updating the prototype.
+  ```js
+  // bad
+  // all static members, no need for a class
+  class BadSingleton {
+    static singletonProp = 'foo';
+    static singletonMethod() {
+      return 'bar';
+    }
+  }
+
+  // good
+  let GoodSingleton = {
+    singletonProp: 'foo',
+    singletonMethod() {
+      return 'bar';
+    },
+  };
+
+  // bad
+  // needlessly using a class to encapsulate data that could be passed to a function
+  class BadChoice {
+    constructor(first, second) {
+      this.first = fires;
+      this.second = second;
+    }
+
+    takeAction() {
+      return `The first: ${this.first}, the second: ${this.second}`;
+    }
+  }
+
+  let result = new BadChoice('foo', 'bar').takeAction();
+
+  // good
+  function takeAction({first, second}) {
+    return `The first: ${first}, the second: ${second}`;
+  }
+
+  let result = takeAction({first: 'foo', second: 'bar'});
+  ```
+
+- [11.8](#11.8) <a name="11.8"></a> If you want to use constructor functions, use `class` syntax. Avoid creating them by manually updating the prototype.
 
   > Why? `class` syntax is more concise and will be more familiar for developers trained in other languages.
 
@@ -144,7 +168,7 @@
   }
   ```
 
-- [11.10](#11.10) <a name="11.10"></a> In your `class`'s constructor, always call `super` before referencing `this`.
+- [11.9](#11.9) <a name="11.9"></a> If you are subclassing, your subclass’s constructor should always call `super` before referencing `this`.
 
   > Why? If your forget to call `super` in your subclass constructor, your object will be uninitialized and calling `this` will result in an exception.
 
@@ -170,7 +194,7 @@
   }
   ```
 
-- [11.11](#11.11) <a name="11.11"></a> When declaring static members or properties, prefer the `static` keyword to direct assignment to the class object. Put `static` members at the top of your class definition.
+- [11.10](#11.10) <a name="11.10"></a> When declaring static members or properties, prefer the `static` keyword to direct assignment to the class object. Put `static` members at the top of your class definition.
 
   > Why? Using the `static` keyword is more expressive and keeps the entire class definition in one place.
 
@@ -196,9 +220,9 @@
 
 ### Modules
 
-- [11.12](#11.12) <a name="11.12"></a> Always use modules (`import`/ `export`) over a non-standard module system (CommonJS being the most popular of these).
+- [11.11](#11.11) <a name="11.11"></a> Always use modules (`import`/ `export`) over a non-standard module system (CommonJS being the most popular of these).
 
-  > Why? Modules are the future, so let's get a head start. You can always transpile to a preferred module system.
+  > Why? Modules are the future, so let’s get a head start. You can always transpile to a preferred module system.
 
   ```js
   // bad
@@ -210,7 +234,7 @@
   export default feelGoodAboutIt;
   ```
 
-- [11.13](#11.13) <a name="11.13"></a> Do not export directly from an import.
+- [11.12](#11.12) <a name="11.12"></a> Do not export directly from an import.
 
   > Why? Exporting directly from an import trades clarity for brevity, which is not a good trade to make when you are writing things for humans.
 
