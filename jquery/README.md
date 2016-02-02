@@ -20,7 +20,7 @@ This guide provides a few guidelines on writing sensible jQuery.
   this.$node = $(node);
   ```
 
-- Cache jQuery lookups whenever you will use more than once. If possible, use jQuery's excellent support for chaining to avoid having to store any local references.
+- Cache jQuery lookups whenever you will use more than once. If possible, use jQuery’s excellent support for chaining to avoid having to store any local references.
 
   ```js
   // bad
@@ -50,7 +50,7 @@ This guide provides a few guidelines on writing sensible jQuery.
   $('.ui-banner').addClass('ui-banner--warning');
   ```
 
-- Do not treat `$(document).ready()` (or, equivalently, passing a function to `$()`) as a sumping ground for your entire application. The ready block should be used to initialize your application, with all initialization happening in small, testable, dedicated functions.
+- Do not treat `$(document).ready()` (or, equivalently, passing a function to `$()`) as a dumping ground for your entire application. The ready block should be used to initialize your application, with all initialization happening in small, testable, dedicated functions.
 
 - Use `on` for binding events rather than using its aliases.
 

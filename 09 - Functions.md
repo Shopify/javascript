@@ -13,7 +13,7 @@
 
 - [9.2](#9.2) <a name="9.2"></a> Use function declarations instead of function expressions.
 
-  > Why? Function declarations are named, so they're easier to identify in call stacks. Also, the whole body of a function declaration is hoisted, whereas only the reference of a function expression is hoisted. This rule makes it possible to always use Arrow Functions in place of function expressions.
+  > Why? Function declarations are named, so they’re easier to identify in call stacks. Also, the whole body of a function declaration is hoisted, whereas only the reference of a function expression is hoisted. This rule makes it possible to always use Arrow Functions in place of function expressions.
 
   ESLint rule: [`func-style`](http://eslint.org/docs/rules/func-style.html)
 
@@ -106,7 +106,7 @@
 
 - [9.7](#9.7) <a name="9.7"></a> Instead of using `function#apply()` to call a function with an array of arguments, use the spread operator.
 
-  > Why? It reduces redundancy since you don't have to specify the object to apply against, and it mirrors the rest syntax when declaring variadic functions.
+  > Why? It reduces redundancy since you don’t have to specify the object to apply against, and it mirrors the rest syntax when declaring variadic functions.
 
   ESLint rule: [`prefer-spread`](http://eslint.org/docs/rules/prefer-spread.html)
 

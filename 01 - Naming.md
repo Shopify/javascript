@@ -80,21 +80,33 @@
   };
   ```
 
-- [1.5](#1.5) <a name="1.5"></a> Don't save references to `this`. Use an arrow function (preferred) or `function#bind` instead.
+- [1.5](#1.5) <a name="1.5"></a> Don’t save references to `this`. Use an arrow function (preferred) or `function#bind` instead.
 
   ```js
   // bad
-  function bad() {
-    let self = this;
-
-    return function() {
-      console.log(self);
-    };
+  let badObject = {
+    logSelfAfterTimeout() {
+      let that = this;
+      setTimeout(function() {
+        console.log(that);
+      }, 500);
+    }
   }
 
-  // good
-  function good() {
-    return () => { console.log(this) };
+  // better
+  let betterObject = {
+    logSelfAfterTimeout() {
+      setTimeout(function() {
+        console.log(this);
+      }.bind(this), 500);
+    }
+  }
+
+  // best
+  let bestObject = {
+    logSelfAfterTimeout() {
+      setTimeout(() => console.log(this), 500);
+    }
   }
   ```
 

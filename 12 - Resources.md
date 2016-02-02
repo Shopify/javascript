@@ -12,7 +12,7 @@
 ### Books
 
 - [JavaScript: The Good Parts](http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742) by Douglas Crockford
-- [You Don't Know JS Book Series](https://github.com/getify/You-Dont-Know-JS) by Kyle Simpson
+- [You Don’t Know JS Book Series](https://github.com/getify/You-Dont-Know-JS) by Kyle Simpson
 - [Eloquent JavaScript](http://eloquentjavascript.net) by Marijn Haverbeke
 - [Exploring ES6](http://exploringjs.com) by Dr. Axel Rauschmayer
 

@@ -1,6 +1,6 @@
 ## Whitespace
 
-- [3.1](#3.1) <a name="3.1"></a> In general, add whitespace to improve legibility of code and to group statements together in a way that will produce a more coherent "story" for the next developer to look at code. **Never** optimize for code size: minifiers will do a much better job than you ever could.
+- [3.1](#3.1) <a name="3.1"></a> In general, add whitespace to improve legibility of code and to group statements together in a way that will produce a more coherent “story” for the next developer to look at code. **Never** optimize for code size: minifiers will do a much better job than you ever could.
 
 - [3.2](#3.2) <a name="3.2"></a> Use two spaces for indentation.
 

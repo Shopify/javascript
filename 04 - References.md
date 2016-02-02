@@ -14,7 +14,7 @@
 
 - [4.2](#4.2) <a name="4.2"></a> Use `const` for immutable values (typically, only primitives) that semantically make sense as constants. Use `let` for everything else. Never use `var`.
 
-  > Why? `const` and `let` are block scoped, rather than being function-scoped like `var`. `const` is misleading for mutable types (like `object`s), as it does not prevent you from modifying those objects' properties.
+  > Why? `const` and `let` are block scoped, rather than being function-scoped like `var`. `const` is misleading for mutable types (like `object`s), as it does not prevent you from modifying those objects’ properties.
 
   ESLint rules: [`prefer-const`](http://eslint.org/docs/rules/prefer-const.html), [`no-const-assign`](http://eslint.org/docs/rules/no-const-assign.html), [`no-var`](http://eslint.org/docs/rules/no-var.html)
 
@@ -34,15 +34,13 @@
   }
   ```
 
-- [4.3](#4.3) <a name="4.3"></a> Always initialize variables on declaration. If a variable has no value until a later point, move the declartion (if possible) or, if not possible, initialize with `null`.
-
-  > Why? This clearly indicates which variables are not defined at a given point, and improves consistency in variable initializations and declarations.
+- [4.3](#4.3) <a name="4.3"></a> Initialize variables on declaration as often as possible. If a variable has no value until a later point (for example, it is calculated inside a complex conditional expression, or it is a variable in scope that is redeclared for each unit test), you can declare a variable without initialization.
 
   ESLint rule: [`init-declarations`](http://eslint.org/docs/rules/init-declarations.html)
 
   ```js
   // bad
-  let bad;
+  let bad = null;
   // ...
   bad = 'bad';
 
@@ -50,12 +48,12 @@
   let goodOne = 'good';
 
   // or, if you can't provide a value immediately:
-  let goodTwo = null;
+  let goodTwo;
   // ...
   goodTwo = 'good';
   ```
 
-- [4.4](#4.4) <a name="4.4"></a> Don't refer a reference before it is defined. The only exception to this rule is for functions; use the hoisting feature of functions liberally to allow the primary export of a file to appear first (and any helper or utility functions it uses to appear afterwards).
+- [4.4](#4.4) <a name="4.4"></a> don’t refer a reference before it is defined. The only exception to this rule is for functions; use the hoisting feature of functions liberally to allow the primary export of a file to appear first (and any helper or utility functions it uses to appear afterwards).
 
   ESLint rule: [`no-use-before-define`](http://eslint.org/docs/rules/no-use-before-define.html)
 
@@ -75,7 +73,7 @@
   }
   ```
 
-- [4.5](#4.5) <a name="4.5"></a> Use screaming snake case for constants to make it clear to users that they can't be modified.
+- [4.5](#4.5) <a name="4.5"></a> Use screaming snake case for constants to make it clear to users that they can’t be modified.
 
   ```javascript
   // bad
@@ -93,11 +91,13 @@
 
   ```javascript
   // bad
-  let foo = 'bar', baz = 'qux';
+  let badFooOne = 'bar', badBazOne = 'qux';
+  let badFooTwo = 'bar',
+      badBazTwo = 'qux';
 
   // good
-  let foo = 'bar';
-  let baz = 'qux';
+  let goodFoo = 'bar';
+  let goodBaz = 'qux';
   ```
 
 - [4.7](#4.7) <a name="4.7"></a> Never shadow variable names from outer scopes. Avoid shadowing of names with special meaning, like `arguments`.

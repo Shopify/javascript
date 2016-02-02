@@ -1,4 +1,4 @@
-## Types and Casting
+## Types and casting
 
 - [10.1](#10.1) <a name="10.1"></a> Use the `String` function to convert a value to a string.
 
@@ -36,7 +36,7 @@
   let goodTwo = Number.parseInt(input, 10);
   ```
 
-- [10.3](#10.3) <a name="10.3"></a> Use the `Boolean` function for casting to a boolean value. Never use double negation (`!!`), the `Boolean` constructor, or other "clever" techniques for getting a boolean value.
+- [10.3](#10.3) <a name="10.3"></a> Use the `Boolean` function for casting to a boolean value. Never use double negation (`!!`), the `Boolean` constructor, or other “clever” techniques for getting a boolean value.
 
   ESLint rules: [`no-implicit-coercion`](http://eslint.org/docs/rules/no-implicit-coercion.html), [`no-new-wrappers`](http://eslint.org/docs/rules/no-new-wrappers.html), [`no-extra-boolean-cast`](http://eslint.org/docs/rules/no-extra-boolean-cast.html)
 
@@ -66,21 +66,24 @@
   if (goodValue === 3) {}
   ```
 
-- [10.5](#10.5) <a name="10.5"></a> Use shorthand boolean comparisons.
+- [10.5](#10.5) <a name="10.5"></a> Don’t use shorthand boolean comparisons.
 
   > **Note**: remember that `false`, `undefined`, `null`, `''`, `0`, and `NaN` evaluate to `false`, and all other values evaluate to `true`.
+
+  > Why? Using the shorthands relies on JavaScript’s questionable cooercion rules, which allow more values than you might expect to be treated as `false`. Using the explicit boolean check makes your code clearer to future readers.
 
   ```js
   let name = '';
   let collection = [];
 
   // bad
-  if (name !== '') {}
-  if (collection.length > 0) {}
-
-  // good
   if (name) {}
   if (collection.length) {}
+
+  // good
+  if (name !== '') {}
+  if (name.length !== 0) {}
+  if (collection.length > 0) {}
   ```
 
 - [10.6](#10.6) <a name="10.6"></a> Use the following patterns for type checking:

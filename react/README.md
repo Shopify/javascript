@@ -4,7 +4,7 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
 
 
-## Table of Contents
+## Table of contents
 
 1. [Naming](#naming)
 1. [Whitespace](#whitespace)
@@ -205,9 +205,9 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
 ## Components
 
-- [4.1](#4.1) <a name="4.1"></a> Always extend React's `Component` class rather than using `React.createClass`.
+- [4.1](#4.1) <a name="4.1"></a> Always extend React’s `Component` class rather than using `React.createClass`.
 
-  > Why? The `class` syntax is the method React is pushing going forward, and it's how most tutorials are written.
+  > Why? The `class` syntax is the method React is pushing going forward, and it’s how most tutorials are written.
 
   ESLint rule: [`prefer-es6-class`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-es6-class.md)
 
@@ -246,9 +246,9 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
   }
   ```
 
-- [4.3](#4.3) <a name="4.3"></a> Prefer React's stateless components for components that do not have any state or lifecycle hooks.
+- [4.3](#4.3) <a name="4.3"></a> Prefer React’s stateless components for components that do not have any state or lifecycle hooks.
 
-  > **Note:** as of this writing, stateless components do not play nicely with React's testing utilities. Until this is resolved, continue to extend `React.Component` for new components.
+  > **Note:** as of this writing, stateless components do not play nicely with React’s testing utilities. Until this is resolved, continue to extend `React.Component` for new components.
 
   > Why? Such components are very easy to represent as pure functions, and doing so encourages more stateless components, which decreases application complexity.
 

@@ -1,4 +1,4 @@
-## Control Flow
+## Control flow
 
 - [5.1](#5.1) <a name="5.1"></a> Never allow fallthrough in `switch` statements.
 
@@ -47,7 +47,7 @@
   if (myVar) {}
   ```
 
-- [5.4](#5.4) <a name="5.4"></a> Never have only a single `if` block within an `else` block; combine these into an `if else` block (or, if returning in the `if` block, as another `if` block).
+- [5.4](#5.4) <a name="5.4"></a> Never have only a single `if` block within an `else` block; combine these into an `else if` block (or, if returning in the `if` block, as another `if` block).
 
   ESLint rule: [`no-lonely-if`](http://eslint.org/docs/rules/no-lonely-if.html)
 
