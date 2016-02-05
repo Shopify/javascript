@@ -1,0 +1,16 @@
+{
+  "name": "javascript",
+  "version": "1.0.0",
+  "description": "The home for all things JavaScript at Shopify.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/javascript/issues"
+  },
+  "homepage": "https://github.com/Shopify/javascript",
+  "repository": "https://github.com/Shopify/javascript",
+  "author": "Chris Sauve <chrismsauve@gmail.com>",
+  "license": "MIT"
+}
