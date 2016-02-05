@@ -1,6 +1,6 @@
 {
   "name": "generator-eslint-shopify",
-  "version": "6.0.1",
+  "version": "6.2.0",
   "description": "A Yeoman generator for creating a Shopify-focused ESLint config.",
   "main": "generators/app/index.js",
   "jsnext:main": "src/app/index.js",
@@ -9,7 +9,7 @@
     "copy": "cd src && copyfiles '**/*' '../generators/' && cd ..",
     "build:lib": "babel src --ignore **/templates/**.js --out-dir generators",
     "build": "npm run clean && npm run copy && npm run build:lib",
-    "preversion": "npm run clean && npm run check",
+    "preversion": "npm run clean && npm run test",
     "version": "npm run build",
     "postversion": "git push && git push --tags && npm run clean",
     "prepublish": "npm run build",
