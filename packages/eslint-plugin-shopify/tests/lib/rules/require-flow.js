@@ -5,6 +5,7 @@ var ruleTester = new RuleTester();
 require('babel-eslint');
 
 var withFlow = '/* @flow */\n\nfunction yesFlow(present: boolean): string { return "success"; }';
+var explicitNoFlow = '/* @noflow */\n\nfunction yesFlow(present: boolean): string { return "success"; }';
 var noFlow = 'function noFlow(present) {}';
 var confusingFlow = 'var foo = "bar"\n\n// This is not a realy @flow comment';
 
@@ -15,7 +16,6 @@ ruleTester.run('require-flow', rule, {
     {code: withFlow, options: ['always'], parser: 'babel-eslint'},
     {code: confusingFlow, options: ['never']},
   ],
-
   invalid: [
     {
       code: noFlow,
@@ -24,7 +24,21 @@ ruleTester.run('require-flow', rule, {
         type: 'Program',
       }],
     },
-
+    {
+      code: explicitNoFlow,
+      parser: 'babel-eslint',
+      options: ['explicit'],
+      errors: [],
+    },
+    {
+      code: noFlow,
+      parser: 'babel-eslint',
+      options: ['explicit'],
+      errors: [{
+        message: 'You must include a @flow or @noflow declaration at the top of your file.',
+        type: 'Program',
+      }],
+    },
     {
       code: withFlow,
       parser: 'babel-eslint',
@@ -34,7 +48,6 @@ ruleTester.run('require-flow', rule, {
         type: 'Program',
       }],
     },
-
     {
       code: noFlow,
       options: ['always'],
@@ -43,7 +56,6 @@ ruleTester.run('require-flow', rule, {
         type: 'Program',
       }],
     },
-
     {
       code: confusingFlow,
       options: ['always'],

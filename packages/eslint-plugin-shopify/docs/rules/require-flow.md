@@ -4,9 +4,9 @@
 
 ## Rule Details
 
-This rule takes one argument. If it is `"always"` (default) then it warns when it does not find a flow declaration (`/* @flow */`) at the top of a file. If `"never"` then it warns if a flow declaration is present.
+This rule takes one argument. If it is `"always"` (default) then it warns when it does not find a flow declaration (`/* @flow */`) at the top of a file. If `"explicit"` it accepts either `@flow` or `@noflow`. If `"never"` then it warns if a flow declaration is present.
 
-The following patterns are considered warnings when using the default or explicitly setting the argument to `"always"`:
+The following patterns are considered warnings when using the default or explicitly setting the argument to `"always"` or `"explicit"`:
 
 ```javascript
 function noFlow(...args) { return 'sorry!'; }
@@ -21,6 +21,14 @@ function iHaveTheFlow(...args: Array<any>): string { return 'awesome!'; }
 ```
 
 The success/ failure cases are reversed when the argument is explicitly `"never"`.
+
+Additionally, the following patterns are not warnings when explicitly setting the argument to `"explicit"`:
+
+```javascript
+/* @noflow */
+
+function iHaveTheFlow(...args: Array<any>): string { return 'awesome!'; }
+```
 
 ## When Not To Use It
 

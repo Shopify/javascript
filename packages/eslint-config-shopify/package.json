@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-shopify",
-  "version": "5.9.0",
+  "version": "5.10.0",
   "description": "Shopify's baseline ESLint config.",
   "main": "./es6/index.js",
   "scripts": {
@@ -26,16 +26,17 @@
   "dependencies": {
     "merge": "^1.2.0"
   },
+  "optionalDependencies": {
+    "babel-eslint": "^4.1.8",
+    "eslint-plugin-react": "^3.16.1"
+  },
   "devDependencies": {
-    "babel-eslint": "^4.1.2",
     "eslint": "^1.10.0",
     "eslint-config-shopify": "file:.",
-    "eslint-plugin-react": "^3.15.0",
     "eslint-plugin-shopify": "^2.1.0"
   },
   "peerDependencies": {
     "eslint": ">=1.10.0",
-    "eslint-plugin-react": "^3.15.0",
     "eslint-plugin-shopify": "^2.1.0"
   }
 }
