@@ -69,20 +69,21 @@ npm install eslint-plugin-react --save-dev
 
 Once these are installed, you will need to add a `.eslintrc` file at the root of your project that specifies that you'd like to extend the Shopify configuration.
 
-```json
+```js
 {
   "extends": "shopify", // or "shopify/es5" for the ES5 config, "shopify/react" for the React config
   "parser": "babel-eslint", // unless using ES5
   "plugins": [
     "shopify", // add "react" here too if in a React project
   ],
-  "env": {} // choose your environments: http://eslint.org/docs/user-guide/configuring.html#specifying-environments
+  // choose your environments: http://eslint.org/docs/user-guide/configuring.html#specifying-environments
+  "env": {}
 }
 ```
 
 You can now use ESLint. The easiest way to do this is by adding a linting script to your `package.json`:
 
-```json
+```js
 {
   "scripts": {
     "lint": "eslint . --max-warnings 0"
