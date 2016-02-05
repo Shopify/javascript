@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-shopify",
-  "version": "2.0.1",
+  "version": "1.0.0",
   "description": "Shopify-specific ESLint rules.",
   "keywords": [
     "eslint",
@@ -27,7 +27,7 @@
   "repository": "https://github.com/Shopify/javascript/tree/master/packages/eslint-plugin-shopify",
   "devDependencies": {
     "eslint": "^1.5.0",
-    "eslint-config-shopify": "^5.10.0",
+    "eslint-config-shopify": "^1.0.0",
     "eslint-plugin-shopify": "file:.",
     "istanbul": "^0.3.20",
     "mocha": "^2.3.2"
