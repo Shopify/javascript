@@ -52,28 +52,6 @@ Then configure the rules you want to use under the rules section.
 
 The easiest way to add new rules is to use the [ESLint Yeoman generator](https://www.npmjs.com/package/generator-eslint). Running `yo eslint:rule` from the root of this project should add the required main file, docs, and test for your new rules. Make sure that these are all filled out and consistent with the other rules before merging. All tests (including linting) can be run using `npm test`.
 
-## Changelog
-
-### 2.0.1 - October 20, 2015
-
-Made the `require-flow` rule stricter on the definition of a `@flow` directive.
-
-### 2.0.0 - October 6, 2015
-
-Added `binary-assignment-parens` rule.
-
-### 1.0.2 - September 21, 2015
-
-Fixed issue with recursive references in the lint config.
-
-### 1.0.1 - September 21, 2015
-
-Fixed package URLs.
-
-### 1.0.0 - September 21, 2015
-
-- Initial commit.
-
 [npm-url]: https://npmjs.org/package/eslint-plugin-shopify
 [npm-image]: http://img.shields.io/npm/v/eslint-plugin-shopify.svg?style=flat-square
 [circle-url]: https://circleci.com/gh/Shopify/eslint-plugin-shopify
