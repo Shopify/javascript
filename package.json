@@ -1,10 +1,13 @@
 {
   "name": "javascript",
   "version": "1.0.0",
+  "private": true,
   "description": "The home for all things JavaScript at Shopify.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint . --max-warnings 0",
+    "test": "cd packages/eslint-plugin-shopify && npm test && cd ../generator-eslint-shopify && npm test",
+    "check": "npm run lint && npm test"
   },
   "bugs": {
     "url": "https://github.com/Shopify/javascript/issues"
@@ -12,5 +15,12 @@
   "homepage": "https://github.com/Shopify/javascript",
   "repository": "https://github.com/Shopify/javascript",
   "author": "Chris Sauve <chrismsauve@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "babel-eslint": "^4.1.8",
+    "eslint": "^1.10.3",
+    "eslint-config-shopify": "^5.10.0",
+    "eslint-plugin-shopify": "^2.1.0",
+    "lerna": "^1.1.0"
+  }
 }
