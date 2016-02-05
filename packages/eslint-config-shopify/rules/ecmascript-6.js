@@ -26,7 +26,7 @@ module.exports = {
   // Suggest using arrow functions as callbacks
   'prefer-arrow-callback': 2,
   // Suggest using of const declaration for variables that are never modified after declared
-  'prefer-const': 0,
+  'prefer-const': 1,
   // Suggest using the spread operator instead of .apply()
   'prefer-spread': 2,
   // Suggest using Reflect methods where applicable

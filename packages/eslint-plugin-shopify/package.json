@@ -10,8 +10,8 @@
   "author": "Chris Sauve <chris.sauve@shopify.com>",
   "scripts": {
     "lint": "node_modules/.bin/eslint . --max-warnings 0",
-    "test:unit": "istanbul cover --dir reports/coverage node_modules/.bin/_mocha tests/**/*.js -- --reporter dot",
-    "test": "npm run lint && npm run test:unit"
+    "test:cover": "istanbul cover --dir reports/coverage node_modules/.bin/_mocha tests/ --recursive -- --reporter dot",
+    "test": "mocha tests/ --recursive"
   },
   "files": [
     "LICENSE",
@@ -26,11 +26,9 @@
   "homepage": "https://github.com/Shopify/javascript/tree/master/packages/eslint-plugin-shopify",
   "repository": "https://github.com/Shopify/javascript/tree/master/packages/eslint-plugin-shopify",
   "devDependencies": {
-    "babel-eslint": "^4.1.3",
     "eslint": "^1.5.0",
-    "eslint-config-shopify": "^5.6.0",
+    "eslint-config-shopify": "^5.10.0",
     "eslint-plugin-shopify": "file:.",
-    "eslint-plugin-react": "*",
     "istanbul": "^0.3.20",
     "mocha": "^2.3.2"
   },

@@ -10,7 +10,6 @@
     "sinon": false
   },
   "rules": {
-    "no-unused-expressions": 0,
-    "init-declarations": 0
+    "no-unused-expressions": 0
   }
 }

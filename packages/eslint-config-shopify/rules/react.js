@@ -9,6 +9,8 @@ module.exports = {
   'react/jsx-closing-bracket-location': [1, {location: 'tag-aligned'}],
   // Enforce or disallow spaces inside of curly braces in JSX attributes
   'react/jsx-curly-spacing': [1, 'never', {allowMultiline: true}],
+  // Enforce or disallow spaces around equal signs in JSX attributes
+  'react/jsx-equals-spacing': [1, 'never'],
   // Validate props indentation in JSX
   'react/jsx-indent-props': [1, 2],
   // Validate JSX indentation
