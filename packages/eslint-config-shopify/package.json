@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-shopify",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "Shopify's baseline ESLint config.",
   "main": "./es6/index.js",
   "scripts": {
@@ -33,10 +33,10 @@
   "devDependencies": {
     "eslint": "^1.10.0",
     "eslint-config-shopify": "file:.",
-    "eslint-plugin-shopify": "^1.0.0"
+    "eslint-plugin-shopify": "^6.0.0"
   },
   "peerDependencies": {
     "eslint": ">=1.10.0",
-    "eslint-plugin-shopify": "^1.0.0"
+    "eslint-plugin-shopify": "^6.0.0"
   }
 }
