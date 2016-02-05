@@ -1,0 +1,3 @@
+**/node_modules
+**/coverage
+packages/generator-eslint-shopify/generators

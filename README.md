@@ -1,5 +1,7 @@
 # `import JavaScript from 'Shopify'`
 
+[![Circle CI](https://circleci.com/gh/Shopify/javascript.svg?style=svg)](https://circleci.com/gh/Shopify/javascript)
+
 This repository contains everything you should need for writing JavaScript at Shopify. In it you’ll find such things as our linting configs, custom linting rules, and project generators. Below, you’ll find the most important thing: a living styleguide documenting how and why we write JavaScript the way we do.
 
 > Why? All code in any code-base should look like a single person typed it, no matter how many people contributed. If we all follow along with the rules detailed below, we can focus our efforts on more meaningful problems.
@@ -69,20 +71,21 @@ npm install eslint-plugin-react --save-dev
 
 Once these are installed, you will need to add a `.eslintrc` file at the root of your project that specifies that you'd like to extend the Shopify configuration.
 
-```json
+```js
 {
   "extends": "shopify", // or "shopify/es5" for the ES5 config, "shopify/react" for the React config
   "parser": "babel-eslint", // unless using ES5
   "plugins": [
     "shopify", // add "react" here too if in a React project
   ],
-  "env": {} // choose your environments: http://eslint.org/docs/user-guide/configuring.html#specifying-environments
+  // choose your environments: http://eslint.org/docs/user-guide/configuring.html#specifying-environments
+  "env": {}
 }
 ```
 
 You can now use ESLint. The easiest way to do this is by adding a linting script to your `package.json`:
 
-```json
+```js
 {
   "scripts": {
     "lint": "eslint . --max-warnings 0"

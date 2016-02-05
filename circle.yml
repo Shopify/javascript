@@ -1,0 +1,9 @@
+machine:
+  node:
+    version: 5.5.0
+
+test:
+  pre:
+    - node_modules/.bin/lerna bootstrap
+  override:
+    - npm run check
