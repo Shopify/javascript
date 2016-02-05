@@ -20,7 +20,7 @@ module.exports = class ESLintShopifyGenerator extends BaseGenerator {
   }
 
   initializing() {
-    let {options} = this;
+    const {options} = this;
 
     this.props = {
       react: options.react,
@@ -29,14 +29,14 @@ module.exports = class ESLintShopifyGenerator extends BaseGenerator {
   }
 
   prompting() {
-    let {props, options} = this;
-    let done = this.async();
+    const {props, options} = this;
+    const done = this.async();
 
     if (!options.skipWelcomeMessage) {
       this.log(yosay(`Welcome to the ${chalk.red('eslint-shopify')} generator!`));
     }
 
-    let prompts = [
+    const prompts = [
       {
         type: 'confirm',
         name: 'react',
@@ -61,16 +61,16 @@ module.exports = class ESLintShopifyGenerator extends BaseGenerator {
   }
 
   defaults() {
-    let {props, options} = this;
+    const {props, options} = this;
 
-    let plugins = ['shopify'];
+    const plugins = ['shopify'];
     if (props.react) { plugins.push('react'); }
 
     let extendsConfig = 'shopify';
     if (props.react) { extendsConfig = 'shopify/react'; }
     if (props.es5) { extendsConfig = 'shopify/es5'; }
 
-    let eslintOptions = {
+    const eslintOptions = {
       extends: extendsConfig,
       plugins,
       skipInstall: options.skipInstall,

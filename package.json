@@ -6,7 +6,7 @@
     "lint": "eslint . --max-warnings 0",
     "test": "cd packages/eslint-plugin-shopify && npm test && cd ../generator-eslint-shopify && npm test",
     "check": "npm run lint && npm test",
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "npm install && lerna bootstrap",
     "updated": "lerna updated",
     "publish-all": "npm run check && lerna publish"
   },
@@ -20,8 +20,8 @@
   "devDependencies": {
     "babel-eslint": "^4.1.8",
     "eslint": "^1.10.3",
-    "eslint-config-shopify": "^6.0.0",
-    "eslint-plugin-shopify": "^6.0.0",
+    "eslint-config-shopify": "file:./packages/eslint-config-shopify",
+    "eslint-plugin-shopify": "file:./packages/eslint-plugin-shopify",
     "lerna": "kittens/lerna#73dd8f1"
   }
 }

@@ -3,10 +3,6 @@
   "version": "6.1.0",
   "description": "Shopify's baseline ESLint config.",
   "main": "./es6/index.js",
-  "scripts": {
-    "lint": "eslint . --max-warnings 0",
-    "test": "npm run lint"
-  },
   "keywords": [
     "eslint",
     "eslintconfig",
@@ -30,13 +26,8 @@
     "babel-eslint": "^4.1.8",
     "eslint-plugin-react": "^3.16.1"
   },
-  "devDependencies": {
-    "eslint": "^1.10.0",
-    "eslint-config-shopify": "file:.",
-    "eslint-plugin-shopify": "^6.0.0"
-  },
   "peerDependencies": {
     "eslint": ">=1.10.0",
-    "eslint-plugin-shopify": "^6.0.0"
+    "eslint-plugin-shopify": "^6.1.0"
   }
 }
