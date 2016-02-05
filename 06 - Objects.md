@@ -6,18 +6,18 @@
 
   ```javascript
   // bad
-  let badOne = new Object();
+  const badOne = new Object();
 
-  let badTwo = {};
-  Object.defineProperty(badTwo, 'prop', {value: 10, enumerable: false});
+  const badTwo = {};
+  Object.setPrototypeOf(badTwo, badOne);
 
-  let badThree = {};
-  Object.setPrototypeOf(badThree, badTwo);
+  const badThree = {};
+  Object.defineProperty(badThree, 'prop', {value: 10, enumerable: false});
 
   // good
-  let goodOne = {};
-  let goodTwo = Object.create(goodOne);
-  let goodThree = Object.create({}, {
+  const goodOne = {};
+  const goodTwo = Object.create(goodOne);
+  const goodThree = Object.create({}, {
     value: 10,
     enumerable: false,
   });
@@ -27,23 +27,23 @@
 
   ```javascript
   // bad
-  let badOne = {
+  const badOne = {
     foo : 1,
     bar:   2,
   };
 
-  let badTwo = {
+  const badTwo = {
     short        : 3,
     longProperty : 4,
   };
 
   // good
-  let goodOne = {
+  const goodOne = {
     foo: 1,
     bar: 2,
   };
 
-  let goodTwo = {
+  const goodTwo = {
     short:        3,
     longProperty: 4,
   };
@@ -55,21 +55,21 @@
 
   ```javascript
   // bad
-  let badOne = {
+  const badOne = {
     foo: 1, bar: 2,
   };
 
-  let badTwo = {
+  const badTwo = {
       baz: 3, }
 
   // good
 
-  let goodOne = {
+  const goodOne = {
     foo: 1,
     bar: 2,
   };
 
-  let goodTwo = {
+  const goodTwo = {
     baz: 3,
   };
   ```
@@ -82,12 +82,12 @@
 
   ```javascript
   // bad
-  let badOne = { foo: 1 };
-  let badTwo = {bar: 2, baz: 3, qux: 4, manyMoreKeys: 5, evenMoreNowItGetsHardToRead: 6};
+  const badOne = { foo: 1 };
+  const badTwo = {bar: 2, baz: 3, qux: 4, manyMoreKeys: 5, evenMoreNowItGetsHardToRead: 6};
 
   // good
-  let goodOne = {foo: 1};
-  let goodTwo = {
+  const goodOne = {foo: 1};
+  const goodTwo = {
     bar: 2,
     baz: 3,
     qux: 4,
@@ -103,10 +103,10 @@
   ESLint rule: [`object-shorthand`](http://eslint.org/docs/rules/object-shorthand.html)
 
   ```javascript
-  let name = 'Fido';
+  const name = 'Fido';
 
   // bad
-  let bad = {
+  const bad = {
     name: name,
     action: function() {
       return 'bite';
@@ -114,7 +114,7 @@
   }
 
   // good
-  let good = {
+  const good = {
     name,
     action() {
       return "bark";
@@ -127,14 +127,14 @@
   > Why? It allows you to define all properties in one place, and mirrors the way you would access those properties.
 
   ```javascript
-  let propertyName = 'foo';
+  const propertyName = 'foo';
 
   // bad
-  let bad = {};
+  const bad = {};
   bad[propertyName] = true;
 
   // good
-  let good = {
+  const good = {
     [propertyName]: true,
   };
   ```
@@ -142,17 +142,17 @@
 - [6.7](#6.7) <a name="6.7"></a> Use dot notation when possible. Use subscript notations (`[]`) only when your key is not a valid identifier or the key is stored in a variable.
 
   ```js
-  let obj = {fooBar: 1, 'baz-qux': 2};
+  const obj = {fooBar: 1, 'baz-qux': 2};
 
   // bad
-  let fooBar = obj['fooBar'];
+  const fooBar = obj['fooBar'];
 
   // good
-  let fooBar = obj.fooBar;
-  let bazQux = obj['baz-qux'];
+  const fooBar = obj.fooBar;
+  const bazQux = obj['baz-qux'];
 
-  let bazKey = 'baz-qux'
-  let altBazQux = obj[bazKey];
+  const bazKey = 'baz-qux'
+  const altBazQux = obj[bazKey];
   ```
 
 - [6.8](#6.8) <a name="6.8"></a> When using object literals, place computed properties first, non-function properties second, and function properties third.
@@ -160,11 +160,11 @@
   > Why? It’s easier to see which properties are using shorthand, and will generally result in increasing line length of property declarations (which is easier to scan than random line lengths).
 
   ```javascript
-  let propertyOne = 1;
-  let propertyTwo = function() {};
+  const propertyOne = 1;
+  function propertyTwo() {};
 
   // bad
-  let bad = {
+  const bad = {
     doSomethingWithProperties() {},
     propertyOne,
     propertyThree: 3,
@@ -172,7 +172,7 @@
   };
 
   // good
-  let good = {
+  const good = {
     propertyOne,
     propertyTwo,
     propertyThree: 3,
@@ -188,14 +188,14 @@
 
   ```javascript
   // bad
-  let bad = {
+  const bad = {
     'foo': 1,
     'bar': 2,
     'some-invalid-identifier': 3,
   };
 
   // good
-  let good = {
+  const good = {
     foo: 1,
     bar: 2,
     'some-invalid-identifier': 3,

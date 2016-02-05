@@ -9,12 +9,12 @@
   bad = BadChoice();
 
   // good
-  let good = GoodChoice()
+  const good = GoodChoice()
   ```
 
 - [4.2](#4.2) <a name="4.2"></a> Use `const` for immutable values (typically, only primitives) that semantically make sense as constants. Use `let` for everything else. Never use `var`.
 
-  > Why? `const` and `let` are block scoped, rather than being function-scoped like `var`. `const` is misleading for mutable types (like `object`s), as it does not prevent you from modifying those objects’ properties.
+  > Why? `const` and `let` are block scoped, rather than being function-scoped like `var`. `const` indicates that a given reference will always refer to the same object or primitive throughout the current scope, which makes code easier to reason about.
 
   ESLint rules: [`prefer-const`](http://eslint.org/docs/rules/prefer-const.html), [`no-const-assign`](http://eslint.org/docs/rules/no-const-assign.html), [`no-var`](http://eslint.org/docs/rules/no-var.html)
 
@@ -27,7 +27,7 @@
   }
 
   // good
-  const CONSTANT_VALUE = 1;
+  const someUnchangingReference = 1;
   let count = 0;
   if (true) {
     count += 1;
@@ -45,7 +45,7 @@
   bad = 'bad';
 
   // good
-  let goodOne = 'good';
+  const goodOne = 'good';
 
   // or, if you can't provide a value immediately:
   let goodTwo;
@@ -63,17 +63,17 @@
     return badVar;
   }
 
-  let badVar = true;
+  const badVar = true;
 
   // good
-  let goodVar = true;
+  const goodVar = true;
 
   function good() {
     return goodVar;
   }
   ```
 
-- [4.5](#4.5) <a name="4.5"></a> Use screaming snake case for constants to make it clear to users that they can’t be modified.
+- [4.5](#4.5) <a name="4.5"></a> Use screaming snake case for file-level constants to make it clear to users that they can’t be modified.
 
   ```javascript
   // bad
@@ -91,13 +91,13 @@
 
   ```javascript
   // bad
-  let badFooOne = 'bar', badBazOne = 'qux';
-  let badFooTwo = 'bar',
+  const badFooOne = 'bar', badBazOne = 'qux';
+  const badFooTwo = 'bar',
       badBazTwo = 'qux';
 
   // good
-  let goodFoo = 'bar';
-  let goodBaz = 'qux';
+  const goodFoo = 'bar';
+  const goodBaz = 'qux';
   ```
 
 - [4.7](#4.7) <a name="4.7"></a> Never shadow variable names from outer scopes. Avoid shadowing of names with special meaning, like `arguments`.
@@ -109,11 +109,11 @@
   ```js
   // bad
   function bad() {
-    let arguments = [];
-    let foo = true;
+    const arguments = [];
+    const foo = true;
 
     runCallback(() => {
-      let foo = false;
+      const foo = false;
       return true;
     });
 
@@ -122,11 +122,11 @@
 
   // good
   function good() {
-    let args = [];
-    let foo = true;
+    const args = [];
+    const foo = true;
 
     runCallback(() => {
-      let callbackFoo = false;
+      const callbackFoo = false;
       return false;
     });
   }
@@ -140,15 +140,15 @@
   // bad
   let i = 0;
   const FOO = true;
-  let bar = 'bar';
+  const bar = 'bar';
   someUnrelatedCall();
   const BAZ = false;
 
   // good
   const FOO = true;
   const BAZ = false;
+  const bar = 'bar';
   let i = 0;
-  let bar = 'bar';
 
   someUnrelatedCall();
   ```
@@ -158,7 +158,7 @@
   ```js
   // bad
   function checkName(hasName) {
-    let name = getName(); // unnecessary function call if `hasName` is `false`
+    const name = getName(); // unnecessary function call if `hasName` is `false`
     if (!hasName) { return false; }
     return name.length > 0;
   }
@@ -166,7 +166,7 @@
   // good
   function checkName(hasName) {
     if (!hasName) { return false; }
-    let name = getName();
+    const name = getName();
     return name.length > 0;
   }
   ```

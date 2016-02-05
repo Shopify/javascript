@@ -29,7 +29,7 @@
   ESLint rule: [`curly`](http://eslint.org/docs/rules/curly.html)
 
   ```js
-  let condition = true;
+  const condition = true;
 
   // bad
   if (condition) doSomething();
@@ -105,10 +105,10 @@
 
   ```js
   // bad
-  let bad=34+32;
+  const bad=34+32;
 
   // good
-  let good = 1 + 2;
+  const good = 1 + 2;
   ```
 
 - [3.7](#3.7) <a name="3.7"></a> End files with a single newline character. Avoid any end-of-line whitespace.
@@ -117,23 +117,23 @@
 
   ```js
   // bad-one.js
-  let bad = true;
+  const bad = true;
   ```
 
   ```js
   // bad-two.js
-  let bad = true;↵
+  const bad = true;↵
   ↵
   ```
 
   ```js
   // bad-three.js
-  let bad = true;∙∙↵
+  const bad = true;∙∙↵
   ```
 
   ```js
   // good.js
-  let good = true;↵
+  const good = true;↵
   ```
 
 - [3.8](#3.8) <a name="3.8"></a> Use indentation when dealing with long method chains. Use a leading dot on each new line.
@@ -143,10 +143,10 @@
   ESLint rule: [`dot-location`](http://eslint.org/docs/rules/dot-location.html)
 
   ```js
-  let result = [1, 2, 3, 4, 5].filter((x) => x > 2).map((x) => x * x * x).reduce((total, x) => total + x, 0);
+  const result = [1, 2, 3, 4, 5].filter((x) => x > 2).map((x) => x * x * x).reduce((total, x) => total + x, 0);
 
   // good
-  let result = [1, 2, 3, 4, 5]
+  const result = [1, 2, 3, 4, 5]
     .filter((x) => x > 2)
     .map((x) => x * x * x)
     .reduce((total, x) => total + x, 0);
@@ -160,18 +160,18 @@
   // bad
   function badFunction( arg ) {return true;}
 
-  let badObject = { 'is-bad': true };
-  badObject[ 'is-bad' ];
+  const badObject = { isBad: true };
+  badObject[ 'isBad' ];
 
-  let badArray = [ 1, 2, 3 ];
+  const badArray = [ 1, 2, 3 ];
 
   // good
   function goodFunction(arg) { return true; }
 
-  let goodObject = {'is-good': true};
-  goodObject['is-good'];
+  const goodObject = {isGood: true};
+  goodObject['isGood'];
 
-  let goodArray = [1, 2, 3];
+  const goodArray = [1, 2, 3];
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
