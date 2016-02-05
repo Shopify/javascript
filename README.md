@@ -1,5 +1,7 @@
 # `import JavaScript from 'Shopify'`
 
+[![Circle CI](https://circleci.com/gh/Shopify/javascript.svg?style=svg)](https://circleci.com/gh/Shopify/javascript)
+
 This repository contains everything you should need for writing JavaScript at Shopify. In it you’ll find such things as our linting configs, custom linting rules, and project generators. Below, you’ll find the most important thing: a living styleguide documenting how and why we write JavaScript the way we do.
 
 > Why? All code in any code-base should look like a single person typed it, no matter how many people contributed. If we all follow along with the rules detailed below, we can focus our efforts on more meaningful problems.
