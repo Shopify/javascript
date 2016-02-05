@@ -7,13 +7,13 @@
   ```js
   // bad
   function bad() {
-    let badChoice = 'No semicolons'
+    const badChoice = 'No semicolons'
     return badChoice
   }
 
   // good
   function good() {
-    let goodChoice = 'Semicolons';
+    const goodChoice = 'Semicolons';
     return goodChoice;
   }
   ```
@@ -26,26 +26,26 @@
 
   ```js
   // bad
-  let badOne = {
+  const badOne = {
       one: 1
     , two: 2
     , three: 3
   };
 
-  let badTwo = [
+  const badTwo = [
       1
     , 2
     , 3
   ];
 
   // good
-  let goodOne = {
+  const goodOne = {
     one: 1,
     two: 2,
     three: 3,
   };
 
-  let goodTwo = [
+  const goodTwo = [
     1,
     2,
     3,
@@ -62,34 +62,34 @@
 
   ```javascript
   // bad
-  let badOne = {
+  const badOne = {
     foo: 1,
     bar: 2
   };
 
-  let badTwo = {foo: 1, bar: 2,};
+  const badTwo = {foo: 1, bar: 2,};
 
-  let badThree = [
+  const badThree = [
     1,
     2
   ];
 
-  let badFour = [1,2];
+  const badFour = [1,2];
 
   // good
-  let good = {
+  const good = {
     foo: 1,
     bar: 2,
   };
 
-  let goodTwo = {foo: 1, bar: 2};
+  const goodTwo = {foo: 1, bar: 2};
 
-  let goodThree = [
+  const goodThree = [
     1,
     2,
   ];
 
-  let goodFour = [1, 2];
+  const goodFour = [1, 2];
   ```
 
 - [2.4](#2.4) <a name="2.4"></a> Never use commas to separate multiple statements.
@@ -97,14 +97,16 @@
   ESLint rule: [`no-sequences`](http://eslint.org/docs/rules/no-sequences.html)
 
   ```js
+  let a;
+
   // bad
-  while (a = something(), a && a.length) {
+  while (a = something(), a != null && a.length !== 0) {
     // do something
   }
 
   // good
   while (a = something()) {
-    if (!a.length) { break; }
+    if (a.length === 0) { break; }
   }
   ```
 

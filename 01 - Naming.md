@@ -6,17 +6,17 @@
 
   ```js
   // bad
-  let bad_snake_name = 'Larry';
-  let UGLYname = 'this';
-  let badObject = {some_prop: 'some-value'};
+  const bad_snake_name = 'Larry';
+  const UGLYname = 'this';
+  const badObject = {some_prop: 'some-value'};
 
   // good
-  let goodSnakeName = 'Basilisk';
-  let prettyName = 'this';
-  let goodObject = {someProp: 'some-value'};
+  const goodSnakeName = 'Basilisk';
+  const prettyName = 'this';
+  const goodObject = {someProp: 'some-value'};
 
   // not ideal, but sometimes necessary and acceptable
-  let objectProvidedByRails = {some_rails_provided_prop: 'some-value'};
+  const objectProvidedByRails = {some_rails_provided_prop: 'some-value'};
   ```
 
 - [1.2](#1.2) <a name="1.2"></a> Use PascalCase when naming classes, factories, enumerations, or singletons (cases of enums are written in screaming snake case).
@@ -26,9 +26,9 @@
   ```js
   // bad
   class badClass {}
-  let bad = new badClass();
+  const bad = new badClass();
 
-  let badType = {
+  const badType = {
     Water: 0,
     Fire: 1,
     Ghost: 2,
@@ -36,32 +36,38 @@
 
   // good
   class GoodClass {}
-  let good = new GoodClass();
+  const good = new GoodClass();
 
-  let Type = {
+  const Type = {
     WATER: 0,
     FIRE: 1,
     GHOST: 2,
   };
   ```
 
-- [1.3](#1.3) <a name="1.3"></a> Use a leading underscore when naming "private" properties.
+- [1.3](#1.3) <a name="1.3"></a> Use a leading underscore when naming "private" properties. Functions and variables in scope should be named normally.
 
-  > Why? The leading underscore sends a signal to other developers that these methods should not be called or relied upon. Some tools can also obfuscate methods with leading underscores to ensure that they are not called by outside objects.
+  > Why? The leading underscore sends a signal to other developers that these methods should not be called or relied upon. Some tools can also obfuscate methods with leading underscores to ensure that they are not called by outside objects. Items in scope but not exported are completely private, so no signaling is required for these.
+
+  > **Note:** Use these underscore-prefixed members as a last resort. Prefer moving them to be functions/ variables in scope or making them part of the public API over using this naming convention.
 
   ESLint rule: [`no-underscore-dangle`](http://eslint.org/docs/rules/no-underscore-dangle.html)
 
   ```js
   // bad
-  let bad = {
+  export const bad = {
     __privateOne__: 0,
     privateTwo_: 1,
   };
 
+  function _badPrivateFunctionInScope() {}
+
   // good
-  let good = {
+  export const good = {
     _private: 0,
   };
+
+  function goodPrivateFunctionInScope() {}
   ```
 
 - [1.4](#1.4) <a name="1.4"></a> Avoid single letter names; be descriptive with the names you choose. Note that exceptions can be made for common one-letter identifiers, particularly for use as properties (`x`, `y`, `i`, `j`, `_`).
@@ -70,11 +76,11 @@
 
   ```js
   // bad
-  let b = 'BAD';
+  const b = 'BAD';
 
   // good
-  let good = 'GOOD';
-  let point = {
+  const good = 'GOOD';
+  const point = {
     x: 10,
     y: 20,
   };
@@ -84,9 +90,9 @@
 
   ```js
   // bad
-  let badObject = {
+  const badObject = {
     logSelfAfterTimeout() {
-      let that = this;
+      const that = this;
       setTimeout(function() {
         console.log(that);
       }, 500);
@@ -94,7 +100,7 @@
   }
 
   // better
-  let betterObject = {
+  const betterObject = {
     logSelfAfterTimeout() {
       setTimeout(function() {
         console.log(this);
@@ -103,7 +109,7 @@
   }
 
   // best
-  let bestObject = {
+  const bestObject = {
     logSelfAfterTimeout() {
       setTimeout(() => console.log(this), 500);
     }

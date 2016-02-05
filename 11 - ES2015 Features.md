@@ -13,15 +13,15 @@
   ```js
   // bad
   function fullNameForUser(user) {
-    let firstName = user.firstName;
-    let lastName = user.lastName;
+    const firstName = user.firstName;
+    const lastName = user.lastName;
 
     return `${firstName} ${lastName}`;
   }
 
   // good
   function fullNameForUser(user) {
-    let {firstName, lastName} = user;
+    const {firstName, lastName} = user;
     return `${firstName} ${lastName}`;
   }
 
@@ -34,20 +34,20 @@
 - [11.4](#11.4) <a name="11.4"></a> Use array destructuring rather than manually accessing items by their index. If your array has more than a few entries, and you are selecting only a small number of them, continue to use index notation.
 
   ```js
-  let array = [1, 2];
-  let longArray = [1, 2, 3, 4, 5];
+  const array = [1, 2];
+  const longArray = [1, 2, 3, 4, 5];
 
   // bad
-  let first = array[0];
-  let second = array[1];
+  const first = array[0];
+  const second = array[1];
 
-  let [secondLong,,,, fifthLong] = longArray;
+  const [secondLong,,,, fifthLong] = longArray;
 
   // good
-  let [first, second] = array;
+  const [first, second] = array;
 
-  let secondLong = longArray[1];
-  let fifthLong = longArray[4];
+  const secondLong = longArray[1];
+  const fifthLong = longArray[4];
   ```
 
 - [11.5](#11.5) <a name="11.5"></a> If you need to return multiple values from a function, return them using an object rather than an array.
@@ -61,7 +61,7 @@
     return [left, right, top, bottom];
   }
 
-  let [left, _, top] = positionForNode(node);
+  const [left, _, top] = positionForNode(node);
 
   // good
   function positionForNode(node) {
@@ -69,7 +69,7 @@
     return {left, right, top, bottom};
   }
 
-  let {left, top} = positionForNode(node);
+  const {left, top} = positionForNode(node);
   ```
 
 - [11.6](#11.6) <a name="11.6"></a> You can create highly readable functions by using one positional argument, followed by a destructured object. You can even provide different local names for the destructured arguments to have both an expressive external API and concise internal references.
@@ -112,7 +112,7 @@
   }
 
   // good
-  let GoodSingleton = {
+  const GoodSingleton = {
     singletonProp: 'foo',
     singletonMethod() {
       return 'bar';
@@ -132,14 +132,14 @@
     }
   }
 
-  let result = new BadChoice('foo', 'bar').takeAction();
+  const result = new BadChoice('foo', 'bar').takeAction();
 
   // good
   function takeAction({first, second}) {
     return `The first: ${first}, the second: ${second}`;
   }
 
-  let result = takeAction({first: 'foo', second: 'bar'});
+  const result = takeAction({first: 'foo', second: 'bar'});
   ```
 
 - [11.8](#11.8) <a name="11.8"></a> If you want to use constructor functions, use `class` syntax. Avoid creating them by manually updating the prototype.
@@ -226,25 +226,24 @@
 
   ```js
   // bad
-  let BadImport = require('./BadImport');
-  module.exports = BadImport.feelBadAboutIt;
+  const BadImport = require('./BadImport');
+  module.exports = BadImport.feelBadAboutIt();
 
   // good
   import {feelGoodAboutIt} from './GoodImport';
-  export default feelGoodAboutIt;
+  export default feelGoodAboutIt();
   ```
 
-- [11.12](#11.12) <a name="11.12"></a> Do not export directly from an import.
+- [11.12](#11.12) <a name="11.12"></a> Avoid complex relative import paths. It is usually fairly easy and much clearer to add the root of your project to the load path.
 
-  > Why? Exporting directly from an import trades clarity for brevity, which is not a good trade to make when you are writing things for humans.
+  > Why? Relative paths are fragile and hard to parse for humans.
 
   ```js
   // bad
-  export {feelBadAboutIt as default} from './BadImport';
+  export feelBadAboutIt from '../../../lib/BadImport';
 
-  // good
-  import {feelGoodAboutIt} from './GoodImport';
-  export default feelGoodAboutIt;
+  // good (with some path additions)
+  import feelGoodAboutIt from 'lib/GoodImport';
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)

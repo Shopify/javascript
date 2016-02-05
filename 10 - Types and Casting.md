@@ -5,14 +5,14 @@
   ESLint rules: [`no-implicit-coercion`](http://eslint.org/docs/rules/no-implicit-coercion.html), [`no-new-wrappers`](http://eslint.org/docs/rules/no-new-wrappers.html)
 
   ```js
-  let number = 15;
+  const number = 15;
 
   // bad
-  let badStringNumOne = number + '';
-  let badStringNumTwo = new String(number);
+  const badStringNumOne = number + '';
+  const badStringNumTwo = new String(number);
 
   // good
-  let goodStringNum = String(number);
+  const goodStringNum = String(number);
   ```
 
 - [10.2](#10.2) <a name="10.2"></a> Use the `Number` function for type casting and `Number.parseInt` for parsing strings. Always include the radix parameter when using `Number.parseInt`.
@@ -22,34 +22,35 @@
   ESLint rules: [`radix`](http://eslint.org/docs/rules/radix.html), [`no-implicit-coercion`](http://eslint.org/docs/rules/no-implicit-coercion.html), [`no-new-wrappers`](http://eslint.org/docs/rules/no-new-wrappers.html)
 
   ```js
-  let input = '43';
+  const input = '43';
 
   // bad
-  let badOne = new Number(input);
-  let badTwo = +input;
-  let badThree = input >> 0;
-  let badFour = Number.parseInt(input);
-  let badFive = parseInt(input);
+  const badOne = new Number(input);
+  const badTwo = +input;
+  const badThree = input >> 0;
+  const badFour = Number.parseInt(input);
+  const badFive = parseInt(input);
 
   // good
-  let goodOne = Number(input);
-  let goodTwo = Number.parseInt(input, 10);
+  const goodOne = Number(input);
+  const goodTwo = Number.parseInt(input, 10);
   ```
 
-- [10.3](#10.3) <a name="10.3"></a> Use the `Boolean` function for casting to a boolean value. Never use double negation (`!!`), the `Boolean` constructor, or other “clever” techniques for getting a boolean value.
+- [10.3](#10.3) <a name="10.3"></a> Use the `Boolean` function for casting to a boolean value (or the relevant comparison operators, where possible). Never use double negation (`!!`), the `Boolean` constructor, or other “clever” techniques for getting a boolean value.
 
   ESLint rules: [`no-implicit-coercion`](http://eslint.org/docs/rules/no-implicit-coercion.html), [`no-new-wrappers`](http://eslint.org/docs/rules/no-new-wrappers.html), [`no-extra-boolean-cast`](http://eslint.org/docs/rules/no-extra-boolean-cast.html)
 
   ```js
-  let collection = [];
+  const collection = [];
 
   // bad
-  let badOne = !!collection.length;
-  let badTwo = new Boolean(collection.length);
-  let badThree = ~collection.indexOf('foo');
+  const badOne = !!collection;
+  const badTwo = new Boolean(collection);
+  const badThree = ~collection.indexOf('foo');
 
   // good
-  let good = Boolean(collection.length); // or, just use `collection.length`
+  const goodOne = Boolean(collection);
+  const goodTwo = collection.indexOf('foo') >= 0
   ```
 
 - [10.4](#10.4) <a name="10.4"></a> Use `===` and `!==` over `==` and `!=`. The only exception to this rule is `== null`, which is allowed in order to check whether a reference is either `null` or `undefined`.
@@ -73,8 +74,8 @@
   > Why? Using the shorthands relies on JavaScript’s questionable cooercion rules, which allow more values than you might expect to be treated as `false`. Using the explicit boolean check makes your code clearer to future readers.
 
   ```js
-  let name = '';
-  let collection = [];
+  const name = '';
+  const collection = [];
 
   // bad
   if (name) {}

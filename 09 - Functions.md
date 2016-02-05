@@ -8,7 +8,7 @@
 
   ```js
   // bad
-  let add = new Function('a', 'b', 'return a + b');
+  const add = new Function('a', 'b', 'return a + b');
   ```
 
 - [9.2](#9.2) <a name="9.2"></a> Use function declarations instead of function expressions.
@@ -19,31 +19,31 @@
 
   ```js
   // bad
-  let bad = function() {}
+  const bad = function() {}
 
   // good
   function good() {}
   ```
 
-- [9.3](#9.3) <a name="9.3"></a> Use Immediately Invoked Function Expressions (IIFE) as a way to keep some variables private from the rest of your script. When using IIFEs, always wrap them in parentheses with dangling parentheses.
+- [9.3](#9.3) <a name="9.3"></a> When using IIFEs, always wrap the function parentheses, with dangling parentheses for the function call.
 
-  > **Note**: If using modules, the module (file) itself serves as a private scope for variables. As such, IIFEs are rarely needed in this case.
+  > **Note**: If using modules, the module (file) itself serves as a private scope for variables. As such, IIFEs are rarely needed in this case. Additionally, when using `const`/ `let`, you can create a private scope simply by using an unnamed block.
 
   ESLint rule: [`wrap-iife`](http://eslint.org/docs/rules/wrap-iife.html)
 
   ```js
   // bad
   ;function() {
-    let privateMember = 'foo';
+    const privateMember = 'foo';
   }()
 
   (function() {
-    let privateMember = 'foo';
+    const privateMember = 'foo';
   }())
 
   // good
   (function() {
-    let privateMember = 'foo';
+    const privateMember = 'foo';
   })()
   ```
 
@@ -80,7 +80,7 @@
   }
 
   // good
-  let test = null;
+  let test;
   if (true) {
     test = () => console.log('This is better!');
   }
@@ -111,13 +111,13 @@
   ESLint rule: [`prefer-spread`](http://eslint.org/docs/rules/prefer-spread.html)
 
   ```js
-  let numbers = [1, 2, 3, 4, 5];
+  const numbers = [1, 2, 3, 4, 5];
 
   // bad
-  let max = Math.max.apply(Math, numbers);
+  const max = Math.max.apply(Math, numbers);
 
   // good
-  let max = Math.max(...numbers);
+  const max = Math.max(...numbers);
   ```
 
 ### Arrow Functions
@@ -213,7 +213,7 @@
   ```js
   // bad
   function allThe() {
-    let bads = Array.from(arguments);
+    const bads = Array.from(arguments);
     return bads.map((bad) => `${bad} is bad!`);
   }
 
@@ -250,10 +250,17 @@
 
   // bad
   function badOne(b = a++) {}
-  function badTwo(arg = createDefaultArgument()) {}
+  function badTwo(arg = [1, 2, 3].map((val) => val * 3)) {}
+
+  // good
+  function goodOne(b) {}
+  goodOne(a++);
+
+  function createDefaultParameter() {}
+  function goodTwo(arg = createDefaultParameter()) {}
   ```
 
-  - Always put default parameters last.
+- [9.15](#9.15) <a name="9.15"></a> Always put default parameters last.
 
   ```js
   // bad
@@ -261,6 +268,20 @@
 
   // good
   function good(name, options = {}) {}
+  ```
+
+- [9.16](#9.16) <a name="9.16"></a> Be careful not to overcomplicate function declarations using new object parameter-related features. While you can destructure, use the rest operator, provide default parameter values, provide a default argument, and provide different local names for parameters, limit your use of these such that your code remains readable. In general, avoid providing a complex default hash in addition to default parameter values.
+
+  ```js
+  // bad (parameter list is complex to reason about)
+  function bad({
+    foo: myFoo = 2,
+    bar = 10000,
+    ...otherOptions,
+  } = {foo: 'foo', qux: true}) {}
+
+  // good (this is probably the most complex structure that's acceptable)
+  function good({foo = 2, bar = 10000, ...otherOptions} = {}) {}
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)

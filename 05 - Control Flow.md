@@ -37,13 +37,13 @@
   ESLint rule: [`no-cond-assign`](http://eslint.org/docs/rules/no-cond-assign.html)
 
   ```js
-  let myVar = null;
 
   // bad (did you mean `==`/ `===`?)
+  let myVar;
   if (myVar = doSomething()) {}
 
   // good
-  myVar = doSomething();
+  const myVar = doSomething();
   if (myVar) {}
   ```
 
@@ -86,7 +86,7 @@
 
   ```js
   // bad
-  let bad = someCondition ? (someOtherCondition ? 'foo' : 'bar') : (someFinalCondition ? 'baz' : 'qux');
+  const bad = someCondition ? (someOtherCondition ? 'foo' : 'bar') : (someFinalCondition ? 'baz' : 'qux');
 
   // good
   function calculateGood(someCondition, someOtherCondition, someFinalCondition) {
@@ -97,7 +97,7 @@
     }
   }
 
-  let good = calculateGood(someCondition, someOtherCondition, someFinalCondition);
+  const good = calculateGood(someCondition, someOtherCondition, someFinalCondition);
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
