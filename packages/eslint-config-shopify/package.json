@@ -1,0 +1,44 @@
+{
+  "name": "eslint-config-shopify",
+  "version": "5.9.0",
+  "description": "Shopify's baseline ESLint config.",
+  "main": "./es6/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shopify/eslint-config-shopify"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "test": "npm run lint"
+  },
+  "keywords": [
+    "eslint",
+    "eslintconfig",
+    "config",
+    "shopify",
+    "javascript",
+    "es5",
+    "es6",
+    "react"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shopify/eslint-config-shopify/issues"
+  },
+  "homepage": "https://github.com/shopify/eslint-config-shopify",
+  "dependencies": {
+    "merge": "^1.2.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^4.1.2",
+    "eslint": "^1.10.0",
+    "eslint-config-shopify": "file:.",
+    "eslint-plugin-react": "^3.15.0",
+    "eslint-plugin-shopify": "^2.1.0"
+  },
+  "peerDependencies": {
+    "eslint": ">=1.10.0",
+    "eslint-plugin-react": "^3.15.0",
+    "eslint-plugin-shopify": "^2.1.0"
+  }
+}
