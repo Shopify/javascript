@@ -2,10 +2,6 @@
   "name": "eslint-plugin-shopify",
   "version": "2.0.1",
   "description": "Shopify-specific ESLint rules.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/shopify/eslint-plugin-shopify"
-  },
   "keywords": [
     "eslint",
     "eslintplugin",
@@ -25,9 +21,10 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/shopify/eslint-plugin-shopify/issues"
+    "url": "https://github.com/Shopify/javascript/issues"
   },
-  "homepage": "https://github.com/shopify/eslint-plugin-shopify",
+  "homepage": "https://github.com/Shopify/javascript/tree/master/packages/eslint-plugin-shopify",
+  "repository": "https://github.com/Shopify/javascript/tree/master/packages/eslint-plugin-shopify",
   "devDependencies": {
     "babel-eslint": "^4.1.3",
     "eslint": "^1.5.0",

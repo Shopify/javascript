@@ -1,4 +1,7 @@
 {
+  "name": "generator-eslint-shopify",
+  "version": "1.0.0",
+  "description": "A Yeoman generator for creating a Shopify-focused ESLint config.",
   "main": "generators/app/index.js",
   "jsnext:main": "src/app/index.js",
   "scripts": {
@@ -26,14 +29,15 @@
     "shopify",
     "config"
   ],
-  "name": "generator-eslint-shopify",
-  "version": "1.0.0",
-  "description": "A Yeoman generator for creating a Shopify-focused ESLint config.",
   "author": {
     "name": "Chris Sauve",
     "email": "chris.sauve@shopify.com"
   },
-  "repository": "Shopify/generator-eslint-shopify",
+  "bugs": {
+    "url": "https://github.com/Shopify/javascript/issues"
+  },
+  "homepage": "https://github.com/Shopify/javascript/tree/master/packages/generator-eslint-shopify",
+  "repository": "https://github.com/Shopify/javascript/tree/master/packages/generator-eslint-shopify",
   "devDependencies": {
     "babel-cli": "^6.3.17",
     "babel-core": "^6.3.26",
