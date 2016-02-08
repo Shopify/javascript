@@ -1,10 +1,11 @@
+var merge = require('merge');
+
 module.exports = {
   plugins: [
     'shopify',
   ],
 
-  rules: Object.assign(
-    {},
+  rules: merge(
     require('../rules/best-practices'),
     require('../rules/legacy'),
     require('../rules/possible-errors'),

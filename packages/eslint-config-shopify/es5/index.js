@@ -1,3 +1,5 @@
+var merge = require('merge');
+
 module.exports = {
   extends: 'shopify/core',
 
@@ -5,8 +7,7 @@ module.exports = {
     node: true,
   },
 
-  rules: Object.assign(
-    {},
+  rules: merge(
     require('../rules/node'),
     {'shopify/require-flow': 0}
   ),
