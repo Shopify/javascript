@@ -1,0 +1,11 @@
+machine:
+  node:
+    version: 5.5.0
+
+dependencies:
+  override:
+    - script/setup
+
+test:
+  override:
+    - script/test
