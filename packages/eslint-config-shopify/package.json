@@ -25,6 +25,6 @@
   },
   "peerDependencies": {
     "eslint": ">=1.10.0",
-    "eslint-plugin-shopify": "^6.1.0"
+    "eslint-plugin-shopify": "^7.0.0"
   }
 }
