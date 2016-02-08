@@ -19,9 +19,6 @@
   },
   "homepage": "https://github.com/Shopify/javascript/tree/master/packages/eslint-config-shopify",
   "repository": "https://github.com/Shopify/javascript/tree/master/packages/eslint-config-shopify",
-  "dependencies": {
-    "merge": "^1.2.0"
-  },
   "optionalDependencies": {
     "babel-eslint": "^4.1.8",
     "eslint-plugin-react": "^3.16.1"

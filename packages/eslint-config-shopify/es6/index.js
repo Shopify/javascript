@@ -1,5 +1,3 @@
-var merge = require('merge');
-
 module.exports = {
   extends: 'shopify/core',
   parser: 'babel-eslint',
@@ -13,7 +11,8 @@ module.exports = {
     modules: true,
   },
 
-  rules: merge(
+  rules: Object.assign(
+    {},
     require('../rules/ecmascript-6'),
     {'no-param-reassign': 0} // because of default params
   ),
