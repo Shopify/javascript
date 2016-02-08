@@ -4,6 +4,6 @@ machine:
 
 test:
   pre:
-    - node_modules/.bin/lerna bootstrap
+    - script/setup
   override:
-    - npm run check
+    - script/test

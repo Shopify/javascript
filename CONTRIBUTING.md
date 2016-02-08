@@ -1,13 +1,13 @@
 This repo actually contains multiple projects in addition to the formal styleguide. In order to start making changes, you'll first need to bootstrap the project:
 
 ```bash
-npm run bootstrap
+script/setup
 ```
 
 Make *every* required change across all repos. For a given rule change, this will often involve at least a change to `eslint-config-shopify` and to the README for this repo. You can lint and test your changes across all repos by running:
 
 ```bash
-npm run check
+script/test
 ```
 
 Once you are satisfied with your changes, open a pull request and get your changes merged. Then, follow these steps:
@@ -19,7 +19,7 @@ Once you are satisfied with your changes, open a pull request and get your chang
 Finally, run the publishing command:
 
 ```bash
-npm run publish-all
+script/publish
 ```
 
 This command will ask you for the new version and will publish new versions of all packages that had changes. The current version is always shown in the `VERSION` file at the root of this repository.
