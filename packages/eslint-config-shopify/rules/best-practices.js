@@ -3,6 +3,8 @@
 module.exports = {
   // Enforces getter/setter pairs in objects
   'accessor-pairs': 0,
+  // Enforces return statements in callbacks of array's methods
+  'array-callback-return': 2,
   // Treat var statements as if they were block scoped
   'block-scoped-var': 1,
   // Specify the maximum cyclomatic complexity allowed in a program
@@ -31,8 +33,8 @@ module.exports = {
   'no-div-regex': 1,
   // Disallow else after a return in an if
   'no-else-return': 0,
-  // Disallow use of labels for anything other than loops and switches
-  'no-empty-label': 2,
+  // Disallow use of empty functions
+  'no-empty-function': 1,
   // Disallow use of empty destructuring patterns
   'no-empty-pattern': 2,
   // Disallow comparisons to null without a type-checking operator
@@ -43,12 +45,16 @@ module.exports = {
   'no-extend-native': 2,
   // Disallow unnecessary function binding
   'no-extra-bind': 1,
+  // Disallow unnecessary labels
+  'no-extra-label': 2,
   // Disallow fallthrough of case statements
   'no-fallthrough': 2,
   // Disallow the use of leading or trailing decimal points in numeric literals
   'no-floating-decimal': 1,
   // Disallow the type conversions with shorter notations
   'no-implicit-coercion': 1,
+  // Disallow var and named functions in global scope
+  'no-implicit-globals': 1,
   // Disallow use of eval()-like methods
   'no-implied-eval': 2,
   // Disallow this keywords outside of classes or class-like objects
@@ -92,14 +98,20 @@ module.exports = {
   'no-return-assign': 2,
   // Disallow use of javascript: urls.,
   'no-script-url': 0,
+  // Disallow assignments where both sides are exactly the same
+  'no-self-assign': 2,
   // Disallow comparisons where both sides are exactly the same
   'no-self-compare': 2,
   // Disallow use of comma operator
   'no-sequences': 1,
   // Restrict what can be thrown as an exception
   'no-throw-literal': 1,
-  // Allow usage of expressions in statement position
+  // Disallow unmodified conditions of loops
+  'no-unmodified-loop-condition': 2,
+  // Disallow usage of expressions in statement position
   'no-unused-expressions': 1,
+  // Disallow unused labels
+  'no-unused-labels': 2,
   // Disallow unnecessary .call() and .apply()
   'no-useless-call': 2,
   // Disallow unnecessary concatenation of literals or template literals

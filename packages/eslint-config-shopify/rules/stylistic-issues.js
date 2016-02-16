@@ -23,8 +23,10 @@ module.exports = {
   'func-names': 0,
   // Enforces use of function declarations or expressions
   'func-style': [1, 'declaration'],
+  // Blacklist certain identifiers to prevent them being used
+  'id-blacklist': 0,
   // This option enforces minimum and maximum identifier lengths (variable names, property names etc.)
-  'id-length': [1, {min: 2, properties: 'always', exceptions: ['x', 'y', 'i', 'j', '_']}],
+  'id-length': [1, {min: 2, properties: 'always', exceptions: ['x', 'y', 'i', 'j', '_', '$']}],
   // Require identifiers to match the provided regular expression
   'id-match': 0,
   // This option sets a specific tab width for your code
@@ -33,10 +35,12 @@ module.exports = {
   'jsx-quotes': [1, 'prefer-double'],
   // Enforces spacing between keys and values in object literal properties
   'key-spacing': [1, {beforeColon: false, afterColon: true}],
-  // Enforces empty lines around comments
-  'lines-around-comment': [1, {beforeBlockComment: true}],
+  // Enforce spacing before and after keywords
+  'keyword-spacing': [1, {before: true, after: true, overrides: {}}],
   // Disallow mixed "LF" and "CRLF" as linebreaks
   'linebreak-style': 0,
+  // Enforces empty lines around comments
+  'lines-around-comment': [1, {beforeBlockComment: true}],
   // Specify the maximum depth callbacks can be nested
   'max-nested-callbacks': 0,
   // Require a capital letter for constructors
@@ -45,6 +49,8 @@ module.exports = {
   'new-parens': 1,
   // Allow/disallow an empty newline after var statement
   'newline-after-var': 0,
+  // Enforce newline after each call when chaining the calls
+  'newline-per-chained-call': [1, {ignoreChainWithDepth: 3}],
   // Disallow use of the Array constructor
   'no-array-constructor': 2,
   // Disallow use of the continue statement
@@ -71,10 +77,14 @@ module.exports = {
   'no-underscore-dangle': 0,
   // Disallow the use of Boolean literals in conditional expressions
   'no-unneeded-ternary': 1,
+  // Disallow whitespace before properties
+  'no-whitespace-before-property': 2,
   // Require or disallow padding inside curly braces
   'object-curly-spacing': [1, 'never'],
   // Allow or disallow one variable declaration per function
   'one-var': [1, 'never'],
+  // Require or disallow an newline around variable declarations
+  'one-var-declaration-per-line': [1, 'initializations'],
   // Require assignment operator shorthand where possible or prohibit it entirely
   'operator-assignment': [1, 'always'],
   // Enforce operators to be placed before or after line breaks
@@ -89,10 +99,10 @@ module.exports = {
   'semi-spacing': [1, {before: false, after: true}],
   // Require or disallow use of semicolons instead of ASI
   'semi': [1, 'always'],
+  // Sort import declarations within module
+  'sort-imports': 0,
   // Sort variables within the same declaration block
   'sort-vars': 0,
-  // Require a space after certain keywords
-  'space-after-keywords': [1, 'always'],
   // Require or disallow space before blocks
   'space-before-blocks': [1, 'always'],
   // Require or disallow space before function opening parenthesis
@@ -101,8 +111,6 @@ module.exports = {
   'space-in-parens': [1, 'never'],
   // Require spaces around operators
   'space-infix-ops': 1,
-  // Require a space after return, throw, and case
-  'space-return-throw-case': 1,
   // Require or disallow spaces before/after unary operators (words on by default, nonwords)
   'space-unary-ops': [1, {words: true, nonwords: false}],
   // Require or disallow a space immediately following the // or /* in a comment

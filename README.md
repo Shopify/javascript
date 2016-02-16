@@ -433,7 +433,7 @@ npm run lint
 
 - [4.5](#4.5) <a name="4.5"></a> Place one space before the opening parenthesis in control statements (`if`, `while`, etc). Place no space between the function name and argument list in function calls and declarations.
 
-  ESLint rules: [`space-after-keywords`](http://eslint.org/docs/rules/space-after-keywords.html), [`space-before-keywords`](http://eslint.org/docs/rules/space-before-keywords.html)
+  ESLint rule: [`keyword-spacing`](http://eslint.org/docs/rules/keyword-spacing.html)
 
   ```js
   // bad
@@ -492,7 +492,7 @@ npm run lint
 
   > Why? Breaking a method chain across lines improves readability. The leading dot clearly emphasizes that this is a method call, not a new statement.
 
-  ESLint rule: [`dot-location`](http://eslint.org/docs/rules/dot-location.html)
+  ESLint rules: [`dot-location`](http://eslint.org/docs/rules/dot-location.html), [`newline-per-chained-call`](http://eslint.org/docs/rules/newline-per-chained-call.html)
 
   ```js
   const result = [1, 2, 3, 4, 5].filter((x) => x > 2).map((x) => x * x * x).reduce((total, x) => total + x, 0);
@@ -1139,11 +1139,11 @@ npm run lint
     'shepherds the weak through the valley of darkness';
   ```
 
-- [9.3](#9.3) <a name="9.3"></a> Use template strings instead of concatenation.
+- [9.3](#9.3) <a name="9.3"></a> Use template strings instead of concatenation. When ambedding expressions in the template strings, never include spaces within the curly braces.
 
   > Why? The template string syntax is easier to read and consistent with how we build strings programatically in other languages.
 
-  ESLint rule: [`prefer-template`](http://eslint.org/docs/rules/prefer-template.html)
+  ESLint rules: [`prefer-template`](http://eslint.org/docs/rules/prefer-template.html), [`template-curly-spacing`](http://eslint.org/docs/rules/template-curly-spacing.html)
 
   ```javascript
   const name = 'Chris';
@@ -1151,6 +1151,7 @@ npm run lint
   // bad
   const badOne = 'DO NOT do it this way, ' + name + '!';
   const badTwo = ['And definitely not this way, either, ', name, '!'].join('');
+  const badThree = `So close, ${ name }, but so far!`;
 
   // good
   const goodOne = `Much better, ${name}!`;
@@ -1369,6 +1370,8 @@ npm run lint
 ### Parameters
 
 - [10.12](#10.12) <a name="10.12"></a> Never use the implicitly defined `arguments` array-like object provided by functions. Instead, use rest syntax (`...`) to describe variadic arguments.
+
+  ESLint rule: [`prefer-rest-params`](http://eslint.org/docs/rules/prefer-rest-params.html)
 
   > Why? `...` is explicit in which arguments you want pulled, and covers the boilerplate of assigning parameters out of `arguments`. It also provides an actual array, so all array prototype methods are available.
 
@@ -1854,6 +1857,10 @@ npm run lint
 
 - [Javascript Air](http://audio.javascriptair.com)
 - [JavaScript Jabber](https://devchat.tv/js-jabber/)
+
+### Other
+
+- [ECMAScript current proposals](https://github.com/tc39/ecma262/blob/master/README.md), including the [stage 0 proposals](https://github.com/tc39/ecma262/blob/master/stage0.md)
 
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)

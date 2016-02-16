@@ -1,4 +1,5 @@
 var merge = require('merge');
+var coreConfig = require('../core');
 
 module.exports = {
   extends: 'shopify/core',
@@ -9,9 +10,13 @@ module.exports = {
     node: true,
   },
 
-  ecmaFeatures: {
-    modules: true,
-  },
+  parserOptions: merge.recursive(
+    coreConfig.parserOptions,
+    {
+      ecmaVersion: 6,
+      sourceType: 'module',
+    }
+  ),
 
   rules: merge(
     require('../rules/ecmascript-6'),
