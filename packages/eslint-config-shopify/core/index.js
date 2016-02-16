@@ -5,6 +5,10 @@ module.exports = {
     'shopify',
   ],
 
+  ecmaFeatures: {
+    ecmaVersion: 5,
+  },
+
   rules: merge(
     require('../rules/best-practices'),
     require('../rules/legacy'),

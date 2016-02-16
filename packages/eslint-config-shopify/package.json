@@ -20,14 +20,14 @@
   "homepage": "https://github.com/Shopify/javascript/tree/master/packages/eslint-config-shopify",
   "repository": "https://github.com/Shopify/javascript/tree/master/packages/eslint-config-shopify",
   "optionalDependencies": {
-    "babel-eslint": "^4.1.8",
     "eslint-plugin-react": "^3.16.1"
   },
   "peerDependencies": {
-    "eslint": ">=1.10.0",
+    "eslint": ">=2.1.0",
     "eslint-plugin-shopify": "^7.0.0"
   },
   "dependencies": {
-    "merge": "^1.2.0"
+    "merge": "^1.2.0",
+    "babel-eslint": "^4.1.8"
   }
 }
