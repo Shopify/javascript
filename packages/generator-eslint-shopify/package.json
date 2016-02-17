@@ -1,6 +1,6 @@
 {
   "name": "generator-eslint-shopify",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "description": "A Yeoman generator for creating a Shopify-focused ESLint config.",
   "main": "generators/app/index.js",
   "jsnext:main": "src/app/index.js",
