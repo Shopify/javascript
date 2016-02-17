@@ -10,7 +10,7 @@ Make *every* required change across all repos. For a given rule change, this wil
 script/test
 ```
 
-Once you are satisfied with your changes, open a pull request and get your changes merged. Then, update the `CHANGELOG.md` file at the root of this repo with the changes you have made. Finally, run the publishing command:
+Once you are satisfied with your changes, open a pull request and get your changes merged. Then, update and commit the `CHANGELOG.md` file at the root of this repo with the changes you have made. Finally, run the publishing command:
 
 ```bash
 script/publish
