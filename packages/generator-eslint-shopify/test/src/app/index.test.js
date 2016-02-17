@@ -25,8 +25,7 @@ describe('generator-eslint-shopify:app', () => {
 
     it('sets the Shopify config and plugin', () => {
       assert.jsonFileContent('.eslintrc', {
-        extends: 'shopify',
-        plugins: ['shopify'],
+        extends: 'plugin:shopify/esnext',
       });
     });
   });
@@ -41,8 +40,7 @@ describe('generator-eslint-shopify:app', () => {
 
     it('sets the React Shopify config and plugin', () => {
       assert.jsonFileContent('.eslintrc', {
-        extends: 'shopify/react',
-        plugins: ['shopify', 'react'],
+        extends: 'plugin:shopify/react',
       });
     });
   });
@@ -57,7 +55,7 @@ describe('generator-eslint-shopify:app', () => {
 
     it('sets the ES5 Shopify config', () => {
       assert.jsonFileContent('.eslintrc', {
-        extends: 'shopify/es5',
+        extends: 'plugin:shopify/es5',
       });
     });
   });

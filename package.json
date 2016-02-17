@@ -19,7 +19,6 @@
   "license": "MIT",
   "devDependencies": {
     "eslint": "^2.1.0",
-    "eslint-config-shopify": "file:./packages/eslint-config-shopify",
     "eslint-plugin-shopify": "file:./packages/eslint-plugin-shopify",
     "lerna": "^1.1.1",
     "rimraf": "^2.5.2"
