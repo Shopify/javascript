@@ -1,5 +1,5 @@
 {
-  "extends": "shopify/es5",
+  "extends": "plugin:shopify/es5",
   "rules": {
     "quote-props": 0
   }
