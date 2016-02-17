@@ -35,7 +35,7 @@ Have a legacy codebase? Can’t use ES2015? Our [legacy styleguide](legacy/) is 
 
 ## Using this guide
 
-Many of the following rules are enforced by our [shared ESLint config](packages/eslint-config-shopify), which you can use in most editors and CI environments. To use it, you will need to have [Node.js and npm installed](https://docs.npmjs.com/getting-started/installing-node). Once these are installed, you have two options for adding ESLint to your project: using our Yeoman generator, or installing everything manually.
+Many of the following rules are enforced by our [shared ESLint config/ plugin](packages/eslint-config-plugin), which you can use in most editors and CI environments. To use it, you will need to have [Node.js and npm installed](https://docs.npmjs.com/getting-started/installing-node). Once these are installed, you have two options for adding ESLint to your project: using our Yeoman generator, or installing everything manually.
 
 ### Yeoman Generator
 
@@ -60,24 +60,15 @@ npm run lint
 ### Manually
 
 ```bash
-npm install eslint eslint-config-shopify eslint-plugin-shopify --save-dev
-
-# also, if using ES2015+:
-npm install babel-eslint --save-dev
-
-# finally, if using React:
-npm install eslint-plugin-react --save-dev
+npm install eslint eslint-plugin-shopify --save-dev
 ```
 
 Once these are installed, you will need to add a `.eslintrc` file at the root of your project that specifies that you'd like to extend the Shopify configuration.
 
 ```js
 {
-  "extends": "shopify", // or "shopify/es5" for the ES5 config, "shopify/react" for the React config
-  "parser": "babel-eslint", // unless using ES5
-  "plugins": [
-    "shopify", // add "react" here too if in a React project
-  ],
+  // or "plugin:shopify/es5" for the ES5 config, "plugin:shopify/react" for the React config
+  "extends": "plugin:shopify/esnext",
   // choose your environments: http://eslint.org/docs/user-guide/configuring.html#specifying-environments
   "env": {}
 }

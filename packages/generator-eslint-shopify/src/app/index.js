@@ -9,13 +9,13 @@ module.exports = class ESLintShopifyGenerator extends BaseGenerator {
     this.option('react', {
       type: Boolean,
       required: false,
-      desc: 'Installs the React plugin and rule set.',
+      desc: 'Uses the React configuration.',
     });
 
     this.option('es5', {
       type: Boolean,
       required: false,
-      desc: 'Installs the ES5 rules only.',
+      desc: 'Uses the ES5 configuration.',
     });
   }
 
@@ -63,19 +63,16 @@ module.exports = class ESLintShopifyGenerator extends BaseGenerator {
   defaults() {
     const {props, options} = this;
 
-    const plugins = ['shopify'];
-    if (props.react) { plugins.push('react'); }
-
-    let extendsConfig = 'shopify';
-    if (props.react) { extendsConfig = 'shopify/react'; }
-    if (props.es5) { extendsConfig = 'shopify/es5'; }
+    let extendsConfig = 'plugin:shopify/esnext';
+    if (props.react) { extendsConfig = 'plugin:shopify/react'; }
+    if (props.es5) { extendsConfig = 'plugin:shopify/es5'; }
 
     const eslintOptions = {
       extends: extendsConfig,
-      plugins,
+      plugins: [],
       skipInstall: options.skipInstall,
       skipWelcomeMessage: true,
-      babel: true,
+      babel: false, // handled by the plugin
     };
 
     this.composeWith(

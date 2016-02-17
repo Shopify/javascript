@@ -1,5 +1,5 @@
 {
-  "extends": "shopify",
+  "extends": "plugin:shopify/react",
   "env": {
     "es6": true,
     "node": true

@@ -4,19 +4,13 @@ This repo actually contains multiple projects in addition to the formal stylegui
 script/setup
 ```
 
-Make *every* required change across all repos. For a given rule change, this will often involve at least a change to `eslint-config-shopify` and to the README for this repo. You can lint and test your changes across all repos by running:
+Make *every* required change across all repos. For a given rule change, this will often involve at least a change to `eslint-plugin-shopify` and to the README for this repo. You can lint and test your changes across all repos by running:
 
 ```bash
 script/test
 ```
 
-Once you are satisfied with your changes, open a pull request and get your changes merged. Then, follow these steps:
-
-- Update any relevant dependencies (for example, if updating `eslint-plugin-shopify`, update the peer dependency for `eslint-config-shopify`) to the version you are going to bump to
-- Update the `CHANGELOG.md` file at the root of the repo
-- Commit all of these version-related changes
-
-Finally, run the publishing command:
+Once you are satisfied with your changes, open a pull request and get your changes merged. Then, update the `CHANGELOG.md` file at the root of this repo with the changes you have made. Finally, run the publishing command:
 
 ```bash
 script/publish

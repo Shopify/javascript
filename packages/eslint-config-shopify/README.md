@@ -1,6 +1,8 @@
 # eslint-config-shopify
 
-[![Build status][circle-image]][circle-url] [![NPM version][npm-image]][npm-url]
+## Note: as of version 8.0.0, this package is deprecated. Instead, use the configs found in the [`eslint-plugin-shopify`](../eslint-plugin-shopify) package, which make use of the plugin configs introduced in ESLint 2.0.0.
+
+[![NPM version][npm-image]][npm-url]
 
 This package provides Shopify's `.eslintrc` as an extensible shared config.
 
@@ -59,5 +61,3 @@ then, extend the ES5 version of this configuration in your own `.eslintrc`:
 
 [npm-url]: https://npmjs.org/package/eslint-config-shopify
 [npm-image]: http://img.shields.io/npm/v/eslint-config-shopify.svg?style=flat-square
-[circle-url]: https://circleci.com/gh/Shopify/eslint-config-shopify
-[circle-image]: https://circleci.com/gh/Shopify/eslint-config-shopify.svg?&style=shield&circle-token=3734ea0a376393800642813772f4b474c7a14a4e
