@@ -74,7 +74,7 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
 - [2.1](#2.1) <a name="2.1"></a> When there are no children for a component, use the self-closing tag. When using a self-closing tag for a component written on a single line, leave a single space between the last character and the closing of the tag.
 
-  ESLint rule: [`self-closing-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md)
+  ESLint rules: [`self-closing-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md), [`jsx-space-before-closing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-space-before-closing.md)
 
   ```js
   // bad
