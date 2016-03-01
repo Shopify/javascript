@@ -36,6 +36,23 @@
   },
   "homepage": "https://github.com/Shopify/javascript/tree/master/packages/generator-eslint-shopify",
   "repository": "https://github.com/Shopify/javascript/tree/master/packages/generator-eslint-shopify",
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0"
+    ],
+    "sourceMaps": true
+  },
+  "eslintConfig": {
+    "extends": "plugin:shopify/esnext",
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "rules": {
+      "shopify/require-flow": 0
+    }
+  },
   "devDependencies": {
     "babel-cli": "^6.3.17",
     "babel-core": "^6.3.26",
@@ -54,7 +71,7 @@
   },
   "dependencies": {
     "chalk": "^1.1.1",
-    "generator-eslint-config": "^1.2.0",
+    "generator-eslint-config": "^2.0.0",
     "yeoman-generator": "^0.22.2",
     "yosay": "^1.1.0"
   }
