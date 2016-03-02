@@ -1,6 +1,0 @@
-{
-  "extends": "plugin:shopify/es5",
-  "rules": {
-    "quote-props": 0
-  }
-}

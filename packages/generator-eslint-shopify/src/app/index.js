@@ -73,6 +73,7 @@ module.exports = class ESLintShopifyGenerator extends BaseGenerator {
       skipInstall: options.skipInstall,
       skipWelcomeMessage: true,
       babel: false, // handled by the plugin
+      configType: 'package',
     };
 
     this.composeWith(

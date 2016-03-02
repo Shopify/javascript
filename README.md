@@ -22,6 +22,7 @@ This repository contains everything you should need for writing JavaScript at Sh
 1. [Functions](#functions)
 1. [Types and casting](#types-and-casting)
 1. [ES2015 features](#es2015-features)
+1. [Project structure](#project-structure)
 1. [Resources](#resources)
 
 There are a few additional styleguides for libraries commonly used at Shopify that serve to augment this guide:
@@ -1811,6 +1812,40 @@ npm run lint
 
   // good (with some path additions)
   import feelGoodAboutIt from 'lib/GoodImport';
+  ```
+
+[↑ scrollTo('#table-of-contents')](#table-of-contents)
+
+
+
+## Project structure
+
+- [13.1](#13.1) <a name="13.1"></a> Most tools, including Babel, ESLint, and Stylelint, allow you to specify your configuration in dotfiles at the root of your project, or as special keys in your `package.json`. Where possible, prefer placing this configuration in `package.json`. Where not possible (for example, when providing a custom ESLint configuration for a subdirectory), prefer the JavaScript version of the configuration over the dotfile version. Use dotfiles only when you have no other option.
+
+  > Why? Placing configuration in package.json means that any developer can see all configuration in a single file, and cleans up the root of a directory.
+
+  ```js
+  // bad (my-project/.babelrc)
+  {
+    "plugins": ["es2015"]
+  }
+
+  // good (my-project/package.json)
+  {
+    "babel": {
+      "plugins": ["es2015"]
+    }
+  }
+
+  // bad (my-project/test/.eslintrc)
+  {
+    "env": {"mocha": true}
+  }
+
+  // good (my-project/test/.eslintrc.js)
+  module.exports = {
+    env: {mocha: true},
+  };
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)

@@ -18,7 +18,7 @@
   "author": "Chris Sauve <chrismsauve@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^2.1.0",
+    "eslint": "^2.2.0",
     "eslint-plugin-shopify": "file:./packages/eslint-plugin-shopify",
     "lerna": "^1.1.1",
     "rimraf": "^2.5.2"
