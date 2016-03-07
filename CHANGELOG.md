@@ -1,5 +1,37 @@
 # Changelog
 
+## 9.0.2
+
+### Fixed
+
+- Fixed `react/display-name`’s `ignoreTranspilerName`, again (the new option negated the meaning of the passed value).
+
+## 9.0.1
+
+### Fixed
+
+- Fixed `react/display-name`’s `ignoreTranspilerName` option (the old option name was removed in the most recent version of the plugin).
+
+## 9.0.0
+
+### Added
+
+- Added new React ESLint rules: `jsx-space-before-closing` and `sort-prop-types`.
+
+### Updated
+
+- Updated Babel ESLint plugin.
+- Updated the React `sort-comp` rule to require static members of a React component appearing first.
+- Documented preference for storing configuration in `package.json`, or in `.js` files when `package.json` is not possible.
+
+### Removed
+
+- Removed deprecated React ESLint rule: `jsx-sort-prop-types`.
+
+### Build
+
+- Updated ESLint and Babel configs to match our recommended locations (`package.json` and `.eslintrc.js`).
+
 ## 8.0.0
 
 ### Changed
