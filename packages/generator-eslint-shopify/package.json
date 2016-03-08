@@ -36,10 +36,7 @@
   "homepage": "https://github.com/Shopify/javascript/tree/master/packages/generator-eslint-shopify",
   "repository": "https://github.com/Shopify/javascript/tree/master/packages/generator-eslint-shopify",
   "babel": {
-    "presets": [
-      "es2015",
-      "stage-0"
-    ],
+    "presets": ["shopify"],
     "sourceMaps": true
   },
   "eslintConfig": {
