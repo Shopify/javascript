@@ -1,5 +1,15 @@
 # Changelog
 
+## 10.0.0
+
+### Added
+
+- Added the `babel-preset-shopify` package to contain our recommended set of Babel transforms.
+
+### Build
+
+- Removed `rimraf` and `copyfiles` as dependencies and used the native UNIX commands instead.
+
 ## 9.0.2
 
 ### Fixed
