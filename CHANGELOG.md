@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.1.1
+
+- Set the default config of `shopify/require-flow` to disabled.
+
 ## 10.1.0
 
 - Added `babel-plugin-transform-inline-environment-variables` to `babel-preset-shopify`.
