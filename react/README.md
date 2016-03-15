@@ -252,6 +252,8 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
   > Why? Such components are very easy to represent as pure functions, and doing so encourages more stateless components, which decreases application complexity.
 
+  ESLint rule: [`prefer-stateless-function`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md)
+
   ```js
   // bad
   export default class BadComponent extends React.Component {
