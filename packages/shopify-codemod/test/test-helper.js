@@ -11,6 +11,7 @@ const config = {
   outputFixturePath(fixture) {
     return path.join(this.fixtureDirectory, `${fixture}.output.js`);
   },
+  transformOptions: {},
 };
 
 function jscodeshiftChai(options) {
@@ -29,7 +30,7 @@ function jscodeshiftChai(options) {
       const transformed = transformer(
         {source: input, path: inputPath},
         {jscodeshift},
-        transformOptions
+        {...finalConfig.transformOptions, ...transformOptions}
       ).trim();
 
       new Assertion(transformed).to.equal(output);
@@ -45,6 +46,9 @@ function jscodeshiftChai(options) {
 
 chai.use(jscodeshiftChai({
   fixtureDirectory: path.join(__dirname, 'fixtures'),
+  transformOptions: {
+    printOptions: {quote: 'single'},
+  },
 }));
 
 global.expect = expect;
