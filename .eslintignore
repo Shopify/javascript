@@ -1,3 +1,5 @@
 **/node_modules
 **/coverage
 packages/generator-eslint-shopify/generators
+packages/shopify-codemods/transforms
+packages/shopify-codemods/test/fixtures

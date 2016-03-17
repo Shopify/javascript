@@ -6,3 +6,6 @@ npm-debug.log
 
 # generator-eslint-shopify
 packages/generator-eslint-shopify/generators
+
+# shopify-codemods
+packages/shopify-codemods/transforms

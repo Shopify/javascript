@@ -1,0 +1,38 @@
+{
+  "name": "shopify-codemods",
+  "version": "10.1.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_PATH=./src:./test:$NODE_PATH mocha 'test/**/*.test.js' --compilers js:babel-core/register",
+    "test:watch": "npm run test -- --watch --reporter dot",
+    "test:cover": "NODE_PATH=$NODE_PATH:./src:./test babel-node $(npm bin)/isparta cover --root transforms/ --reporter text --reporter html $(npm bin)/_mocha -- --reporter spec test/**/*.test.js",
+    "clean": "rm -rf transforms/ coverage/",
+    "build:lib": "babel src --out-dir transforms",
+    "build": "npm run clean && npm run build:lib",
+    "preversion": "npm test",
+    "prepublish": "npm test && npm run build"
+  },
+  "babel": {
+    "presets": [
+      "shopify"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "plugin:shopify/esnext"
+  },
+  "author": "Chris Sauve <chrismsauve@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.6.5",
+    "babel-core": "^6.7.2",
+    "babel-preset-shopify": "file:../babel-preset-shopify",
+    "chai": "^3.5.0",
+    "isparta": "^4.0.0",
+    "jscodeshift": "^0.3.16",
+    "mocha": "^2.4.5"
+  },
+  "dependencies": {
+    "lodash": "^4.6.1"
+  }
+}
