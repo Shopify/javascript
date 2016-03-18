@@ -1,5 +1,11 @@
 # Changelog
 
+## 10.3.2
+
+- Add `constant-function-expression-to-statement` transform.
+- Add `constant-function-expression-to-statement` transform.
+- Add `ternary-statement-to-if-statement` transform.
+
 ## 10.2.0
 
 - Added the initial `shopify-codemod` package.
