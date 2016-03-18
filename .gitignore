@@ -7,5 +7,5 @@ npm-debug.log
 # generator-eslint-shopify
 packages/generator-eslint-shopify/generators
 
-# shopify-codemods
-packages/shopify-codemods/transforms
+# chai-jscodeshift
+packages/chai-jscodeshift/lib

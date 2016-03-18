@@ -1,0 +1,38 @@
+{
+  "name": "chai-jscodeshift",
+  "version": "10.2.0",
+  "description": "Chai assertion utilities for writing JSCodeShift Codemods.",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rm -rf lib/",
+    "build:lib": "../../node_modules/.bin/babel src --out-dir lib",
+    "build": "npm run clean && npm run build:lib",
+    "preversion": "npm run build"
+  },
+  "keywords": [
+    "chai",
+    "chai-plugin",
+    "codemod",
+    "jscodeshift"
+  ],
+  "eslintConfig": {
+    "extends": "plugin:shopify/es5"
+  },
+  "author": {
+    "name": "Chris Sauve",
+    "email": "chris.sauve@shopify.com"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/javascript/issues"
+  },
+  "homepage": "https://github.com/Shopify/javascript/tree/master/packages/chai-jscodeshift",
+  "repository": "https://github.com/Shopify/javascript/tree/master/packages/chai-jscodeshift",
+  "license": "MIT",
+  "peerDependencies": {
+    "jscodeshift": ">=0.3.0",
+    "chai": ">=1.9.2"
+  },
+  "dependencies": {
+    "merge": "^1.2.0"
+  }
+}

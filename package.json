@@ -39,11 +39,6 @@
     "sinon-chai": "^2.8.0",
     "isparta": "^4.0.0",
     "istanbul": "^0.4.2",
-    "coveralls": "^2.11.8",
-
-    "yeoman-assert": "^2.1.1",
-    "yeoman-test": "^1.1.0",
-
-    "jscodeshift": "^0.3.16"
+    "coveralls": "^2.11.8"
   }
 }
