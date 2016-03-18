@@ -9,8 +9,6 @@
     "build:lib": "babel src --ignore **/templates/**.js --out-dir generators",
     "build": "npm run clean && npm run build:lib",
     "preversion": "npm run clean && npm run test",
-    "version": "npm run build",
-    "postversion": "git push && git push --tags && npm run clean",
     "prepublish": "npm run build",
     "test": "mocha test/ --recursive --compilers js:babel-core/register --reporter spec",
     "test:watch": "npm test -- --watch --reporter min"
