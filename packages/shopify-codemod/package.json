@@ -1,6 +1,6 @@
 {
   "name": "shopify-codemod",
-  "version": "10.1.1",
+  "version": "10.2.0",
   "description": "Custom JSCodeShift transforms to help convert our rusty JavaScript.",
   "main": "transforms/index.js",
   "scripts": {
@@ -28,6 +28,5 @@
     "jscodeshift": "^0.3.16",
     "mocha": "^2.4.5"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
