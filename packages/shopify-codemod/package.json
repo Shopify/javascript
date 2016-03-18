@@ -22,11 +22,12 @@
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.7.2",
-    "babel-preset-shopify": "file:../babel-preset-shopify",
     "chai": "^3.5.0",
     "isparta": "^4.0.0",
     "jscodeshift": "^0.3.16",
     "mocha": "^2.4.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "babel-preset-shopify": "latest"
+  }
 }
