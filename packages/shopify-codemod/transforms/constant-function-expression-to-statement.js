@@ -1,8 +1,9 @@
-export default function constantFunctionValueToStatement(file, api, options) {
-  const j = api.jscodeshift;
-  const printOptions = options.printOptions || {quote: 'single'};
-
-  return j(file.source)
+export default function constantFunctionValueToStatement(
+  {source},
+  {jscodeshift: j},
+  {printOptions = {quote: 'single'}}
+) {
+  return j(source)
     .find(j.VariableDeclaration, (path) => j.match(path, {
       kind: 'const',
       declarations: [{
