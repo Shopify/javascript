@@ -1,5 +1,9 @@
 # Changelog
 
+## 10.2.0
+
+- Added the initial `shopify-codemod` package.
+
 ## 10.1.1
 
 - Set the default config of `shopify/require-flow` to disabled.
