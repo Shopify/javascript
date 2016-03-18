@@ -1,17 +1,17 @@
-suite('outer', () => {
+suite('outer', function() {
   let foo;
-  setup(() => {
+  setup(function() {
     foo = 'foo';
   });
 
-  suite('nested', () => {
+  suite('nested', function() {
     let bar;
-    setup(() => {
+    setup(function() {
       foo = 'foo';
       bar = 'bar';
     });
 
-    test(() => {
+    test(function() {
       foo && bar;
     });
   });

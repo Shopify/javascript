@@ -1,11 +1,11 @@
-suite('top-level', () => {
+suite('top-level', function() {
   const foo = 'FOO';
 
   let foo_fromSetup;
   let bar;
   let baz;
 
-  setup(() => {
+  setup(function() {
     foo_fromSetup = 'foo';
 
     let bar_fromSetup = 'bar';
@@ -18,7 +18,7 @@ suite('top-level', () => {
     baz = notJustBaz;
   });
 
-  test(() => {
+  test(function() {
     foo_fromSetup.toUpperCase();
   });
 });

@@ -13,7 +13,7 @@ This repository contains a collection of Codemods written with [JSCodeshift](htt
 
 ### `constant-function-expression-to-statement`
 
-Transforms Mocha tests that use `this` to store context shared between tests to use closure variables instead.
+Changes constant function expression declarations to a statement.
 
 ```sh
 jscodeshift -t shopify-codemods/transforms/constant-function-expression-to-statement <file>
@@ -31,6 +31,28 @@ const a = function() {
 function a() {
   return 1;
 }
+```
+
+### `function-to-arrow`
+
+Changes function expressions to arrow functions, where possible.
+
+```sh
+jscodeshift -t shopify-codemods/transforms/function-to-arrow <file>
+```
+
+#### Example
+
+```js
+a(function() {
+  b(function() { return 1; });
+});
+
+// BECOMES:
+
+a(() => {
+  b(() => 1);
+});
 ```
 
 ### `mocha-context-to-closure`
@@ -70,7 +92,7 @@ describe(() => {
 
 ### `ternary-statement-to-if-statement`
 
-Transforms Mocha tests that use `this` to store context shared between tests to use closure variables instead.
+Changes ternary statement expressions to if statements.
 
 ```sh
 jscodeshift -t shopify-codemods/transforms/ternary-statement-to-if-statement <file>

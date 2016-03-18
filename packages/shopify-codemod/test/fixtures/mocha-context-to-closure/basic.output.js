@@ -1,9 +1,9 @@
-suite('top-level', () => {
+suite('top-level', function() {
   let bar;
 
   let foo;
 
-  setup(() => {
+  setup(function() {
     foo = 'foo';
   });
 });

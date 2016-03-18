@@ -51,7 +51,7 @@ export default function mochaContextToClosure({source}, {jscodeshift: j}, {print
       .filter(isScopedToSetup)
       .replaceWith(handleContextMember);
 
-    return j.callExpression(node.callee, arrowifyCallbackInParams(node.arguments));
+    return j.callExpression(node.callee, node.arguments);
   }
 
   function handleContextUser({node}) {
@@ -62,7 +62,7 @@ export default function mochaContextToClosure({source}, {jscodeshift: j}, {print
       .filter((memberPath) => memberPath.scope.node === callbackParam)
       .replaceWith(handleContextPropertyUsage);
 
-    return j.callExpression(node.callee, arrowifyCallbackInParams(node.arguments));
+    return j.callExpression(node.callee, node.arguments);
   }
 
   function updateFunctionWithDeclarations(oldFunction, newDeclarations) {
@@ -82,26 +82,6 @@ export default function mochaContextToClosure({source}, {jscodeshift: j}, {print
       oldFunction.expression,
       oldFunction.async
     );
-  }
-
-  function arrowifyFunction(oldFunction) {
-    if (oldFunction == null || oldFunction.type !== 'FunctionExpression') {
-      return oldFunction;
-    }
-
-    return j.arrowFunctionExpression(
-      oldFunction.params,
-      oldFunction.body,
-      oldFunction.generator,
-      oldFunction.expression,
-      oldFunction.async
-    );
-  }
-
-  function arrowifyCallbackInParams(params) {
-    const otherParams = [...params];
-    const callback = arrowifyFunction(otherParams.pop());
-    return [...otherParams, callback];
   }
 
   function handleContext(path, parentContext) {
@@ -133,10 +113,10 @@ export default function mochaContextToClosure({source}, {jscodeshift: j}, {print
       ]));
 
     const {arguments: args} = path.node;
-    args[args.length - 1] = arrowifyFunction(updateFunctionWithDeclarations(
+    args[args.length - 1] = updateFunctionWithDeclarations(
       args[args.length - 1],
       newDeclarations
-    ));
+    );
 
     return path.node;
   }
