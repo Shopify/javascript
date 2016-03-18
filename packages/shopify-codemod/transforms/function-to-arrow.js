@@ -1,8 +1,4 @@
-export default function functionToArrow(
-  {source},
-  {jscodeshift: j},
-  {printOptions = {quote: 'single'}}
-) {
+export default function functionToArrow({source}, {jscodeshift: j}, {printOptions = {}}) {
   return j(source)
     .find(j.FunctionExpression)
     .filter((path) => j(path).find(j.ThisExpression).size() === 0)

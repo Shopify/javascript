@@ -1,8 +1,4 @@
-export default function ternaryStatementToIfStatement(
-  {source},
-  {jscodeshift: j},
-  {printOptions = {quote: 'single'}}
-) {
+export default function ternaryStatementToIfStatement({source}, {jscodeshift: j}, {printOptions = {}}) {
   return j(source)
     .find(j.ConditionalExpression)
     .filter((path) => path.parent.node.type === 'ExpressionStatement' || path.parent.node.type === 'ReturnStatement')

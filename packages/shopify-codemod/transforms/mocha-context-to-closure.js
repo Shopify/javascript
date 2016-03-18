@@ -1,8 +1,4 @@
-export default function mochaContextToClosure(
-  {source},
-  {jscodeshift: j},
-  {printOptions = {quote: 'single'}}
-) {
+export default function mochaContextToClosure({source}, {jscodeshift: j}, {printOptions = {quote: 'single'}}) {
   let currentContext;
   const root = j(source);
 
