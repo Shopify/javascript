@@ -1,8 +1,11 @@
 # Changelog
 
+## 10.4.0
+
+- Add `function-to-arrow` transform.
+
 ## 10.3.2
 
-- Add `constant-function-expression-to-statement` transform.
 - Add `constant-function-expression-to-statement` transform.
 - Add `ternary-statement-to-if-statement` transform.
 
