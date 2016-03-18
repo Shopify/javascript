@@ -1,42 +1,42 @@
-describe(() => {
+describe(function() {
   let foo;
   let baz;
-  beforeEach(() => {
+  beforeEach(function() {
     foo = 'foo';
   });
 
-  before(() => {
+  before(function() {
     baz = 'baz';
   });
 
-  afterEach(() => {
+  afterEach(function() {
     foo.toUpperCase();
   });
 
-  after(() => {
+  after(function() {
     baz = 'baz2';
   });
 
-  context('when something', () => {
+  context('when something', function() {
     let bar;
-    beforeEach(() => {
+    beforeEach(function() {
       bar = 'bar';
       foo = 'foo';
     });
 
-    afterEach(() => {
+    afterEach(function() {
       bar.toLowerCase();
     });
 
-    it('does something', () => {
+    it('does something', function() {
       foo += ' foo';
       expect(bar).to.equal('bar');
     });
   });
 
-  describe(() => {
+  describe(function() {
     let qux;
-    before(() => {
+    before(function() {
       qux = 'qux';
     });
   });

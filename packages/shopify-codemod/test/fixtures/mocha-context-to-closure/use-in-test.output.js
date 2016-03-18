@@ -1,16 +1,16 @@
-suite('top-level', () => {
+suite('top-level', function() {
   let foo;
   let baz;
-  setup(() => {
+  setup(function() {
     foo = 'foo';
     baz = 'baz';
   });
 
-  teardown(() => {
+  teardown(function() {
     foo.restore();
   });
 
-  test('something', () => {
+  test('something', function() {
     foo.toLowerCase();
     baz = 'qux';
   });
