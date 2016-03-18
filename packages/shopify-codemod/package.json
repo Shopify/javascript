@@ -2,6 +2,8 @@
   "name": "shopify-codemod",
   "version": "10.3.1",
   "description": "Custom JSCodeShift transforms to help convert our rusty JavaScript.",
+  "homepage": "https://github.com/Shopify/javascript/tree/master/packages/shopify-codemod",
+  "repository": "https://github.com/Shopify/javascript/tree/master/packages/shopify-codemod",
   "main": "transforms/index.js",
   "scripts": {
     "test": "NODE_PATH=./transforms:./test:$NODE_PATH mocha 'test/**/*.test.js' --compilers js:babel-core/register",
@@ -19,7 +21,7 @@
     "extends": "plugin:shopify/esnext"
   },
   "author": "Chris Sauve <chrismsauve@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.7.2",
     "chai": "^3.5.0",
