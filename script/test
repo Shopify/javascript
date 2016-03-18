@@ -1,3 +1,16 @@
-#!/bin/bash
-set -ex
-npm run check
+#!/usr/bin/env node
+
+var path = require('path');
+var shell = require('shelljs');
+var execSync = require('child_process').execSync;
+var packageRoot = path.join(__dirname, '../packages');
+
+test('shopify-codemod');
+test('generator-eslint-shopify');
+test('eslint-plugin-shopify');
+
+function test(packageName) {
+  var packagePath = path.join(packageRoot, packageName);
+  shell.cd(packagePath);
+  return execSync('npm test', {stdio: 'inherit'});
+}

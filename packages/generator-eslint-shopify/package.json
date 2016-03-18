@@ -6,17 +6,13 @@
   "jsnext:main": "src/app/index.js",
   "scripts": {
     "clean": "rm -rf generators/ coverage/",
-    "build:lib": "babel src --ignore **/templates/**.js --out-dir generators",
+    "build:lib": "../../node_modules/.bin/babel src --ignore **/templates/**.js --out-dir generators",
     "build": "npm run clean && npm run build:lib",
     "preversion": "npm run clean && npm run test",
     "prepublish": "npm run build",
-    "test": "mocha test/ --recursive --compilers js:babel-core/register --reporter spec",
+    "test": "../../node_modules/.bin/mocha test/ --recursive --compilers js:babel-core/register --reporter spec",
     "test:watch": "npm test -- --watch --reporter min"
   },
-  "files": [
-    "src",
-    "generators"
-  ],
   "keywords": [
     "yeoman",
     "yeoman-generator",
@@ -33,12 +29,6 @@
   },
   "homepage": "https://github.com/Shopify/javascript/tree/master/packages/generator-eslint-shopify",
   "repository": "https://github.com/Shopify/javascript/tree/master/packages/generator-eslint-shopify",
-  "babel": {
-    "presets": [
-      "shopify"
-    ],
-    "sourceMaps": true
-  },
   "eslintConfig": {
     "extends": "plugin:shopify/esnext",
     "env": {
@@ -48,19 +38,6 @@
     "rules": {
       "shopify/require-flow": 0
     }
-  },
-  "devDependencies": {
-    "babel-cli": "^6.3.17",
-    "babel-core": "^6.3.26",
-    "babel-preset-shopify": "file:../babel-preset-shopify",
-    "chai": "^3.4.1",
-    "coveralls": "^2.11.6",
-    "isparta": "^4.0.0",
-    "mocha": "^2.3.4",
-    "sinon": "^1.17.2",
-    "sinon-chai": "^2.8.0",
-    "yeoman-assert": "^2.1.1",
-    "yeoman-test": "^1.0.0"
   },
   "dependencies": {
     "chalk": "^1.1.1",
