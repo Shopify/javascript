@@ -1,23 +1,43 @@
 # Changelog
 
+## 10.5.0
+
+### Added
+
+- Extracted `chai-jscodeshift` into its own package.
+
+### Build
+
+- Moved all shared development dependencies to be in the root `package.json` in order to speed up bootsrapping. Only project-specific development dependencies should be in the individual projects.
+
 ## 10.4.0
+
+### Added
 
 - Add `function-to-arrow` transform.
 
 ## 10.3.2
+
+### Added
 
 - Add `constant-function-expression-to-statement` transform.
 - Add `ternary-statement-to-if-statement` transform.
 
 ## 10.2.0
 
+### Added
+
 - Added the initial `shopify-codemod` package.
 
 ## 10.1.1
 
+### Updated
+
 - Set the default config of `shopify/require-flow` to disabled.
 
 ## 10.1.0
+
+### Updated
 
 - Added `babel-plugin-transform-inline-environment-variables` to `babel-preset-shopify`.
 
@@ -65,7 +85,7 @@
 
 ## 8.0.0
 
-### Changed
+### Updated
 
 - Updated ESLint peer dependency to 2.1.0.
 - Consolidated `eslint-config-shopify` into `eslint-plugin-shopify` as part of the new plugin configs offered by ESLint 2.0.0. This means that only a single package needs to be installed: `eslint-plugin-shopify`. The `"extends"` key in your `.eslintrc` will need to change to reflect this: `"shopify"` becomes `"plugin:shopify/esnext"`, `"shopify/react"` becomes `"plugin:shopify/react"`, and `"shopify/es5"` becomes `"plugin:shopify/es5"`.
