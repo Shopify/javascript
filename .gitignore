@@ -6,6 +6,3 @@ npm-debug.log
 
 # generator-eslint-shopify
 packages/generator-eslint-shopify/generators
-
-# chai-jscodeshift
-packages/chai-jscodeshift/lib

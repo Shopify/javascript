@@ -1,5 +1,3 @@
-/* eslint no-sync: 0 */
-
 var fs = require('fs');
 var path = require('path');
 var merge = require('merge');
@@ -17,10 +15,10 @@ var config = {
 };
 
 module.exports = function chaiJSCodeShift(options) {
-  var finalConfig = merge(config, options || {});
+  var finalConfig = merge({}, config, options || {});
 
-  // eslint-disable-next-line no-shadow
-  return function chaiJSCodeShift(chaiOptions) {
+  // eslint-disable-next-line no-shadow, func-style
+  var chaiHelper = function chaiJSCodeShift(chaiOptions) {
     var Assertion = chaiOptions.Assertion;
     var assert = chaiOptions.assert;
 
@@ -35,7 +33,7 @@ module.exports = function chaiJSCodeShift(options) {
       var transformed = transformer(
         {source: input, path: inputPath},
         {jscodeshift: jscodeshift},
-        merge(finalConfig.transformOptions, transformOptions || {})
+        merge({}, finalConfig.transformOptions, transformOptions || {})
       ).trim();
 
       new Assertion(transformed).to.equal(output);
@@ -44,7 +42,18 @@ module.exports = function chaiJSCodeShift(options) {
     Assertion.addMethod('transform', transform);
 
     assert.transforms = function(transformer, fixture, transformerOptions) {
-      return (new Assertion(transformer)).transforms(fixture, transformerOptions || {});
+      return (new Assertion(transformer)).to.transform(fixture, transformerOptions || {});
     };
   };
+
+  // Utilities to be able to actually test this
+  chaiHelper.resetConfig = function resetConfig() {
+    finalConfig = config;
+  };
+
+  chaiHelper.updateConfig = function updateConfig(newConfig) {
+    finalConfig = merge({}, finalConfig, newConfig);
+  };
+
+  return chaiHelper;
 };
