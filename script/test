@@ -5,9 +5,10 @@ var shell = require('shelljs');
 var execSync = require('child_process').execSync;
 var packageRoot = path.join(__dirname, '../packages');
 
-test('shopify-codemod');
-test('generator-eslint-shopify');
 test('eslint-plugin-shopify');
+test('generator-eslint-shopify');
+test('chai-jscodeshift');
+test('shopify-codemod');
 
 function test(packageName) {
   var packagePath = path.join(packageRoot, packageName);
