@@ -8,9 +8,7 @@
   "scripts": {
     "test": "NODE_PATH=./transforms:./test:$NODE_PATH ../../node_modules/.bin/mocha 'test/**/*.test.js' --compilers js:babel-core/register",
     "test:watch": "npm run test -- --watch --reporter min",
-    "test:cover": "NODE_PATH=$NODE_PATH:./transforms:./test ../../node_modules/.bin/babel-node ../../node_modules/.bin/isparta cover --root transforms/ --reporter text --reporter html ../../node_modules/.bin/_mocha -- --reporter spec test/**/*.test.js",
-    "clean": "rm -rf coverage/",
-    "prepublish": "npm test"
+    "test:cover": "NODE_PATH=$NODE_PATH:./transforms:./test ../../node_modules/.bin/babel-node ../../node_modules/.bin/isparta cover --root transforms/ --reporter text --reporter html ../../node_modules/.bin/_mocha -- --reporter spec test/**/*.test.js"
   },
   "keywords": [
     "codemod"
@@ -18,8 +16,20 @@
   "eslintConfig": {
     "extends": "plugin:shopify/esnext"
   },
-  "author": "Chris Sauve <chrismsauve@gmail.com>",
+  "author": {
+    "name": "Chris Sauve",
+    "email": "chris.sauve@shopify.com"
+  },
+  "bugs": {
+    "url": "https://github.com/Shopify/javascript/issues"
+  },
+  "homepage": "https://github.com/Shopify/javascript/tree/master/packages/shopify-codemod",
+  "repository": "https://github.com/Shopify/javascript/tree/master/packages/shopify-codemod",
   "license": "MIT",
+  "devDependencies": {
+    "jscodeshift": "^0.3.16",
+    "chai-jscodeshift": "file:../chai-jscodeshift"
+  },
   "dependencies": {
     "babel-preset-shopify": "latest"
   }
