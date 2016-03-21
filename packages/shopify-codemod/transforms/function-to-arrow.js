@@ -1,7 +1,7 @@
 export default function functionToArrow({source}, {jscodeshift: j}, {printOptions = {}}) {
   return j(source)
     .find(j.FunctionExpression)
-    .filter((path) => j(path).find(j.ThisExpression).size() === 0)
+    .filter((path) => j(path).find(j.ThisExpression).size() === 0 && !j.Property.check(path.parent.node))
     .replaceWith(({node}) => {
       const {params} = node;
       let {body} = node;

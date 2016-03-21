@@ -9,4 +9,8 @@ describe('functionToArrow', () => {
   it("doesn't transform function that use `this`", () => {
     expect(ternaryStatementToIfStatement).to.transform('function-to-arrow/this');
   });
+
+  it("doesn't break on property method shorthand", () => {
+    expect(ternaryStatementToIfStatement).to.transform('function-to-arrow/property');
+  });
 });
