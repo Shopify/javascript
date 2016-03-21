@@ -1,0 +1,3 @@
+App.A = class A {
+
+};

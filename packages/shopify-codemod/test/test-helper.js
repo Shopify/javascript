@@ -6,6 +6,8 @@ chai.use(chaiJSCodeShift({
   fixtureDirectory: path.join(__dirname, 'fixtures'),
   transformOptions: {
     printOptions: {quote: 'single'},
+    javascriptSourceLocation: path.join(__dirname, 'fixtures', 'javascripts'),
+    appGlobalIdentifiers: ['App'],
   },
 }));
 
