@@ -1,8 +1,4 @@
-export default function constantFunctionValueToStatement(
-  {source},
-  {jscodeshift: j},
-  {printOptions = {quote: 'single'}}
-) {
+export default function constantFunctionValueToStatement({source}, {jscodeshift: j}, {printOptions = {}}) {
   return j(source)
     .find(j.VariableDeclaration, (path) => j.match(path, {
       kind: 'const',
