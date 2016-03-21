@@ -13,6 +13,9 @@
   "keywords": [
     "codemod"
   ],
+  "babel": {
+    "presets": ["shopify"]
+  },
   "eslintConfig": {
     "extends": "plugin:shopify/esnext"
   },
