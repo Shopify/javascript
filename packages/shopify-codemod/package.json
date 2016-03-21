@@ -1,6 +1,6 @@
 {
   "name": "shopify-codemod",
-  "version": "10.6.0",
+  "version": "10.6.1",
   "description": "Custom JSCodeShift transforms to help convert our rusty JavaScript.",
   "homepage": "https://github.com/Shopify/javascript/tree/master/packages/shopify-codemod",
   "repository": "https://github.com/Shopify/javascript/tree/master/packages/shopify-codemod",
@@ -14,7 +14,9 @@
     "codemod"
   ],
   "babel": {
-    "presets": ["shopify"]
+    "presets": [
+      "shopify"
+    ]
   },
   "eslintConfig": {
     "extends": "plugin:shopify/esnext"
