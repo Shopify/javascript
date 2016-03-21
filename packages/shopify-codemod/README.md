@@ -55,25 +55,6 @@ a(() => {
 });
 ```
 
-### `global-reference-to-import`
-
-Use magic to automatically transform global variable references into import statements.
-
-```sh
-jscodeshift -t shopify-codemods/transforms/global-reference-to-import <file>
-```
-
-#### Example
-
-```js
-console.log(App.Components.UIList);
-
-// BECOMES:
-
-import UIList from 'app/components/ui_list';
-console.log(UIList);
-```
-
 ### `mocha-context-to-closure`
 
 Transforms Mocha tests that use `this` to store context shared between tests to use closure variables instead.
