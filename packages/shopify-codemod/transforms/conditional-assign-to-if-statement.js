@@ -47,10 +47,17 @@ export default function conditionalAssignToIfStatement({source}, {jscodeshift: j
   return j(source)
     .find(j.LogicalExpression, (node) => isConditionalAssignment(node) && isAssigningToConditionObject(node))
     .replaceWith((path) => {
+      const originalCondition = path.node.left;
       const condition = negateExistenceCondition(path.node.left);
       const assignment = blockifyAssignment(path.node.right);
+      const ifBlock = j.ifStatement(condition, assignment);
 
-      return j.ifStatement(condition, assignment);
+      if (path.parent && j.ReturnStatement.check(path.parent.node)) {
+        path.parent.insertBefore(ifBlock);
+        return path.node.left;
+      } else {
+        return j.ifStatement(condition, assignment);
+      }
     })
     .toSource(printOptions);
 }
