@@ -1,8 +1,8 @@
 export default function conditionalAssignToIfStatement({source}, {jscodeshift: j}, {printOptions = {quote: 'single'}}) {
   function isConditionalAssignment(node) {
     const isUsingOr = (node.operator === '||');
-    const isLeftCheckingVariable = (node.left.type === 'MemberExpression') || (node.left.type === 'Identifier');
-    const isRightAssignment = (node.right.type === 'AssignmentExpression');
+    const isLeftCheckingVariable = (j.MemberExpression.check(node.left) || j.Identifier.check(node.left));
+    const isRightAssignment = j.AssignmentExpression.check(node.right);
 
     return isUsingOr && isLeftCheckingVariable && isRightAssignment;
   }
@@ -26,7 +26,7 @@ export default function conditionalAssignToIfStatement({source}, {jscodeshift: j
   function isAssigningToConditionObject(node) {
     const condition = node.left;
     const assignment = node.right.left;
-    const isMemberExpression = (condition.type === 'MemberExpression');
+    const isMemberExpression = j.MemberExpression.check(condition);
 
     return isMemberExpression
       ? isMemberEqual(condition, assignment)
