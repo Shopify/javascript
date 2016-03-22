@@ -41,10 +41,7 @@ export default function conditionalAssignToIfStatement({source}, {jscodeshift: j
   }
 
   function negateExistenceCondition(oldCondition) {
-    const booleanCheck = j.callExpression(j.identifier('Boolean'), [oldCondition]);
-    const newCondition = j.unaryExpression('!', booleanCheck);
-
-    return newCondition;
+    return j.unaryExpression('!', oldCondition);
   }
 
   return j(source)

@@ -26,7 +26,7 @@ foo || (foo = 'bar');
 
 // BECOMES:
 
-if (!Boolean(foo)) {
+if (!foo) {
   foo = 'bar';
 };
 ```

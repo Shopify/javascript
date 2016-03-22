@@ -1,3 +1,3 @@
-if (!Boolean(this.foo)) {
+if (!this.foo) {
   this.foo = 'lol';
 };
