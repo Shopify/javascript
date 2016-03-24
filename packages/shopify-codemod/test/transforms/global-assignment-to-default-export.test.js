@@ -13,4 +13,8 @@ describe('globalAssignmentToDefaultExport', () => {
   it('transforms global value assignments to default exports', () => {
     expect(globalAssignmentToDefaultExport).to.transform('global-assignment-to-default-export/value');
   });
+
+  it('preserves directives', () => {
+    expect(globalAssignmentToDefaultExport).to.transform('global-assignment-to-default-export/directive');
+  });
 });

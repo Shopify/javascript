@@ -11,3 +11,14 @@ export function findLastMember(node) {
   }
   return node;
 }
+
+export function insertAfterDirectives(body, newNode) {
+  let i = 0;
+  for (;i < body.length; i++) {
+    if (body[i].type !== 'ExpressionStatement' || body[i].expression.type !== 'Literal') {
+      break;
+    }
+  }
+  body.splice(i, 0, newNode);
+  return body;
+}

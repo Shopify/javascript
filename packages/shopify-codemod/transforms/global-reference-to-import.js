@@ -1,6 +1,6 @@
 import {spawnSync} from 'child_process';
 import {resolve, relative} from 'path';
-import {findFirstMember, findLastMember} from './utils';
+import {findFirstMember, findLastMember, insertAfterDirectives} from './utils';
 
 function determineFileSearcher() {
   if (spawnSync('which', ['ag']).status === 0) {
@@ -119,7 +119,8 @@ export default function globalReferenceToImport(
 
       for (const {file, name} of imports.values()) {
         const {node: {body}} = path;
-        body.unshift(
+        insertAfterDirectives(
+          body,
           j.importDeclaration([
             j.importDefaultSpecifier(j.identifier(name)),
           ], j.literal(file))
