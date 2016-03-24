@@ -1,6 +1,6 @@
 {
   "name": "shopify-codemod",
-  "version": "10.7.0",
+  "version": "10.7.1",
   "description": "Custom JSCodeShift transforms to help convert our rusty JavaScript.",
   "homepage": "https://github.com/Shopify/javascript/tree/master/packages/shopify-codemod",
   "repository": "https://github.com/Shopify/javascript/tree/master/packages/shopify-codemod",
