@@ -1,11 +1,4 @@
 export default function conditionalAssignToIfStatement({source}, {jscodeshift: j}, {printOptions = {quote: 'single'}}) {
-  function isConditionalAssignment(node) {
-    const isUsingOr = (node.operator === '||');
-    const isLeftCheckingVariable = (j.MemberExpression.check(node.left) || j.Identifier.check(node.left));
-    const isRightAssignment = j.AssignmentExpression.check(node.right);
-
-    return isUsingOr && isLeftCheckingVariable && isRightAssignment;
-  }
 
   function isMemberEqual(aNode, bNode) {
     return (
@@ -23,7 +16,7 @@ export default function conditionalAssignToIfStatement({source}, {jscodeshift: j
     );
   }
 
-  function isAssigningToConditionObject(node) {
+  function isAssigningToConditionObject({node}) {
     const condition = node.left;
     const assignment = node.right.left;
     const isMemberExpression = j.MemberExpression.check(condition);
@@ -33,34 +26,61 @@ export default function conditionalAssignToIfStatement({source}, {jscodeshift: j
       : isIdentifierEqual(condition, assignment);
   }
 
-  function blockifyAssignment(node) {
-    const assignment = j.expressionStatement(node);
+  function buildIfAssignBlock(logicalExpression) {
+    const originalCondition = logicalExpression.node.left;
+    const newCondition = j.unaryExpression('!', originalCondition);
+    const assignment = j.expressionStatement(logicalExpression.node.right);
     const assignmentBlock = j.blockStatement([assignment]);
+    const ifBlock = j.ifStatement(newCondition, assignmentBlock);
 
-    return assignmentBlock;
+    return ifBlock;
   }
 
-  function negateExistenceCondition(oldCondition) {
-    return j.unaryExpression('!', oldCondition);
+  function replaceAssignAndInvokeExpression(path) {
+    const logicalExpression = path.get('object');
+    const ifBlock = buildIfAssignBlock(logicalExpression);
+
+    path
+      .parent
+      .parent
+      .insertBefore(ifBlock);
+
+    return j.memberExpression(logicalExpression.node.right.left, path.get('property').value);
+  }
+
+  function replaceReturnExpression(path) {
+    const logicalExpression = path.get('argument');
+    const originalCondition = logicalExpression.node.left;
+    const ifBlock = buildIfAssignBlock(logicalExpression);
+
+    path.insertBefore(ifBlock);
+    return j.returnStatement(originalCondition);
+  }
+
+  function replaceExpression(path) {
+    const logicalExpression = path.get('expression');
+    const ifBlock = buildIfAssignBlock(logicalExpression);
+
+    path.insertBefore(ifBlock);
+    return;
   }
 
   return j(source)
-    .find(j.LogicalExpression, (node) => isConditionalAssignment(node) && isAssigningToConditionObject(node))
+    .find(j.LogicalExpression, {
+      type: (type) => j.LogicalExpression.name === type || j.ReturnStatement.name === type,
+      operator: '||',
+      left: (left) => j.MemberExpression.check(left) || j.Identifier.check(left),
+      right: (right) => j.AssignmentExpression.check(right),
+    })
+    .filter(isAssigningToConditionObject)
     .map((path) => path.parent)
     .replaceWith((path) => {
-      const isReturning = j.ReturnStatement.check(path.node);
-      const logicalExpression = isReturning ? path.get('argument') : path.get('expression');
-      const originalCondition = logicalExpression.node.left;
-      const newCondition = negateExistenceCondition(originalCondition);
-      const assignment = blockifyAssignment(logicalExpression.node.right);
-      const ifBlock = j.ifStatement(newCondition, assignment);
-
-      path.insertBefore(ifBlock);
-
-      if (isReturning) {
-        return j.returnStatement(originalCondition);
+      if (j.ReturnStatement.check(path.node)) {
+        return replaceReturnExpression(path);
+      } else if (j.MemberExpression.check(path.node)) {
+        return replaceAssignAndInvokeExpression(path);
       } else {
-        return;
+        return replaceExpression(path);
       }
     })
     .toSource(printOptions);

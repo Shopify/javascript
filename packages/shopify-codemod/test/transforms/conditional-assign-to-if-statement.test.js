@@ -18,6 +18,10 @@ describe('conditionalAssignToIfStatement', () => {
     expect(conditionalAssignToIfStatement).to.transform('conditional-assign-to-if-statement/assign-and-return');
   });
 
+  it('transforms assignments that are immediately invoked', () => {
+    expect(conditionalAssignToIfStatement).to.transform('conditional-assign-to-if-statement/assign-and-call');
+  });
+
   it('does not transform mismatched assignments', () => {
     expect(conditionalAssignToIfStatement).to.transform('conditional-assign-to-if-statement/assign-to-other-member');
   });
