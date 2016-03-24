@@ -9,4 +9,8 @@ describe('globalReferenceToImport', () => {
   it('transforms assignments of global references to imports', () => {
     expect(globalReferenceToImport).to.transform('global-reference-to-import/assignment');
   });
+
+  it('preserves directives', () => {
+    expect(globalReferenceToImport).to.transform('global-reference-to-import/directive');
+  });
 });

@@ -1,4 +1,4 @@
-import {findFirstMember} from './utils';
+import {findFirstMember, insertAfterDirectives} from './utils';
 
 export default function globalAssignmentToDefaultExport({source}, {jscodeshift: j}, {printOptions = {}, appGlobalIdentifiers}) {
   return j(source)
@@ -37,7 +37,10 @@ export default function globalAssignmentToDefaultExport({source}, {jscodeshift: 
 
       if (expose != null) {
         const {node: {body}} = programPath;
-        body.unshift(j.expressionStatement(j.literal(`expose ${expose}`)));
+        insertAfterDirectives(
+          body,
+          j.expressionStatement(j.literal(`expose ${expose}`))
+        );
       }
     })
     .toSource(printOptions);
