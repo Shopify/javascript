@@ -1,4 +1,4 @@
-# shopify-codemods
+# shopify-codemod
 
 This repository contains a collection of Codemods written with [JSCodeshift](https://github.com/facebook/jscodeshift) that will help update our old, crusty JavaScript to nice, clean JavaScript.
 
@@ -11,12 +11,32 @@ This repository contains a collection of Codemods written with [JSCodeshift](htt
 
 ## Included Transforms
 
+### `conditional-assign-to-if-statement`
+
+Changes conditional assignment of default values to if statements (see [`no-unused-expressions`.](http://eslint.org/docs/rules/no-unused-expressions))
+
+```sh
+jscodeshift -t shopify-codemod/transforms/conditional-assign-to-if-statement <file>
+```
+
+#### Example
+
+```js
+foo || (foo = 'bar');
+
+// BECOMES:
+
+if (!foo) {
+  foo = 'bar';
+};
+```
+
 ### `constant-function-expression-to-statement`
 
 Changes constant function expression declarations to a statement.
 
 ```sh
-jscodeshift -t shopify-codemods/transforms/constant-function-expression-to-statement <file>
+jscodeshift -t shopify-codemod/transforms/constant-function-expression-to-statement <file>
 ```
 
 #### Example
@@ -38,7 +58,7 @@ function a() {
 Changes function expressions to arrow functions, where possible.
 
 ```sh
-jscodeshift -t shopify-codemods/transforms/function-to-arrow <file>
+jscodeshift -t shopify-codemod/transforms/function-to-arrow <file>
 ```
 
 #### Example
@@ -102,7 +122,7 @@ console.log(UIList);
 Transforms Mocha tests that use `this` to store context shared between tests to use closure variables instead.
 
 ```sh
-jscodeshift -t shopify-codemods/transforms/mocha-context-to-closure <file>
+jscodeshift -t shopify-codemod/transforms/mocha-context-to-closure <file>
 ```
 
 #### Example
@@ -137,7 +157,7 @@ describe(() => {
 Changes CoffeeScript-translated test files to remove useless return statements.
 
 ```sh
-jscodeshift -t shopify-codemods/transforms/remove-useless-return-from-test <file>
+jscodeshift -t shopify-codemod/transforms/remove-useless-return-from-test <file>
 ```
 
 #### Example
@@ -213,7 +233,7 @@ suite('a', () => {
 Changes ternary statement expressions to if statements.
 
 ```sh
-jscodeshift -t shopify-codemods/transforms/ternary-statement-to-if-statement <file>
+jscodeshift -t shopify-codemod/transforms/ternary-statement-to-if-statement <file>
 ```
 
 #### Example
