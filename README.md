@@ -518,6 +518,24 @@ npm run lint
   const goodArray = [1, 2, 3];
   ```
 
+- [4.10](#4.10) <a name="4.10"></a> Limit the number of statements on a single line to improve readability.
+
+  ESLint rule: [`max-statements-per-line`](http://eslint.org/docs/rules/max-statements-per-line.html)
+
+  ```js
+  // bad
+  function bad() { dont = 'do this'; return please; }
+
+  // good
+  function good() {
+    doThis = true;
+    return thanks;
+  }
+
+  // fine as well, as long as there is only one, short statement.
+  function fine() { return 'but don’t push it!'; }
+  ```
+
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
 
 
