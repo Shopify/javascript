@@ -23,27 +23,25 @@
   "author": "Chris Sauve <chrismsauve@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "lerna": "^1.1.1",
-    "shelljs": "^0.6.0",
-
-    "eslint": "2.4.0",
-    "eslint-plugin-shopify": "file:./packages/eslint-plugin-shopify",
-
-    "babel-core": "^6.7.0",
     "babel-cli": "^6.6.4",
+    "babel-core": "^6.7.0",
     "babel-preset-shopify": "file:./packages/babel-preset-shopify",
     "chai": "^3.5.0",
     "coveralls": "^2.11.8",
-    "eslint": "2.2.0",
     "eslint-plugin-shopify": "file:./packages/eslint-plugin-shopify",
+    "eslint-plugin-shopify": "file:./packages/eslint-plugin-shopify",
+    "eslint": "^2.5.1",
+    "eslint": "2.2.0",
     "isparta": "^4.0.0",
     "istanbul": "^0.4.2",
     "jscodeshift": "^0.3.17",
     "lerna": "^1.1.1",
+    "lerna": "^1.1.1",
     "mocha": "^2.4.5",
     "proxyquire": "^1.7.4",
     "shelljs": "^0.6.0",
-    "sinon": "^1.17.3",
-    "sinon-chai": "^2.8.0"
+    "shelljs": "^0.6.0",
+    "sinon-chai": "^2.8.0",
+    "sinon": "^1.17.3"
   }
 }
