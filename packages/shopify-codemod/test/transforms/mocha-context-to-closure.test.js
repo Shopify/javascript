@@ -25,4 +25,8 @@ describe('mochaContextToClosure', () => {
   it('handles bdd syntax', () => {
     expect(mochaContextToClosure).to.transform('mocha-context-to-closure/bdd');
   });
+
+  it('handles usage of this in functions defined on the mocha context', () => {
+    expect(mochaContextToClosure).to.transform('mocha-context-to-closure/contextually-declared-functions');
+  });
 });

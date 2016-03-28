@@ -39,9 +39,24 @@ export default function mochaContextToClosure({source}, {jscodeshift: j}, {print
     return node;
   }
 
+  function isContextuallyAssignedFunction(functionPath) {
+    return (
+      j.match(functionPath, {type: 'FunctionExpression'}) &&
+      j.match(functionPath.parent, {
+        type: 'AssignmentExpression',
+        left: {
+          object: {type: 'ThisExpression'},
+        },
+      })
+    );
+  }
+
   function handleContextSetter(path) {
     function isScopedToSetup(otherPath) {
-      return otherPath.scope.path.parent === path;
+      const parentScope = otherPath.scope.path;
+      const relevantParentPath = parentScope.parent;
+      return (relevantParentPath === path) ||
+        isContextuallyAssignedFunction(parentScope);
     }
 
     const {node} = path;
