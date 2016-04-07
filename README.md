@@ -747,7 +747,7 @@ npm run lint
 
   ESLint rules: [`no-labels`](http://eslint.org/docs/rules/no-labels.html), [`no-with`](http://eslint.org/docs/rules/no-with.html)
 
-  > Why? Using labels is generally indicative of code that is overly complex. The `with` statement makes it [difficuly for the reader](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/with) to determine whether a given binding exists and, if it exists, in which scope or object it will be found. It is also not allowed in strict mode.
+  > Why? Using labels is generally indicative of code that is overly complex. The `with` statement makes it [difficult for the reader](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/with) to determine whether a given binding exists and, if it exists, in which scope or object it will be found. It is also not allowed in strict mode.
 
 - [6.3](#6.3) <a name="6.3"></a> Never perform assignment in a condition.
 
@@ -947,7 +947,7 @@ npm run lint
   };
   ```
 
-- [7.6](#7.6) <a name="7.6"></a> Use computed property names (unless using Flow, which does not yet support these yet).
+- [7.6](#7.6) <a name="7.6"></a> Use computed property names (unless using Flow, which does not support these yet).
 
   > Why? It allows you to define all properties in one place, and mirrors the way you would access those properties.
 

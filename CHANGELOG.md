@@ -1,5 +1,69 @@
 # Changelog
 
+## 10.9.0
+
+### Added
+
+- Added a `conditional-assign-to-if-statement` transform to `shopify-codemod` to convert the common CoffeeScript translation idiom of `foo || (foo = bar)` into a more appropriate JavaScript idiom.
+
+## 10.8.1
+
+### Fixed
+
+- Updated the `mocha-context-to-closure` rule to also transform uses of `this` inside contextually-declared functions.
+
+### Build
+
+- Updated version of `npm` used in CI.
+
+## 10.8.0
+
+### Added
+
+- Added `eslint-plugin-babel` as a dependency for `eslint-plugin-shopify` to fix some linting issues with ESNext features. Most notably, this fixes the way `object-curly-spacing` would fail on some `import` statements, and how `arrow-parens` would fail for `async` functions. The following rules are now updated to use the `eslint-plugin-babel` equivalents: `array-bracket-spacing`, `arrow-parens`, `generator-star-spacing`, `new-cap`, `no-await-in-loop`, `object-curly-spacing`, and `object-shorthand`.
+- Added new ESLint rules: `no-useless-escape`, `no-duplicate-imports`, `no-restricted-globals`, and `max-statements-per-line`.
+- Added a new `eslint-plugin-react` rule: `prefer-stateless-function` (off by default, because of issues with React’s testing utilities).
+
+### Updated
+
+- Used the new string severity levels introduced in ESLint 2.5.0.
+
+### Build
+
+- Bumped the node version for the project.
+- Updated to the most recent versions of dependencies.
+
+## 10.7.1
+
+### Fixed
+
+- Prevents the two transforms added in `10.7.0` from clobbering existing directives.
+
+## 10.7.0
+
+### Added
+
+- Added `global-assignment-to-default-export` transform, which automatically exports a single global set within a given file.
+- Added `global-reference-to-import` transform, which searches through the file system to find the source of a global reference, and transforms that reference into the appropriate identifier and `import` statement.
+
+## 10.6.2
+
+### Fixed
+
+- Prevented `function-to-arrow` transform in `shopify-codemod` from incorrectly transforming methods using the shorthand syntax.
+
+## 10.6.1
+
+### Build
+
+- Set up the babel config for `shopify-codemod`.
+
+## 10.6.0
+
+### Added
+
+- Add `remove-useless-return-from-test` rule to `shopify-codemod` repo, which removes unnecessary `return`s at the end of test files that the CoffeeScript to JavaScript conversion leaves behind.
+
 ## 10.5.0
 
 ### Added
