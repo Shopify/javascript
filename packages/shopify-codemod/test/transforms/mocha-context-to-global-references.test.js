@@ -6,7 +6,7 @@ describe('mochaContextToGlobalReferences', () => {
     expect(mochaContextToGlobalReferences).to.transform('mocha-context-to-global-references/rename', {
       testContextToGlobals: {
         sinon: {properties: ['spy', 'stub', 'server']},
-      }
+      },
     });
   });
 
@@ -21,8 +21,9 @@ describe('mochaContextToGlobalReferences', () => {
         testGlobal: {
           properties: ['shouldBeReplaced', 'mustBeReplaced'],
           replace: true,
-        }
-      }
+        },
+      },
     });
   });
 });
+  
