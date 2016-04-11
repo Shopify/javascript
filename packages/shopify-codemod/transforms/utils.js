@@ -22,3 +22,26 @@ export function insertAfterDirectives(body, newNode) {
   body.splice(i, 0, newNode);
   return body;
 }
+
+// from https://github.com/sindresorhus/globals/blob/1e9ebc39828b92bd5c8ec7dc7bb07d62f2fb0153/globals.json#L852
+export const MOCHA_FUNCTIONS = new Set([
+  'after',
+  'afterEach',
+  'before',
+  'beforeEach',
+  'context',
+  'describe',
+  'it',
+  'mocha',
+  'setup',
+  'specify',
+  'suite',
+  'suiteSetup',
+  'suiteTeardown',
+  'teardown',
+  'test',
+  'xcontext',
+  'xdescribe',
+  'xit',
+  'xspecify',
+]);

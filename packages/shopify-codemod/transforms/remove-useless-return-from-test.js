@@ -1,25 +1,4 @@
-// from https://github.com/sindresorhus/globals/blob/1e9ebc39828b92bd5c8ec7dc7bb07d62f2fb0153/globals.json#L852
-const FUNCTIONS = [
-  'after',
-  'afterEach',
-  'before',
-  'beforeEach',
-  'context',
-  'describe',
-  'it',
-  'mocha',
-  'setup',
-  'specify',
-  'suite',
-  'suiteSetup',
-  'suiteTeardown',
-  'teardown',
-  'test',
-  'xcontext',
-  'xdescribe',
-  'xit',
-  'xspecify',
-];
+import {MOCHA_FUNCTIONS} from './utils';
 
 export default function removeUselessReturnFromTest({source}, {jscodeshift: j}, {printOptions = {}}) {
   function matchLast(matcher) {
@@ -30,7 +9,7 @@ export default function removeUselessReturnFromTest({source}, {jscodeshift: j}, 
     .find(j.CallExpression, {
       callee: {
         type: 'Identifier',
-        name: (name) => FUNCTIONS.indexOf(name) >= 0,
+        name: (name) => MOCHA_FUNCTIONS.has(name),
       },
       arguments: matchLast({
         type: (type) => type === 'ArrowFunctionExpression' || type === 'FunctionExpression',
