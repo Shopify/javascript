@@ -1,5 +1,13 @@
 # Changelog
 
+## 10.10.0
+
+### Added
+
+- Added a `mocha-context-to-global-reference` transform to `shopify-codemod` to transform uses of context-injected properties (from, for instance, a sinon sandbox) to use a specified global instead.
+
+- Added Enzyme as a recommended utility for testing React codebases.
+
 ## 10.9.0
 
 ### Added
