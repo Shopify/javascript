@@ -17,4 +17,8 @@ describe('functionToArrow', () => {
   it("doesn't transform methods", () => {
     expect(functionToArrow).to.transform('function-to-arrow/method');
   });
+
+  it('transforms return without argument to empty arrow function', () => {
+    expect(functionToArrow).to.transform('function-to-arrow/return-without-argument');
+  });
 });

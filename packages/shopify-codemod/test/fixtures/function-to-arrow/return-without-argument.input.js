@@ -1,0 +1,3 @@
+var shouldBecomeEmptyArrowFunction = function() {
+  return;
+};
