@@ -60,7 +60,7 @@ module.exports = {
   // Prefer _.constant over functions returning literals.
   'prefer-constant': 'off',
   // Prefer using _.get or _.has over expression chains like a && a.b && a.b.c.
-  'prefer-get': 'off',
+  'prefer-get': 'warn',
   // Prefer _.includes over comparing indexOf to -1.
   'prefer-includes': 'off',
   // Prefer _.isNil over checks for both null and undefined.
