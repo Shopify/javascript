@@ -1,8 +1,19 @@
 export default function functionToArrow({source}, {jscodeshift: j}, {printOptions = {}}) {
+  function isMember({parent}) {
+    return j.MethodDefinition.check(parent.node) || j.Property.check(parent.node);
+  }
+
+  function containsThisExpression(path) {
+    return j(path).find(j.ThisExpression).size() > 0;
+  }
+
+  function isConvertibleFunction(path) {
+    return !isMember(path) && !containsThisExpression(path);
+  }
+
   return j(source)
     .find(j.FunctionExpression)
-    .filter(({parent}) => !j.MethodDefinition.check(parent.node) && !j.Property.check(parent.node))
-    .filter((path) => j(path).find(j.ThisExpression).size() === 0)
+    .filter(isConvertibleFunction)
     .replaceWith(({node}) => {
       const {params} = node;
       let {body} = node;
