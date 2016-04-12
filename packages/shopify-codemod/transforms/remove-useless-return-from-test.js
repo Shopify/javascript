@@ -23,7 +23,12 @@ export default function removeUselessReturnFromTest({source}, {jscodeshift: j}, 
     })
     .forEach((path) => {
       const {body: {body}} = path.node.arguments[path.node.arguments.length - 1];
-      body[body.length - 1] = j.expressionStatement(body[body.length - 1].argument);
+      const returnStatement = body[body.length - 1];
+      if (returnStatement.argument) {
+        body[body.length - 1] = j.expressionStatement(returnStatement.argument);
+      } else {
+        body.pop();
+      }
     })
     .toSource(printOptions);
 }

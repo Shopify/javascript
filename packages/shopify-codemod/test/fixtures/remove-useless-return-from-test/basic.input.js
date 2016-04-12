@@ -1,4 +1,7 @@
 suite('a', () => {
+  beforeEach(function() {
+    return;
+  });
   beforeEach(() => {
     return a();
   });
