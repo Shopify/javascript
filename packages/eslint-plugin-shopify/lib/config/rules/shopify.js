@@ -5,4 +5,6 @@ module.exports = {
   'shopify/binary-assignment-parens': ['warn', 'always'],
   // Prefer early returns over full-body conditional wrapping in function declarations.
   'shopify/prefer-early-return': ['warn', {maximumStatements: 1}],
+  // Requires that all jQuery objects are assigned to references prefixed with `$`.
+  'shopify/jquery-dollar-sign-reference': 'warn',
 };
