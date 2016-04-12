@@ -2,6 +2,8 @@ module.exports = {
   rules: {
     'require-flow': require('./lib/rules/require-flow'),
     'binary-assignment-parens': require('./lib/rules/binary-assignment-parens'),
+    'prefer-early-return': require('./lib/rules/prefer-early-return'),
+    'jquery-dollar-sign-reference': require('./lib/rules/jquery-dollar-sign-reference'),
   },
 
   configs: {

@@ -73,6 +73,8 @@ This plugin provides the following custom rules, which are included as appropria
 
 - [require-flow](docs/rules/require-flow.md): Requires (or disallows) @flow declarations be present at the top of each file.
 - [binary-assignment-parens](docs/rules/binary-assignment-parens.md): Requires (or disallows) assignments of binary, boolean-producing expressions to be wrapped in parentheses.
+- [prefer-early-return](docs/rules/prefer-early-return.md): Prefer early returns over full-body conditional wrapping in function declarations.
+- [jquery-dollar-sign-reference](docs/rules/jquery-dollar-sign-reference.md): Requires that all jQuery objects are assigned to references prefixed with `$`.
 
 ## Creating New Rules
 
