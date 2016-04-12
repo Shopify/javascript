@@ -13,4 +13,8 @@ describe('functionToArrow', () => {
   it("doesn't break on property method shorthand", () => {
     expect(functionToArrow).to.transform('function-to-arrow/property');
   });
+
+  it("doesn't transform methods", () => {
+    expect(functionToArrow).to.transform('function-to-arrow/method');
+  });
 });
