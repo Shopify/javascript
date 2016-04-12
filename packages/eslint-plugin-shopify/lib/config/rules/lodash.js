@@ -4,7 +4,7 @@ module.exports = {
   // Possible errors
 
   // Use or avoid thisArg for Lodash method callbacks, depending on major version.
-  'callback-binding': 'warn',
+  'callback-binding': 'error',
   // Use value returned from collection methods properly.
   'collection-method-value': 'warn',
   // Always return a value in iteratees of Lodash collection methods that aren't forEach.
@@ -25,7 +25,7 @@ module.exports = {
   // Prefer matches property shorthand syntax
   'matches-prop-shorthand': ['warn', 'never'],
   // Prefer matches shorthand syntax
-  'matches-shorthand': ['warn', 'never'],
+  'matches-shorthand': ['warn', 'always', true],
   // Do not use .commit() on chains that should end with .value()
   'no-commit': 'warn',
   // Prevent chaining syntax for single method, e.g. _(x).map().value()
