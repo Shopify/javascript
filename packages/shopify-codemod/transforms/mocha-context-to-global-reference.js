@@ -1,6 +1,6 @@
 import {MOCHA_FUNCTIONS} from './utils';
 
-export default function removeUselessReturnFromTest(
+export default function mochaContextToGlobalReference(
   {source},
   {jscodeshift: j},
   {

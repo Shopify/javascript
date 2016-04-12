@@ -1,9 +1,9 @@
 import 'test-helper';
-import mochaContextToGlobalReferences from 'mocha-context-to-global-references';
+import mochaContextToGlobalReference from 'mocha-context-to-global-reference';
 
-describe('mochaContextToGlobalReferences', () => {
+describe('mochaContextToGlobalReference', () => {
   it('renames the member expression to use a test global', () => {
-    expect(mochaContextToGlobalReferences).to.transform('mocha-context-to-global-references/rename', {
+    expect(mochaContextToGlobalReference).to.transform('mocha-context-to-global-reference/rename', {
       testContextToGlobals: {
         sinon: {properties: ['spy', 'stub', 'server']},
       },
@@ -11,7 +11,7 @@ describe('mochaContextToGlobalReferences', () => {
   });
 
   it('replaces a contextual reference to a global reference', () => {
-    expect(mochaContextToGlobalReferences).to.transform('mocha-context-to-global-references/replace', {
+    expect(mochaContextToGlobalReference).to.transform('mocha-context-to-global-reference/replace', {
       testContextToGlobals: {
         testClock: {
           properties: ['clock'],

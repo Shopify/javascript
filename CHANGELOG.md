@@ -1,5 +1,11 @@
 # Changelog
 
+## 10.10.1
+
+### Fixed
+
+- Renamed `mocha-context-to-global-references` transform to `mocha-context-to-global-reference`.
+
 ## 10.10.0
 
 ### Added
