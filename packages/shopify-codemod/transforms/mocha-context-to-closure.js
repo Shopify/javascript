@@ -1,3 +1,5 @@
+import {MOCHA_FUNCTIONS} from './utils';
+
 export default function mochaContextToClosure({source}, {jscodeshift: j}, {printOptions = {quote: 'single'}}) {
   let currentContext;
   const root = j(source);
@@ -112,6 +114,7 @@ export default function mochaContextToClosure({source}, {jscodeshift: j}, {print
 
     root
       .find(j.CallExpression)
+      .filter(({node}) => MOCHA_FUNCTIONS.has(node.callee.name))
       .filter(isScopedToContext)
       .replaceWith((callPath) => {
         if (setsContextProperties(callPath)) { return handleContextSetter(callPath); }

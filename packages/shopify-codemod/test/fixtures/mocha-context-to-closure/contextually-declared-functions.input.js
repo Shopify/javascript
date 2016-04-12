@@ -9,4 +9,7 @@ suite('top-level', function() {
       return this.foo === 'mystery';
     }
   });
+
+  // Suites may call methods that generate tests.
+  shouldNotBeTransformed();
 });
