@@ -1,9 +1,7 @@
-import {MOCHA_FUNCTIONS} from './utils';
+import {MOCHA_FUNCTIONS, matchLast as matchLastNode} from './utils';
 
 export default function removeUselessReturnFromTest({source}, {jscodeshift: j}, {printOptions = {}}) {
-  function matchLast(matcher) {
-    return (nodes) => nodes.length > 0 && j.match(nodes[nodes.length - 1], matcher);
-  }
+  const matchLast = matchLastNode.bind(null, j);
 
   return j(source)
     .find(j.CallExpression, {
