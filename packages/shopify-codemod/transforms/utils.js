@@ -12,6 +12,10 @@ export function findLastMember(node) {
   return node;
 }
 
+export function matchLast(j, matcher) {
+  return (nodes) => nodes.length > 0 && j.match(nodes[nodes.length - 1], matcher);
+}
+
 export function insertAfterDirectives(body, newNode) {
   let i = 0;
   for (;i < body.length; i++) {
