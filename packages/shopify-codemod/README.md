@@ -11,6 +11,41 @@ This repository contains a collection of Codemods written with [JSCodeshift](htt
 
 ## Included Transforms
 
+### `coffeescript-range-output-to-helper`
+
+Changes the output of CoffeeScript’s range operator (`[foo...bar]`) into a reference to Shopify’s global range helper. Because this creates a global, you should run the `global-reference-to-import` transform after this one.
+
+```sh
+jscodeshift -t shopify-codemod/transforms/coffeescript-range-output-to-helper <file>
+```
+
+#### Example
+
+```js
+// [this.qux..foo.bar.baz()] in CoffeeScript
+
+(function() {
+  var ref;
+  var results = [];
+
+  for (var i = ref = this.qux, ref1 = foo.bar.baz(); (ref <= ref1 ? i <= ref1 : i >= ref1); (ref <= ref1 ? i++ : i--)) {
+      results.push(i);
+  }
+
+  return results;
+}).apply(this);
+
+
+// BECOMES:
+
+Shopify.range({
+  from: this.qux,
+  to: foo.bar.baz(),
+  inclusive: true
+});
+
+```
+
 ### `mocha-context-to-global-reference`
 
 Removes any specified properties that are injected into the mocha test context (that is, that are referenced using `this` in your tests) to appropriate globals instead. This is particularly useful for making any sinon-injected properties reference a global sinon sandbox. Note that you must provide a `testContextToGlobals` option for your transform, with keys that indicate the proper global to reference, referencing an object with a `properties` key that is an array of contextual properties to look for, and an optional `replace` key that indicates that the entire property should be renamed.

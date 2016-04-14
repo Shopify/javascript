@@ -1,5 +1,11 @@
 # Changelog
 
+## 10.10.11
+
+### Added
+
+- Added a `coffeescript-range-output-to-helper` transform to `shopify-codemod` to provide a better conversion for CoffeeScript range syntax.
+
 ## 10.10.1
 
 ### Fixed
