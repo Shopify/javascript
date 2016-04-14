@@ -3,5 +3,5 @@ module.exports = {
     'lodash',
   ],
 
-  rules: require('../rules/lodash'),
+  rules: require('./rules/lodash'),
 };
