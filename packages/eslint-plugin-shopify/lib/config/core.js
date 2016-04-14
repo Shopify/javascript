@@ -3,7 +3,6 @@ var merge = require('merge');
 module.exports = {
   plugins: [
     'shopify',
-    'lodash',
   ],
 
   ecmaFeatures: {
