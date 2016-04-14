@@ -1,16 +1,24 @@
 import 'test-helper';
-import ternaryStatementToIfStatement from 'function-to-arrow';
+import functionToArrow from 'function-to-arrow';
 
 describe('functionToArrow', () => {
   it('transforms the simple case', () => {
-    expect(ternaryStatementToIfStatement).to.transform('function-to-arrow/basic');
+    expect(functionToArrow).to.transform('function-to-arrow/basic');
   });
 
   it("doesn't transform function that use `this`", () => {
-    expect(ternaryStatementToIfStatement).to.transform('function-to-arrow/this');
+    expect(functionToArrow).to.transform('function-to-arrow/this');
   });
 
   it("doesn't break on property method shorthand", () => {
-    expect(ternaryStatementToIfStatement).to.transform('function-to-arrow/property');
+    expect(functionToArrow).to.transform('function-to-arrow/property');
+  });
+
+  it("doesn't transform methods", () => {
+    expect(functionToArrow).to.transform('function-to-arrow/method');
+  });
+
+  it('transforms return without argument to empty arrow function', () => {
+    expect(functionToArrow).to.transform('function-to-arrow/return-without-argument');
   });
 });
