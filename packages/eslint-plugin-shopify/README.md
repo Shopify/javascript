@@ -69,7 +69,7 @@ This plugin also provides the following tool-specific configurations, which can 
 
 ## Plugin-Provided Rules
 
-This plugin provides the following custom rules:
+This plugin provides the following custom rules, which are included as appropriate in all core linting configs:
 
 - [require-flow](docs/rules/require-flow.md): Requires (or disallows) @flow declarations be present at the top of each file.
 - [binary-assignment-parens](docs/rules/binary-assignment-parens.md): Requires (or disallows) assignments of binary, boolean-producing expressions to be wrapped in parentheses.
