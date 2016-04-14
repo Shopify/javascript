@@ -1,5 +1,3 @@
-var merge = require('merge');
-
 module.exports = {
   extends: 'plugin:shopify/core',
 
