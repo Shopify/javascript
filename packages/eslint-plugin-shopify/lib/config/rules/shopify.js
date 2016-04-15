@@ -15,4 +15,6 @@ module.exports = {
   'shopify/restrict-full-import': 'off',
   // Restricts the use of specified sinon features.
   'shopify/sinon-no-restricted-features': 'off',
+  // Requires the use of meaningful sinon assertions through sinon.assert or sinon-chai.
+  'shopify/sinon-prefer-meaningful-assertions': 'off',
 };

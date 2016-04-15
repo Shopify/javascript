@@ -58,6 +58,7 @@ This plugin provides the following custom rules:
 - [no-useless-computed-properties](docs/rules/no-useless-computed-properties.md): Prevents the usage of unnecessary computed properties.
 - [restrict-full-import](docs/rules/restrict-full-import.md): Prevents importing the entirety of a package.
 - [sinon-no-restricted-features](docs/rules/sinon-no-restricted-features.md): Restricts the use of specified sinon features.
+- [sinon-prefer-meaningful-assertions](docs/rules/sinon-prefer-meaningful-assertions.md): Requires the use of meaningful sinon assertions through sinon.assert or sinon-chai.
 
 ## Creating New Rules
 
