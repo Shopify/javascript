@@ -36,44 +36,26 @@ Have a legacy codebase? Can’t use ES2015? Our [legacy styleguide](legacy/) is 
 
 ## Using this guide
 
-Many of the following rules are enforced by our [shared ESLint config/ plugin](packages/eslint-config-plugin), which you can use in most editors and CI environments. To use it, you will need to have [Node.js >=5.5.0 and npm installed](https://docs.npmjs.com/getting-started/installing-node). Once these are installed, you have two options for adding ESLint to your project: using our Yeoman generator, or installing everything manually.
-
-### Yeoman Generator
-
-We’ve built a [Yeoman](http://yeoman.io) generator for quickly adding ESLint to your project. First, install Yeoman and the generator globally:
-
-```bash
-npm install -g yo generator-eslint-shopify
-```
-
-Then, use Yeoman’s `yo` command to run the generator, and follow the generator’s prompts.
-
-```bash
-yo eslint-shopify
-```
-
-This generator will install all the required dependencies and add a linting script to your project, so that you can now run the following to run ESLint:
-
-```bash
-npm run lint
-```
-
-### Manually
+Many of the following rules are enforced by our [shared ESLint config/ plugin](packages/eslint-config-plugin), which you can use in most editors and CI environments. To use it, you will need to have [Node.js >=5.7.0 and npm installed](https://docs.npmjs.com/getting-started/installing-node). Once these are installed, you must then install ESLint and the Shopify plugin:
 
 ```bash
 npm install eslint eslint-plugin-shopify --save-dev
 ```
 
-Once these are installed, you will need to add a `.eslintrc` file at the root of your project that specifies that you'd like to extend the Shopify configuration.
+Once these are installed, you will need to add an ESLint configuration in your project’s `package.json`.
 
 ```js
 {
-  // or "plugin:shopify/es5" for the ES5 config, "plugin:shopify/react" for the React config
-  "extends": "plugin:shopify/esnext",
-  // choose your environments: http://eslint.org/docs/user-guide/configuring.html#specifying-environments
-  "env": {}
+  "eslintConfig": {
+    // or "plugin:shopify/es5" for the ES5 config, "plugin:shopify/react" for the React config.
+    "extends": "plugin:shopify/esnext",
+    // choose your environments: http://eslint.org/docs/user-guide/configuring.html#specifying-environments
+    "env": {}
+  }
 }
 ```
+
+> Note: you can also provide an array of configurations, if you want to have linting rules for tools like lodash. See the [eslint-plugin-shopify](packages/eslint-plugin-shopify) repo for details.
 
 You can now use ESLint. The easiest way to do this is by adding a linting script to your `package.json`:
 
