@@ -1,6 +1,6 @@
 # Legacy JavaScript Styleguide
 
-This guide is a snapshot of our "legacy" JavaScript styleguide. Any new projects should use the [newer styleguide](../), but projects that have a lot of existing code can continue to use the guide below. Note that some rules in this guide may conflict with the [shared ESLint configuration](../packages/eslint-config-shopify), as it is configured to match our newer styleguide.
+This guide is a snapshot of our "legacy" JavaScript styleguide. Any new projects should use the [newer styleguide](../), but projects that have a lot of existing code can continue to use the guide below. Note that some rules in this guide may conflict with the [shared ESLint configuration](../plugin/eslint-config-shopify), as it is configured to match our newer styleguide.
 
 ### TL;DR (details and rationale follow below)
 

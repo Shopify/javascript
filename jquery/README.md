@@ -8,6 +8,8 @@ This guide provides a few guidelines on writing sensible jQuery.
 
 - Prefix all jQuery references with a `$`.
 
+  ESLint rule: [`jquery-dollar-sign-reference`](packages/eslint-plugin-shopify/docs/rules/jquery-dollar-sign-reference.md)
+
   > Why? This allows another developer to easily identify a jQuery variable (in particular, to differentiate such an object from a vanilla DOM node).
 
   ```js
