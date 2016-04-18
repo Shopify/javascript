@@ -26,4 +26,4 @@ The success/ failure cases are reversed when the argument is explicitly `'never'
 
 ## When Not To Use It
 
-If you do not wish to enforce semicolons for class proeprties, then you can safely disable this rule.
+If you do not wish to enforce semicolons for class properties, then you can safely disable this rule.

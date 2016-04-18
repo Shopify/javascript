@@ -4,7 +4,7 @@ Importing the entirety of a large module can be undesirable because it becomes h
 
 ## Rule Details
 
-This rule aims to restrict the imports of specified modules to only be an import of specific properties. This does **not** mean that you are not importing from the module, it simply means that you only extract the properties you need.
+This rule prevents default imports for a configurable list of modules. This is **not** a module blacklist; individual properties can still be imported, including those from the list of modules provided to this rule.
 
 This rule takes a single argument, an array of module names that should not be fully imported.
 
@@ -35,4 +35,4 @@ var {chain} = require('lodash');
 
 ## When Not To Use It
 
-If you do not want to restrict from full imports from modules, you can safely disable this rule.
+If you do not want to restrict default imports from any modules, you can safely disable this rule.
