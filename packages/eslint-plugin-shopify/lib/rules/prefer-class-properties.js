@@ -29,47 +29,57 @@ module.exports = function(context) {
     if (isSimpleLiteral(node.right) && isStaticMemberExpression(node.left)) {
       context.report({
         node: node,
-        message: 'BAD!',
+        message: 'Unexpected assignment of literal instance member. Use class properties instead.',
       });
     }
   }
 
+  function getTopLevelThisAssignmentExpressions(functionNode) {
+    return functionNode
+      .body
+      .body
+      .filter(function(bodyNode) {
+        return bodyNode.type === 'ExpressionStatement' &&
+          bodyNode.expression.type === 'AssignmentExpression' &&
+          bodyNode.expression.left.type === 'MemberExpression' &&
+          bodyNode.expression.left.object.type === 'ThisExpression';
+      })
+      .map(function(bodyNode) {
+        return bodyNode.expression;
+      });
+  }
+
+  function getConstructor(classNode) {
+    return classNode
+      .body
+      .body
+      .find(function(propertyNode) {
+        return propertyNode.type === 'MethodDefinition' && propertyNode.key.name === 'constructor';
+      });
+  }
+
+  function getClassInstanceProperties(classNode) {
+    return classNode
+      .body
+      .body
+      .filter(function(propertyNode) {
+        return propertyNode.type === 'ClassProperty' && !propertyNode.static;
+      });
+  }
+
   function checkClassDeclaration(node) {
     if (applyAlways) {
-      var constructor = node
-        .body
-        .body
-        .find(function(propertyNode) {
-          return propertyNode.type === 'MethodDefinition' && propertyNode.key.name === 'constructor';
-        });
-
+      var constructor = getConstructor(node);
       if (!constructor) { return; }
 
-      constructor
-        .value
-        .body
-        .body
-        .filter(function(bodyNode) {
-          return bodyNode.type === 'ExpressionStatement' &&
-            bodyNode.expression.type === 'AssignmentExpression' &&
-            bodyNode.expression.left.type === 'MemberExpression' &&
-            bodyNode.expression.left.object.type === 'ThisExpression';
-        })
-        .map(function(bodyNode) { return bodyNode.expression; })
-        .forEach(checkConstructorThisAssignment);
+      getTopLevelThisAssignmentExpressions(constructor.value).forEach(checkConstructorThisAssignment);
     } else {
-      node
-        .body
-        .body
-        .filter(function(propertyNode) {
-          return propertyNode.type === 'ClassProperty' && !propertyNode.static;
-        })
-        .forEach(function(propertyNode) {
-          context.report({
-            node: propertyNode,
-            message: 'BAD!',
-          });
+      getClassInstanceProperties(node).forEach(function(propertyNode) {
+        context.report({
+          node: propertyNode,
+          message: 'Unexpected class property. Use assignment in the constructor instead.',
         });
+      });
     }
   }
 

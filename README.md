@@ -212,7 +212,7 @@ npm run lint
 
 - [3.1](#3.1) <a name="3.1"></a> Always use semicolons.
 
-  ESLint rules: [`semi`](http://eslint.org/docs/rules/semi.html) and [`class-property-semi`](packages/eslint-plugin-shopify/docs/class-property-semi.md)
+  ESLint rules: [`semi`](http://eslint.org/docs/rules/semi.html) and [`class-property-semi`](packages/eslint-plugin-shopify/docs/rules/class-property-semi.md)
 
   ```js
   // bad
@@ -805,7 +805,7 @@ npm run lint
 
   > Why? This reduces indentation and makes the code easier to read.
 
-  ESLint rule: [`prefer-early-return`](packages/eslint-plugin-shopify/docs/prefer-early-return.md)
+  ESLint rule: [`prefer-early-return`](packages/eslint-plugin-shopify/docs/rules/prefer-early-return.md)
 
   ```js
   // bad
@@ -1809,9 +1809,9 @@ npm run lint
 
 - [12.11](#12.11) <a name="12.11"></a> When declaring constant instance members in a constructor, prefer class property syntax.
 
-  ESLint rule: [`prefer-class-properties`](packages/eslint-plugin-shopify/docs/prefer-class-properties.md)
+  ESLint rule: [`prefer-class-properties`](packages/eslint-plugin-shopify/docs/rules/prefer-class-properties.md)
 
-  > Why? This often removes the need for an explicit constructor and clearly indicates "setup" members for a class. It also matches how type declarations for instance properties are done in Flow.
+  > Why? This often removes the need for an explicit constructor and clearly indicates "setup" members for a class. It also matches Flow’s type declaration and instance property syntax.
 
   ```js
   // bad

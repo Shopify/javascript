@@ -32,7 +32,7 @@ class Foo {
 }
 ```
 
-The following are considered wranings when setting the argument to `'never'`:
+The following are considered warnings when setting the argument to `'never'`:
 
 ```js
 class Foo {
@@ -43,7 +43,7 @@ class Foo {
 
 ## When Not To Use It
 
-If you do not wish to enforce the use or disuse of Flow for all files, then you can safely disable this rule.
+If you do not care how literal instance members are assigned, you can safely disable this rule.
 
 ## Further Reading
 

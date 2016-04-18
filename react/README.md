@@ -1,6 +1,6 @@
 # `import {React} from 'Shopify'`
 
-This guide provides a few guidelines on writing sensible React. Many of these rules are enforced by our [shared ESLint configuration](../packages/eslint-config-shopify), which makes use of the excellent [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) project.
+This guide provides a few guidelines on writing sensible React. Many of these rules are enforced by our [shared ESLint configuration](../packages/eslint-plugin-shopify), which makes use of the excellent [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) project.
 
 
 
