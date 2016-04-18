@@ -36,7 +36,7 @@ Have a legacy codebase? Can’t use ES2015? Our [legacy styleguide](legacy/) is 
 
 ## Using this guide
 
-Many of the following rules are enforced by our [shared ESLint config/ plugin](packages/eslint-config-plugin), which you can use in most editors and CI environments. To use it, you will need to have [Node.js >=5.7.0 and npm installed](https://docs.npmjs.com/getting-started/installing-node). Once these are installed, you must then install ESLint and the Shopify plugin:
+Many of the following rules are enforced by our [shared ESLint config/ plugin](packages/eslint-plugin-shopify), which you can use in most editors and CI environments. To use it, you will need to have [Node.js >=5.7.0 and npm installed](https://docs.npmjs.com/getting-started/installing-node). Once these are installed, you must then install ESLint and the Shopify plugin:
 
 ```bash
 npm install eslint eslint-plugin-shopify --save-dev
