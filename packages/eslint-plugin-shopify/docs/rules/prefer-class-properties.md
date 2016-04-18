@@ -1,36 +1,50 @@
 # Prefer class properties to assignment of literals in constructors. (prefer-class-properties)
 
-Please describe the origin of the rule here.
-
+Class properties allow you to set initial values for instance properties, instead of setting these in the constructor of a class.
 
 ## Rule Details
 
-This rule aims to...
+This rule takes one argument. If it is `'always'` (default) then it warns when it finds an assignment to `this` in a class constructor that could instead be a class property. If set to `'never'`, it will warn when any class properties are found.
 
-The following patterns are considered warnings:
-
-```js
-
-// fill me in
-
-```
-
-The following patterns are not warnings:
+The following assignments are all considered warnings when using the default or explicitly setting the argument to `'always'`:
 
 ```js
-
-// fill me in
-
+class Foo {
+  constructor() {
+    this.bar = 'bar';
+    this.baz = 123;
+    this.qux = {
+      foo: 'bar',
+      baz: [1, 2, 3];
+    };
+  }
+}
 ```
 
-### Options
+The following assignments are not warnings when using the default or explicitly setting the argument to `'always'`:
 
-If there are any options, describe them here. Otherwise, delete this section.
+```js
+class Foo {
+  constructor(baz) {
+    this.baz = baz;
+    this.qux = this.initialize();
+  }
+}
+```
+
+The following are considered wranings when setting the argument to `'never'`:
+
+```js
+class Foo {
+  baz = 123;
+  qux = something();
+}
+```
 
 ## When Not To Use It
 
-Give a short description of when it would be appropriate to turn off this rule.
+If you do not wish to enforce the use or disuse of Flow for all files, then you can safely disable this rule.
 
 ## Further Reading
 
-If there are other links that describe the issue this rule addresses, please include them here in a bulleted list.
+- [Class properties proposal](https://github.com/jeffmo/es-class-fields-and-static-properties)

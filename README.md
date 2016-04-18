@@ -21,7 +21,7 @@ This repository contains everything you should need for writing JavaScript at Sh
 1. [Strings](#strings)
 1. [Functions](#functions)
 1. [Types and casting](#types-and-casting)
-1. [ES2015 features](#es2015-features)
+1. [ESNext features](#esnext-features)
 1. [Project structure](#project-structure)
 1. [Resources](#resources)
 
@@ -212,7 +212,7 @@ npm run lint
 
 - [3.1](#3.1) <a name="3.1"></a> Always use semicolons.
 
-  ESLint rule: [`semi`](http://eslint.org/docs/rules/semi.html)
+  ESLint rules: [`semi`](http://eslint.org/docs/rules/semi.html) and [`class-property-semi`](packages/eslint-plugin-shopify/docs/class-property-semi.md)
 
   ```js
   // bad
@@ -799,6 +799,29 @@ npm run lint
   }
 
   const good = calculateGood(someCondition, someOtherCondition, someFinalCondition);
+  ```
+
+- [6.5](#6.5) <a name="6.5"></a> Don’t nest an entire function body inside a conditional. Instead, return early using the opposite of the conditional.
+
+  > Why? This reduces indentation and makes the code easier to read.
+
+  ESLint rule: [`prefer-early-return`](packages/eslint-plugin-shopify/docs/prefer-early-return.md)
+
+  ```js
+  // bad
+  function badFunc() {
+    if (something) {
+      doThis();
+      andThat();
+    }
+  }
+
+  // good
+  function goodFunc() {
+    if (!something) { return; }
+    doThis();
+    doThat();
+  }
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
@@ -1566,7 +1589,7 @@ npm run lint
 
 
 
-## ES2015 Features
+## ESNext Features
 
 - [12.1](#12.1) <a name="12.1"></a> When using features that are not natively supported in some target environments (typically, browsers), use [`core-js`](https://github.com/zloirock/core-js) to provide polyfills. **Do not** include the entire `core-js` shim; `core-js` is extremely modular and allows you to be selective of what polyfills you want to include based on the features you need and your [target environments' feature support](https://kangax.github.io/compat-table/es6/).
 
@@ -1726,9 +1749,7 @@ npm run lint
 
   // good
   class GoodClass {
-    constructor() {
-      this.isIdeal = true;
-    }
+    ideal = true;
 
     shouldIDoThis() {
       return 'Yes!';
@@ -1748,7 +1769,7 @@ npm run lint
   // bad
   class BadClass extends Base {
     constructor() {
-      this.bad = true;
+      this.bad = bad();
       super('I am bad :(');
     }
   }
@@ -1757,12 +1778,12 @@ npm run lint
   class GoodClass extends Base {
     constructor() {
       super('I am good :)');
-      this.good = true;
+      this.good = good();
     }
   }
   ```
 
-- [12.1](#12.1) <a name="12.1"></a> When declaring static members or properties, prefer the `static` keyword to direct assignment to the class object. Put `static` members at the top of your class definition.
+- [12.10](#12.10) <a name="12.10"></a> When declaring static members or properties, prefer the `static` keyword to direct assignment to the class object. Put `static` members at the top of your class definition.
 
   > Why? Using the `static` keyword is more expressive and keeps the entire class definition in one place.
 
@@ -1786,9 +1807,36 @@ npm run lint
   }
   ```
 
+- [12.11](#12.11) <a name="12.11"></a> When declaring constant instance members in a constructor, prefer class property syntax.
+
+  ESLint rule: [`prefer-class-properties`](packages/eslint-plugin-shopify/docs/prefer-class-properties.md)
+
+  > Why? This often removes the need for an explicit constructor and clearly indicates "setup" members for a class. It also matches how type declarations for instance properties are done in Flow.
+
+  ```js
+  // bad
+  class BadClass {
+    constructor(arg) {
+      this.foo = [];
+      this.bar = 123;
+      this.baz = arg();
+    }
+  }
+
+  // good
+  class GoodClass {
+    foo = [];
+    bar = 123;
+
+    constructor(arg) {
+      this.baz = arg(); // fine, because it depends on constructor parameters
+    }
+  }
+  ```
+
 ### Modules
 
-- [12.11](#12.11) <a name="12.11"></a> Always use modules (`import`/ `export`) over a non-standard module system (CommonJS being the most popular of these).
+- [12.12](#12.12) <a name="12.12"></a> Always use modules (`import`/ `export`) over a non-standard module system (CommonJS being the most popular of these).
 
   > Why? Modules are the future, so let’s get a head start. You can always transpile to a preferred module system.
 
@@ -1802,7 +1850,7 @@ npm run lint
   export default feelGoodAboutIt();
   ```
 
-- [12.12](#12.12) <a name="12.12"></a> Avoid complex relative import paths. It is usually fairly easy and much clearer to add the root of your project to the load path.
+- [12.13](#12.13) <a name="12.13"></a> Avoid complex relative import paths. It is usually fairly easy and much clearer to add the root of your project to the load path.
 
   > Why? Relative paths are fragile and hard to parse for humans.
 
@@ -1827,13 +1875,13 @@ npm run lint
   ```js
   // bad (my-project/.babelrc)
   {
-    "plugins": ["es2015"]
+    "plugins": ["shopify"]
   }
 
   // good (my-project/package.json)
   {
     "babel": {
-      "plugins": ["es2015"]
+      "plugins": ["shopify"]
     }
   }
 
