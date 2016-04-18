@@ -25,16 +25,16 @@ var nonChainingMethods = {
   val: true,
   width: true,
 
-  html: function(node) {
-    return node.arguments.length === 0;
+  attr: function(node) {
+    return node.arguments.length < 2 && node.arguments[0] && node.arguments[0].type !== 'ObjectExpression';
   },
   data: function(node) {
     return node.arguments.length < 2 && node.arguments[0] && node.arguments[0].type !== 'ObjectExpression';
   },
-  prop: function(node) {
-    return node.arguments.length < 2 && node.arguments[0] && node.arguments[0].type !== 'ObjectExpression';
+  html: function(node) {
+    return node.arguments.length === 0;
   },
-  attr: function(node) {
+  prop: function(node) {
     return node.arguments.length < 2 && node.arguments[0] && node.arguments[0].type !== 'ObjectExpression';
   },
 };
@@ -52,8 +52,7 @@ module.exports = function(context) {
   }
 
   function isjQueryReference(node) {
-    var referenceName = getFinalReferenceName(node);
-    return referenceName != null && JQUERY_IDENTIFIER_REGEX.test(referenceName);
+    return JQUERY_IDENTIFIER_REGEX.test(getFinalReferenceName(node));
   }
 
   function isjQueryCallExpression(node) {
@@ -103,11 +102,11 @@ module.exports = function(context) {
     }
   }
 
-  function handleVariableDeclarator(node) {
+  function checkVariableDeclarator(node) {
     checkForValidjQueryReference(node, node.id, node.init);
   }
 
-  function handleAssignmentExpression(node) {
+  function checkAssignmentExpression(node) {
     if (node.left.type === 'MemberExpression' && node.left.computed && node.left.property.type !== 'Literal') {
       return;
     }
@@ -115,7 +114,7 @@ module.exports = function(context) {
     checkForValidjQueryReference(node, node.left, node.right);
   }
 
-  function handleObjectExpression(node) {
+  function checkObjectExpression(node) {
     node.properties.forEach(function(prop) {
       if (prop.computed && prop.key.type !== 'Literal') {
         return;
@@ -125,7 +124,7 @@ module.exports = function(context) {
     });
   }
 
-  function handleClassProperty(node) {
+  function checkClassProperty(node) {
     var tokens = context.getFirstTokens(node, 2).filter(function(token) {
       return token.type === 'Identifier';
     });
@@ -139,14 +138,9 @@ module.exports = function(context) {
   }
 
   return {
-    VariableDeclarator: handleVariableDeclarator,
-    AssignmentExpression: handleAssignmentExpression,
-    ObjectExpression: handleObjectExpression,
-    ClassProperty: handleClassProperty,
-    // Program: function(node) { console.log(node); }
+    VariableDeclarator: checkVariableDeclarator,
+    AssignmentExpression: checkAssignmentExpression,
+    ObjectExpression: checkObjectExpression,
+    ClassProperty: checkClassProperty,
   };
 };
-
-module.exports.schema = [
-    // fill in your schema
-];
