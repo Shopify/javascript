@@ -39,15 +39,12 @@ module.exports = function(context) {
   };
 };
 
-module.exports.schema = [
-  {
-    type: 'object',
-    properties: {
-      maximumStatements: {
-        type: 'integer',
-        default: defaultMaximumStatements,
-      },
+module.exports.schema = [{
+  type: 'object',
+  properties: {
+    maximumStatements: {
+      type: 'integer',
     },
-    additionalProperties: false,
   },
-];
+  additionalProperties: false,
+}];

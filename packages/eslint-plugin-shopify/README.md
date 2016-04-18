@@ -75,6 +75,11 @@ This plugin provides the following custom rules, which are included as appropria
 - [binary-assignment-parens](docs/rules/binary-assignment-parens.md): Requires (or disallows) assignments of binary, boolean-producing expressions to be wrapped in parentheses.
 - [prefer-early-return](docs/rules/prefer-early-return.md): Prefer early returns over full-body conditional wrapping in function declarations.
 - [jquery-dollar-sign-reference](docs/rules/jquery-dollar-sign-reference.md): Requires that all jQuery objects are assigned to references prefixed with `$`.
+- [class-property-semi](docs/rules/class-property-semi.md): Requires (or disallows) semicolons for class properties.
+- [no-useless-computed-properties](docs/rules/no-useless-computed-properties.md): Prevents the usage of unnecessary computed properties.
+- [restrict-full-import](docs/rules/restrict-full-import.md): Prevents importing the entirety of a package.
+- [sinon-no-restricted-features](docs/rules/sinon-no-restricted-features.md): Restricts the use of specified sinon features.
+- [sinon-prefer-meaningful-assertions](docs/rules/sinon-prefer-meaningful-assertions.md): Requires the use of meaningful sinon assertions through sinon.assert or sinon-chai.
 
 ## Creating New Rules
 
