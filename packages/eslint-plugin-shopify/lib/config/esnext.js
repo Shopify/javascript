@@ -1,5 +1,4 @@
 var merge = require('merge');
-var coreConfig = require('./core');
 
 module.exports = {
   extends: 'plugin:shopify/core',

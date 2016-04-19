@@ -117,7 +117,8 @@ export default function globalReferenceToImport(
           }
         });
 
-      for (const {file, name} of imports.values()) {
+      for (const anImport of imports.values()) {
+        const {file, name} = anImport;
         const {node: {body}} = path;
         insertAfterDirectives(
           body,

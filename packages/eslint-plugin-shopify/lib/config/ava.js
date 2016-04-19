@@ -1,16 +1,16 @@
 module.exports = {
   env: {
-		es6: true,
-	},
+    es6: true,
+  },
 
-	parserOptions: {
-		ecmaVersion: 7,
-		sourceType: 'module',
-	},
+  parserOptions: {
+    ecmaVersion: 7,
+    sourceType: 'module',
+  },
 
-	plugins: [
-		'ava',
-	],
+  plugins: [
+    'ava',
+  ],
 
   rules: require('./rules/ava'),
 };

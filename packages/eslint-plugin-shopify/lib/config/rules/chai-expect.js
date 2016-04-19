@@ -2,7 +2,7 @@
 
 module.exports = {
   // Prevent using comparisons in the expect() argument.
-  'chai-expect/no-iner-compare': 'warn',
+  'chai-expect/no-inner-compare': 'warn',
   // Prevent calling expect(...) without an assertion like .to.be.ok.
   'chai-expect/missing-assertion': 'error',
   // Prevent calling to.be.ok and other assertion properties as functions.

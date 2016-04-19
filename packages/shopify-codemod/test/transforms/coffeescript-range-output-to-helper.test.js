@@ -1,7 +1,7 @@
 import 'test-helper';
 import coffeescriptRangeOutputToHelper from 'coffeescript-range-output-to-helper';
 
-describe.only('coffeescriptRangeOutputToHelper', () => {
+describe('coffeescriptRangeOutputToHelper', () => {
   it('transforms inclusive ranges', () => {
     expect(coffeescriptRangeOutputToHelper).to.transform('coffeescript-range-output-to-helper/inclusive');
   });

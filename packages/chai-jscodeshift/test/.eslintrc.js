@@ -1,10 +1,8 @@
 module.exports = {
-  extends: 'plugin:shopify/esnext',
-
-  env: {
-    mocha: true,
-    es6: true,
-  },
+  extends: [
+    'plugin:shopify/esnext',
+    'plugin:shopify/mocha',
+  ],
 
   globals: {
     expect: false,
@@ -13,7 +11,7 @@ module.exports = {
   },
 
   rules: {
-    'no-unused-expressions': 0,
-    'newline-per-chained-call': 0
+    'no-unused-expressions': 'off',
+    'newline-per-chained-call': 'off'
   },
 };

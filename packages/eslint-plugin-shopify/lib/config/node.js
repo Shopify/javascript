@@ -3,5 +3,9 @@ module.exports = {
     node: true,
   },
 
+  plugins: [
+    'node',
+  ],
+
   rules: require('./rules/node'),
 };

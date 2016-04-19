@@ -29,14 +29,10 @@
   "homepage": "https://github.com/Shopify/javascript/tree/master/packages/generator-eslint-shopify",
   "repository": "https://github.com/Shopify/javascript/tree/master/packages/generator-eslint-shopify",
   "eslintConfig": {
-    "extends": "plugin:shopify/esnext",
-    "env": {
-      "es6": true,
-      "node": true
-    },
-    "rules": {
-      "shopify/require-flow": 0
-    }
+    "extends": [
+      "plugin:shopify/esnext",
+      "plugin:shopify/node"
+    ]
   },
   "dependencies": {
     "chalk": "^1.1.1",

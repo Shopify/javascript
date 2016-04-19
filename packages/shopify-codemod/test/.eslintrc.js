@@ -1,14 +1,12 @@
 module.exports = {
-  env: {
-    mocha: true,
-    es6: true,
-  },
+  extends: 'plugin:shopify/mocha',
 
   globals: {
     expect: false,
   },
 
   rules: {
-    'no-unused-expressions': 0,
+    'no-unused-expressions': 'off',
+    'import/no-unresolved': 'off',
   },
 };

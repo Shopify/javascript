@@ -39,4 +39,4 @@ module.exports = {
   'ava/use-test': 'warn',
   // Ensure that t.true()/t.false() are used instead of t.truthy()/t.falsy().
   'ava/use-true-false': 'warn',
-}
+};

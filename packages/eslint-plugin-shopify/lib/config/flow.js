@@ -4,18 +4,18 @@ module.exports = {
   parser: 'babel-eslint',
 
   env: {
-		es6: true,
-	},
+    es6: true,
+  },
 
-	parserOptions: {
-		ecmaVersion: 7,
-		sourceType: 'module',
-	},
+  parserOptions: {
+    ecmaVersion: 7,
+    sourceType: 'module',
+  },
 
-	plugins: [
-		'flowtype',
+  plugins: [
+    'flowtype',
     'shopify',
-	],
+  ],
 
   settings: {
     flowtype: {
