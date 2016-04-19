@@ -26,7 +26,7 @@ module.exports = {
   // Prevent the use of unknown test modifiers.
   'ava/no-unknown-modifiers': 'error',
   // Allow only use of the asserts that have no power-assert alternative.
-  'ava/prefer-power-assert': 'warn',
+  'ava/prefer-power-assert': 'off',
   // Ensure callback tests are explicitly ended.
   'ava/test-ended': 'error',
   // Ensure tests have a title.
