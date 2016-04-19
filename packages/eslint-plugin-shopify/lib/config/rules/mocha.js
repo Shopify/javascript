@@ -4,7 +4,7 @@ module.exports = {
   // Disallow exclusive mocha tests.
   'mocha/no-exclusive-tests': 'warn',
   // Disallow skipped mocha tests.
-  'mocha/no-skipped-tests': 'warn',
+  'mocha/no-skipped-tests': 'error',
   // Disallow pending/unimplemented mocha tests.
   'mocha/no-pending-tests': 'warn',
   // Enforces handling of callbacks for async tests.

@@ -7,25 +7,26 @@ module.exports = {
 
   env: {
     es6: true,
-    node: true,
+  },
+
+  parserOptions: {
+    ecmaVersion: 7,
+    sourceType: 'module',
   },
 
   plugins: [
     'babel',
-    'shopify',
+    'promise',
+    'sort-class-members',
+    'import',
   ],
-
-  parserOptions: merge.recursive(
-    coreConfig.parserOptions,
-    {
-      ecmaVersion: 7,
-      sourceType: 'module',
-    }
-  ),
 
   rules: merge(
     require('./rules/ecmascript-6'),
+    require('./rules/promise'),
     require('./rules/babel'),
+    require('./rules/sort-class-members'),
+    require('./rules/import'),
     {
       'no-param-reassign': 'off', // because of default params
       'shopify/prefer-class-properties': 'warn',
