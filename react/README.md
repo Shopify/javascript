@@ -146,6 +146,29 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
   <Good status="is great!" />
   ```
 
+- [2.5](#2.5) <a name="2.5"></a> When props span over multiple lines, list one prop per line (with no props on the same line as the opening tag).
+
+  ESLint rule: [`jsx-first-prop-new-line`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-first-prop-new-line.md)
+
+  ```js
+  // bad
+  <Bad status="is not very good"
+    redeemable={false}
+  />
+
+  <Bad
+    status="is not very good" redeemable={false}
+  />
+
+  // good
+  <Good status="is great!" needsWork={false} />
+
+  <Good
+    status="is great!"
+    needsWork={false}
+  />
+  ```
+
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
 
 
