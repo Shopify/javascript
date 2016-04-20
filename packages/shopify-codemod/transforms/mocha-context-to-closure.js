@@ -173,11 +173,12 @@ function takeWhile(array, condition) {
 }
 
 class Context {
+  parent;
+  properties = [];
+  suites = [];
+
   constructor(path) {
     this.path = path;
-    this.properties = [];
-    this.parent = null;
-    this.suites = [];
   }
 
   addContext(suite) {
