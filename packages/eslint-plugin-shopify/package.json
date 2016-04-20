@@ -28,7 +28,7 @@
     ]
   },
   "peerDependencies": {
-    "eslint": ">=2.5.1"
+    "eslint": ">=2.8.0"
   },
   "dependencies": {
     "babel-eslint": "^6.0.0",
@@ -38,11 +38,11 @@
     "eslint-plugin-flowtype": "^2.2.6",
     "eslint-plugin-import": "^1.5.0",
     "eslint-plugin-jsx-a11y": "^0.6.2",
-    "eslint-plugin-lodash": "^1.6.5",
+    "eslint-plugin-lodash": "^1.6.9",
     "eslint-plugin-mocha": "^2.2.0",
     "eslint-plugin-node": "^1.0.0",
     "eslint-plugin-promise": "^1.1.0",
-    "eslint-plugin-react": "^4.2.3",
+    "eslint-plugin-react": "^5.0.1",
     "eslint-plugin-sort-class-members": "^1.0.1",
     "merge": "^1.2.0"
   }
