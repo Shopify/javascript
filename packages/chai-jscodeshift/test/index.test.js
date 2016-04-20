@@ -1,4 +1,4 @@
-import 'test-helper';
+import './test-helper';
 
 import path from 'path';
 import chai from 'chai';

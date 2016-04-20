@@ -29,23 +29,19 @@
   "homepage": "https://github.com/Shopify/javascript/tree/master/packages/generator-eslint-shopify",
   "repository": "https://github.com/Shopify/javascript/tree/master/packages/generator-eslint-shopify",
   "eslintConfig": {
-    "extends": "plugin:shopify/esnext",
-    "env": {
-      "es6": true,
-      "node": true
-    },
-    "rules": {
-      "shopify/require-flow": 0
-    }
+    "extends": [
+      "plugin:shopify/esnext",
+      "plugin:shopify/node"
+    ]
   },
   "dependencies": {
-    "chalk": "^1.1.1",
+    "chalk": "^1.1.3",
     "generator-eslint-config": "^2.0.0",
     "yeoman-generator": "^0.22.2",
-    "yosay": "^1.1.0"
+    "yosay": "^1.1.1"
   },
   "devDependencies": {
-    "yeoman-assert": "^2.1.1",
+    "yeoman-assert": "^2.2.0",
     "yeoman-test": "^1.1.0"
   }
 }

@@ -19,7 +19,10 @@
     ]
   },
   "eslintConfig": {
-    "extends": "plugin:shopify/esnext"
+    "extends": [
+      "plugin:shopify/esnext",
+      "plugin:shopify/node"
+    ]
   },
   "author": {
     "name": "Chris Sauve",
