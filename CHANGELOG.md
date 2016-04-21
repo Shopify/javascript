@@ -1,5 +1,29 @@
 # Changelog
 
+## 11.0.0
+
+### Added
+
+- Added additional ESLint rules to the ESNext shared configuration from the following plugins: `eslint-plugin-sort-class-members`, `eslint-plugin-import`, and `eslint-plugin-promise`, which provide additional linting rules around classes, `import`/ `export` statements, and promises.
+
+- Added additional plugins and custom configurations for lodash, mocha/ sinon/ chai, AVA, flow, and jQuery. These custom configurations are exported by `eslint-plugin-shopify`, and are meant to be used in addition to the `es5`, `esnext`, or `react` core configurations. See the `eslint-plugin-shopify` readme for details.
+
+- Added additional accessibility-related rules to the `react` shared ESLint configuration.
+
+- Added the following custom ESLint rules to the relevant configurations: `class-property-semi`, `jquery-dollar-sign-reference`, `no-useless-computed-properties`, `prefer-class-properties`, `prefer-early-return`, `restrict-full-import`, `sinon-no-restricted-features`, and `sinon-prefer-meaningful-assertions`.
+
+- Added `esify`, a tool for converting Shopify’s CoffeeScript to JavaScript, as a package in this repo.
+
+### Updated
+
+- Removed node-related rules from the `es5` shared configuration. Node rules (including some new rules to help with pragmas and `require` statements) are now available through a separate `node` shared configuration, which is meant to be used in conjunction with one of the core configurations.
+
+- Updated versions of `eslint` and `eslint-plugin-shopify`.
+
+### Build
+
+- Updated all development dependencies to the latest versions.
+
 ## 10.10.11
 
 ### Added
