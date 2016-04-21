@@ -1,0 +1,26 @@
+{
+  "name": "esify",
+  "main": "index.js",
+  "version": "10.11.2",
+  "author": "Bouke van der Bijl <bouke@shopify.com>",
+  "description": "A CLI for converting Shopify’s CoffeeScript to ESNext.",
+  "eslintConfig": {
+    "extends": [
+      "plugin:shopify/es5",
+      "plugin:shopify/node"
+    ],
+    "rules": {
+      "no-console": "off",
+      "no-sync": "off"
+    }
+  },
+  "bin": "./bin/esify",
+  "dependencies": {
+    "glob": "7.0.3",
+    "shopify-decaf": "latest",
+    "js-codemod": "cpojer/js-codemod",
+    "jscodeshift": "0.3.15",
+    "babel-register": "^6.7.2",
+    "shopify-codemod": "latest"
+  }
+}
