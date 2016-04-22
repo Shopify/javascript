@@ -1,5 +1,11 @@
 # Changelog
 
+## 11.0.1
+
+### Fixed
+
+- Fixed a case where the `jquery-dollar-sign-reference` rule would fail when a name in a jQuery chain matched a built-in object property name.
+
 ## 11.0.0
 
 ### Added
