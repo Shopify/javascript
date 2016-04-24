@@ -1,5 +1,13 @@
 # Changelog
 
+## 11.0.2
+
+### Fixed
+
+- Fixed an error in `sinon-prefer-meaningful-assertions` when there was an empty `expect` call expression.
+
+- Fixed an error in `prefer-early-return` related to conditional expressions that consist only of a single expression.
+
 ## 11.0.1
 
 ### Fixed
