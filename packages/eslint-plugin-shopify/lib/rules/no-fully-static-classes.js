@@ -8,7 +8,7 @@ module.exports = function(context) {
     if (node.superClass == null && members.length && members.every(isStaticMember)) {
       context.report({
         node: node,
-        message: 'Classes declaring only static members should be objects instead.',
+        message: 'Classes declaring only static members should be objects or named exports instead.',
       });
     }
   }

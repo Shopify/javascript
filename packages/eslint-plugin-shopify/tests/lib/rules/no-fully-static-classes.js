@@ -14,7 +14,7 @@ function staticProperty(name = 'qux') { return `static ${name} = true;`; }
 function errorWithType(type) {
   return [{
     type,
-    message: 'Classes declaring only static members should be objects instead.',
+    message: 'Classes declaring only static members should be objects or named exports instead.',
   }];
 }
 
