@@ -1,5 +1,13 @@
 # Changelog
 
+## 11.1.0
+
+### Added
+
+- Added a `no-fully-static-classes` rule to prevent classes with only static members.
+
+- Added a code of conduct.
+
 ## 11.0.2
 
 ### Fixed
