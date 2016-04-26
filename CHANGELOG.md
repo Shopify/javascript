@@ -1,5 +1,11 @@
 # Changelog
 
+## 11.1.1
+
+### Fixed
+
+- Fixed a configuration error in `eslint-plugin-react`.
+
 ## 11.1.0
 
 ### Added

@@ -91,7 +91,7 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
 - [2.2](#2.2) <a name="2.2"></a> When writing a component that has multiple props, put a single prop per line, with two spaces of indentation, and a closing tag on a newline that aligns with the opening tag.
 
-  ESLint rule: [`jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
+  ESLint rules: [`jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md) and [`jsx-first-prop-new-line`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-first-prop-new-line.md)
 
   ```js
   // bad
