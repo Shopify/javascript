@@ -1,5 +1,11 @@
 # Changelog
 
+## 11.1.2
+
+### Fixed
+
+- Fixed an issue where `jquery-dollar-sign-reference` would incorrectly report `null` values.
+
 ## 11.1.1
 
 ### Fixed
