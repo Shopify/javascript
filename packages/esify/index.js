@@ -5,11 +5,6 @@ var jscodeshift = require('jscodeshift');
 require('babel-register')({ignore: false});
 
 var TRANSFORMS = [
-  {path: 'js-codemod/transforms/arrow-function'},
-  {path: 'js-codemod/transforms/template-literals'},
-  {path: 'js-codemod/transforms/object-shorthand'},
-  {path: 'js-codemod/transforms/no-vars'},
-  {path: 'js-codemod/transforms/unquote-properties'},
   {path: 'shopify-codemod/transforms/constant-function-expression-to-statement'},
   {path: 'shopify-codemod/transforms/ternary-statement-to-if-statement'},
   {path: 'shopify-codemod/transforms/mocha-context-to-closure', test: true},
@@ -20,6 +15,11 @@ var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/function-to-arrow'},
   {path: 'shopify-codemod/transforms/global-assignment-to-default-export', test: false},
   {path: 'shopify-codemod/transforms/global-reference-to-import'},
+  {path: 'js-codemod/transforms/arrow-function'},
+  {path: 'js-codemod/transforms/template-literals'},
+  {path: 'js-codemod/transforms/object-shorthand'},
+  {path: 'js-codemod/transforms/no-vars'},
+  {path: 'js-codemod/transforms/unquote-properties'},
 ];
 
 var OPTIONS = {

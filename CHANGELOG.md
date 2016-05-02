@@ -1,5 +1,11 @@
 # Changelog
 
+## 11.1.3
+
+### Fixed
+
+- Moved more generic transforms to the end of `esify`’s transform list to ensure that they pick up any changes introduced in earlier transforms.
+
 ## 11.1.2
 
 ### Fixed
