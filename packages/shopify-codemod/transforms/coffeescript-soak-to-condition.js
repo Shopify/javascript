@@ -24,7 +24,7 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
     const parentPath = path.parentPath;
     const parentNode = parentPath.node;
 
-    if (j.VariableDeclarator.check(parentNode)) {
+    if (j.VariableDeclarator.check(parentNode) && parentPath.parentPath.node.declarations.length === 1) {
       parentPath.parentPath.parentPath.replace(
         j.ifStatement(
           condition,

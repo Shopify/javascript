@@ -8,3 +8,8 @@ for (let bar of bars) {
 
 // (foo = bar?.baz) ->
 function aFunc(foo = typeof bar !== "undefined" && bar !== null ? bar.baz : void 0) {}
+
+// foo = bar?()?.baz.qux?.buzz
+// bar = foo.something()
+var foo = typeof bar === "function" ? ((ref = bar()) != null ? ((ref1 = ref.baz.qux) != null ? ref1.buzz : void 0) : void 0) : void 0,
+  bar = foo.somethingElse();

@@ -9,3 +9,8 @@ for (let bar of bars) {
 
 // (foo = bar?.baz) ->
 function aFunc(foo = (bar != null ? bar.baz : undefined)) {}
+
+// foo = bar?()?.baz.qux?.buzz
+// bar = foo.something()
+var foo = (typeof bar === 'function' && bar() != null && bar().baz.qux != null ? bar().baz.qux.buzz : undefined),
+  bar = foo.somethingElse();
