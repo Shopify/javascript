@@ -41,3 +41,15 @@ var myRange = (function() {
 
   return somethingElse();
 }).apply(this);
+
+for (let i of (function() {
+    var results = [];
+
+    for (i = 1; i < 300; i++) {
+      results.doSomething(i);
+    }
+
+    return results;
+}).apply(this)) {
+  doSomething();
+}

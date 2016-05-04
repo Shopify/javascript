@@ -5,9 +5,40 @@ const INCLUSIVE_OPERATORS = new Set(['<=', '>=']);
 export default function coffeescriptRangeOutputToHelper({source}, {jscodeshift: j}, {printOptions = {}}) {
   const matchLast = matchLastNode.bind(null, j);
 
-  function looksLikeCoffeeScriptRangeFunctionExpression(path) {
-    const {i, results} = path.scope.getBindings();
-    return i != null && results != null;
+  function isCoffeeScriptRangeFunctionBody(statements) {
+    const lastStatement = statements[statements.length - 1];
+    const isProperReturn = j.match(lastStatement, {
+      type: 'ReturnStatement',
+      argument: {type: 'Identifier'},
+    });
+
+    if (!isProperReturn) { return false; }
+
+    const storageArrayIdentifier = lastStatement.argument.name;
+    const secondLastStatement = statements[statements.length - 2];
+
+    return j.match(secondLastStatement, {
+      type: 'ForStatement',
+      body: {
+        body: matchLast({
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'CallExpression',
+            callee: {
+              type: 'MemberExpression',
+              object: {
+                type: 'Identifier',
+                name: storageArrayIdentifier,
+              },
+              property: {
+                type: 'Identifier',
+                name: 'push',
+              },
+            },
+          },
+        }),
+      },
+    });
   }
 
   return j(source)
@@ -21,19 +52,11 @@ export default function coffeescriptRangeOutputToHelper({source}, {jscodeshift: 
         object: {
           type: 'FunctionExpression',
           body: {
-            body: matchLast({
-              type: 'ReturnStatement',
-              argument: {
-                type: 'Identifier',
-                name: 'results',
-              },
-            }),
+            body: isCoffeeScriptRangeFunctionBody,
           },
         },
       },
     })
-    .filter((path) => looksLikeCoffeeScriptRangeFunctionExpression(path.get('callee', 'object'))
-    )
     .replaceWith((path) => {
       const forStatement = j(path)
         .find(j.ForStatement)
@@ -86,7 +109,7 @@ export default function coffeescriptRangeOutputToHelper({source}, {jscodeshift: 
             j.property('init', j.identifier('to'), end.value),
             j.property('init', j.identifier('inclusive'), j.literal(inclusive)),
           ]),
-        ],
+        ]
       );
     })
     .toSource(printOptions);
