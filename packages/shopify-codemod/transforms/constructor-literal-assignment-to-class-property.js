@@ -1,4 +1,4 @@
-export default function staticConstructorAssignmentToClassProperty({source}, {jscodeshift: j}, {printOptions = {}}) {
+export default function constructorLiteralAssignmentToClassProperty({source}, {jscodeshift: j}, {printOptions = {}}) {
 
   function isRewritableObjectProperty(property, scope) {
     return (!property.computed || isRewritableValue(property.key, scope)) && isRewritableValue(property.value, scope);
