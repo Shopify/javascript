@@ -1807,36 +1807,9 @@ npm run lint
   }
   ```
 
-- [12.11](#12.11) <a name="12.11"></a> When declaring constant instance members in a constructor, prefer class property syntax.
-
-  ESLint rule: [`prefer-class-properties`](packages/eslint-plugin-shopify/docs/rules/prefer-class-properties.md)
-
-  > Why? This often removes the need for an explicit constructor and clearly indicates "setup" members for a class. It also matches Flow’s type declaration and instance property syntax.
-
-  ```js
-  // bad
-  class BadClass {
-    constructor(arg) {
-      this.foo = [];
-      this.bar = 123;
-      this.baz = arg();
-    }
-  }
-
-  // good
-  class GoodClass {
-    foo = [];
-    bar = 123;
-
-    constructor(arg) {
-      this.baz = arg(); // fine, because it depends on constructor parameters
-    }
-  }
-  ```
-
 ### Modules
 
-- [12.12](#12.12) <a name="12.12"></a> Always use modules (`import`/ `export`) over a non-standard module system (CommonJS being the most popular of these).
+- [12.11](#12.11) <a name="12.11"></a> Always use modules (`import`/ `export`) over a non-standard module system (CommonJS being the most popular of these).
 
   > Why? Modules are the future, so let’s get a head start. You can always transpile to a preferred module system.
 
@@ -1850,7 +1823,7 @@ npm run lint
   export default feelGoodAboutIt();
   ```
 
-- [12.13](#12.13) <a name="12.13"></a> Avoid complex relative import paths. It is usually fairly easy and much clearer to add the root of your project to the load path.
+- [12.12](#12.12) <a name="12.12"></a> Avoid complex relative import paths. It is usually fairly easy and much clearer to add the root of your project to the load path.
 
   > Why? Relative paths are fragile and hard to parse for humans.
 
