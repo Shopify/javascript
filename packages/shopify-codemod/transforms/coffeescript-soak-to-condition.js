@@ -64,23 +64,32 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
           j.blockStatement([j.returnStatement(j.literal(null))])
         )
       );
-    } else if (
-      j.IfStatement.check(parentNode) ||
-      j.WhileStatement.check(parentNode) ||
-      j.DoWhileStatement.check(parentNode)
-    ) {
+    } else if (isConditionalTest(parentNode)) {
       path.replace(
         j.logicalExpression('&&', condition, finalValue)
       );
-    } else if (isLooseUndefinedCheck(parentNode)) {
-      parentPath.replace(
-        j.logicalExpression('&&', condition, createLooseUndefinedCheck(finalValue))
-      );
+    } else if (j.BinaryExpression.check(parentNode) && !isBinaryExpressionThatMatchesUndefined(parentNode)) {
+      const newBinaryExpression = j.binaryExpression(parentNode.operator, finalValue, parentNode.right);
+      parentPath.replace(j.logicalExpression('&&', condition, newBinaryExpression));
     } else {
       path.replace(
         j.conditionalExpression(condition, finalValue, j.identifier('undefined'))
       );
     }
+  }
+
+  function isBinaryExpressionThatMatchesUndefined(expression) {
+    return j.BinaryExpression.check(expression) &&
+      (
+        (expression.operator === '==' && isNull(expression.right)) ||
+        ((expression.operator === '===' || expression.operator === '==') && isUndefined(expression.right))
+      );
+  }
+
+  function isConditionalTest(node) {
+    return j.IfStatement.check(node) ||
+      j.WhileStatement.check(node) ||
+      j.DoWhileStatement.check(node);
   }
 
   function createLooseUndefinedCheck(check) {
@@ -92,7 +101,12 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
   }
 
   function getBaseExpressionFromLooseTest(path) {
-    return path.get('left', 'right').value;
+    const left = path.get('left');
+    if (j.AssignmentExpression.check(left.value)) {
+      return left.get('right').value;
+    } else {
+      return left.value;
+    }
   }
 
   function getBaseExpressionFromFunctionTest(path) {
@@ -129,19 +143,21 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
       const node = currentNode;
       if (j.MemberExpression.check(node)) {
         augmenters.unshift(
-          (expression) => j.memberExpression(expression, node.property, node.computed)
-        );
-        currentNode = node.object;
-      } else if (j.CallExpression.check(node)) {
-        augmenters.unshift(
           (expression) => {
-            if (j.MemberExpression.check(expression) && j.MemberExpression.check(node.callee) && expression.property.name === node.callee.property.name) {
-              return j.callExpression(expression.object, node.arguments);
+            if (j.MemberExpression.check(expression) && expression.property.name === node.property.name) {
+              return expression;
             } else {
-              return j.callExpression(expression, node.arguments);
+              return j.memberExpression(expression, node.property, node.computed);
             }
           }
         );
+
+        currentNode = node.object;
+      } else if (j.CallExpression.check(node)) {
+        augmenters.unshift(
+          (expression) => j.callExpression(expression, node.arguments)
+        );
+
         currentNode = node.callee;
       } else {
         break;
@@ -156,6 +172,7 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
       type: 'BinaryExpression',
       operator: '===',
       left: {type: 'UnaryExpression', operator: 'typeof'},
+      right: {type: 'Literal', value: 'function'},
     });
   }
 
@@ -163,7 +180,7 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
     return j.match(node, {
       type: 'BinaryExpression',
       operator: '!=',
-      right: {type: 'Literal', value: null},
+      right: isNull,
     });
   }
 
@@ -180,7 +197,7 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
       right: {
         type: 'BinaryExpression',
         operator: '!==',
-        right: {type: 'Literal', value: null},
+        right: isNull,
       },
     });
   }
@@ -193,12 +210,23 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
     return j.match(path.node, {
       type: 'ConditionalExpression',
       test: isOffensiveConditionalTest,
-      alternate: {
-        type: 'UnaryExpression',
-        operator: 'void',
-        argument: {type: 'Literal', value: 0},
-      },
+      alternate: isUndefined,
     });
+  }
+
+  function isUndefined(node) {
+    return j.match(node, {
+      type: 'Identifier',
+      name: 'undefined',
+    }) || j.match(node, {
+      type: 'UnaryExpression',
+      operator: 'void',
+      argument: {type: 'Literal', value: 0},
+    });
+  }
+
+  function isNull(node) {
+    return j.match(node, {type: 'Literal', value: null});
   }
 
   return j(source)

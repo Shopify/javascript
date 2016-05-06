@@ -23,6 +23,25 @@ if (a != null && typeof a[bar] === 'function' && a[bar]()) {
 
 }
 
+// if a?[bar]?() == 'baz'
+if (a != null && typeof a[bar] === 'function' && a[bar]() === 'baz') {
+
+}
+
+// foo = a?[bar]?() == 'baz'
+var foo = a != null && typeof a[bar] === 'function' && a[bar]() === 'baz';
+
+// if a?[bar]?() == undefined
+if ((((a != null && typeof a[bar] === 'function' ? a[bar]() : undefined))) === undefined) {
+
+}
+
+// var foo = a?[bar]?() != undefined
+var foo = a != null && typeof a[bar] === 'function' && a[bar]() !== undefined;
+
+// var foo = a?[bar]?() == null
+var foo = (((a != null && typeof a[bar] === 'function' ? a[bar]() : undefined))) == null
+
 // while a?[bar]?()
 while (a != null && typeof a[bar] === 'function' && a[bar]()) {
 
