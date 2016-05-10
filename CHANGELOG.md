@@ -6,6 +6,24 @@
 
 - Moved more generic transforms to the end of `esify`’s transform list to ensure that they pick up any changes introduced in earlier transforms.
 
+- Improved CoffeeScript range transform.
+
+### Added
+
+- Added `constructor-literal-assignment-to-class-property` transform that converts static/instance constructor assignments to class properties.
+
+- Added `strip-template-literal-parenthesis` transform that removes unnecessary parenthesis from template strings.
+
+- Added more `jsx-a11y` rules.
+
+### Updated
+
+- Updated `jsx-a11y` rules.
+
+- Style guide no longer recommends `shopify/prefer-class-properties`.
+
+- Removed `prefer-class-properties` warning removed from `eslint-plugin-shopify`.
+
 ## 11.1.2
 
 ### Fixed

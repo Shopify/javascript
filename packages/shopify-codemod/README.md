@@ -46,6 +46,44 @@ Shopify.range({
 
 ```
 
+### `constructor-literal-assignment-to-class-property`
+
+Moves context assignments in the constructor that are not dynamic (i.e., that don't depend on `this` and that don't depend on any bindings only available in the constructor) to class properties.
+
+#### Example
+
+```js
+const baz = something;
+
+class Foo {
+  fuzz = 'already here';
+
+  constructor(bar) {
+    this.foo = bar.baz();
+    this.bar = bar;
+    this.baz = baz;
+    this.qux = baz.something.else();
+    this.buzz = this.foo.bar();
+  }
+}
+
+// BECOMES:
+
+const baz = something;
+
+class Foo {
+  baz = baz;
+  qux = baz.something.else();
+  fuzz = 'already here';
+
+  constructor(bar) {
+    this.foo = bar.baz();
+    this.bar = bar;
+    this.buzz = this.foo.bar();
+  }
+}
+```
+
 ### `mocha-context-to-global-reference`
 
 Removes any specified properties that are injected into the mocha test context (that is, that are referenced using `this` in your tests) to appropriate globals instead. This is particularly useful for making any sinon-injected properties reference a global sinon sandbox. Note that you must provide a `testContextToGlobals` option for your transform, with keys that indicate the proper global to reference, referencing an object with a `properties` key that is an array of contextual properties to look for, and an optional `replace` key that indicates that the entire property should be renamed.
@@ -326,6 +364,19 @@ suite('a', () => {
 
 ```
 
+### `strip-template-literal-parenthesis`
+
+Removes superfluous parenthesis from `decaf`-generated template strings.
+
+#### Example
+
+```js
+const foo = (`foo ${bar}`);
+
+// BECOMES:
+
+const foo = `foo ${bar}`;
+```
 
 ### `ternary-statement-to-if-statement`
 
