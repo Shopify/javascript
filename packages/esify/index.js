@@ -17,6 +17,7 @@ var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/global-reference-to-import'},
   {path: 'js-codemod/transforms/arrow-function'},
   {path: 'js-codemod/transforms/template-literals'},
+  {path: 'shopify-codemod/transforms/strip-template-literal-parenthesis'},
   {path: 'js-codemod/transforms/object-shorthand'},
   {path: 'js-codemod/transforms/no-vars'},
   {path: 'js-codemod/transforms/unquote-properties'},
