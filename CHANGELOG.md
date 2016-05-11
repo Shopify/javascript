@@ -8,7 +8,11 @@
 
 - Improved CoffeeScript range transform.
 
+- Misconfigured eslint rules in `esify`.
+
 ### Added
+
+- Added flexible `esify` configuration (`esify.config.js`.)
 
 - Added `constructor-literal-assignment-to-class-property` transform that converts static/instance constructor assignments to class properties.
 
