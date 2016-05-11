@@ -10,8 +10,8 @@
       "plugin:shopify/node"
     ],
     "rules": {
-      "no-console": "off",
-      "no-sync": "off"
+      "no-console": 0,
+      "no-sync": 0
     }
   },
   "bin": "./bin/esify",

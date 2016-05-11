@@ -5,10 +5,6 @@ var glob = require('glob');
 var path = require('path');
 var transform = require('..');
 
-if (!/shopify/i.test(path.basename(process.cwd()))) {
-  throw new Error('You must run this command from the root of the Shopify repo.');
-}
-
 var pattern = process.argv[2];
 var files = getFiles(pattern);
 var errors = {};

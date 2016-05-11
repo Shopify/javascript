@@ -23,25 +23,33 @@ var TRANSFORMS = [
   {path: 'js-codemod/transforms/unquote-properties'},
 ];
 
-var OPTIONS = {
-  appGlobalIdentifiers: ['Shopify', 'Sello'],
-  javascriptSourceLocation: path.join(process.cwd(), 'app/assets/javascripts'),
-  printOptions: {
-    quote: 'single',
-    trailingComma: true,
-    tabWidth: 2,
-    wrapColumn: 1000,
-  },
-  testContextToGlobals: {
-    testClock: {
-      properties: ['clock'],
-      replace: true,
-    },
-    sandbox: {
-      properties: ['spy', 'stub', 'mock', 'server', 'requests'],
-    },
-  },
-};
+var OPTIONS = loadOptions();
+
+function loadOptions() {
+  try {
+    return require(path.join(process.cwd(), 'esify.config'));
+  } catch (error) {
+    return {
+      appGlobalIdentifiers: ['Shopify', 'Sello'],
+      javascriptSourceLocation: path.join(process.cwd(), 'app/assets/javascripts'),
+      printOptions: {
+        quote: 'single',
+        trailingComma: true,
+        tabWidth: 2,
+        wrapColumn: 1000,
+      },
+      testContextToGlobals: {
+        testClock: {
+          properties: ['clock'],
+          replace: true,
+        },
+        sandbox: {
+          properties: ['spy', 'stub', 'mock', 'server', 'requests'],
+        },
+      },
+    };
+  }
+}
 
 function runTransform(code, name) {
   var module = require(name);
