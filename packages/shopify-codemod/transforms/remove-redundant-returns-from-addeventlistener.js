@@ -1,6 +1,6 @@
 export default function removeAddEventListener(file, api) {
   const j = api.jscodeshift;
-  return j(file.source) // parse input to AST
+  return j(file.source)
     .find(j.CallExpression, {
       callee: {
         type: 'MemberExpression',
@@ -15,7 +15,7 @@ export default function removeAddEventListener(file, api) {
       const lastStatement = body[body.length - 1];
       if (lastStatement.type === 'ReturnStatement') {
         if (lastStatement.argument === null) {
-          body.pop(); // remove returns with no args
+          body.pop();
         }
         body[body.length - 1] = j.expressionStatement(body[body.length - 1].argument);
       } else {
