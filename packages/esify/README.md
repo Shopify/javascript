@@ -29,7 +29,8 @@ module.exports = {
   // The root folder for your JavaScripts
   javaScriptSourceLocation: path.join(__dirname, 'app/assets/javascripts'),
 
-  // The output style for your code
+  // The output style for your code. You can see all available options in the Recast docs:
+  // https://github.com/benjamn/recast/blob/master/lib/options.js
   printOptions: {
     quote: 'single',
     trailingComma: true,
