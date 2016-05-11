@@ -8,6 +8,7 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
       const currentTest = currentConsequent.get('test');
       const newMembers = getBaseExpressionFromTest(currentTest);
       memberExpression = augmentMemberExpression(memberExpression, newMembers);
+      if (hasCallExpression(memberExpression)) { return; }
 
       const newCondition = isFunctionCheck(currentTest.value)
         ? j.binaryExpression('===', j.unaryExpression('typeof', memberExpression), j.literal('function'))
@@ -130,6 +131,23 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
     } else {
       return getBaseExpressionFromFunctionTest(path);
     }
+  }
+
+  function hasCallExpression(expression) {
+    let currentExpression = expression;
+
+    // eslint-disable-next-line no-constant-condition
+    while (currentExpression != null) {
+      switch (currentExpression.type) {
+      case j.MemberExpression.name:
+        currentExpression = currentExpression.object;
+        break;
+      case j.CallExpression.name: return true;
+      default: return false;
+      }
+    }
+
+    return false;
   }
 
   function augmentMemberExpression(base, additional) {
