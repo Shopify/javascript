@@ -21,6 +21,18 @@ var TRANSFORMS = [
   {path: 'js-codemod/transforms/object-shorthand'},
   {path: 'js-codemod/transforms/no-vars'},
   {path: 'js-codemod/transforms/unquote-properties'},
+  // Order is significant for these initial assert transforms; think carefully before reordering.
+  {path: 'shopify-codemod/transforms/assert/assert-false-to-assert-fail', test: true},
+  {path: 'shopify-codemod/transforms/assert/assert-to-assert-ok', test: true},
+  {path: 'shopify-codemod/transforms/assert/negated-assert-ok-to-assert-not-ok', test: true},
+  {path: 'shopify-codemod/transforms/assert/move-literals-to-expected-argument', test: true},
+  {path: 'shopify-codemod/transforms/assert/equality-comparisons-to-assertions', test: true},
+  // These transforms can be executed in any order.
+  {path: 'shopify-codemod/transforms/assert/called-equals-boolean-to-assert-called', test: true},
+  {path: 'shopify-codemod/transforms/assert/call-count-equals-to-assert-called', test: true},
+  {path: 'shopify-codemod/transforms/assert/called-method-to-assert-called', test: true},
+  {path: 'shopify-codemod/transforms/assert/called-with-methods-to-assert-called-with', test: true},
+  {path: 'shopify-codemod/transforms/assert/falsy-called-method-to-assert-not-called', test: true},
 ];
 
 var OPTIONS = loadOptions();
