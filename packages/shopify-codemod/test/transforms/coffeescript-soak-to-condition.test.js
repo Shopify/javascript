@@ -1,7 +1,7 @@
 import 'test-helper';
 import coffeescriptSoakToCondition from 'coffeescript-soak-to-condition';
 
-describe.only('coffeescriptSoakToCondition', () => {
+describe('coffeescriptSoakToCondition', () => {
   it('transforms the basic case', () => {
     expect(coffeescriptSoakToCondition).to.transform('coffeescript-soak-to-condition/basic');
   });
