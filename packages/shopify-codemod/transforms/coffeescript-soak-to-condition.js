@@ -21,6 +21,7 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
       currentConsequent = currentConsequent.get('consequent');
     }
 
+    const {node} = path;
     const finalValue = augmentMemberExpression(memberExpression, currentConsequent.value);
     const parentPath = path.parentPath;
     const parentNode = parentPath.node;
@@ -46,17 +47,6 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
           j.blockStatement([j.expressionStatement(finalValue)])
         )
       );
-    } else if (j.AssignmentExpression.check(parentNode)) {
-      parentPath.parentPath.replace(
-        j.ifStatement(
-          condition,
-          j.blockStatement([
-            j.expressionStatement(
-              j.assignmentExpression(parentNode.operator, parentNode.left, finalValue)
-            ),
-          ])
-        )
-      );
     } else if (j.ReturnStatement.check(parentNode)) {
       parentPath.replace(
         j.ifStatement(
@@ -69,9 +59,21 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
       path.replace(
         j.logicalExpression('&&', condition, finalValue)
       );
-    } else if (j.BinaryExpression.check(parentNode) && !isBinaryExpressionThatMatchesUndefined(parentNode)) {
-      const newBinaryExpression = j.binaryExpression(parentNode.operator, finalValue, parentNode.right);
-      parentPath.replace(j.logicalExpression('&&', condition, newBinaryExpression));
+    } else if (j.BinaryExpression.check(parentNode) && hasDeterminableDefinedState(opposite(path).node)) {
+      const matchesUndefined = isBinaryExpressionThatMatchesUndefined(parentNode);
+
+      const isOnRight = (parentNode.right === node);
+      const leftArg = isOnRight ? parentNode.left : finalValue;
+      const rightArg = isOnRight ? finalValue : parentNode.right;
+      const newBinaryExpression = j.binaryExpression(parentNode.operator, leftArg, rightArg);
+
+      parentPath.replace(
+        j.logicalExpression(
+          matchesUndefined ? '||' : '&&',
+          matchesUndefined ? invertCondition(condition) : condition,
+          newBinaryExpression
+        )
+      );
     } else {
       path.replace(
         j.conditionalExpression(condition, finalValue, j.identifier('undefined'))
@@ -79,11 +81,49 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
     }
   }
 
+  function isNotUndefined(node) {
+    return (
+      j.Literal.check(node) ||
+      j.ArrayExpression.check(node) ||
+      j.ObjectExpression.check(node) ||
+      j.NewExpression.check(node)
+    );
+  }
+
+  function hasDeterminableDefinedState(node) {
+    return node != null && (isNotUndefined(node) || isUndefined(node));
+  }
+
+  function opposite(path) {
+    const {node, parentPath} = path;
+    return parentPath.node.left === node ? parentPath.get('right') : parentPath.get('left');
+  }
+
+  function invertCondition(condition) {
+    const opposites = {'!=': '==', '===': '!=='};
+    let currentCondition = condition;
+
+    while (currentCondition != null) {
+      if (j.LogicalExpression.check(currentCondition)) {
+        currentCondition.right.operator = opposites[currentCondition.right.operator];
+        currentCondition.operator = '||';
+      } else {
+        currentCondition.operator = opposites[currentCondition.operator];
+      }
+
+      currentCondition = currentCondition.left;
+    }
+
+    return condition;
+  }
+
   function isBinaryExpressionThatMatchesUndefined(expression) {
+    const {left, right, operator} = expression;
+
     return j.BinaryExpression.check(expression) &&
       (
-        (expression.operator === '==' && isNull(expression.right)) ||
-        ((expression.operator === '===' || expression.operator === '==') && isUndefined(expression.right))
+        (operator === '==' && (isNull(right) || isNull(left))) ||
+        ((operator === '===' || operator === '==') && (isUndefined(right) || isUndefined(left)))
       );
   }
 

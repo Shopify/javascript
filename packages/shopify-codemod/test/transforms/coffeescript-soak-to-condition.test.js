@@ -1,7 +1,7 @@
 import 'test-helper';
 import coffeescriptSoakToCondition from 'coffeescript-soak-to-condition';
 
-describe('coffeescriptSoakToCondition', () => {
+describe.only('coffeescriptSoakToCondition', () => {
   it('transforms the basic case', () => {
     expect(coffeescriptSoakToCondition).to.transform('coffeescript-soak-to-condition/basic');
   });
@@ -12,6 +12,10 @@ describe('coffeescriptSoakToCondition', () => {
 
   it('transforms assignment expressions', () => {
     expect(coffeescriptSoakToCondition).to.transform('coffeescript-soak-to-condition/assignment');
+  });
+
+  it('transforms logical expressions', () => {
+    expect(coffeescriptSoakToCondition).to.transform('coffeescript-soak-to-condition/logical-expressions');
   });
 
   it('handles different parent paths', () => {

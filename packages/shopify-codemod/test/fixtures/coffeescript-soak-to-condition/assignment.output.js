@@ -1,6 +1,5 @@
-if (typeof bar.baz === 'function') {
-  foo = bar.baz();
-}
+// foo; foo = bar.baz?()
+foo = (typeof bar.baz === 'function' ? bar.baz() : undefined);
 
 // foo += bar.baz?() || some.default() for bar in bars
 for (let bar of bars) {
@@ -9,3 +8,8 @@ for (let bar of bars) {
 
 // (foo = bar?.baz) ->
 function aFunc(foo = (bar != null ? bar.baz : undefined)) {}
+
+// if foo = baz?.qux
+if(foo = (bar = (baz != null ? baz.qux : undefined))) {
+
+}

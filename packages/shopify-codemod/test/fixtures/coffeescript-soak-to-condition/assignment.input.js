@@ -8,3 +8,8 @@ for (let bar of bars) {
 
 // (foo = bar?.baz) ->
 function aFunc(foo = typeof bar !== "undefined" && bar !== null ? bar.baz : void 0) {}
+
+// if foo = baz?.qux
+if(foo = (bar = typeof baz !== "undefined" && baz !== null ? baz.qux : void 0)) {
+
+}
