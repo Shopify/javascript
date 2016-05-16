@@ -9,6 +9,6 @@ describe('removeEmptyReturns', () => {
     expect(removeEmptyReturns).to.transform('remove-empty-returns/function-expressions');
   });
   it('removes empty returns from arrow expressions', () => {
-    expect(removeEmptyReturns).to.transform('remove-empty-returns/arrow-expressions');
+    expect(removeEmptyReturns).to.transform('remove-empty-returns/arrow-functions');
   });
 });
