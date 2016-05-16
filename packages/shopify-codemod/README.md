@@ -6,7 +6,7 @@ This repository contains a collection of Codemods written with [JSCodeshift](htt
 
 1. `npm install -g jscodeshift`
 2. `git clone https://github.com/shopify/javascript` or [download the zip file](https://github.com/shopify/javascript/archive/master.zip)
-3. `npm install && npm run setup`
+3. `npm run setup`
 4. `jscodeshift -t <codemod-script> <file>`
 5. Use the `-d` option for a dry-run and use `-p` to print the output for comparison.
 

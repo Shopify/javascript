@@ -1,8 +1,13 @@
+import {matchLast} from './utils';
+
 export default function removeEmptyReturns({source}, {jscodeshift: j}, {printOptions = {}}) {
   return j(source)
     .find(j.Function, {
       body: {
-        body: (lines) => j.ReturnStatement.check(lines[lines.length - 1]) && lines[lines.length - 1].argument === null,
+        body: matchLast(j, {
+          type: 'ReturnStatement',
+          argument: null,
+        }),
       },
     })
     .forEach(({node: {body: {body}}}) => {

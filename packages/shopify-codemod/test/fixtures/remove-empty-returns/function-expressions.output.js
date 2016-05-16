@@ -1,7 +1,7 @@
 class Test {
-  constructor(sourceArray, templates) {
-    this.sourceArray = sourceArray;
-    this.templates = templates;
+  constructor(foo, bar) {
+    this.foo = foo;
+    this.bar = bar;
   }
 }
 
