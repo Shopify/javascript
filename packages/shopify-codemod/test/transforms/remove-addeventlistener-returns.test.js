@@ -6,7 +6,7 @@ describe('removeAddEventListenerReturns', () => {
     expect(removeAddEventListenerReturns).to.transform('remove-addeventlistener-returns/basic');
   });
   it('removes redundant returns with no arguments', () => {
-    expect(removeAddEventListenerReturns).to.transform('remove-addeventlistener-returns/no-argument');
+    expect(removeAddEventListenerReturns).to.transform('remove-addeventlistener-returns/no-arguments');
   });
   it('doesn\'t remove nested returns', () => {
     expect(removeAddEventListenerReturns).to.transform('remove-addeventlistener-returns/nested');
