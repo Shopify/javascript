@@ -1,6 +1,10 @@
 function functionDeclaration() {
   foo();
-  function nestedFunctionDeclaration() {
-    foo();
+  function foo() {
+    if (bar) {
+      return;
+    }
+    doSomething();
+    return foo;
   }
 }
