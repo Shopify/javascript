@@ -1,9 +1,11 @@
-function whenFinished() {
-  unhighlight(target, startTime);
-  listeners.remove();
-  function test() {
-    console.log('test');
-    return;
+function functionDeclaration() {
+  foo();
+  function foo() {
+    if (bar) {
+      return;
+    }
+    doSomething();
+    return foo;
   }
   return;
 }
