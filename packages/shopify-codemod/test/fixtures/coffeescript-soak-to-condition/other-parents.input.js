@@ -27,3 +27,13 @@ while (typeof a !== "undefined" && a !== null ? (typeof a[bar] === "function" ? 
 do {
 
 } while (typeof a !== "undefined" && a !== null ? (typeof a[bar] === "function" ? a[bar]() : void 0) : void 0);
+
+// unless a?[bar]?()
+if (!(typeof a !== "undefined" && a !== null ? (typeof a[bar] === "function" ? a[bar]() : void 0) : void 0)) {
+
+}
+
+// foo = bar: !a?[bar]?()
+var foo = {
+  bar: !(typeof a !== "undefined" && a !== null ? (typeof a[bar] === "function" ? a[bar]() : void 0) : void 0),
+}

@@ -74,6 +74,10 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
           newBinaryExpression
         )
       );
+    } else if (j.UnaryExpression.check(parentNode) && parentNode.operator === '!') {
+      parentPath.replace(
+        j.logicalExpression('||', invertCondition(condition), j.unaryExpression('!', finalValue))
+      );
     } else {
       path.replace(
         j.conditionalExpression(condition, finalValue, j.identifier('undefined'))

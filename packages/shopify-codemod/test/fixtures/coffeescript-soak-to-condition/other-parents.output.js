@@ -31,3 +31,13 @@ while (a != null && typeof a[bar] === 'function' && a[bar]()) {
 do {
 
 } while (a != null && typeof a[bar] === 'function' && a[bar]());
+
+// unless a?[bar]?()
+if (a == null || typeof a[bar] !== 'function' || !a[bar]()) {
+
+}
+
+// foo = bar: !a?[bar]?()
+var foo = {
+  bar: a == null || typeof a[bar] !== 'function' || !a[bar](),
+}
