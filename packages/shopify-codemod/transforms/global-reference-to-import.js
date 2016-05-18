@@ -1,5 +1,5 @@
 import {spawnSync} from 'child_process';
-import {resolve, relative} from 'path';
+import {extname, dirname, resolve, relative, join, basename} from 'path';
 import {findFirstMember, findLastMember, insertAfterDirectives} from './utils';
 
 function determineFileSearcher() {
@@ -43,15 +43,14 @@ export default function globalReferenceToImport(
     }
 
     const stdout = result.stdout.toString();
-    const parts = stdout.trim().split('\n');
-    if (parts.length === 0) {
+    const files = filterEquivalentFiles(stdout.trim().split('\n').map(getFileName));
+    if (files.length === 0) {
       return null;
-    } else if (parts.length !== 1) {
+    } else if (files.length !== 1) {
       throw new Error(`Found multiple definitions for ${identifier}`);
     }
 
-    const [filename] = parts[0].split(':', 4);
-    return relative(absolutePath, filename).replace(/\.[a-z]+$/, '');
+    return relative(absolutePath, files[0]).replace(/\.[a-z]+$/, '');
   }
 
   function isGlobalReference(object) {
@@ -129,4 +128,21 @@ export default function globalReferenceToImport(
       }
     })
     .toSource(printOptions);
+}
+
+function filterEquivalentFiles(files) {
+  return files.filter(
+    (file) => extname(file) === '.js' || files.indexOf(equivalentJavaScriptFile(file)) < 0
+  );
+}
+
+function equivalentJavaScriptFile(coffeeFile) {
+  return join(
+    dirname(coffeeFile),
+    `${basename(coffeeFile, '.coffee').split('_').join('-')}.js`
+  );
+}
+
+function getFileName(grepResult) {
+  return grepResult.split(':', 4)[0];
 }
