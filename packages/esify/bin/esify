@@ -5,8 +5,8 @@ var glob = require('glob');
 var path = require('path');
 var transform = require('..');
 
-var pattern = process.argv[2];
-var files = getFiles(pattern);
+var patterns = process.argv.slice(2);
+var files = getFiles(patterns);
 var errors = {};
 
 if (files.length === 0) {
@@ -30,14 +30,18 @@ if (errorKeys.length > 0) {
   });
 }
 
-function getFiles(filePattern) {
-  if (filePattern == null) {
-    throw new Error('Pass in a .coffee file, or glob pattern.');
+function getFiles(filePatterns) {
+  if (filePatterns == null || filePatterns.length === 0) {
+    throw new Error('Pass in .coffee files, or glob patterns.');
   }
 
-  return glob
-    .sync(filePattern, {ignore: ['node_modules/**', 'vendor/**']})
-    .filter(function(filePath) { return filePath.match(/\.coffee$/); });
+  return filePatterns.reduce(function(result, filePattern) {
+    return result.concat(
+      glob
+        .sync(filePattern, {ignore: ['node_modules/**', 'vendor/**']})
+        .filter(function(filePath) { return filePath.match(/\.coffee$/); })
+    );
+  }, []);
 }
 
 function handleFile(filePath) {
