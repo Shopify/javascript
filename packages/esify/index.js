@@ -5,12 +5,15 @@ var jscodeshift = require('jscodeshift');
 require('babel-register')({ignore: false});
 
 var TRANSFORMS = [
+  {path: 'shopify-codemod/transforms/coffeescript-soak-to-condition'},
   {path: 'shopify-codemod/transforms/constant-function-expression-to-statement'},
   {path: 'shopify-codemod/transforms/ternary-statement-to-if-statement'},
   {path: 'shopify-codemod/transforms/mocha-context-to-closure', test: true},
   {path: 'shopify-codemod/transforms/mocha-context-to-global-reference', test: true},
   {path: 'shopify-codemod/transforms/coffeescript-range-output-to-helper'},
   {path: 'shopify-codemod/transforms/remove-useless-return-from-test', test: true},
+  {path: 'shopify-codemod/transforms/remove-addeventlistener-returns'},
+  {path: 'shopify-codemod/transforms/remove-empty-returns'},
   {path: 'shopify-codemod/transforms/conditional-assign-to-if-statement'},
   {path: 'shopify-codemod/transforms/function-to-arrow'},
   {path: 'shopify-codemod/transforms/global-assignment-to-default-export', test: false},
