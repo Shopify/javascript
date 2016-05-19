@@ -24,64 +24,129 @@ describe('chaiJSCodeShift', () => {
     subject.resetConfig();
   });
 
-  describe('bdd syntax', () => {
-    it('succeeds when the transformer returns the same string as the ouput file', () => {
-      expect(() => expect(transform).to.transform(fixture)).not.to.throw(Error);
+  describe('transforms', () => {
+    describe('bdd syntax', () => {
+      it('succeeds when the transformer returns the same string as the ouput file', () => {
+        expect(() => expect(transform).to.transform(fixture)).not.to.throw(Error);
+      });
+
+      it('succeeds when the transformer returns the same string with different trailing whitespace', () => {
+        transform.returns(`${content}\n\n\n\n\n`);
+        expect(() => expect(transform).to.transform(fixture)).not.to.throw(Error);
+      });
+
+      it('fails when the transformer returns something else', () => {
+        transform.returns('bar');
+        expect(() => expect(transform).to.transform(fixture)).to.throw(Error);
+      });
     });
 
-    it('succeeds when the transformer returns the same string with different trailing whitespace', () => {
-      transform.returns(`${content}\n\n\n\n\n`);
-      expect(() => expect(transform).to.transform(fixture)).not.to.throw(Error);
+    describe('tdd syntax', () => {
+      it('succeeds when the transformer returns the same string as the ouput file', () => {
+        expect(() => assert.transforms(transform, fixture)).not.to.throw(Error);
+      });
+
+      it('succeeds when the transformer returns the same string with different trailing whitespace', () => {
+        transform.returns(`${content}\n\n\n\n\n`);
+        expect(() => assert.transforms(transform, fixture)).not.to.throw(Error);
+      });
+
+      it('fails when the transformer returns something else', () => {
+        transform.returns('bar');
+        expect(() => assert.transforms(transform, fixture)).to.throw(Error);
+      });
     });
 
-    it('fails when the transformer returns something else', () => {
-      transform.returns('bar');
-      expect(() => expect(transform).to.transform(fixture)).to.throw(Error);
+    describe('transform arguments', () => {
+      it('passes the input file details', () => {
+        const dummyPath = 'foo/bar/baz.qux';
+        subject.updateConfig({inputFixturePath: sinon.stub().returns(dummyPath)});
+        runDummyAssertion();
+
+        expect(transform)
+          .to.have.deep.property('firstCall.args[0]')
+          .that.deep.equals({source: content, path: dummyPath});
+      });
+
+      it('passes the jscodeshift API', () => {
+        runDummyAssertion();
+
+        expect(transform)
+          .to.have.deep.property('firstCall.args[1]')
+          .that.equals({jscodeshift});
+      });
+
+      it('passes the transform options', () => {
+        const extraOptions = {myDummyOption: true};
+        runDummyAssertion('transform', extraOptions);
+
+        expect(transform)
+          .to.have.deep.property('firstCall.args[2]')
+          .that.deep.equals(extraOptions);
+      });
     });
   });
 
-  describe('tdd syntax', () => {
-    it('succeeds when the transformer returns the same string as the ouput file', () => {
-      expect(() => assert.transforms(transform, fixture)).not.to.throw(Error);
+  describe('throwWhileTransforming', () => {
+    beforeEach(() => {
+      transform.throws(new Error('foo'));
     });
 
-    it('succeeds when the transformer returns the same string with different trailing whitespace', () => {
-      transform.returns(`${content}\n\n\n\n\n`);
-      expect(() => assert.transforms(transform, fixture)).not.to.throw(Error);
+    describe('bdd syntax', () => {
+      it('succeeds when the transformer throws an error', () => {
+        expect(() => expect(transform).to.throwWhileTransforming(fixture)).not.to.throw(Error);
+      });
+
+      it('succeeds when the transformer throws a matching error', () => {
+        expect(() => expect(transform).to.throwWhileTransforming(fixture, /foo/)).not.to.throw(Error);
+      });
+
+      it('fails when the transformer throws a non-matching error', () => {
+        expect(() => expect(transform).to.throwWhileTransforming(fixture, /bar/)).to.throw(Error);
+      });
     });
 
-    it('fails when the transformer returns something else', () => {
-      transform.returns('bar');
-      expect(() => assert.transforms(transform, fixture)).to.throw(Error);
-    });
-  });
+    describe('tdd syntax', () => {
+      it('succeeds when the transformer throws an error', () => {
+        expect(() => assert.throwsWhileTransforming(transform, fixture)).not.to.throw(Error);
+      });
 
-  describe('transform arguments', () => {
-    it('passes the input file details', () => {
-      const dummyPath = 'foo/bar/baz.qux';
-      subject.updateConfig({inputFixturePath: sinon.stub().returns(dummyPath)});
-      runDummyAssertion();
+      it('succeeds when the transformer throws a matching error', () => {
+        expect(() => assert.throwsWhileTransforming(transform, fixture, /foo/)).not.to.throw(Error);
+      });
 
-      expect(transform)
-        .to.have.deep.property('firstCall.args[0]')
-        .that.deep.equals({source: content, path: dummyPath});
+      it('fails when the transformer throws a non-matching error', () => {
+        expect(() => assert.throwsWhileTransforming(transform, fixture, /bar/)).to.throw(Error);
+      });
     });
 
-    it('passes the jscodeshift API', () => {
-      runDummyAssertion();
+    describe('transform arguments', () => {
+      it('passes the input file details', () => {
+        const dummyPath = 'foo/bar/baz.qux';
+        subject.updateConfig({inputFixturePath: sinon.stub().returns(dummyPath)});
+        runDummyAssertion('throwWhileTransforming', /foo/);
 
-      expect(transform)
-        .to.have.deep.property('firstCall.args[1]')
-        .that.equals({jscodeshift});
-    });
+        expect(transform)
+          .to.have.deep.property('firstCall.args[0]')
+          .that.deep.equals({source: content, path: dummyPath});
+      });
 
-    it('passes the transform options', () => {
-      const extraOptions = {myDummyOption: true};
-      runDummyAssertion(extraOptions);
+      it('passes the jscodeshift API', () => {
+        runDummyAssertion('throwWhileTransforming', /foo/);
 
-      expect(transform)
-        .to.have.deep.property('firstCall.args[2]')
-        .that.deep.equals(extraOptions);
+        expect(transform)
+          .to.have.deep.property('firstCall.args[1]')
+          .that.equals({jscodeshift});
+      });
+
+      it('passes the transform options', () => {
+        const extraOptions = {myDummyOption: true};
+        runDummyAssertion('throwWhileTransforming', /foo/, extraOptions);
+
+        expect(transform)
+          .to.have.deep.property('firstCall.args[2]')
+          .that.deep.equals(extraOptions);
+      });
     });
   });
 
@@ -155,9 +220,9 @@ describe('chaiJSCodeShift', () => {
     });
   });
 
-  function runDummyAssertion(...args) {
+  function runDummyAssertion(expectation = 'transform', ...args) {
     try {
-      expect(transform).to.transform(fixture, ...args);
+      expect(transform).to[expectation](fixture, ...args);
     } catch (error) {} // eslint-disable-line no-empty
   }
 });
