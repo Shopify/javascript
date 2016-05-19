@@ -6,24 +6,15 @@ require('babel-register')({ignore: false});
 
 var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/coffeescript-soak-to-condition'},
-  {path: 'shopify-codemod/transforms/constant-function-expression-to-statement'},
   {path: 'shopify-codemod/transforms/ternary-statement-to-if-statement'},
   {path: 'shopify-codemod/transforms/mocha-context-to-closure', test: true},
   {path: 'shopify-codemod/transforms/mocha-context-to-global-reference', test: true},
   {path: 'shopify-codemod/transforms/coffeescript-range-output-to-helper'},
   {path: 'shopify-codemod/transforms/remove-useless-return-from-test', test: true},
   {path: 'shopify-codemod/transforms/remove-addeventlistener-returns'},
-  {path: 'shopify-codemod/transforms/remove-empty-returns'},
   {path: 'shopify-codemod/transforms/conditional-assign-to-if-statement'},
-  {path: 'shopify-codemod/transforms/function-to-arrow'},
   {path: 'shopify-codemod/transforms/global-assignment-to-default-export', test: false},
   {path: 'shopify-codemod/transforms/global-reference-to-import'},
-  {path: 'js-codemod/transforms/arrow-function'},
-  {path: 'js-codemod/transforms/template-literals'},
-  {path: 'shopify-codemod/transforms/strip-template-literal-parenthesis'},
-  {path: 'js-codemod/transforms/object-shorthand'},
-  {path: 'js-codemod/transforms/no-vars'},
-  {path: 'js-codemod/transforms/unquote-properties'},
   // Order is significant for these initial assert transforms; think carefully before reordering.
   {path: 'shopify-codemod/transforms/assert/assert-false-to-assert-fail', test: true},
   {path: 'shopify-codemod/transforms/assert/assert-to-assert-ok', test: true},
@@ -36,6 +27,17 @@ var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/assert/called-method-to-assert-called', test: true},
   {path: 'shopify-codemod/transforms/assert/called-with-methods-to-assert-called-with', test: true},
   {path: 'shopify-codemod/transforms/assert/falsy-called-method-to-assert-not-called', test: true},
+  // These are more generic, stylistic transforms, so they should come last to catch any
+  // new nodes introduced by other transforms
+  {path: 'shopify-codemod/transforms/constant-function-expression-to-statement'},
+  {path: 'shopify-codemod/transforms/remove-empty-returns'},
+  {path: 'shopify-codemod/transforms/function-to-arrow'},
+  {path: 'js-codemod/transforms/arrow-function'},
+  {path: 'js-codemod/transforms/template-literals'},
+  {path: 'shopify-codemod/transforms/strip-template-literal-parenthesis'},
+  {path: 'js-codemod/transforms/object-shorthand'},
+  {path: 'js-codemod/transforms/no-vars'},
+  {path: 'js-codemod/transforms/unquote-properties'},
 ];
 
 var OPTIONS = loadOptions();
