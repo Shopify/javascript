@@ -12,6 +12,10 @@ This repository contains a collection of Codemods written with [JSCodeshift](htt
 
 ## Included Transforms
 
+### Chai Assertion Cleanup
+
+See the [Chai assertion documentation](transforms/assert/README.md).
+
 ### `coffeescript-soak-to-condition`
 
 Changes the output of CoffeeScript’s soak operations (`foo?.bar.baz?()`) into a cleaner, more idiomatic JavaScript expression appropriate for its location in code.
