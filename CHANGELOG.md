@@ -1,5 +1,17 @@
 # Changelog
 
+## 11.2.0
+
+### Added
+
+- Added `coffeescript-soak-to-condition` transform to better handle CoffeeScript’s soak and existential operator.
+
+- Added `remove-addeventlistener-returns` and `remove-empty-returns` transforms to remove unecessary transforms left from CoffeeScript conversions.
+
+### Fixed
+
+- Improved the order of transforms so that the most generic/ stylistic transforms are run last.
+
 ## 11.1.3
 
 ### Fixed
