@@ -14,7 +14,7 @@ This repository contains a collection of Codemods written with [JSCodeshift](htt
 
 ### `global-identifer-to-import`
 
-Transforms global identifiers that you specify into the appropriate import statements. In order for this to work, you must set the `globalIdentifiers` option to an object where the keys are the names of globals used in your script, and the keys are the import paths for those globals.
+Creates import statements for global identifiers. Use the `globalIdentifiers` option to specify identifier/ import path pairs.
 
 ```sh
 jscodeshift -t shopify-codemods/transforms/global-identifier-to-import <file>
