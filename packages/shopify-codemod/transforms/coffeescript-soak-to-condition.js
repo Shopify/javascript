@@ -1,3 +1,5 @@
+import {isUndefined} from './utils';
+
 export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, {printOptions = {}}) {
   function handleOffensiveConditional(path) {
     let memberExpression;
@@ -273,17 +275,6 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
       type: 'ConditionalExpression',
       test: isOffensiveConditionalTest,
       alternate: isUndefined,
-    });
-  }
-
-  function isUndefined(node) {
-    return j.match(node, {
-      type: 'Identifier',
-      name: 'undefined',
-    }) || j.match(node, {
-      type: 'UnaryExpression',
-      operator: 'void',
-      argument: {type: 'Literal', value: 0},
     });
   }
 
