@@ -7,14 +7,13 @@ require('babel-register')({ignore: false});
 var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/coffeescript-soak-to-condition'},
   {path: 'shopify-codemod/transforms/ternary-statement-to-if-statement'},
+  {path: 'shopify-codemod/transforms/remove-useless-return-from-test', test: true},
   {path: 'shopify-codemod/transforms/mocha-context-to-closure', test: true},
   {path: 'shopify-codemod/transforms/mocha-context-to-global-reference', test: true},
   {path: 'shopify-codemod/transforms/coffeescript-range-output-to-helper'},
-  {path: 'shopify-codemod/transforms/remove-useless-return-from-test', test: true},
   {path: 'shopify-codemod/transforms/remove-addeventlistener-returns'},
   {path: 'shopify-codemod/transforms/conditional-assign-to-if-statement'},
   {path: 'shopify-codemod/transforms/global-assignment-to-default-export', test: false},
-  {path: 'shopify-codemod/transforms/global-reference-to-import'},
   // Order is significant for these initial assert transforms; think carefully before reordering.
   {path: 'shopify-codemod/transforms/assert/assert-false-to-assert-fail', test: true},
   {path: 'shopify-codemod/transforms/assert/assert-to-assert-ok', test: true},
@@ -29,14 +28,18 @@ var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/assert/falsy-called-method-to-assert-not-called', test: true},
   // These are more generic, stylistic transforms, so they should come last to catch any
   // new nodes introduced by other transforms
-  {path: 'shopify-codemod/transforms/constant-function-expression-to-statement'},
   {path: 'shopify-codemod/transforms/remove-empty-returns'},
   {path: 'shopify-codemod/transforms/function-to-arrow'},
   {path: 'js-codemod/transforms/arrow-function'},
   {path: 'js-codemod/transforms/template-literals'},
   {path: 'shopify-codemod/transforms/strip-template-literal-parenthesis'},
   {path: 'js-codemod/transforms/object-shorthand'},
+  // constant-function-expression-to-statement and global-reference-to-import need
+  // `const` references, so they must happen after `no-vars`
   {path: 'js-codemod/transforms/no-vars'},
+  {path: 'shopify-codemod/transforms/constant-function-expression-to-statement'},
+  {path: 'shopify-codemod/transforms/global-reference-to-import'},
+  {path: 'shopify-codemod/transforms/global-identifier-to-import'},
   {path: 'js-codemod/transforms/unquote-properties'},
 ];
 
@@ -63,6 +66,21 @@ function loadOptions() {
         sandbox: {
           properties: ['spy', 'stub', 'mock', 'server', 'requests'],
         },
+      },
+      globalIdentifiers: {
+        _: 'lodash',
+        $: 'jquery',
+        jQuery: 'jquery',
+        moment: 'moment',
+        jstz: 'jstimezonedetect',
+        mousetrap: 'mousetrap',
+        URI: 'urijs',
+        URITemplate: 'urijs/src/URITemplate',
+        ReconnectingWebSocket: 'shopify-reconnecting-websocket',
+        d3: 'd3',
+        NProgress: 'NProgress',
+        FastClick: 'shopify-fastclick',
+        Clipboard: 'clipboard',
       },
     };
   }

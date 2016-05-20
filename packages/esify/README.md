@@ -48,5 +48,13 @@ module.exports = {
       properties: ['spy', 'stub', 'mock', 'server', 'requests'],
     },
   },
+
+  // A list of globals and their associated import paths for global-identifier-to-import
+  globalIdentifiers: {
+    _: 'lodash',
+    $: 'jquery',
+    jQuery: 'jquery',
+    moment: 'moment',
+  },
 }
 ```

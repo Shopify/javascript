@@ -1,7 +1,19 @@
-import {MOCHA_FUNCTIONS, matchLast as matchLastNode} from './utils';
+import {MOCHA_FUNCTIONS, matchLast} from './utils';
 
 export default function removeUselessReturnFromTest({source}, {jscodeshift: j}, {printOptions = {}}) {
-  const matchLast = matchLastNode.bind(null, j);
+  function isUselessIIFE(node) {
+    return j.match(node, {
+      type: j.CallExpression.name,
+      callee: {
+        type: isFunctionExpressionType,
+        params: (params) => params.length === 0,
+      },
+    });
+  }
+
+  function isFunctionExpressionType(type) {
+    return type === j.ArrowFunctionExpression.name || type === j.FunctionExpression.name;
+  }
 
   return j(source)
     .find(j.CallExpression, {
@@ -10,11 +22,11 @@ export default function removeUselessReturnFromTest({source}, {jscodeshift: j}, 
         name: (name) => MOCHA_FUNCTIONS.has(name),
       },
       arguments: matchLast({
-        type: (type) => type === 'ArrowFunctionExpression' || type === 'FunctionExpression',
+        type: isFunctionExpressionType,
         body: {
-          type: 'BlockStatement',
+          type: j.BlockStatement.name,
           body: matchLast({
-            type: 'ReturnStatement',
+            type: j.ReturnStatement.name,
           }),
         },
       }),
@@ -23,7 +35,11 @@ export default function removeUselessReturnFromTest({source}, {jscodeshift: j}, 
       const {body: {body}} = path.node.arguments[path.node.arguments.length - 1];
       const returnStatement = body[body.length - 1];
       if (returnStatement.argument) {
-        body[body.length - 1] = j.expressionStatement(returnStatement.argument);
+        if (isUselessIIFE(returnStatement.argument)) {
+          returnStatement.argument.callee.body.body.forEach((statement) => { body[body.length - 1] = statement; });
+        } else {
+          body[body.length - 1] = j.expressionStatement(returnStatement.argument);
+        }
       } else {
         body.pop();
       }

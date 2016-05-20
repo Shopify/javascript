@@ -23,6 +23,7 @@ export default function globalReferenceToImport(
     appGlobalIdentifiers,
   }) {
   const [binary, args] = determineFileSearcher();
+  const fileForIdentifier = {};
 
   /*
   * findDeclaringFile uses ack or the_silver_searcher to find the file in which something is declared.
@@ -53,6 +54,15 @@ export default function globalReferenceToImport(
     return relative(absolutePath, files[0]).replace(/\.[a-z]+$/, '');
   }
 
+  function getDeclaringFile(identifier) {
+    if (!fileForIdentifier.hasOwnProperty(identifier)) {
+      fileForIdentifier[identifier] = findDeclaringFile(identifier);
+    }
+
+    return fileForIdentifier[identifier];
+  }
+
+
   function isGlobalReference(object) {
     return appGlobalIdentifiers.indexOf(findFirstMember(object).name) >= 0;
   }
@@ -67,10 +77,8 @@ export default function globalReferenceToImport(
         if (imports.has(member)) {
           return imports.get(member).name;
         } else {
-          const file = findDeclaringFile(member);
-          if (file === null) {
-            return null;
-          }
+          const file = getDeclaringFile(member);
+          if (file === null) { return null; }
           const name = findLastMember(node).name;
           imports.set(member, {file, name});
           return name;

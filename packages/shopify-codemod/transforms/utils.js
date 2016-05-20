@@ -1,3 +1,5 @@
+import j from 'jscodeshift';
+
 export function findFirstMember(node) {
   if (node.type === 'MemberExpression') {
     return findFirstMember(node.object);
@@ -12,7 +14,7 @@ export function findLastMember(node) {
   return node;
 }
 
-export function matchLast(j, matcher) {
+export function matchLast(matcher) {
   return (nodes) => nodes.length > 0 && j.match(nodes[nodes.length - 1], matcher);
 }
 
