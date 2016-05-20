@@ -12,6 +12,29 @@ This repository contains a collection of Codemods written with [JSCodeshift](htt
 
 ## Included Transforms
 
+### `global-identifer-to-import`
+
+Transforms global identifiers that you specify into the appropriate import statements. In order for this to work, you must set the `globalIdentifiers` option to an object where the keys are the names of globals used in your script, and the keys are the import paths for those globals.
+
+```sh
+jscodeshift -t shopify-codemods/transforms/global-identifier-to-import <file>
+```
+
+#### Example
+
+```js
+// with {globalIdentifiers: {_: 'lodash', $: 'jquery'}}
+_.map([], _.identity);
+window.$('.foo').find('.bar');
+
+// BECOMES:
+
+import _ from 'lodash';
+import $ from 'jquery';
+_.map([], _.identity);
+$('.foo').find('.bar');
+```
+
 ### `coffeescript-soak-to-condition`
 
 Changes the output of CoffeeScript’s soak operations (`foo?.bar.baz?()`) into a cleaner, more idiomatic JavaScript expression appropriate for its location in code.

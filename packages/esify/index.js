@@ -37,6 +37,7 @@ var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/strip-template-literal-parenthesis'},
   {path: 'js-codemod/transforms/object-shorthand'},
   {path: 'js-codemod/transforms/no-vars'},
+  {path: 'shopify-codemod/transforms/global-identifier-to-import'},
   {path: 'js-codemod/transforms/unquote-properties'},
 ];
 
@@ -63,6 +64,21 @@ function loadOptions() {
         sandbox: {
           properties: ['spy', 'stub', 'mock', 'server', 'requests'],
         },
+      },
+      globalIdentifiers: {
+        _: 'lodash',
+        $: 'jquery',
+        jQuery: 'jquery',
+        moment: 'moment',
+        jstz: 'jstimezonedetect',
+        mousetrap: 'mousetrap',
+        URI: 'urijs',
+        URITemplate: 'urijs/src/URITemplate',
+        ReconnectingWebSocket: 'shopify-reconnecting-websocket',
+        d3: 'd3',
+        NProgress: 'NProgress',
+        FastClick: 'shopify-fastclick',
+        Clipboard: 'clipboard',
       },
     };
   }
