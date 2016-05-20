@@ -29,6 +29,17 @@ export function insertAfterDirectives(body, newNode) {
   return body;
 }
 
+export function isUndefined(node) {
+  return j.match(node, {
+    type: 'Identifier',
+    name: 'undefined',
+  }) || j.match(node, {
+    type: 'UnaryExpression',
+    operator: 'void',
+    argument: {type: 'Literal', value: 0},
+  });
+}
+
 // from https://github.com/sindresorhus/globals/blob/1e9ebc39828b92bd5c8ec7dc7bb07d62f2fb0153/globals.json#L852
 export const MOCHA_FUNCTIONS = new Set([
   'after',

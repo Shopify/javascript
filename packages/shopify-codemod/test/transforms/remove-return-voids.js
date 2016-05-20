@@ -11,4 +11,7 @@ describe('removeReturnVoids', () => {
   it('Doesn\'t remove valid returns', () => {
     expect(removeReturnVoids).to.transform('remove-return-voids/valid');
   });
+  it('Doesn\'t remove the entire block in multi-lined blocks', () => {
+    expect(removeReturnVoids).to.transform('remove-return-voids/multi');
+  });
 });
