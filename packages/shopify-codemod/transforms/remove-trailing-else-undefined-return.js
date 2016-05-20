@@ -1,6 +1,6 @@
 import {matchLast, isUndefined} from './utils';
 
-export default function removeReturnVoids({source}, {jscodeshift: j}, {printOptions = {}}) {
+export default function removeTrailingElseUndefinedReturn({source}, {jscodeshift: j}, {printOptions = {}}) {
 
   return j(source)
       .find(j.Function, {
