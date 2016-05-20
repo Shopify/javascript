@@ -5,4 +5,8 @@ describe('removeUselessReturnFromTest', () => {
   it('transforms basic setup variables', () => {
     expect(removeUselessReturnFromTest).to.transform('remove-useless-return-from-test/basic');
   });
+
+  it('transforms empty returned IIFEs', () => {
+    expect(removeUselessReturnFromTest).to.transform('remove-useless-return-from-test/iife');
+  });
 });

@@ -1,13 +1,6 @@
 import {MOCHA_FUNCTIONS} from './utils';
 
-export default function mochaContextToGlobalReference(
-  {source},
-  {jscodeshift: j},
-  {
-    printOptions = {},
-    testContextToGlobals = {},
-  }
-) {
+export default function mochaContextToGlobalReference({source}, {jscodeshift: j}, {printOptions = {}, testContextToGlobals = {}}) {
   const propMapping = Object.keys(testContextToGlobals).reduce((map, testGlobal) => {
     const testGlobalDetails = testContextToGlobals[testGlobal];
     testGlobalDetails.properties.forEach((prop) => {

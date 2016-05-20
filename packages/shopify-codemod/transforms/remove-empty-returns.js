@@ -4,7 +4,7 @@ export default function removeEmptyReturns({source}, {jscodeshift: j}, {printOpt
   return j(source)
     .find(j.Function, {
       body: {
-        body: matchLast(j, {
+        body: matchLast({
           type: 'ReturnStatement',
           argument: null,
         }),

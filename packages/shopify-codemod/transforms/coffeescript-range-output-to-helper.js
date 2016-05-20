@@ -1,10 +1,8 @@
-import {matchLast as matchLastNode} from './utils';
+import {matchLast} from './utils';
 
 const INCLUSIVE_OPERATORS = new Set(['<=', '>=']);
 
 export default function coffeescriptRangeOutputToHelper({source}, {jscodeshift: j}, {printOptions = {}}) {
-  const matchLast = matchLastNode.bind(null, j);
-
   function isCoffeeScriptRangeFunctionBody(statements) {
     const lastStatement = statements[statements.length - 1];
     const isProperReturn = j.match(lastStatement, {
