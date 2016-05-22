@@ -5,10 +5,10 @@ export default function removeTrailingElseUndefinedReturn({source}, {jscodeshift
   return j(source)
       .find(j.Function, {
         body: {
-          body: matchLast(j, {
+          body: matchLast({
             type: 'IfStatement',
             alternate: {
-              body: matchLast(j, {
+              body: matchLast({
                 type: 'ReturnStatement',
                 argument: (line) => isUndefined(line),
               }),
