@@ -28,7 +28,7 @@ var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/assert/falsy-called-method-to-assert-not-called', test: true},
   // These are more generic, stylistic transforms, so they should come last to catch any
   // new nodes introduced by other transforms
-  {path: 'shopify-codemod/transforms/remove-remove-trailing-else-undefined-return'},
+  {path: 'shopify-codemod/transforms/remove-trailing-else-undefined-return'},
   {path: 'shopify-codemod/transforms/remove-empty-returns'},
   {path: 'shopify-codemod/transforms/function-to-arrow'},
   {path: 'js-codemod/transforms/arrow-function'},
