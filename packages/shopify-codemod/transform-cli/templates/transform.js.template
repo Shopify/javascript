@@ -1,0 +1,10 @@
+export default function __CAMELIZED_NAME__({source}, {jscodeshift: j}, {printOptions = {quote: 'single'}}) {
+  return j(source)
+    .find(j.Identifier, {
+      name: '',
+    })
+    .replaceWith(({node}) => {
+      return
+    })
+    .toSource(printOptions);
+}

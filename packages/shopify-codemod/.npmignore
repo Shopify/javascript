@@ -1,3 +1,6 @@
-test
-coverage
 .eslintignore
+bin/create-transform
+bin/rename-transform
+coverage
+test
+transform-cli

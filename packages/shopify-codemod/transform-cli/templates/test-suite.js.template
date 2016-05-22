@@ -1,0 +1,8 @@
+import 'test-helper';
+import transform from '__DASHERIZED_NAME__';
+
+describe('__CAMELIZED_NAME__', () => {
+  it('CHANGE THIS', () => {
+    expect(transform).to.transform('__DASHERIZED_NAME__/basic');
+  });
+});
