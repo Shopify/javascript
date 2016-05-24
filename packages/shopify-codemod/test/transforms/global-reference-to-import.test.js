@@ -31,4 +31,8 @@ describe('globalReferenceToImport', () => {
   it('imports from a JavaScript file when there are multiple matches with comparable paths', () => {
     expect(globalReferenceToImport).to.transform('global-reference-to-import/multiple-matches/basic-valid');
   });
+
+  it('only renames globals that are present in the same file', () => {
+    expect(globalReferenceToImport).to.transform('global-reference-to-import/self-referencing');
+  });
 });
