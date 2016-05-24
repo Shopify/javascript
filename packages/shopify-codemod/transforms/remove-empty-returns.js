@@ -1,7 +1,24 @@
 import {matchLast} from './utils';
 
 export default function removeEmptyReturns({source}, {jscodeshift: j}, {printOptions = {}}) {
-  return j(source)
+  const sourceAST = j(source);
+  sourceAST
+    .find(j.IfStatement, {
+      alternate: {
+        body: [{
+          type: 'ExpressionStatement',
+          expression: {
+            type: 'UnaryExpression',
+            operator: 'void',
+          },
+        }],
+      },
+    })
+    .forEach(({node}) => {
+      delete node.alternate;
+    });
+
+  return sourceAST
     .find(j.Function, {
       body: {
         body: matchLast({
