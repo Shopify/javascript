@@ -40,4 +40,12 @@ if (a == null || typeof a[bar] !== 'function' || !a[bar]()) {
 // foo = bar: !a?[bar]?()
 var foo = {
   bar: a == null || typeof a[bar] !== 'function' || !a[bar](),
+};
+
+if (a != null && a.b != null) {
+  a.b = c;
 }
+
+var foo = {
+  bar: ((a != null && a.b != null ? a.b = c : undefined)),
+};
