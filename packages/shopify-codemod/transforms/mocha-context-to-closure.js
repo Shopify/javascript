@@ -4,9 +4,14 @@ export default function mochaContextToClosure({source}, {jscodeshift: j}, {print
   let currentContext;
   const root = j(source);
 
+  const transformableThisMemberMatcher = {
+    object: {type: j.ThisExpression.name},
+    property: {type: j.Identifier.name},
+    computed: false,
+  };
+
   function handleContextMember({node, scope}) {
     const propertyName = node.property.name;
-
     const propertyFromUpperContext = currentContext.propertyInScope(node.property);
 
     let newName;
@@ -46,9 +51,7 @@ export default function mochaContextToClosure({source}, {jscodeshift: j}, {print
       j.match(functionPath, {type: 'FunctionExpression'}) &&
       j.match(functionPath.parent, {
         type: 'AssignmentExpression',
-        left: {
-          object: {type: 'ThisExpression'},
-        },
+        left: transformableThisMemberMatcher,
       })
     );
   }
@@ -64,7 +67,7 @@ export default function mochaContextToClosure({source}, {jscodeshift: j}, {print
     const {node} = path;
 
     root
-      .find(j.MemberExpression, {object: {type: 'ThisExpression'}})
+      .find(j.MemberExpression, transformableThisMemberMatcher)
       .filter(isScopedToSetup)
       .replaceWith(handleContextMember);
 
@@ -75,7 +78,7 @@ export default function mochaContextToClosure({source}, {jscodeshift: j}, {print
     const callbackParam = node.arguments[node.arguments.length - 1];
 
     j(node)
-      .find(j.MemberExpression, {object: {type: 'ThisExpression'}})
+      .find(j.MemberExpression, transformableThisMemberMatcher)
       .filter((memberPath) => memberPath.scope.node === callbackParam)
       .replaceWith(handleContextPropertyUsage);
 
