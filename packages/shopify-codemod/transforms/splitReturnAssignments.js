@@ -13,7 +13,6 @@ export default function splitReturnAssignments({source}, {jscodeshift: j}, {prin
       },
     })
     .forEach(({node: {body: {body}}}) => {
-
       const {left, right} = body.pop().argument;
       body.pop();
       body.push({
