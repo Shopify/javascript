@@ -6,7 +6,7 @@ describe('splitReturnAssignments', () => {
     expect(splitReturnAssignments).to.transform('split-return-assignments/basic');
   });
 
-  it('splits up array element re-assignments').to.transform('split-return-assignments/array', () => {
+  it('splits up array element re-assignments', () => {
     expect(splitReturnAssignments).to.transform('split-return-assignments/array');
   });
 });
