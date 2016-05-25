@@ -14,6 +14,8 @@ function determineFileSearcher() {
   }
 }
 
+const fileForIdentifier = {};
+
 export default function globalReferenceToImport(
   {source},
   {jscodeshift: j},
@@ -23,7 +25,11 @@ export default function globalReferenceToImport(
     appGlobalIdentifiers,
   }) {
   const [binary, args] = determineFileSearcher();
-  const fileForIdentifier = {};
+
+  const sourceLocation = resolve(javascriptSourceLocation);
+  function relativePath(file) {
+    return relative(sourceLocation, file).replace(/\.[a-z]+$/, '');
+  }
 
   /*
   * findDeclaringFile uses ack or the_silver_searcher to find the file in which something is declared.
@@ -51,7 +57,7 @@ export default function globalReferenceToImport(
       throw new Error(`Found multiple definitions for ${identifier}`);
     }
 
-    return relative(absolutePath, files[0]).replace(/\.[a-z]+$/, '');
+    return files[0];
   }
 
   function getDeclaringFile(identifier) {
@@ -70,10 +76,25 @@ export default function globalReferenceToImport(
   return j(source)
     .find(j.Program)
     .forEach((path) => {
+      const exposeDirective = path.get('body').filter(({node}) => j.match(node, {
+        expression: {
+          type: j.Literal.name,
+          value: (value) => typeof value === 'string' && value.startsWith('expose'),
+        },
+      }))[0];
+
+      const exposed = exposeDirective && exposeDirective.get('expression').node.value.replace(/^expose\s+/, '');
+      const exposedLocalName = exposed && findLastMember(j(exposed).paths()[0].get('program', 'body', 0, 'expression').node).name;
+
       const imports = new Map();
 
       function registerMember(node) {
         const member = j(node).toSource();
+
+        if (member === exposed) {
+          return exposedLocalName;
+        }
+
         if (imports.has(member)) {
           return imports.get(member).name;
         } else {
@@ -131,7 +152,7 @@ export default function globalReferenceToImport(
           body,
           j.importDeclaration([
             j.importDefaultSpecifier(j.identifier(name)),
-          ], j.literal(file))
+          ], j.literal(relativePath(file)))
         );
       }
     })
