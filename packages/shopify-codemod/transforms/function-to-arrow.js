@@ -11,9 +11,9 @@ export default function functionToArrow({source}, {jscodeshift: j}, {printOption
     return !isMember(path) && !containsThisExpression(path);
   }
 
-  const root = j(source);
+  const sourceAST = j(source);
 
-  root
+  sourceAST
     .find(j.ArrowFunctionExpression, {
       body: {
         body: [{type: j.ReturnStatement.name}],
@@ -23,7 +23,7 @@ export default function functionToArrow({source}, {jscodeshift: j}, {printOption
       j.arrowFunctionExpression(params, argument, true)
     ));
 
-  root
+  sourceAST
     .find(j.FunctionExpression)
     .filter(isConvertibleFunction)
     .replaceWith(({node}) => {
@@ -41,5 +41,5 @@ export default function functionToArrow({source}, {jscodeshift: j}, {printOption
       return j.arrowFunctionExpression(params, body, body.type !== 'BlockStatement');
     });
 
-  return root.toSource(printOptions);
+  return sourceAST.toSource(printOptions);
 }
