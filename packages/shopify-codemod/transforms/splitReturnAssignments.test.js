@@ -14,9 +14,8 @@ export default function splitReturnAssignments({source}, {jscodeshift: j}, {prin
     })
     .forEach(({node: {body: {body}}}) => {
 
-      const {left, right} = body[body.length - 1].argument;
-      delete body[body.length - 1];
-
+      const {left, right} = body.pop().argument;
+      body.pop();
       body.push({
         type: 'ExpressionStatement',
         expression: {
@@ -26,7 +25,6 @@ export default function splitReturnAssignments({source}, {jscodeshift: j}, {prin
           right,
         },
       });
-
       body.push({
         type: 'ReturnStatement',
         argument: left,
