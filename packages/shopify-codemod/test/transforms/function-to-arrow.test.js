@@ -22,7 +22,7 @@ describe('functionToArrow', () => {
     expect(functionToArrow).to.transform('function-to-arrow/return-without-argument');
   });
 
-  it.only('transforms existing arrow functions with a single return to omit a block statement', () => {
+  it('transforms existing arrow functions with a single return to omit a block statement', () => {
     expect(functionToArrow).to.transform('function-to-arrow/bad-arrow');
   });
 });
