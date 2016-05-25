@@ -1,0 +1,7 @@
+#!/usr/bin/env node --harmony_destructuring
+
+/* eslint-disable node/shebang */
+const rename = require('../transform-cli/rename-transform');
+
+const [,, oldName, newName] = process.argv;
+rename(oldName, newName);

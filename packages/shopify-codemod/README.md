@@ -526,3 +526,9 @@ foo = () => {
 ## Contributing
 
 All code is written in ES2015+ in the `transforms/` directory. Make sure to add tests for all new transforms and features. A custom `transforms(fixtureName)` assertion is provided which checks that the passed transformer converts the fixture found at `test/fixtures/{{fixtureName}}.input.js` to the one found at `test/fixtures/{{fixtureName}}.output.js`. You can run `npm test` to run all tests, or `npm run test:watch` to have Mocha watch for changes and re-run the tests.
+
+
+### Development helpers
+`bin/create-transform your-transform-name-here` creates a transform file, a test file, and some empty test fixtures.
+
+`bin/rename-transform old-transform-name new-transform-name` renames the transforms file, test file, and fixture directory.
