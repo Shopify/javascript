@@ -12,6 +12,54 @@ This repository contains a collection of Codemods written with [JSCodeshift](htt
 
 ## Included Transforms
 
+### `rename-identifier`
+
+Renames a user-defined list of identifiers. Use the `renameIdentifiers` option to specify the old name/ new name pairs.
+
+```sh
+jscodeshift -t shopify-codemods/transforms/rename-identifier <file>
+```
+
+#### Example
+
+```js
+// with {renameIdentifiers: {jQuery: '$'}}
+jQuery('.foo').find('.bar');
+jQuery.ajax();
+foo.jQuery('.bar');
+
+// BECOMES:
+
+$('.foo').find('.bar');
+$.ajax();
+foo.jQuery('.bar');
+```
+
+### `rename-property`
+
+Renames a user-defined list of object/ property pairs to use new property names. Use the `renameProperties` option to specify the old property name/ new property name pairs.
+
+```sh
+jscodeshift -t shopify-codemods/transforms/rename-property <file>
+```
+
+#### Example
+
+```js
+// with {renameProperties: {_: {first: 'head'}}}
+_.first([]);
+_.first.bind(_);
+foo._.first([]);
+_.each([]);
+
+// BECOMES:
+
+_.head([]);
+_.head.bind(_);
+foo._.first([]);
+_.each([]);
+```
+
 ### `global-identifer-to-import`
 
 Creates import statements for global identifiers. Use the `globalIdentifiers` option to specify identifier/ import path pairs.

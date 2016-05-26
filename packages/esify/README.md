@@ -53,8 +53,23 @@ module.exports = {
   globalIdentifiers: {
     _: 'lodash',
     $: 'jquery',
-    jQuery: 'jquery',
     moment: 'moment',
+  },
+  // A list of identifiers to rename for rename-identifier
+  renameIdentifiers: {
+    jQuery: '$',
+  },
+  // A list of identifiers and their properties that should be renamed for rename-property
+  renameProperties: {
+    _: {
+      first: 'head',
+      each: 'forEach',
+      eachRight: 'forEachRight',
+      entries: 'toPairs',
+      entriesIn: 'toPairsIn',
+      extend: 'assignIn',
+      extendWith: 'assignInWith',
+    },
   },
 }
 ```
