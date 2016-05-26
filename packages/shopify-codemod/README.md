@@ -12,6 +12,32 @@ This repository contains a collection of Codemods written with [JSCodeshift](htt
 
 ## Included Transforms
 
+### `computed-literal-keys-to-dot-notation`
+
+Transforms member expressions that have string literal keys to use dot notation whenever possible.
+
+```sh
+jscodeshift -t shopify-codemods/transforms/rename-identifier <file>
+```
+
+#### Example
+
+```js
+foo['bar']['baz'] = 'qux';
+this['_foo'] = 'bar';
+foo[0] = 42;
+foo['bar-baz'] = 'qux';
+foo[bar] = 'qux';
+
+// BECOMES:
+
+foo.bar.baz = 'qux';
+this._foo = 'bar';
+foo[0] = 42;
+foo['bar-baz'] = 'qux';
+foo[bar] = 'qux';
+```
+
 ### `rename-identifier`
 
 Renames a user-defined list of identifiers. Use the `renameIdentifiers` option to specify the old name/ new name pairs.

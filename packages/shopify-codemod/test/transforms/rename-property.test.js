@@ -12,4 +12,10 @@ describe('renameProperty', () => {
       },
     });
   });
+
+  it('transforms invalid identifier names to string literal computed keys', () => {
+    expect(transform).to.transform('rename-property/invalid-identifier', {
+      renameProperties: {foo: {bar: 'baz-qux'}},
+    });
+  });
 });

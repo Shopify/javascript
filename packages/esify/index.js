@@ -38,6 +38,7 @@ var TRANSFORMS = [
   // These are run very late to ensure they catch any identifiers/ member expressions
   // added in earlier transforms
   {path: 'js-codemod/transforms/unquote-properties'},
+  {path: 'shopify-codemod/computed-literal-keys-to-dot-notation'},
   {path: 'shopify-codemod/transforms/rename-identifier'},
   {path: 'shopify-codemod/transforms/rename-property'},
   // constant-function-expression-to-statement and global-reference-to-import need

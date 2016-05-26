@@ -1,4 +1,4 @@
-import {pathIsFirstMember} from './utils';
+import {pathIsFirstMember, isValidIdentifier} from './utils';
 
 export default function renameProperty({source}, {jscodeshift: j}, {printOptions = {quote: 'single'}, renameProperties = {}}) {
   function hasPropertyThatShouldBeRenamed({node: {computed, object, property}}) {
@@ -12,7 +12,12 @@ export default function renameProperty({source}, {jscodeshift: j}, {printOptions
     .filter((path) => pathIsFirstMember(path) && hasPropertyThatShouldBeRenamed(path))
     .forEach((path) => {
       const {node: {object, property}} = path;
-      path.get('property').replace(j.identifier(renameProperties[object.name][property.name]));
+      const newName = renameProperties[object.name][property.name];
+      const newNameIsValidIdentifier = isValidIdentifier(newName);
+      path.get('property').replace(
+        newNameIsValidIdentifier ? j.identifier(newName) : j.literal(newName)
+      );
+      path.get('computed').replace(!newNameIsValidIdentifier);
     })
     .toSource(printOptions);
 }
