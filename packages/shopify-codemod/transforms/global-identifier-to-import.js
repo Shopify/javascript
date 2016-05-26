@@ -1,4 +1,4 @@
-import {insertAfterDirectives} from './utils';
+import {insertAfterDirectives, pathIsFirstMember} from './utils';
 
 export default function globalIdentifierToImport({source}, {jscodeshift: j}, {printOptions = {}, globalIdentifiers = {}}) {
   return j(source)
@@ -11,16 +11,11 @@ export default function globalIdentifierToImport({source}, {jscodeshift: j}, {pr
       }
 
       function isWindow(windowPath) {
-        return windowPath.get('name').value === 'window' && !isNestedInMemberExpression(windowPath);
-      }
-
-      function isNestedInMemberExpression(aPath) {
-        const parentNode = aPath.parentPath.node;
-        return j.MemberExpression.check(parentNode) && parentNode.property === aPath.node;
+        return windowPath.get('name').value === 'window' && pathIsFirstMember(windowPath);
       }
 
       function isGlobalIdentifier(identifierPath) {
-        return !isNestedInMemberExpression(identifierPath) || isWindow(identifierPath.parentPath.get('object'));
+        return pathIsFirstMember(identifierPath) || isWindow(identifierPath.parentPath.get('object'));
       }
 
       j(path)
@@ -30,7 +25,7 @@ export default function globalIdentifierToImport({source}, {jscodeshift: j}, {pr
           imports.add(identifierPath.node.name);
 
           // can only happen for window.globalIdentifier
-          if (isNestedInMemberExpression(identifierPath)) {
+          if (!pathIsFirstMember(identifierPath)) {
             identifierPath.parentPath.replace(identifierPath.node);
           }
         });

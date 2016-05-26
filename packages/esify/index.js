@@ -35,13 +35,17 @@ var TRANSFORMS = [
   {path: 'js-codemod/transforms/template-literals'},
   {path: 'shopify-codemod/transforms/strip-template-literal-parenthesis'},
   {path: 'js-codemod/transforms/object-shorthand'},
+  // These are run very late to ensure they catch any identifiers/ member expressions
+  // added in earlier transforms
+  {path: 'js-codemod/transforms/unquote-properties'},
+  {path: 'shopify-codemod/transforms/rename-identifier'},
+  {path: 'shopify-codemod/transforms/rename-property'},
   // constant-function-expression-to-statement and global-reference-to-import need
   // `const` references, so they must happen after `no-vars`
   {path: 'js-codemod/transforms/no-vars'},
   {path: 'shopify-codemod/transforms/constant-function-expression-to-statement'},
   {path: 'shopify-codemod/transforms/global-reference-to-import'},
   {path: 'shopify-codemod/transforms/global-identifier-to-import'},
-  {path: 'js-codemod/transforms/unquote-properties'},
 ];
 
 var OPTIONS = loadOptions();
@@ -71,7 +75,6 @@ function loadOptions() {
       globalIdentifiers: {
         _: 'lodash',
         $: 'jquery',
-        jQuery: 'jquery',
         moment: 'moment',
         jstz: 'jstimezonedetect',
         mousetrap: 'mousetrap',
@@ -82,6 +85,20 @@ function loadOptions() {
         NProgress: 'NProgress',
         FastClick: 'shopify-fastclick',
         Clipboard: 'clipboard',
+      },
+      renameIdentifiers: {
+        jQuery: '$',
+      },
+      renameProperties: {
+        _: {
+          first: 'head',
+          each: 'forEach',
+          eachRight: 'forEachRight',
+          entries: 'toPairs',
+          entriesIn: 'toPairsIn',
+          extend: 'assignIn',
+          extendWith: 'assignInWith',
+        },
       },
     };
   }
