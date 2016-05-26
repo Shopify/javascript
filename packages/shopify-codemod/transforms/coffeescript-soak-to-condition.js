@@ -4,8 +4,8 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
   function handleOffensiveConditional(path) {
     let memberExpression;
     let condition;
-    const isNullCheckOfSoak = conditionalExpressionIsNullCheckOfSoak(path);
-    let currentConsequent = isNullCheckOfSoak ? path.get('test', 'left') : path;
+    const isNullCheckCondition = conditionalExpressionIsPostfixNullCheck(path);
+    let currentConsequent = isNullCheckCondition ? path.get('test', 'left') : path;
 
     while (isOffensiveConditionalExpression(currentConsequent)) {
       const currentTest = currentConsequent.get('test');
@@ -26,10 +26,10 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
 
     const {node} = path;
     const finalValue = augmentMemberExpression(memberExpression, currentConsequent.value);
-    let finalExpression = isNullCheckOfSoak ? path.get('consequent').node : finalValue;
+    let finalExpression = isNullCheckCondition ? path.get('consequent').node : finalValue;
 
-    if (isNullCheckOfSoak) {
-      condition = j.logicalExpression('&&', condition, createLooseUndefinedCheck(finalValue));
+    if (isNullCheckCondition || conditionalExpressionIsPostfixCondition(path)) {
+      condition = j.logicalExpression('&&', condition, isNullCheckCondition ? createLooseUndefinedCheck(finalValue) : finalValue);
       finalExpression = path.get('consequent').node;
     }
 
@@ -87,6 +87,13 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
     } else if (j.UnaryExpression.check(parentNode) && parentNode.operator === '!') {
       parentPath.replace(
         j.logicalExpression('||', invertCondition(condition), j.unaryExpression('!', finalExpression))
+      );
+    } else if (j.ConditionalExpression.check(parentNode) && j.ExpressionStatement.check(parentPath.parentPath.node)) {
+      parentPath.parentPath.replace(
+        j.ifStatement(
+          condition,
+          j.blockStatement([j.expressionStatement(parentNode.consequent)])
+        )
       );
     } else {
       path.replace(
@@ -274,9 +281,16 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
     });
   }
 
-  function conditionalExpressionIsNullCheckOfSoak(path) {
+  function conditionalExpressionIsPostfixNullCheck(path) {
     return j.match(path.node, {test: isLooseUndefinedCheck}) &&
       isOffensiveConditionalExpression(path.get('test', 'left'));
+  }
+
+  function conditionalExpressionIsPostfixCondition({node, parentPath: {node: parentNode}}) {
+    return node === parentNode.test && j.match(parentNode, {
+      type: j.ConditionalExpression.name,
+      alternate: isUndefined,
+    });
   }
 
   function isOffensiveConditionalTest(node) {
