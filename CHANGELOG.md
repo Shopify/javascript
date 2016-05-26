@@ -7,6 +7,7 @@
 - Added a `convert-default-export-objects-to-named-exports`. ([#129](https://github.com/Shopify/javascript/pull/129))
 - Updated ESLint and all plugins for `eslint-plugin-shopify`, which added the following rules (in addition to many fixes): `ava/assertion-arguments`, `babel/flow-object-type`, `import/no-extraneous-dependencies`, `import/no-mutable-exports`, `import/no-nodejs-modules`, `import/extensions`, `import/order`, `import/newline-after-import`, `import/prefer-default-export`, `lodash/consistent-compose`, `no-unsafe-finally`, and `react/jsx-no-target-blank`. ([#93](https://github.com/Shopify/javascript/pull/93))
 - `esify` now accepts multiple files or glob patterns for conversion. ([#89](https://github.com/Shopify/javascript/pull/89))
+- Added `rename-identifier` and `rename-property` transforms to make it easy to transition between aliased names. ([#139](https://github.com/Shopify/javascript/pull/139))
 
 ### Changed
 - Reorganized transforms to catch more issues. ([#90](https://github.com/Shopify/javascript/pull/90))
@@ -14,6 +15,10 @@
 - Changed `object-shorthand` linting rule to `warn` (was `off`), except in cases where the keys of objects require quotes. ([#93](https://github.com/Shopify/javascript/pull/93))
 - Changed `object-shorthand` linting rule to `warn` (was `off`) when single-line object literals have spaces inside the curly braces. ([#93](https://github.com/Shopify/javascript/pull/93))
 - `global-reference-to-import` transform now avoids importing the file itself when using the global name of the exported object. It also uses a global cache for lookups, which increases the speed of transformations for large groups of files. ([#131](https://github.com/Shopify/javascript/pull/131))
+
+### Fixed
+- `function-to-arrow` now correctly removes blocks from single-return arrow function expressions. ([#136](https://github.com/Shopify/javascript/pull/136))
+- `mocha-context-to-closure` now avoids transforming context assignments that are computed rather than a literal. ([#128](https://github.com/Shopify/javascript/pull/128))
 
 ### Removed
 - Removed `generator-eslint-shopify`. ([#93](https://github.com/Shopify/javascript/pull/93))
