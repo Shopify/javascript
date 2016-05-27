@@ -4,7 +4,8 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
   function handleOffensiveConditional(path) {
     let memberExpression;
     let condition;
-    let currentConsequent = path;
+    const isNullCheckCondition = conditionalExpressionIsPostfixNullCheck(path);
+    let currentConsequent = isNullCheckCondition ? path.get('test', 'left') : path;
 
     while (isOffensiveConditionalExpression(currentConsequent)) {
       const currentTest = currentConsequent.get('test');
@@ -25,6 +26,13 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
 
     const {node} = path;
     const finalValue = augmentMemberExpression(memberExpression, currentConsequent.value);
+    let finalExpression = isNullCheckCondition ? path.get('consequent').node : finalValue;
+
+    if (isNullCheckCondition || conditionalExpressionIsPostfixCondition(path)) {
+      condition = j.logicalExpression('&&', condition, isNullCheckCondition ? createLooseUndefinedCheck(finalValue) : finalValue);
+      finalExpression = path.get('consequent').node;
+    }
+
     const parentPath = path.parentPath;
     const parentNode = parentPath.node;
 
@@ -36,7 +44,7 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
             j.variableDeclaration('var', [
               j.variableDeclarator(
                 parentPath.get('id').value,
-                finalValue
+                finalExpression
               ),
             ]),
           ])
@@ -46,27 +54,27 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
       parentPath.replace(
         j.ifStatement(
           condition,
-          j.blockStatement([j.expressionStatement(finalValue)])
+          j.blockStatement([j.expressionStatement(finalExpression)])
         )
       );
     } else if (j.ReturnStatement.check(parentNode)) {
       parentPath.replace(
         j.ifStatement(
           condition,
-          j.blockStatement([j.returnStatement(finalValue)]),
+          j.blockStatement([j.returnStatement(finalExpression)]),
           j.blockStatement([j.returnStatement(j.literal(null))])
         )
       );
     } else if (isConditionalTest(parentNode)) {
       path.replace(
-        j.logicalExpression('&&', condition, finalValue)
+        j.logicalExpression('&&', condition, finalExpression)
       );
     } else if (j.BinaryExpression.check(parentNode) && hasDeterminableDefinedState(opposite(path).node)) {
       const matchesUndefined = isBinaryExpressionThatMatchesUndefined(parentNode);
 
       const isOnRight = (parentNode.right === node);
-      const leftArg = isOnRight ? parentNode.left : finalValue;
-      const rightArg = isOnRight ? finalValue : parentNode.right;
+      const leftArg = isOnRight ? parentNode.left : finalExpression;
+      const rightArg = isOnRight ? finalExpression : parentNode.right;
       const newBinaryExpression = j.binaryExpression(parentNode.operator, leftArg, rightArg);
 
       parentPath.replace(
@@ -78,11 +86,18 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
       );
     } else if (j.UnaryExpression.check(parentNode) && parentNode.operator === '!') {
       parentPath.replace(
-        j.logicalExpression('||', invertCondition(condition), j.unaryExpression('!', finalValue))
+        j.logicalExpression('||', invertCondition(condition), j.unaryExpression('!', finalExpression))
+      );
+    } else if (j.ConditionalExpression.check(parentNode) && j.ExpressionStatement.check(parentPath.parentPath.node)) {
+      parentPath.parentPath.replace(
+        j.ifStatement(
+          condition,
+          j.blockStatement([j.expressionStatement(parentNode.consequent)])
+        )
       );
     } else {
       path.replace(
-        j.conditionalExpression(condition, finalValue, j.identifier('undefined'))
+        j.conditionalExpression(condition, finalExpression, j.identifier('undefined'))
       );
     }
   }
@@ -263,6 +278,18 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
         operator: '!==',
         right: isNull,
       },
+    });
+  }
+
+  function conditionalExpressionIsPostfixNullCheck(path) {
+    return j.match(path.node, {test: isLooseUndefinedCheck}) &&
+      isOffensiveConditionalExpression(path.get('test', 'left'));
+  }
+
+  function conditionalExpressionIsPostfixCondition({node, parentPath: {node: parentNode}}) {
+    return node === parentNode.test && j.match(parentNode, {
+      type: j.ConditionalExpression.name,
+      alternate: isUndefined,
     });
   }
 
