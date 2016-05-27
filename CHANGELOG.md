@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+
+
+## [12.0.0]
 ### Added
 - Added a `global-identifier-to-import` transform to import any global from a user-provided list used in a module. ([#90](https://github.com/Shopify/javascript/pull/90))
 - Added a `remove-trailing-else-undefined-return` transform to remove useless trailing alternate returns. ([#91](https://github.com/Shopify/javascript/pull/91))
@@ -8,6 +11,7 @@
 - Updated ESLint and all plugins for `eslint-plugin-shopify`, which added the following rules (in addition to many fixes): `ava/assertion-arguments`, `babel/flow-object-type`, `import/no-extraneous-dependencies`, `import/no-mutable-exports`, `import/no-nodejs-modules`, `import/extensions`, `import/order`, `import/newline-after-import`, `import/prefer-default-export`, `lodash/consistent-compose`, `no-unsafe-finally`, and `react/jsx-no-target-blank`. ([#93](https://github.com/Shopify/javascript/pull/93))
 - `esify` now accepts multiple files or glob patterns for conversion. ([#89](https://github.com/Shopify/javascript/pull/89))
 - Added `rename-identifier` and `rename-property` transforms to make it easy to transition between aliased names. ([#139](https://github.com/Shopify/javascript/pull/139))
+- Added a `computed-literal-keys-to-dot-notation` transform to correct any linting errors related to `dot-notation`. ([#141](https://github.com/Shopify/javascript/pull/141))
 
 ### Changed
 - Reorganized transforms to catch more issues. ([#90](https://github.com/Shopify/javascript/pull/90))
@@ -19,6 +23,8 @@
 ### Fixed
 - `function-to-arrow` now correctly removes blocks from single-return arrow function expressions. ([#136](https://github.com/Shopify/javascript/pull/136))
 - `mocha-context-to-closure` now avoids transforming context assignments that are computed rather than a literal. ([#128](https://github.com/Shopify/javascript/pull/128))
+- Fixed some jQuery reference detection edge cases for the `jquery-dollar-sign-reference` linting rule. ([#142](https://github.com/Shopify/javascript/pull/142))
+- Fixed some additional existential/ soak operator edge cases for the `coffeescript-soak-to-condition` transform. ([#135](https://github.com/Shopify/javascript/pull/135))
 
 ### Removed
 - Removed `generator-eslint-shopify`. ([#93](https://github.com/Shopify/javascript/pull/93))
@@ -26,6 +32,7 @@
 ### Build
 - Updated all development dependencies. ([#93](https://github.com/Shopify/javascript/pull/93))
 - Added scripts for generating new transforms and renaming existing transforms. ([#130](https://github.com/Shopify/javascript/pull/130))
+- Improved the process and quality of this document ([#140](https://github.com/Shopify/javascript/pull/140))
 
 ## [11.2.0]
 ### Added
