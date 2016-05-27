@@ -44,6 +44,12 @@ export function pathIsFirstMember({node, parentPath: {node: parentNode}}) {
   return !j.MemberExpression.check(parentNode) || parentNode.object === node;
 }
 
+const IDENTIFIER_REGEX = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/;
+
+export function isValidIdentifier(identifier) {
+  return typeof identifier === 'string' && IDENTIFIER_REGEX.test(identifier);
+}
+
 // from https://github.com/sindresorhus/globals/blob/1e9ebc39828b92bd5c8ec7dc7bb07d62f2fb0153/globals.json#L852
 export const MOCHA_FUNCTIONS = new Set([
   'after',

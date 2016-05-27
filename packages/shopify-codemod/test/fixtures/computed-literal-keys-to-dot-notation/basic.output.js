@@ -1,0 +1,10 @@
+foo.bar = true;
+foo.bar.baz = true;
+this.foo = true;
+foo[0] = false;
+foo['bar-baz'] = false;
+foo._bar = true;
+foo.$bar = true;
+foo[bar] = false;
+foo['0'] = false;
+foo.Bar = true;
