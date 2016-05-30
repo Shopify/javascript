@@ -3,7 +3,19 @@
 ## [Unreleased]
 
 
-## [12.0.0]
+
+## [12.0.2] - 2016-05-30
+### Added
+- Added a simple set of warnings for `esify` to signal potentially problematic transformations, and added documentation as to what kinds of CoffeeScript patterns might not translate correctly. ([#146](https://github.com/Shopify/javascript/pull/146))
+
+### Fixed
+- Fixed an incorrect path in `esify` that caused the transformations to fail.
+
+## [12.0.1] - 2016-05-27
+### Changed
+- Updated `spaced-comment` ESLint rule to allow for `=` immediately after comments (used in Sprockets directives). ([#144](https://github.com/Shopify/javascript/pull/144))
+
+## [12.0.0] - 2016-05-27
 ### Added
 - Added a `global-identifier-to-import` transform to import any global from a user-provided list used in a module. ([#90](https://github.com/Shopify/javascript/pull/90))
 - Added a `remove-trailing-else-undefined-return` transform to remove useless trailing alternate returns. ([#91](https://github.com/Shopify/javascript/pull/91))
