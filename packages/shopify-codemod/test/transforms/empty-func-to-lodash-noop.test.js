@@ -1,7 +1,7 @@
 import 'test-helper';
 import transform from 'empty-func-to-lodash-noop';
 
-describe.only('emptyFuncToLodashNoop', () => {
+describe('emptyFuncToLodashNoop', () => {
   it('transforms only empty functions to _.noop', () => {
     expect(transform).to.transform('empty-func-to-lodash-noop/basic');
   });
