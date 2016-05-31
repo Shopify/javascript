@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Added
 - Added a `add-missing-parseint-radix` transform to add missing radix parameters to `parseInt` calls.
+- Added a `implicit-coercion-to-explicit` transform to convert `!!foo` and `+foo` to their more explicit counterparts.
 - Added a `empty-func-to-lodash-noop` transform to correct empty function linting errors by replacing empty functions with `_.noop`.
 
 ## [12.0.2] - 2016-05-30

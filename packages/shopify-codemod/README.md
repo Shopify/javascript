@@ -12,6 +12,26 @@ This repository contains a collection of Codemods written with [JSCodeshift](htt
 
 ## Included Transforms
 
+### `implicit-coercion-to-explicit`
+
+Transforms implicit coercions to booleans (`!!foo`) and numbers (`+foo`) to their explicit counterparts (`Boolean(foo)` and `Number(foo)`, respectively).
+
+```sh
+jscodeshift -t shopify-codemods/transforms/implicit-coercion-to-explicit <file>
+```
+
+### Example
+
+```js
+!!foo;
++foo;
+
+// BECOMES:
+
+Boolean(foo);
+Number(foo);
+```
+
 ### `empty-func-to-lodash-noop`
 
 Transforms empty function expressions (including arrow functions) to use Lodash’s `noop` function in order to avoid linter warnings for empty function bodies. Note that function declarations are not transformed in order to avoid potential issues stemming from the way those declarations are hoisted to the top of their scopes.
