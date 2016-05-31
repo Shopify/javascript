@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Added a `add-missing-parseint-radix` transform to add missing radix parameters to `parseInt` calls.
 
 
 
