@@ -72,6 +72,9 @@ export function getBlockStatementFromFunction({body}) {
 }
 
 // from https://github.com/sindresorhus/globals/blob/1e9ebc39828b92bd5c8ec7dc7bb07d62f2fb0153/globals.json#L852
+
+// Waiting for https://github.com/benmosher/eslint-plugin-import/commit/92f7d655dbba9c0c169cd129baf1af4ecd8a2456 to merge
+// eslint-disable-next-line import/prefer-default-export
 export const MOCHA_FUNCTIONS = new Set([
   'after',
   'afterEach',

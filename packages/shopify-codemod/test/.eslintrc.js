@@ -8,5 +8,6 @@ module.exports = {
   rules: {
     'no-unused-expressions': 'off',
     'import/no-unresolved': 'off',
+    'import/no-extraneous-dependencies': 'off',
   },
 };
