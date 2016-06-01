@@ -21,6 +21,7 @@ var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/global-assignment-to-default-export', test: false},
   {path: 'shopify-codemod/transforms/convert-default-export-objects-to-named-exports', test: false},
   {path: 'shopify-codemod/transforms/add-missing-parseint-radix'},
+  {path: 'shopify-codemod/transforms/implicit-coercion-to-explicit'},
   // Order is significant for these initial assert transforms; think carefully before reordering.
   {path: 'shopify-codemod/transforms/assert/assert-false-to-assert-fail', test: true},
   {path: 'shopify-codemod/transforms/assert/assert-to-assert-ok', test: true},
