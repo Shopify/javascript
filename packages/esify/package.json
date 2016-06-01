@@ -1,7 +1,7 @@
 {
   "name": "esify",
   "main": "index.js",
-  "version": "12.0.2",
+  "version": "12.1.0",
   "author": "Bouke van der Bijl <bouke@shopify.com>",
   "description": "A CLI for converting Shopify’s CoffeeScript to ESNext.",
   "eslintConfig": {
