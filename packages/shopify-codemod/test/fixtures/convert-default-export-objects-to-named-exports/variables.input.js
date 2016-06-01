@@ -1,4 +1,4 @@
 export default {
   dee: ta,
-  sho: foo
+  'sho': foo
 };
