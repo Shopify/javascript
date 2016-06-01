@@ -1,10 +1,8 @@
+import {containsThisExpression} from './utils';
+
 export default function functionToArrow({source}, {jscodeshift: j}, {printOptions = {}}) {
   function isMember({parent}) {
     return j.MethodDefinition.check(parent.node) || j.Property.check(parent.node);
-  }
-
-  function containsThisExpression(path) {
-    return j(path).find(j.ThisExpression).size() > 0;
   }
 
   function isConvertibleFunction(path) {

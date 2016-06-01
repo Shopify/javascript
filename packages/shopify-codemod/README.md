@@ -12,6 +12,24 @@ This repository contains a collection of Codemods written with [JSCodeshift](htt
 
 ## Included Transforms
 
+### `remove-empty-statements`
+
+Removes empty statements, which usually manifest as unnecessary semicolons.
+
+```sh
+jscodeshift -t shopify-codemods/transforms/remove-empty-statements <file>
+```
+
+### Example
+
+```js
+export function foo() {};
+
+// BECOMES:
+
+export function foo() {}
+```
+
 ### `implicit-coercion-to-explicit`
 
 Transforms implicit coercions to booleans (`!!foo`) and numbers (`+foo`) to their explicit counterparts (`Boolean(foo)` and `Number(foo)`, respectively).

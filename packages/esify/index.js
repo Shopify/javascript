@@ -55,6 +55,9 @@ var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/constant-function-expression-to-statement'},
   {path: 'shopify-codemod/transforms/global-reference-to-import'},
   {path: 'shopify-codemod/transforms/global-identifier-to-import'},
+  // Must appear after constant-function-expression-to-statement in order to remove
+  // unneeded semicolons from exported function declarations
+  {path: 'shopify-codemod/transforms/remove-empty-statements'},
 ];
 
 var OPTIONS = loadOptions();
@@ -127,7 +130,7 @@ function warn(message) {
 
 var WARNING_CHECKS = [
   function checkForComments(source) {
-    if (/#[^=]/.test(source)) {
+    if (/#[^={]/.test(source)) {
       warn('Your file contains comments. Unfortunately, the CoffeeScript compiler does not expose these comments. Make sure to copy over any important comments to the appropriate place in your new JavaScript file');
     }
   },

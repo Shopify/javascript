@@ -50,6 +50,27 @@ export function isValidIdentifier(identifier) {
   return typeof identifier === 'string' && IDENTIFIER_REGEX.test(identifier);
 }
 
+export function getPropertyName({key, computed}) {
+  if (computed) { return null; }
+  return j.Identifier.check(key) ? key.name : key.value;
+}
+
+export function containsThisExpression(node) {
+  return j(node).find(j.ThisExpression).size() > 0;
+}
+
+export function isFunctionExpression(node) {
+  return j.FunctionExpression.check(node) || j.ArrowFunctionExpression.check(node);
+}
+
+export function getBlockStatementFromFunction({body}) {
+  if (!j.BlockStatement.check(body)) {
+    return j.blockStatement([j.returnStatement(body)]);
+  }
+
+  return body;
+}
+
 // from https://github.com/sindresorhus/globals/blob/1e9ebc39828b92bd5c8ec7dc7bb07d62f2fb0153/globals.json#L852
 export const MOCHA_FUNCTIONS = new Set([
   'after',
