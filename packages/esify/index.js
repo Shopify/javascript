@@ -14,6 +14,10 @@ var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/coffeescript-range-output-to-helper'},
   {path: 'shopify-codemod/transforms/remove-addeventlistener-returns'},
   {path: 'shopify-codemod/transforms/conditional-assign-to-if-statement'},
+  // This transform must appear before the constant-function-expression-to-statement and
+  // object-shorthand transforms in order to catch the most empty functions possible. It
+  // must also go before global-identifier-to-import so that lodash is correctly imported.
+  {path: 'shopify-codemod/transforms/empty-func-to-lodash-noop'},
   {path: 'shopify-codemod/transforms/global-assignment-to-default-export', test: false},
   {path: 'shopify-codemod/transforms/convert-default-export-objects-to-named-exports', test: false},
   {path: 'shopify-codemod/transforms/add-missing-parseint-radix'},
