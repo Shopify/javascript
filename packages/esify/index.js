@@ -130,7 +130,7 @@ function warn(message) {
 
 var WARNING_CHECKS = [
   function checkForComments(source) {
-    if (/#[^=]/.test(source)) {
+    if (/#[^={]/.test(source)) {
       warn('Your file contains comments. Unfortunately, the CoffeeScript compiler does not expose these comments. Make sure to copy over any important comments to the appropriate place in your new JavaScript file');
     }
   },
