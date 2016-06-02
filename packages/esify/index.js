@@ -1,5 +1,3 @@
-var path = require('path');
-var decaf = require('shopify-decaf');
 var jscodeshift = require('jscodeshift');
 
 require('babel-register')({ignore: false});
@@ -35,6 +33,16 @@ var TRANSFORMS = [
   {path: 'js-codemod/transforms/template-literals'},
   {path: 'shopify-codemod/transforms/strip-template-literal-parenthesis'},
   {path: 'js-codemod/transforms/object-shorthand'},
+<<<<<<< Updated upstream:packages/esify/index.js
+=======
+  // These are run very late to ensure they catch any identifiers/ member expressions
+  // added in earlier transforms
+  {path: 'js-codemod/transforms/unquote-properties'},
+  {path: 'shopify-codemod/transforms/computed-literal-keys-to-dot-notation'},
+  {path: 'shopify-codemod/transforms/rename-identifier'},
+  {path: 'shopify-codemod/transforms/rename-property'},
+  {path: 'shopify-codemod/transforms/split-return-assignments'},
+>>>>>>> Stashed changes:packages/esify/lib/codemod.js
   // constant-function-expression-to-statement and global-reference-to-import need
   // `const` references, so they must happen after `no-vars`
   {path: 'js-codemod/transforms/no-vars'},
