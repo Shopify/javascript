@@ -35,6 +35,7 @@ var TRANSFORMS = [
   {path: 'js-codemod/transforms/template-literals'},
   {path: 'shopify-codemod/transforms/strip-template-literal-parenthesis'},
   {path: 'js-codemod/transforms/object-shorthand'},
+  {path: 'shopify-codemod/transforms/remove-empty-catch-blocks'},
   // constant-function-expression-to-statement and global-reference-to-import need
   // `const` references, so they must happen after `no-vars`
   {path: 'js-codemod/transforms/no-vars'},
