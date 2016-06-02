@@ -3,6 +3,10 @@
 ## [Unreleased]
 
 
+## [12.2.0] - 2016-06-02
+### Added
+- `esify` now will find and run a locally-installed version of ESLint with the `--fix` flag in order to correct simple formatting issues. ([#152](https://github.com/Shopify/javascript/pull/152))
+
 ## [12.1.0] - 2016-06-01
 ### Added
 - Added a `add-missing-parseint-radix` transform to add missing radix parameters to `parseInt` calls. ([#145](https://github.com/Shopify/javascript/pull/145))
