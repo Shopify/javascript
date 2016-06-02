@@ -1,14 +1,14 @@
 foo(() => {
   console.log(bar);
-  this.sho = this.doo;
-  this.doo = this.zoo;
   this.zoo = 0;
+  this.doo = this.zoo;
+  this.sho = this.doo;
   return this.sho;
 });
 
 foo(() => {
   foo();
-  foo = bar;
   bar = baz;
+  foo = bar;
   return foo;
 });

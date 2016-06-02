@@ -14,7 +14,7 @@ export default function splitReturnAssignments({source}, {jscodeshift: j}, {prin
     .forEach(({node: {body: {body}}}) => {
       const returnLine = body[body.length - 1];
       forEachAssignment(body[body.length - 1].argument, (assignment) => {
-        body.splice(body.indexOf(returnLine) + 1, 0, j.expressionStatement(assignment));
+        body.splice(body.indexOf(returnLine), 0, j.expressionStatement(assignment));
       });
       delete body[body.indexOf(returnLine)];
       body.push(j.returnStatement(returnLine.argument.left));
