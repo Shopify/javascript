@@ -1,5 +1,3 @@
-var path = require('path');
-var exec = require('child_process').exec;
 var jscodeshift = require('jscodeshift');
 
 require('babel-register')({ignore: false});

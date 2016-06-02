@@ -9,6 +9,9 @@
       "plugin:shopify/es5",
       "plugin:shopify/node"
     ],
+    "env": {
+      "es6": true
+    },
     "rules": {
       "no-console": 0,
       "no-sync": 0
