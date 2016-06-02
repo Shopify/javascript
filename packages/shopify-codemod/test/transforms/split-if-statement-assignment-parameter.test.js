@@ -1,11 +1,11 @@
 import 'test-helper';
-import splitIfStatementAssignmentParameter from 'split-if-state-ement-assignment-parameter';
+import splitIfStatementAssignmentParameter from 'split-if-statement-assignment-parameter';
 
 describe('splitIfStatementAssignmentParameter', () => {
   it('splits up single-lined assignments in parameters', () => {
-    expect(splitIfStatementAssignmentParameter).to.transform('split-if-state-ement-assignment-parameter/single');
+    expect(splitIfStatementAssignmentParameter).to.transform('split-if-statement-assignment-parameter/single');
   });
   it('splits up multi-lined assignments in parameters', () => {
-    expect(splitIfStatementAssignmentParameter).to.transform('split-if-state-ement-assignment-parameter/multi');
+    expect(splitIfStatementAssignmentParameter).to.transform('split-if-statement-assignment-parameter/multi');
   });
 });
