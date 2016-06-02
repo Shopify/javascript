@@ -21,4 +21,8 @@ describe('splitReturnAssignments', () => {
   it('splits up single lined arrow functions', () => {
     expect(splitReturnAssignments).to.transform('split-return-assignments/single');
   });
+
+  it('splits up non "=" operators', () => {
+    expect(splitReturnAssignments).to.transform('split-return-assignments/operators');
+  });
 });

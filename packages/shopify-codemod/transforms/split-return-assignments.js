@@ -1,4 +1,4 @@
-import {matchLast} from './utils';
+import {matchLast, forEachAssignment} from './utils';
 
 export default function splitReturnAssignments({source}, {jscodeshift: j}, {printOptions = {}}) {
   const sourceAST = j(source);
@@ -7,65 +7,17 @@ export default function splitReturnAssignments({source}, {jscodeshift: j}, {prin
       body: {
         body: matchLast(j.ReturnStatement, {
           type: 'ReturnStatement',
-          argument: {
-            type: 'AssignmentExpression',
-          },
+          argument: j.AssignmentExpression,
         }),
       },
     })
     .forEach(({node: {body: {body}}}) => {
-      const {left, right} = body[body.length - 1].argument;
       const returnLine = body[body.length - 1];
-      if (returnLine.argument.left) {
-        delete body[body.length - 1];
-        body.push({
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'AssignmentExpression',
-            operator: '=',
-            left,
-            right,
-          },
-        });
-
-        if (returnLine.argument.left.name) {
-          body.push({
-            type: 'ReturnStatement',
-            argument: {
-              type: 'Identifier',
-              name: returnLine.argument.left.name,
-            },
-          });
-        } else {
-          body.push({
-            type: 'ReturnStatement',
-            computed: false,
-            argument: {
-              type: 'MemberExpression',
-              object: returnLine.argument.left.object,
-              property: returnLine.argument.left.property,
-            },
-          });
-        }
-      } else {
-        body.push({
-          type: 'ExpressionStatement',
-          expression: {
-            type: 'AssignmentExpression',
-            operator: '=',
-            left: {
-              type: 'MemberExpression',
-              object: returnLine.argument.object,
-              property: returnLine.argument.property,
-            },
-            right: {
-              type: 'MemberExpression',
-              object: returnLine.argument.object,
-              property: returnLine.argument.property,
-            },
-          },
-        });
-      }
+      forEachAssignment(body[body.length - 1].argument, (assignment) => {
+        body.splice(body.indexOf(returnLine) + 1, 0, j.expressionStatement(assignment));
+      });
+      delete body[body.indexOf(returnLine)];
+      body.push(j.returnStatement(returnLine.argument.left));
     });
   sourceAST
     .find(j.ExpressionStatement, {
@@ -84,27 +36,15 @@ export default function splitReturnAssignments({source}, {jscodeshift: j}, {prin
       },
     }).forEach(({node: {expression}}) => {
       const {left, right} = expression.arguments[0].body;
-      expression.arguments[0].body = {
-        type: 'BlockStatement',
-        body: [
-          {
-            type: 'ExpressionStatement',
-            expression: {
-              type: 'AssignmentExpression',
-              operator: '=',
-              left,
-              right,
-            },
-          },
-          {
-            type: 'ReturnStatement',
-            argument: {
-              type: 'Identifier',
-              name: left.name,
-            },
-          },
-        ],
-      };
+
+      forEachAssignment(expression.arguments[0].body, () => {
+        expression.arguments[0].body = j.blockStatement([]);
+        expression.arguments[0].body.body.push(
+          j.expressionStatement(
+            j.assignmentExpression('=', left, right)
+        ));
+        expression.arguments[0].body.body.push(j.returnStatement(left));
+      });
     });
 
   return sourceAST
