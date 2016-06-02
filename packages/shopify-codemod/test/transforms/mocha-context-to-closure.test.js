@@ -29,4 +29,8 @@ describe('mochaContextToClosure', () => {
   it('handles usage of this in functions defined on the mocha context', () => {
     expect(mochaContextToClosure).to.transform('mocha-context-to-closure/contextually-declared-functions');
   });
+
+  it('ignores dynamically generated context references', () => {
+    expect(mochaContextToClosure).to.transform('mocha-context-to-closure/dynamic-names');
+  });
 });

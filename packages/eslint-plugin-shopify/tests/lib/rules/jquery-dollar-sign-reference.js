@@ -1,5 +1,6 @@
-const rule = require('../../../lib/rules/jquery-dollar-sign-reference');
 const RuleTester = require('eslint').RuleTester;
+const rule = require('../../../lib/rules/jquery-dollar-sign-reference');
+
 const ruleTester = new RuleTester();
 
 require('babel-eslint');
@@ -203,6 +204,26 @@ ruleTester.run('jquery-dollar-sign-reference', rule, {
     {code: 'var foo = $bar.triggerHandler();'},
     {code: 'var foo = $bar.val();'},
     {code: 'var foo = $bar.width();'},
+
+    {code: 'var foo = {$bar: null};'},
+    {code: 'var foo = {bar: null};'},
+
+    {code: 'var $foo = bar = $baz = null;'},
+    {code: 'var $foo; $foo = bar = $baz = undefined;'},
+
+    {code: 'var $foo = foo.$bar;'},
+    {code: 'var $foo = foo.$bar.attr({});'},
+    {code: 'var foo = foo.bar.attr({});'},
+    {code: 'var foo = foo.$bar.size();'},
+
+    {code: 'var $foo = foo["$foo"];'},
+    {code: 'var $foo = foo["$foo"].attr({});'},
+    {code: 'var foo = foo["bar"].attr({});'},
+    {code: 'var foo = foo["$foo"].size();'},
+    {code: 'var foo = foo[$foo];'},
+    {code: 'var $foo = foo[$foo];'},
+    {code: 'var foo = foo[bar];'},
+    {code: 'var $foo = foo[bar];'},
   ],
   invalid: [
     {
@@ -525,6 +546,33 @@ ruleTester.run('jquery-dollar-sign-reference', rule, {
     },
     {
       code: 'var $foo = $bar.width();',
+      errors: [unexpectedDollarError({type: 'VariableDeclarator'})],
+    },
+
+    {
+      code: 'var $foo = bar = $baz;',
+      errors: [missingDollarError({type: 'AssignmentExpression'})],
+    },
+
+    {
+      code: 'var foo = foo.$bar;',
+      errors: [missingDollarError({type: 'VariableDeclarator'})],
+    },
+    {
+      code: 'var foo = foo.$bar.attr({});',
+      errors: [missingDollarError({type: 'VariableDeclarator'})],
+    },
+    {
+      code: 'var $foo = foo.$bar.size();',
+      errors: [unexpectedDollarError({type: 'VariableDeclarator'})],
+    },
+
+    {
+      code: 'var foo = foo["$foo"];',
+      errors: [missingDollarError({type: 'VariableDeclarator'})],
+    },
+    {
+      code: 'var $foo = foo["$foo"].size();',
       errors: [unexpectedDollarError({type: 'VariableDeclarator'})],
     },
   ],

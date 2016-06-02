@@ -12,6 +12,7 @@ module.exports = {
 
   rules: {
     'no-unused-expressions': 'off',
-    'newline-per-chained-call': 'off'
+    'newline-per-chained-call': 'off',
+    'import/no-extraneous-dependencies': 'off',
   },
 };

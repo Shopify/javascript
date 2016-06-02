@@ -1,6 +1,6 @@
 {
   "name": "chai-jscodeshift",
-  "version": "11.2.0",
+  "version": "12.1.0",
   "description": "Chai assertion utilities for writing JSCodeShift Codemods.",
   "main": "index.js",
   "scripts": {

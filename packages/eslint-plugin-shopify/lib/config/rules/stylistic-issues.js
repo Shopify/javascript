@@ -88,7 +88,9 @@ module.exports = {
   // Disallow whitespace before properties
   'no-whitespace-before-property': 'error',
   // Require or disallow padding inside curly braces
-  'object-curly-spacing': 'off',
+  'object-curly-spacing': ['warn', 'never'],
+  // Enforce placing object properties on separate lines
+  'object-property-newline': 'off',
   // Allow or disallow one variable declaration per function
   'one-var': ['warn', 'never'],
   // Require or disallow an newline around variable declarations
@@ -122,7 +124,7 @@ module.exports = {
   // Require or disallow spaces before/after unary operators (words on by default, nonwords)
   'space-unary-ops': ['warn', {words: true, nonwords: false}],
   // Require or disallow a space immediately following the // or /* in a comment
-  'spaced-comment': ['warn', 'always'],
+  'spaced-comment': ['warn', 'always', {markers: ['=']}],
   // Require regex literals to be wrapped in parentheses
   'wrap-regex': 'off',
 };
