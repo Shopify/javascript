@@ -1,6 +1,6 @@
 {
   "name": "esify",
-  "main": "index.js",
+  "main": "lib/index.js",
   "version": "12.1.0",
   "author": "Bouke van der Bijl <bouke@shopify.com>",
   "description": "A CLI for converting Shopify’s CoffeeScript to ESNext.",
@@ -9,6 +9,9 @@
       "plugin:shopify/es5",
       "plugin:shopify/node"
     ],
+    "env": {
+      "es6": true
+    },
     "rules": {
       "no-console": 0,
       "no-sync": 0

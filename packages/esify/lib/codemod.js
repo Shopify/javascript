@@ -1,6 +1,3 @@
-var path = require('path');
-var decaf = require('shopify-decaf');
-var chalk = require('chalk');
 var jscodeshift = require('jscodeshift');
 
 require('babel-register')({ignore: false});
@@ -60,109 +57,24 @@ var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/remove-empty-statements'},
 ];
 
-var OPTIONS = loadOptions();
-
-function loadOptions() {
-  try {
-    return require(path.join(process.cwd(), 'esify.config'));
-  } catch (error) {
-    return {
-      appGlobalIdentifiers: ['Shopify', 'Sello'],
-      javascriptSourceLocation: path.join(process.cwd(), 'app/assets/javascripts'),
-      printOptions: {
-        quote: 'single',
-        trailingComma: true,
-        tabWidth: 2,
-        wrapColumn: 1000,
-      },
-      testContextToGlobals: {
-        testClock: {
-          properties: ['clock'],
-          replace: true,
-        },
-        sandbox: {
-          properties: ['spy', 'stub', 'mock', 'server', 'requests'],
-        },
-      },
-      globalIdentifiers: {
-        _: 'lodash',
-        $: 'jquery',
-        moment: 'moment',
-        jstz: 'jstimezonedetect',
-        mousetrap: 'mousetrap',
-        URI: 'urijs',
-        URITemplate: 'urijs/src/URITemplate',
-        ReconnectingWebSocket: 'shopify-reconnecting-websocket',
-        d3: 'd3',
-        NProgress: 'NProgress',
-        FastClick: 'shopify-fastclick',
-        Clipboard: 'clipboard',
-      },
-      renameIdentifiers: {
-        jQuery: '$',
-      },
-      renameProperties: {
-        _: {
-          first: 'head',
-          each: 'forEach',
-          eachRight: 'forEachRight',
-          entries: 'toPairs',
-          entriesIn: 'toPairsIn',
-          extend: 'assignIn',
-          extendWith: 'assignInWith',
-        },
-      },
-    };
-  }
-}
-
-function runTransform(code, name) {
+function runTransform(code, name, options) {
   var module = require(name);
   if (module.__esModule) { module = module.default; }
 
-  var newCode = module({path: null, source: code}, {jscodeshift: jscodeshift}, OPTIONS);
+  var newCode = module({path: null, source: code}, {jscodeshift: jscodeshift}, options);
   return newCode == null ? code : newCode;
 }
 
-function warn(message) {
-  console.log(chalk.yellow('[warning]') + ' ' + message);
-}
-
-var WARNING_CHECKS = [
-  function checkForComments(source) {
-    if (/#[^={]/.test(source)) {
-      warn('Your file contains comments. Unfortunately, the CoffeeScript compiler does not expose these comments. Make sure to copy over any important comments to the appropriate place in your new JavaScript file');
-    }
-  },
-  function checkForSprocketsDirective(source) {
-    if (/#=/.test(source)) {
-      warn('Your file contains Sprockets directives. If these directives are requiring additional files, you must translate them into `import` statements if this command failed to do so automatically. Other directives will need to be copied over to the new JavaScript file.');
-    }
-  },
-  function checkForGlobalClass(source) {
-    var match = source.match(/class\s((?:@|this\.)\w+)/);
-    if (match) {
-      warn('Your file contains a class exposed to `window` using the form `' + match[1] + '`. These are not supported by `esify` and will not do what you expect when bundled with Sprockets commoner. Expose this to some other global namespace before trying again.');
-    }
-  },
-  function checkForMultilineStrings(source) {
-    if (/"""/.test(source)) {
-      warn('Your file contains multiline strings. These get compiled down to a single-line string with spaces added; you may want to update the formatting to use an ES6 multiline string instead.');
-    }
-  },
-];
-
-module.exports = function transform(source, options) {
-  var testTransforms = options.testTransforms == null ? false : options.testTransforms;
-
-  WARNING_CHECKS.forEach(function(warningCheck) { warningCheck(source); });
-
-  var code = decaf.compile(source, OPTIONS.printOptions);
+module.exports = function transform(details) {
+  var source = details.source;
+  var options = details.options;
+  var testTransforms = (details.file.indexOf('test') >= 0);
 
   TRANSFORMS.forEach(function(transformer) {
     if (transformer.test == null || transformer.test === testTransforms) {
-      code = runTransform(code, transformer.path);
+      source = runTransform(source, transformer.path, options);
     }
   });
-  return code;
+
+  return source;
 };
