@@ -1,5 +1,3 @@
-var path = require('path');
-var decaf = require('shopify-decaf');
 var jscodeshift = require('jscodeshift');
 
 require('babel-register')({ignore: false});
