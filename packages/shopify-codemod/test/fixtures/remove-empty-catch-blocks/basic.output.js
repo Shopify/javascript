@@ -13,3 +13,9 @@ try {
 try {
   foo();
 } finally {}
+
+try {
+  foo();
+} catch(e) {
+  bar();
+}
