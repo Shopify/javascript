@@ -14,24 +14,6 @@ export function findLastMember(node) {
   return node;
 }
 
-export function forEachAssignment(assignment, cb) {
-  if (assignment.right && assignment.left) {
-    if (j.AssignmentExpression.check(assignment.right)) {
-      let rightName;
-      if (assignment.left.type === 'Identifier') {
-        rightName = j.identifier(assignment.right.left.name);
-      } else {
-        rightName = j.memberExpression(assignment.right.left.object, assignment.right.left.property);
-      }
-      forEachAssignment(assignment.right, cb);
-      return cb(j.assignmentExpression('=', assignment.left, rightName));
-    } else {
-      return cb(assignment);
-    }
-  }
-  return assignment;
-}
-
 export function matchLast(matcher) {
   return (nodes) => nodes.length > 0 && j.match(nodes[nodes.length - 1], matcher);
 }
