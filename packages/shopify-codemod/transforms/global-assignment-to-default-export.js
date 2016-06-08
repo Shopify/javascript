@@ -29,10 +29,25 @@ export default function globalAssignmentToDefaultExport({source}, {jscodeshift: 
 
           if (expose == null) {
             expose = j(member).toSource();
+            return j.exportDefaultDeclaration(statement);
           } else {
-            throw new Error('Found multiple exports in a single file, please break up the file first');
+            const newExpose = j(member).toSource();
+            if (newExpose.indexOf(`${expose}.prototype.`) !== 0) {
+              throw new Error('Found multiple exports in a single file, please break up the file first');
+            }
+
+            const {left, right} = path.node.expression;
+            return j.expressionStatement(
+              j.assignmentExpression(
+                '=',
+                j.memberExpression(
+                  j.memberExpression(left.object.object.property, left.object.property),
+                  left.property
+                ),
+                right
+              )
+            );
           }
-          return j.exportDefaultDeclaration(statement);
         });
 
       if (expose != null) {

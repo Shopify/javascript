@@ -17,4 +17,15 @@ describe('globalAssignmentToDefaultExport', () => {
   it('preserves directives', () => {
     expect(globalAssignmentToDefaultExport).to.transform('global-assignment-to-default-export/directive');
   });
+
+  it('allows local prototype assignments', () => {
+    expect(globalAssignmentToDefaultExport).to.transform('global-assignment-to-default-export/local-prototype-assignment');
+  });
+
+  it('prevents local non-prototype assignments', () => {
+    expect(globalAssignmentToDefaultExport).to.throwWhileTransforming(
+      'global-assignment-to-default-export/local-non-prototype-assignment',
+      /Found multiple exports in a single file/
+    );
+  });
 });
