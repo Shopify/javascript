@@ -707,6 +707,33 @@ foo = () => {
 }
 ```
 
+### `split-return-assignments`
+
+Splits up inline return assignments in multiple lines.
+
+```sh
+jscodeshift -t shopify-codemod/transforms/split-return-assignments <file>
+```
+
+#### Example
+
+```js
+foo(() => {
+  console.log(bar);
+  return this.sho = this.doo = this.zoo = 0;
+});
+
+// BECOMES:
+
+foo(() => {
+  console.log(bar);
+  this.sho = this.doo;
+  this.doo = this.zoo;
+  this.zoo = 0;
+  return this.sho;
+});
+```
+
 ## Contributing
 
 All code is written in ES2015+ in the `transforms/` directory. Make sure to add tests for all new transforms and features. A custom `transforms(fixtureName)` assertion is provided which checks that the passed transformer converts the fixture found at `test/fixtures/{{fixtureName}}.input.js` to the one found at `test/fixtures/{{fixtureName}}.output.js`. You can run `npm test` to run all tests, or `npm run test:watch` to have Mocha watch for changes and re-run the tests.
