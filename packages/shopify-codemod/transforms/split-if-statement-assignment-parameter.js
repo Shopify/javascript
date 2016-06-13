@@ -21,8 +21,12 @@ export default function splitIfStatementAssignmentParameter({source}, {jscodeshi
     }).forEach((nodePath) => {
       const args = nodePath.get('test').node;
       args.expressions = args.expressions.map((assignment) => {
-        nodePath.insertBefore(j.expressionStatement(assignment));
-        return assignment.left;
+        let identifier = assignment;
+        if (j.AssignmentExpression.check(assignment)) {
+          identifier = assignment.left;
+          nodePath.insertBefore(j.expressionStatement(assignment));
+        }
+        return identifier;
       });
     });
   return sourceAST

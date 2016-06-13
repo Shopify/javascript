@@ -7,3 +7,11 @@ foo = false;
 bar = true;
 
 if (foo, bar) { foo(); }
+
+foo = bar;
+
+if (foo, baz) {}
+foo = bar;
+baz = qux;
+
+if (foo, baz) {}
