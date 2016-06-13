@@ -1,5 +1,3 @@
-import {forEachAssignment} from './utils';
-
 export default function splitIfStatementAssignmentParameter({source}, {jscodeshift: j}, {printOptions = {}}) {
   const sourceAST = j(source);
   sourceAST
@@ -9,11 +7,10 @@ export default function splitIfStatementAssignmentParameter({source}, {jscodeshi
         type: j.AssignmentExpression.name,
       },
     }).forEach((nodePath) => {
-      const {node: {test: params}} = nodePath;
-      forEachAssignment(params, () => {
-        nodePath.get('test').replace(j.identifier(params.left.name));
-        nodePath.insertBefore(j.expressionStatement(params));
-      });
+      const args = nodePath.get('test').node;
+      nodePath.insertBefore(j.expressionStatement(args));
+      nodePath.get('test').replace(args.left);
+
     });
   sourceAST
     .find(j.IfStatement, {
@@ -22,12 +19,11 @@ export default function splitIfStatementAssignmentParameter({source}, {jscodeshi
         expressions: (expressions) => expressions.length > 1,
       },
     }).forEach((nodePath) => {
-      for (const params of Array.from(nodePath.node.test.expressions)) {
-        forEachAssignment(params, () => {
-          nodePath.get('test').replace(j.identifier(params.left.name));
-          nodePath.insertBefore(j.expressionStatement(params));
-        });
-      }
+      const args = nodePath.get('test').node;
+      args.expressions = args.expressions.map((assignment) => {
+        nodePath.insertBefore(j.expressionStatement(assignment));
+        return assignment.left;
+      });
     });
   return sourceAST
     .toSource(printOptions);

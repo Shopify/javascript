@@ -1,3 +1,3 @@
-if (img = files[0], foo = bar) {
-  foo();
+if (foo = bar, bar[1] = foo, this.doo = this.sho = 0) {
+	foo();
 }

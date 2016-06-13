@@ -1,5 +1,6 @@
-img = files[0];
 foo = bar;
-if (foo) {
-  foo();
+bar[1] = foo;
+this.doo = this.sho = 0;
+if (foo, bar[1], this.doo) {
+	foo();
 }

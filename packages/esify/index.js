@@ -42,6 +42,7 @@ var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/rename-identifier'},
   {path: 'shopify-codemod/transforms/rename-property'},
   {path: 'shopify-codemod/transforms/split-return-assignments'},
+  {path: 'shopify-codemod/transforms/split-if-statement-assignment-parameter'},
   // constant-function-expression-to-statement and global-reference-to-import need
   // `const` references, so they must happen after `no-vars`
   {path: 'js-codemod/transforms/no-vars'},
