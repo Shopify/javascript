@@ -1,7 +1,7 @@
 export default function iifeToTernaryExpression({source}, {jscodeshift: j}, {printOptions = {}}) {
   function isImmediatelyInvokedFunctionExpression(expressionPath) {
     let expression = expressionPath.node.expression
-    return expression.type == 'CallExpression' && expression.callee.type == 'ArrowFunctionExpression'
+    return expression.type === 'CallExpression' && expression.callee.type === 'ArrowFunctionExpression'
   }
 
   function containsOnlyIfStatement(functionNode) {
@@ -14,9 +14,9 @@ export default function iifeToTernaryExpression({source}, {jscodeshift: j}, {pri
   }
 
   function nodeIsBlockStatementContainingOnly(node, childType) {
-    return node.type == 'BlockStatement' &&
-           node.body.length == 1 &&
-         node.body[0].type == childType;
+    return node.type === 'BlockStatement' &&
+           node.body.length === 1 &&
+         node.body[0].type === childType;
   }
 
   function isConvertibleExpression(path) {
