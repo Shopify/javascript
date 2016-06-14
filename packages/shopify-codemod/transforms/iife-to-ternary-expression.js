@@ -1,48 +1,36 @@
 export default function iifeToTernaryExpression({source}, {jscodeshift: j}, {printOptions = {}}) {
-  function isImmediatelyInvokedFunctionExpression(expressionPath) {
-    let expression = expressionPath.node.expression
-    return expression.type === 'CallExpression' && expression.callee.type === 'ArrowFunctionExpression'
+  function isIIFE(path) {
+    return j.ArrowFunctionExpression.check(path.node.callee);
   }
 
-  function containsOnlyIfStatement(functionNode) {
-    return nodeIsBlockStatementContainingOnly(functionNode.body, 'IfStatement');
+  function calleeContainsIfStatement(path) {
+    return isBlockStatementContainingOnly(path.get('callee', 'body'), j.IfStatement);
   }
 
-  function onlyReturnsOneOfTwoValues(ifStatementNode) {
-    return nodeIsBlockStatementContainingOnly(ifStatementNode.consequent, 'ReturnStatement') &&
-           nodeIsBlockStatementContainingOnly(ifStatementNode.alternate, 'ReturnStatement');
+  function ifStatementOnlyReturnsTwoValues(path) {
+    const ifStatement = path.get('callee', 'body', 'body', 0);
+    return isBlockStatementContainingOnly(ifStatement.get('consequent'), j.ReturnStatement) &&
+           isBlockStatementContainingOnly(ifStatement.get('alternate'), j.ReturnStatement);
   }
 
-  function nodeIsBlockStatementContainingOnly(node, childType) {
-    return node.type === 'BlockStatement' &&
-           node.body.length === 1 &&
-         node.body[0].type === childType;
+  function isBlockStatementContainingOnly(path, childType) {
+    return j.BlockStatement.check(path.node) &&
+           path.node.body.length === 1 &&
+           childType.check(path.node.body[0]);
   }
 
-  function isConvertibleExpression(path) {
-    return isImmediatelyInvokedFunctionExpression(path) &&
-           containsOnlyIfStatement(path.node.expression.callee) &&
-           onlyReturnsOneOfTwoValues(path.node.expression.callee.body.body[0]);
-  }
+  return j(source)
+    .find(j.CallExpression)
+    .filter(isIIFE)
+    .filter(calleeContainsIfStatement)
+    .filter(ifStatementOnlyReturnsTwoValues)
+    .replaceWith((path) => {
+      const ifStatement = path.get('callee', 'body', 'body', '0');
+      const {test, consequent, alternate} = ifStatement.node;
+      const consequentIdentifier = consequent.body[0].argument;
+      const alternateIdentifier = alternate.body[0].argument;
 
-  const sourceAST = j(source);
-
-  sourceAST
-    .find(j.ExpressionStatement)
-    .filter(isConvertibleExpression)
-    .replaceWith(({node}) => {
-      let {expression: {callee: {body: functionBlockStatement}}} = node;
-    let {body: [{test,
-                   consequent: {body: [{argument: consequentIdentifier}]},
-                   alternate: {body: [{argument: alternateIdentifier}]}
-                  }]} = functionBlockStatement;
-
-      let ternaryExpression = j.conditionalExpression(test, consequentIdentifier, alternateIdentifier);
-      let newFunctionBlockStatement = j.blockStatement([j.expressionStatement(ternaryExpression)]);
-      let newArrowFunction = j.arrowFunctionExpression([], newFunctionBlockStatement, true);
-
-      return j.expressionStatement(j.callExpression(newArrowFunction, []));
-    });
-
-  return sourceAST.toSource(printOptions);
+      return j.conditionalExpression(test, consequentIdentifier, alternateIdentifier);
+    })
+    .toSource(printOptions);
 }
