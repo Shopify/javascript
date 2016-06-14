@@ -31,9 +31,12 @@ var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/assert/called-method-to-assert-called', test: true},
   {path: 'shopify-codemod/transforms/assert/called-with-methods-to-assert-called-with', test: true},
   {path: 'shopify-codemod/transforms/assert/falsy-called-method-to-assert-not-called', test: true},
+  // These transforms must appear before remove-empty-returns and remove-unused-expressions
+  {path: 'shopify-codemod/transforms/remove-trailing-else-undefined-return'},
+  {path: 'shopify-codemod/transforms/avoid-returning-unused-results'},
+  {path: 'shopify-codemod/transforms/avoid-returning-useless-expressions'},
   // These are more generic, stylistic transforms, so they should come last to catch any
   // new nodes introduced by other transforms
-  {path: 'shopify-codemod/transforms/remove-trailing-else-undefined-return'},
   {path: 'shopify-codemod/transforms/remove-empty-returns'},
   {path: 'shopify-codemod/transforms/function-to-arrow'},
   {path: 'js-codemod/transforms/arrow-function'},
@@ -54,6 +57,7 @@ var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/global-identifier-to-import'},
   // Must appear after constant-function-expression-to-statement in order to remove
   // unneeded semicolons from exported function declarations
+  {path: 'shopify-codemod/transforms/remove-unused-expressions'},
   {path: 'shopify-codemod/transforms/remove-empty-statements'},
 ];
 
