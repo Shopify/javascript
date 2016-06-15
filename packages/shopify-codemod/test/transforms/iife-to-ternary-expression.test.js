@@ -2,7 +2,10 @@ import 'test-helper';
 import transform from 'iife-to-ternary-expression';
 
 describe('iifeToTernaryExpression', () => {
-  it('replaces Decaf generated IIFEs containing ternaries with original ternaries', () => {
+  it('does not replace IIFEs that do not contain if-else statements representing ternaries', () => {
     expect(transform).to.transform('iife-to-ternary-expression/basic', {});
+  });
+  it('replaces IIFEs that are used in assignment and return statements', () => {
+    expect(transform).to.transform('iife-to-ternary-expression/sanity', {});
   });
 });

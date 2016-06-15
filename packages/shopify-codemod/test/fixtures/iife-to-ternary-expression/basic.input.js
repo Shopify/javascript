@@ -6,6 +6,22 @@
   }
 })();
 
+(function () {
+  if (pass) {
+    return bar;
+  } else {
+    return baz;
+  }
+})();
+
+((arg) => {
+  if (pass) {
+    return arg;
+  } else {
+    return baz;
+  }
+})(param);
+
 (() => {
   if (multilineConsequent) {
     bar = 34;
