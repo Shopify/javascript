@@ -1,16 +1,16 @@
-var proc = require('child_process');
-var path = require('path');
-var fs = require('fs');
+// This looks gross, but we don't want to fail if they don't have ESLint installed
+// locally.
 
-module.exports = function runESLint(details) {
-  return new Promise(function(resolve) {
-    var eslint = findESLintBinary();
-    if (eslint == null) { return; }
-    proc.exec(eslint + ' ' + details.file + ' --fix', resolve);
-  });
-};
+try {
+  // eslint-disable-next-line node/no-unpublished-require
+  var CLIEngine = require('eslint').CLIEngine;
+  var engine = new CLIEngine({fix: true});
 
-function findESLintBinary() {
-  var possibleBinary = path.join(proc.execSync('npm bin').toString().trim(), 'eslint');
-  return fs.statSync(possibleBinary).isFile() ? possibleBinary : null;
+  module.exports = function runESLint(details) {
+    console.log(engine.executeOnText(details.source).results[0].output);
+  };
+} catch (err) {
+  module.exports = function runESLint(details) {
+    return details.source;
+  };
 }
