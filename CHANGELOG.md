@@ -1,16 +1,23 @@
 # Changelog
 
 ## [Unreleased]
+
+
+## [12.3.0]
 ### Added
-- Added a `avoid-returning-unused-results` transform to remove return statement arguments from callbacks that are known to be ignored by the callee.
-- Added a `avoid-returning-useless-expressions` transform to remove return statement arguments that are known to return `undefined`.
-- Added a `remove-unused-expressions` transform to remove any expression without side effects.
+- Added a `split-return-assignments` transform to move any returned assignment expressions to be an assignment expression followed by a return statement of just the final value. ([#134](https://github.com/Shopify/javascript/pull/134))
+- Added a `avoid-returning-unused-results` transform to remove return statement arguments from callbacks that are known to be ignored by the callee. ([#173](https://github.com/Shopify/javascript/pull/173))
+- Added a `avoid-returning-useless-expressions` transform to remove return statement arguments that are known to return `undefined`. ([#173](https://github.com/Shopify/javascript/pull/173))
+- Added a `remove-unused-expressions` transform to remove any expression without side effects. ([#173](https://github.com/Shopify/javascript/pull/173))
 
 ### Changed
-- `esify` no longer changes the case of the transformed file.
+- `esify` no longer changes the case of the transformed file. ([#178](https://github.com/Shopify/javascript/pull/178))
 
 ### Fixed
-- Fixes the method for running ESLint so it does not spawn a new process for each file.
+- Fixes the method for running ESLint so it does not spawn a new process for each file. ([#177](https://github.com/Shopify/javascript/pull/177))
+
+### Build
+- Moved documentation of all codemods in `shopify-codemod` to be separate markdown files. ([#168](https://github.com/Shopify/javascript/pull/168))
 
 ## [12.2.0] - 2016-06-02
 ### Added
