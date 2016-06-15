@@ -38,7 +38,7 @@ module.exports = function createTransform(dasherizedName) {
     transformFilePath,
     testSuiteFilePath,
     documentationFilePath,
-    fixtureDir
+    fixtureDir,
   } = transformInfo;
 
   fs.writeFileSync(transformFilePath, generateTransformJS(transformInfo));
