@@ -56,7 +56,7 @@ function handleFile(filePath) {
 
     var newFile = path.join(
       path.dirname(filePath),
-      path.basename(filePath, '.coffee').replace(/_/g, '-') + '.js'
+      path.basename(filePath, '.coffee') + '.js'
     );
 
     fs.writeFileSync(newFile, linted);

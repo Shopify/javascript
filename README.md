@@ -1841,7 +1841,9 @@ npm run lint
 
 ## Project structure
 
-- [13.1](#13.1) <a name="13.1"></a> Most tools, including Babel, ESLint, and Stylelint, allow you to specify your configuration in dotfiles at the root of your project, or as special keys in your `package.json`. Where possible, prefer placing this configuration in `package.json`. Where not possible (for example, when providing a custom ESLint configuration for a subdirectory), prefer the JavaScript version of the configuration over the dotfile version. Use dotfiles only when you have no other option.
+- [13.1](#13.1) <a name="13.1"></a> Prefer dash-/kebab-case for file names. Pascal case is acceptable for naming files that export React components. For projects that are transitioning from CoffeeScript to JavaScript, it is also acceptable to use snake case for the file names in order to retain consistency.
+
+- [13.2](#13.2) <a name="13.2"></a> Most tools, including Babel, ESLint, and Stylelint, allow you to specify your configuration in dotfiles at the root of your project, or as special keys in your `package.json`. Where possible, prefer placing this configuration in `package.json`. Where not possible (for example, when providing a custom ESLint configuration for a subdirectory), prefer the JavaScript version of the configuration over the dotfile version. Use dotfiles only when you have no other option.
 
   > Why? Placing configuration in package.json means that any developer can see all configuration in a single file, and cleans up the root of a directory.
 
