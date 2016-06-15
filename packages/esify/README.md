@@ -104,14 +104,6 @@ module.exports = {
       methods: ['preventDefault'],
     },
     {
-      object: 'console',
-      methods: ['log', 'warn'],
-    },
-    {
-      object: /^(e|evt|event)$/,
-      methods: ['preventDefault'],
-    },
-    {
       object: /.*/,
       methods: ['forEach'],
     },
