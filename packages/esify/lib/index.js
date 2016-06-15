@@ -52,18 +52,15 @@ function handleFile(filePath) {
   try {
     var decaffed = runDecaf({source: source, file: filePath, options: config});
     var codemoded = runCodemods({source: decaffed, file: filePath, options: config});
+    var linted = runESLint({source: codemoded, file: filePath, options: config});
 
     var newFile = path.join(
       path.dirname(filePath),
       path.basename(filePath, '.coffee').replace(/_/g, '-') + '.js'
     );
 
-    fs.writeFileSync(newFile, codemoded);
-
-    runESLint({file: newFile})
-      .then(function() {
-        console.log(filePath + ' => ' + newFile);
-      });
+    fs.writeFileSync(newFile, linted);
+    console.log(filePath + ' => ' + newFile);
   } catch (error) {
     handleError(filePath, error);
   }
