@@ -6,6 +6,9 @@
 - Added a `avoid-returning-useless-expressions` transform to remove return statement arguments that are known to return `undefined`.
 - Added a `remove-unused-expressions` transform to remove any expression without side effects.
 
+### Changed
+- `esify` no longer changes the case of the transformed file.
+
 ### Fixed
 - Fixes the method for running ESLint so it does not spawn a new process for each file.
 
