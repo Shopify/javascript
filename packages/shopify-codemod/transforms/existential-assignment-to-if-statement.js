@@ -1,4 +1,4 @@
-export default function simplifyCondAssignIfElseStatement({source}, {jscodeshift: j}, {printOptions = {quote: 'single'}}) {
+export default function existentialAssignmentToIfStatement({source}, {jscodeshift: j}, {printOptions = {quote: 'single'}}) {
 
   function testIsBinaryExpression(path) {
     return j.BinaryExpression.check(path.get('test').node);
