@@ -18,6 +18,7 @@ module.exports = function renameTransform(oldName, newName) {
 
   fs.renameSync(oldInfo.transformFilePath, newInfo.transformFilePath);
   fs.renameSync(oldInfo.testSuiteFilePath, newInfo.testSuiteFilePath);
+  fs.renameSync(oldInfo.documentationFilePath, newInfo.documentationFilePath);
   fs.renameSync(oldInfo.fixtureDir, newInfo.fixtureDir);
 
   const transformJS = fs
@@ -30,4 +31,9 @@ module.exports = function renameTransform(oldName, newName) {
     .replace(new RegExp(oldInfo.dasherizedName, 'g'), newInfo.dasherizedName)
     .replace(new RegExp(oldInfo.camelizedName, 'g'), newInfo.camelizedName);
   fs.writeFileSync(newInfo.testSuiteFilePath, testSuiteJS);
+
+  const documentationMD = fs
+    .readFileSync(newInfo.documentationFilePath, 'utf8')
+    .replace(new RegExp(oldInfo.dasherizedName, 'g'), newInfo.dasherizedName);
+  fs.writeFileSync(newInfo.documentationFilePath, documentationMD);
 };

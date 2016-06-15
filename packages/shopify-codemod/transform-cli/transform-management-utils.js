@@ -14,6 +14,7 @@ module.exports.validateTransformName = function(dasherizedName) {
 module.exports.transformNameInfo = function(dasherizedName) {
   const transformFilePath = path.join('transforms', `${dasherizedName}.js`);
   const testSuiteFilePath = path.join('test', 'transforms', `${dasherizedName}.test.js`);
+  const documentationFilePath = path.join('docs', `${dasherizedName}.md`);
   const fixtureDir = path.join('test', 'fixtures', dasherizedName);
 
   return {
@@ -21,6 +22,7 @@ module.exports.transformNameInfo = function(dasherizedName) {
     camelizedName: camelize(dasherizedName),
     transformFilePath,
     testSuiteFilePath,
+    documentationFilePath,
     fixtureDir,
   };
 };

@@ -1,0 +1,17 @@
+### `__DASHERIZED_NAME__`
+
+Description of transform. CHANGE THIS
+
+```sh
+jscodeshift -t shopify-codemod/transforms/__DASHERIZED_NAME__ <file>
+```
+
+#### Example
+
+```js
+EXAMPLE INPUT CHANGE THIS
+
+// BECOMES:
+
+EXAMPLE OUTPUT CHANGE THIS
+```
