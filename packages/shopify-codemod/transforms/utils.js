@@ -21,12 +21,42 @@ export function matchLast(matcher) {
 export function insertAfterDirectives(body, newNode) {
   let i = 0;
   for (;i < body.length; i++) {
-    if (!j.ExpressionStatement.check(body[i]) || !j.Literal.check(body[i].expression)) {
+    if (!j.ExpressionStatement.check(body[i]) || !looksLikeDirective(body[i].expression)) {
       break;
     }
   }
   body.splice(i, 0, newNode);
   return body;
+}
+
+export function isDirective({node, parentPath}) {
+  const {expression} = node;
+
+  return (
+    j.ExpressionStatement.check(node) &&
+    looksLikeDirective(expression) &&
+    directivesForNode(parentPath.node).indexOf(node) >= 0
+  );
+}
+
+const typesSupportingDirectives = new Set([j.Program.name, j.BlockStatement.name]);
+function directivesForNode(node) {
+  if (!typesSupportingDirectives.has(node.type)) { return []; }
+
+  const directives = [];
+  for (const expression of node.body) {
+    if (!j.ExpressionStatement.check(expression) || !looksLikeDirective(expression.expression)) {
+      break;
+    }
+
+    directives.push(expression);
+  }
+
+  return directives;
+}
+
+function looksLikeDirective(node) {
+  return j.Literal.check(node) && typeof node.value === 'string';
 }
 
 export function isUndefined(node) {
@@ -69,6 +99,39 @@ export function getBlockStatementFromFunction({body}) {
   }
 
   return body;
+}
+
+function escapeRegexString(string) {
+  return string.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
+}
+
+function possibleStringToRegex(val) {
+  if (typeof val === 'string') {
+    return new RegExp(`^${escapeRegexString(val)}$`);
+  }
+
+  return val;
+}
+
+export function createMemberExpressionMatcher(matchers) {
+  matchers = matchers.map((matcher) => ({
+    object: possibleStringToRegex(matcher.object),
+    methods: matcher.methods.map(possibleStringToRegex),
+  }));
+
+  return function isMatchingNode(node) {
+    if (node == null) { return false; }
+
+    const {object, property, computed} = node;
+    if (!j.MemberExpression.check(node) || !j.Identifier.check(object) || computed) {
+      return false;
+    }
+
+    return matchers.some((matcher) => (
+      matcher.object.test(object.name) &&
+      matcher.methods.some((method) => method.test(property.name))
+    ));
+  };
 }
 
 // from https://github.com/sindresorhus/globals/blob/1e9ebc39828b92bd5c8ec7dc7bb07d62f2fb0153/globals.json#L852

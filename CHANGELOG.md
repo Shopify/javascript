@@ -1,7 +1,13 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Added a `avoid-returning-unused-results` transform to remove return statement arguments from callbacks that are known to be ignored by the callee.
+- Added a `avoid-returning-useless-expressions` transform to remove return statement arguments that are known to return `undefined`.
+- Added a `remove-unused-expressions` transform to remove any expression without side effects.
 
+### Fixed
+- Fixes the method for running ESLint so it does not spawn a new process for each file.
 
 ## [12.2.0] - 2016-06-02
 ### Added

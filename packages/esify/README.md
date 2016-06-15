@@ -81,5 +81,36 @@ module.exports = {
       extendWith: 'assignInWith',
     },
   },
+  // A list of object/ property pairs that always ignore return values of any
+  // callbacks passed to them
+  methodsThatIgnoreReturnValues: [
+    {
+      object: '_',
+      methods: ['each'],
+    },
+    {
+      object: /.*/,
+      methods: ['forEach'],
+    },
+  ],
+  // A list of object/ property pairs that always return undefined when called
+  methodsReturningVoid: [
+    {
+      object: 'console',
+      methods: ['log', 'warn'],
+    },
+    {
+      object: /^(e|evt|event)$/,
+      methods: ['preventDefault'],
+    },
+    {
+      object: /.*/,
+      methods: ['forEach'],
+    },
+    {
+      object: '_',
+      methods: ['each'],
+    },
+  ],
 }
 ```

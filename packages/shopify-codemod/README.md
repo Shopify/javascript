@@ -12,7 +12,7 @@ This repository contains a collection of Codemods written with [JSCodeshift](htt
 
 ## Documentation
 
-[The documentation for each transform can be found in the docs folder](docs)
+The documentation for each transform can be found in the [docs folder](docs).
 
 ## Contributing
 
