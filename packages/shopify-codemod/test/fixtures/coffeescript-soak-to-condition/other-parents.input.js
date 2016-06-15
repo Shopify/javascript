@@ -36,4 +36,17 @@ if (!(typeof a !== "undefined" && a !== null ? (typeof a[bar] === "function" ? a
 // foo = bar: !a?[bar]?()
 var foo = {
   bar: !(typeof a !== "undefined" && a !== null ? (typeof a[bar] === "function" ? a[bar]() : void 0) : void 0),
-}
+};
+
+// a.b = c if a?.b?
+(((typeof a !== 'undefined' && a !== null ? a.b : void 0)) != null ? a.b = c : undefined);
+
+var foo = {
+  bar: (((typeof a !== 'undefined' && a !== null ? a.b : void 0)) != null ? a.b = c : undefined),
+};
+
+// @a = a if a?[bar]?()
+((typeof a !== "undefined" && a !== null ? (typeof a[bar] === "function" ? a[bar]() : void 0) : void 0) ? this.a = a : undefined);
+
+// @a = a if a?[bar]?()?
+((typeof a !== "undefined" && a !== null ? (typeof a[bar] === "function" ? a[bar]() : void 0) : void 0) != null ? this.a = a : undefined);

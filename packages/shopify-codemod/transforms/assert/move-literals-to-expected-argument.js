@@ -1,14 +1,13 @@
 import {createAssertion, isAssert} from './utils';
-import jscodeshift from 'jscodeshift';
-
-const HARDCODED_VALUE_TYPES = new Set([
-  jscodeshift.ArrayExpression.name,
-  jscodeshift.Literal.name,
-  jscodeshift.ObjectExpression.name,
-  jscodeshift.TemplateLiteral.name,
-]);
 
 export default function moveLiteralsToExpectedArgument({source}, {jscodeshift: j}, {printOptions = {}}) {
+  const HARDCODED_VALUE_TYPES = new Set([
+    j.ArrayExpression.name,
+    j.Literal.name,
+    j.ObjectExpression.name,
+    j.TemplateLiteral.name,
+  ]);
+
   return j(source)
     .find(j.CallExpression, {
       callee: isAssert('equal', 'notEqual', 'strictEqual', 'notStrictEqual', 'deepEqual', 'notDeepEqual'),

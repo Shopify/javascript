@@ -21,4 +21,8 @@ describe('functionToArrow', () => {
   it('transforms return without argument to empty arrow function', () => {
     expect(functionToArrow).to.transform('function-to-arrow/return-without-argument');
   });
+
+  it('transforms existing arrow functions with a single return to omit a block statement', () => {
+    expect(functionToArrow).to.transform('function-to-arrow/bad-arrow');
+  });
 });

@@ -1714,7 +1714,7 @@ npm run lint
   // needlessly using a class to encapsulate data that could be passed to a function
   class BadChoice {
     constructor(first, second) {
-      this.first = fires;
+      this.first = first;
       this.second = second;
     }
 

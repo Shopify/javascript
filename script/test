@@ -6,7 +6,6 @@ var execSync = require('child_process').execSync;
 var packageRoot = path.join(__dirname, '../packages');
 
 test('eslint-plugin-shopify');
-test('generator-eslint-shopify');
 test('chai-jscodeshift');
 test('shopify-codemod');
 

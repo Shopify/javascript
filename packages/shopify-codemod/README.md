@@ -12,6 +12,190 @@ This repository contains a collection of Codemods written with [JSCodeshift](htt
 
 ## Included Transforms
 
+### `remove-empty-statements`
+
+Removes empty statements, which usually manifest as unnecessary semicolons.
+
+```sh
+jscodeshift -t shopify-codemods/transforms/remove-empty-statements <file>
+```
+
+### Example
+
+```js
+export function foo() {};
+
+// BECOMES:
+
+export function foo() {}
+```
+
+### `implicit-coercion-to-explicit`
+
+Transforms implicit coercions to booleans (`!!foo`) and numbers (`+foo`) to their explicit counterparts (`Boolean(foo)` and `Number(foo)`, respectively).
+
+```sh
+jscodeshift -t shopify-codemods/transforms/implicit-coercion-to-explicit <file>
+```
+
+### Example
+
+```js
+!!foo;
++foo;
+
+// BECOMES:
+
+Boolean(foo);
+Number(foo);
+```
+
+### `empty-func-to-lodash-noop`
+
+Transforms empty function expressions (including arrow functions) to use Lodash’s `noop` function in order to avoid linter warnings for empty function bodies. Note that function declarations are not transformed in order to avoid potential issues stemming from the way those declarations are hoisted to the top of their scopes.
+
+```sh
+jscodeshift -t shopify-codemods/transforms/empty-func-to-lodash-noop <file>
+```
+
+### Example
+
+```js
+foo(() => {});
+bar(function() {});
+const baz = {
+  qux: () => {},
+};
+function fuzz() {}
+
+// BECOMES:
+
+foo(_.noop);
+bar(_.noop);
+const baz = {
+  qux: _.noop,
+}
+function fuzz() {}
+```
+
+### `add-missing-parseint-radix`
+
+Transforms `parseInt` (including `Number.parseInt`) calls to have a radix parameter of `10` if none is provided. Note that, depending on the strings being passed to this call, this may change the result, so only use this when you are certain that any calls missing a radix should have a radix of `10`.
+
+```sh
+jscodeshift -t shopify-codemods/transforms/add-missing-parseint-radix <file>
+```
+
+### Example
+
+```js
+parseInt('42');
+parseInt('1111', 2);
+Number.parseInt('42');
+
+// BECOMES:
+
+parseInt('42', 10);
+parseInt('1111', 2);
+Number.parseInt('42', 10);
+```
+
+### `computed-literal-keys-to-dot-notation`
+
+Transforms member expressions that have string literal keys to use dot notation whenever possible.
+
+```sh
+jscodeshift -t shopify-codemods/transforms/rename-identifier <file>
+```
+
+#### Example
+
+```js
+foo['bar']['baz'] = 'qux';
+this['_foo'] = 'bar';
+foo[0] = 42;
+foo['bar-baz'] = 'qux';
+foo[bar] = 'qux';
+
+// BECOMES:
+
+foo.bar.baz = 'qux';
+this._foo = 'bar';
+foo[0] = 42;
+foo['bar-baz'] = 'qux';
+foo[bar] = 'qux';
+```
+
+### `convert-default-export-objects-to-named-exports`
+
+Transforms an exported object literal such that each property of the exported object becomes a named export.
+
+```sh
+jscodeshift -t shopify-codemods/transforms/convert-default-export-objects-to-named-exports <file>
+```
+
+#### Example
+
+```js
+export default {
+  foo: 'bar',
+  baz: qux,
+}
+
+// BECOMES:
+
+export const foo = 'bar';
+export const baz = qux;
+```
+
+### `rename-identifier`
+
+Renames a user-defined list of identifiers. Use the `renameIdentifiers` option to specify the old name/ new name pairs.
+
+```sh
+jscodeshift -t shopify-codemods/transforms/rename-identifier <file>
+```
+
+#### Example
+
+```js
+// with {renameIdentifiers: {jQuery: '$'}}
+jQuery('.foo').find('.bar');
+jQuery.ajax();
+foo.jQuery('.bar');
+
+// BECOMES:
+
+$('.foo').find('.bar');
+$.ajax();
+foo.jQuery('.bar');
+```
+
+### `rename-property`
+
+Renames a user-defined list of object/ property pairs to use new property names. Use the `renameProperties` option to specify the old property name/ new property name pairs.
+
+```sh
+jscodeshift -t shopify-codemods/transforms/rename-property <file>
+```
+
+#### Example
+
+```js
+// with {renameProperties: {_: {first: 'head'}}}
+_.first([]);
+_.first.bind(_);
+foo._.first([]);
+_.each([]);
+
+// BECOMES:
+
+_.head([]);
+_.head.bind(_);
+foo._.first([]);
+_.each([]);
+```
+
 ### `global-identifer-to-import`
 
 Creates import statements for global identifiers. Use the `globalIdentifiers` option to specify identifier/ import path pairs.
@@ -523,6 +707,39 @@ foo = () => {
 }
 ```
 
+### `split-return-assignments`
+
+Splits up inline return assignments in multiple lines.
+
+```sh
+jscodeshift -t shopify-codemod/transforms/split-return-assignments <file>
+```
+
+#### Example
+
+```js
+foo(() => {
+  console.log(bar);
+  return this.sho = this.doo = this.zoo = 0;
+});
+
+// BECOMES:
+
+foo(() => {
+  console.log(bar);
+  this.sho = this.doo;
+  this.doo = this.zoo;
+  this.zoo = 0;
+  return this.sho;
+});
+```
+
 ## Contributing
 
 All code is written in ES2015+ in the `transforms/` directory. Make sure to add tests for all new transforms and features. A custom `transforms(fixtureName)` assertion is provided which checks that the passed transformer converts the fixture found at `test/fixtures/{{fixtureName}}.input.js` to the one found at `test/fixtures/{{fixtureName}}.output.js`. You can run `npm test` to run all tests, or `npm run test:watch` to have Mocha watch for changes and re-run the tests.
+
+
+### Development helpers
+`bin/create-transform your-transform-name-here` creates a transform file, a test file, and some empty test fixtures.
+
+`bin/rename-transform old-transform-name new-transform-name` renames the transforms file, test file, and fixture directory.

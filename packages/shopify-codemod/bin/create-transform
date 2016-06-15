@@ -1,0 +1,7 @@
+#!/usr/bin/env node --harmony_destructuring
+
+/* eslint-disable node/shebang */
+const create = require('../transform-cli/create-transform');
+
+const [,, dasherizedName] = process.argv;
+create(dasherizedName);
