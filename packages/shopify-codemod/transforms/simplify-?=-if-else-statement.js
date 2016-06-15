@@ -1,7 +1,7 @@
 export default function simplifyCondAssignIfElseStatement({source}, {jscodeshift: j}, {printOptions = {quote: 'single'}}) {
 
   function testIsBinaryExpression(path) {
-    return j.BinaryExpression.check(path.get('test').node)
+    return j.BinaryExpression.check(path.get('test').node);
   }
 
   function testChecksIdentifierForNotNull(path) {
@@ -25,11 +25,11 @@ export default function simplifyCondAssignIfElseStatement({source}, {jscodeshift
   }
 
   function isBlockStatementContainingOnlyExpressionStatement({node}) {
-   return (
-     j.BlockStatement.check(node) &&
-     node.body.length === 1 &&
-     j.ExpressionStatement.check(node.body[0])
-   );
+    return (
+      j.BlockStatement.check(node) &&
+      node.body.length === 1 &&
+      j.ExpressionStatement.check(node.body[0])
+    );
   }
 
   function consequentIsPrimaryIdentifier(path, primaryIdentifierName) {
