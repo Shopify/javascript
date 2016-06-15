@@ -1,6 +1,24 @@
 import {findFirstMember, insertAfterDirectives} from './utils';
 
 export default function globalAssignmentToDefaultExport({source}, {jscodeshift: j}, {printOptions = {}, appGlobalIdentifiers}) {
+  function removeFirstMember(memberExpression) {
+    const members = j(memberExpression)
+      .find(j.MemberExpression)
+      .nodes()
+      .slice(-2);
+
+    const last = members.pop();
+    const parent = members.pop() || memberExpression;
+
+    parent.object = last.property;
+
+    return memberExpression;
+  }
+
+  function isDefaultExportMemberAssignment(defaultExportName, assignmentTargetString) {
+    return new RegExp(`^${defaultExportName}\..+`).test(assignmentTargetString);
+  }
+
   return j(source)
     .find(j.Program)
     .forEach((programPath) => {
@@ -32,18 +50,17 @@ export default function globalAssignmentToDefaultExport({source}, {jscodeshift: 
             return j.exportDefaultDeclaration(statement);
           } else {
             const newExpose = j(member).toSource();
-            if (newExpose.indexOf(`${expose}.prototype.`) !== 0) {
+
+            if (!isDefaultExportMemberAssignment(expose, newExpose)) {
               throw new Error('Found multiple exports in a single file, please break up the file first');
             }
 
             const {left, right} = path.node.expression;
+
             return j.expressionStatement(
               j.assignmentExpression(
                 '=',
-                j.memberExpression(
-                  j.memberExpression(left.object.object.property, left.object.property),
-                  left.property
-                ),
+                removeFirstMember(left),
                 right
               )
             );

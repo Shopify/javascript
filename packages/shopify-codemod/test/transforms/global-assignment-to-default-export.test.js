@@ -22,9 +22,9 @@ describe('globalAssignmentToDefaultExport', () => {
     expect(globalAssignmentToDefaultExport).to.transform('global-assignment-to-default-export/local-prototype-assignment');
   });
 
-  it('prevents local non-prototype assignments', () => {
+  it('prevents multiple exports', () => {
     expect(globalAssignmentToDefaultExport).to.throwWhileTransforming(
-      'global-assignment-to-default-export/local-non-prototype-assignment',
+      'global-assignment-to-default-export/prevent-multiple-exports',
       /Found multiple exports in a single file/
     );
   });
