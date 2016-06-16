@@ -2,15 +2,11 @@ import {findFirstMember, insertAfterDirectives} from './utils';
 
 export default function globalAssignmentToDefaultExport({source}, {jscodeshift: j}, {printOptions = {}, appGlobalIdentifiers}) {
   function removeFirstMember(memberExpression) {
-    const members = j(memberExpression)
-      .find(j.MemberExpression)
-      .nodes()
-      .slice(-2);
-
-    const last = members.pop();
-    const parent = members.pop() || memberExpression;
-
-    parent.object = last.property;
+    j(memberExpression)
+      .find(j.MemberExpression, {
+        object: (node) => !j.MemberExpression.check(node),
+      })
+      .forEach((path) => path.replace(path.node.property));
 
     return memberExpression;
   }
