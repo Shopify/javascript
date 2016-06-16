@@ -32,14 +32,8 @@ export default function globalAssignmentToDefaultExport({source}, {jscodeshift: 
           },
         })
         .replaceWith((path) => {
-          const {
-            node: {
-              expression: {
-                left: member,
-                right: statement,
-              },
-            },
-          } = path;
+          const expression = path.node.expression;
+          const {left: member, right: statement} = expression;
 
           if (expose == null) {
             expose = j(member).toSource();
@@ -55,7 +49,7 @@ export default function globalAssignmentToDefaultExport({source}, {jscodeshift: 
 
             return j.expressionStatement(
               j.assignmentExpression(
-                '=',
+                expression.operator,
                 removeFirstMember(left),
                 right
               )
