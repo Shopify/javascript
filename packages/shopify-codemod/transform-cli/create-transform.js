@@ -22,6 +22,11 @@ function generateTestSuiteJS({dasherizedName, camelizedName}) {
     .replace(/__CAMELIZED_NAME__/g, camelizedName);
 }
 
+function generateDocumentationMD({dasherizedName}) {
+  return readTemplateSync('documentation.md.template')
+    .replace(/__DASHERIZED_NAME__/g, dasherizedName);
+}
+
 module.exports = function createTransform(dasherizedName) {
   if (!dasherizedName) {
     throw new Error('Specify the transform\'s dasherized name as an argument.');
@@ -29,10 +34,16 @@ module.exports = function createTransform(dasherizedName) {
 
   utils.validateTransformName(dasherizedName);
   const transformInfo = utils.transformNameInfo(dasherizedName);
-  const {transformFilePath, testSuiteFilePath, fixtureDir} = transformInfo;
+  const {
+    transformFilePath,
+    testSuiteFilePath,
+    documentationFilePath,
+    fixtureDir,
+  } = transformInfo;
 
   fs.writeFileSync(transformFilePath, generateTransformJS(transformInfo));
   fs.writeFileSync(testSuiteFilePath, generateTestSuiteJS(transformInfo));
+  fs.writeFileSync(documentationFilePath, generateDocumentationMD(transformInfo));
 
   fs.mkdirSync(fixtureDir);
 
