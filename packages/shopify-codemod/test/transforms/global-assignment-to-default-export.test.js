@@ -17,4 +17,22 @@ describe('globalAssignmentToDefaultExport', () => {
   it('preserves directives', () => {
     expect(globalAssignmentToDefaultExport).to.transform('global-assignment-to-default-export/directive');
   });
+
+  it('allows local prototype assignments', () => {
+    expect(globalAssignmentToDefaultExport).to.transform('global-assignment-to-default-export/local-prototype-assignment');
+  });
+
+  it('prevents multiple exports', () => {
+    expect(globalAssignmentToDefaultExport).to.throwWhileTransforming(
+      'global-assignment-to-default-export/prevent-multiple-exports',
+      /Found multiple exports in a single file/
+    );
+  });
+
+  it('fails on assignments via array accessors', () => {
+    expect(globalAssignmentToDefaultExport).to.throwWhileTransforming(
+      'global-assignment-to-default-export/fails-on-global-assign-via-array-accessor',
+      /Found multiple exports in a single file/
+    );
+  });
 });
