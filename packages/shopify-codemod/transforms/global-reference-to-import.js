@@ -10,7 +10,7 @@ function determineFileSearcher() {
   } else if (spawnSync('which', ['ack-grep']).status === 0) {
     return ['ack-grep', ['--column', '--no-color', '--no-group', '--with-filename']];
   } else {
-    throw new Error('global-reference-to-import: Unable to find ack or the_silver_searcher binary');
+    throw new Error('global-reference-to-import: Unable to find ack or the_silver_searcher binary. Please run `brew install ag`');
   }
 }
 
