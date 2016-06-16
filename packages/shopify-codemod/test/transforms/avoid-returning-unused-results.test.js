@@ -1,9 +1,9 @@
 import 'test-helper';
-import avoidReturningUnsusedResults from 'avoid-returning-unsused-results';
+import avoidReturningUnusedResults from 'avoid-returning-unused-results';
 
-describe('avoidReturningUnsusedResults', () => {
+describe('avoidReturningUnusedResults', () => {
   it('removes return arguments from specified callbacks', () => {
-    expect(avoidReturningUnsusedResults).to.transform('avoid-returning-unsused-results/basic', {
+    expect(avoidReturningUnusedResults).to.transform('avoid-returning-unused-results/basic', {
       methodsThatIgnoreReturnValues: [
         {
           object: '_',

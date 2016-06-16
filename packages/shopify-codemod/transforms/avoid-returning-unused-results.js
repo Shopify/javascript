@@ -1,6 +1,6 @@
 import {createMemberExpressionMatcher} from './utils';
 
-export default function avoidReturningUnsusedResults({source}, {jscodeshift: j}, {printOptions = {quote: 'single'}, methodsThatIgnoreReturnValues = []}) {
+export default function avoidReturningUnusedResults({source}, {jscodeshift: j}, {printOptions = {quote: 'single'}, methodsThatIgnoreReturnValues = []}) {
 
   const isMatchingMemberExpression = createMemberExpressionMatcher(methodsThatIgnoreReturnValues);
 

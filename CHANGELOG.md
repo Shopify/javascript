@@ -3,6 +3,13 @@
 ## [Unreleased]
 
 
+## [12.3.1]
+### Fixed
+- Fixed the naming of the `avoid-returning-unused-results` transform.
+
+### Build
+- Transform generator script now generates documentation files. ([#180](https://github.com/Shopify/javascript/pull/180))
+
 ## [12.3.0]
 ### Added
 - Added a `split-return-assignments` transform to move any returned assignment expressions to be an assignment expression followed by a return statement of just the final value. ([#134](https://github.com/Shopify/javascript/pull/134))
