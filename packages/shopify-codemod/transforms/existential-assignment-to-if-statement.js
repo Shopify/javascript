@@ -3,7 +3,7 @@ export default function existentialAssignmentToIfStatement({source}, {jscodeshif
   function hasMatchingLeftValues({node}) {
     const testLeftValue = j(node.test.left).toSource(printOptions);
     const consequentLeftValue = j(node.consequent.body[0].expression).toSource(printOptions);
-    const alternateLeftValue  = j(node.alternate.body[0].expression.left).toSource(printOptions);
+    const alternateLeftValue = j(node.alternate.body[0].expression.left).toSource(printOptions);
 
     return testLeftValue === consequentLeftValue && testLeftValue === alternateLeftValue;
   }
@@ -17,12 +17,10 @@ export default function existentialAssignmentToIfStatement({source}, {jscodeshif
         right: {type: j.Literal.name, value: null},
       },
       consequent: {
-        body: (body) => {
-          return (
-            body.length === 1 &&
-            (j.Identifier.check(body[0].expression) || j.MemberExpression.check(body[0].expression))
-          );
-        },
+        body: (body) => (
+          body.length === 1 &&
+          (j.Identifier.check(body[0].expression) || j.MemberExpression.check(body[0].expression))
+        ),
       },
       alternate: {
         body: (body) => body.length === 1 && j.AssignmentExpression.check(body[0].expression),
