@@ -1353,6 +1353,13 @@ npm run lint
     })
     .filter((x) => {
       return x < 6;
+    })
+    .filter((a) => {
+      return (
+        a &&
+        really &&
+        (long || expression)
+      );
     });
 
   // doesn't return an object with `foo` key, actually returns nothing!
@@ -1361,7 +1368,12 @@ npm run lint
   // good
   [1, 2, 3]
     .map((x) => (x * x) + 1)
-    .filter((x) => x < 6);
+    .filter((x) => x < 6)
+    .filter((a) => (
+      a &&
+      really &&
+      (long || expression)
+    ));
 
   runCallback((foo) => {
     return {foo};
