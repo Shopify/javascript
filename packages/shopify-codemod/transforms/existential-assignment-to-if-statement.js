@@ -1,61 +1,36 @@
 export default function existentialAssignmentToIfStatement({source}, {jscodeshift: j}, {printOptions = {quote: 'single'}}) {
 
-  function testIsBinaryExpression(path) {
-    return j.BinaryExpression.check(path.get('test').node);
-  }
+  function hasMatchingLeftValues({node}) {
+    const testLeftValue = j(node.test.left).toSource(printOptions);
+    const consequentLeftValue = j(node.consequent.body[0].expression).toSource(printOptions);
+    const alternateLeftValue  = j(node.alternate.body[0].expression.left).toSource(printOptions);
 
-  function testChecksIdentifierForNotNull(path) {
-    const test = path.get('test').node;
-    return (
-      j.Identifier.check(test.left) &&
-      test.operator === '!=' &&
-      j.Literal.check(test.right) &&
-      test.right.value === null
-    );
-  }
-
-  function representsConditionalAssignment(path) {
-    const primaryIdentifierName = path.get('test', 'left', 'name').value;
-    return (
-      isBlockStatementContainingOnlyExpressionStatement(path.get('consequent')) &&
-      isBlockStatementContainingOnlyExpressionStatement(path.get('alternate')) &&
-      consequentIsPrimaryIdentifier(path, primaryIdentifierName) &&
-      alternateAssignsPrimaryIdentifier(path, primaryIdentifierName)
-    );
-  }
-
-  function isBlockStatementContainingOnlyExpressionStatement({node}) {
-    return (
-      j.BlockStatement.check(node) &&
-      node.body.length === 1 &&
-      j.ExpressionStatement.check(node.body[0])
-    );
-  }
-
-  function consequentIsPrimaryIdentifier(path, primaryIdentifierName) {
-    const consequentExpression = path.get('consequent', 'body', 0, 'expression');
-    return (
-      j.Identifier.check(consequentExpression.node) &&
-      consequentExpression.get('name').value === primaryIdentifierName
-    );
-  }
-
-  function alternateAssignsPrimaryIdentifier(path, primaryIdentifierName) {
-    const alternateExpression = path.get('alternate', 'body', 0, 'expression');
-    return (
-      j.AssignmentExpression.check(alternateExpression.node) &&
-      alternateExpression.get('left', 'name').value === primaryIdentifierName
-    );
+    return testLeftValue === consequentLeftValue && testLeftValue === alternateLeftValue;
   }
 
   return j(source)
-    .find(j.IfStatement)
-    .filter(testIsBinaryExpression)
-    .filter(testChecksIdentifierForNotNull)
-    .filter(representsConditionalAssignment)
-    .replaceWith(({node}) => {
-      const {test, alternate} = node;
-      const inverseTest = j.binaryExpression('===', test.left, test.right);
+    .find(j.IfStatement, {
+      test: {
+        type: j.BinaryExpression.name,
+        left: (left) => j.Identifier.check(left) || j.MemberExpression.check(left),
+        operator: '!=',
+        right: {type: j.Literal.name, value: null},
+      },
+      consequent: {
+        body: (body) => {
+          return (
+            body.length === 1 &&
+            (j.Identifier.check(body[0].expression) || j.MemberExpression.check(body[0].expression))
+          );
+        },
+      },
+      alternate: {
+        body: (body) => body.length === 1 && j.AssignmentExpression.check(body[0].expression),
+      },
+    })
+    .filter(hasMatchingLeftValues)
+    .replaceWith(({node: {test, alternate}}) => {
+      const inverseTest = j.binaryExpression('==', test.left, test.right);
       return j.ifStatement(inverseTest, alternate);
     })
     .toSource(printOptions);
