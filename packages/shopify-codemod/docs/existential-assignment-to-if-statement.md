@@ -17,7 +17,7 @@ if (a != null) {
 
 // BECOMES:
 
-if (a === null) {
+if (a == null) {
   a = b;
 }
 ```

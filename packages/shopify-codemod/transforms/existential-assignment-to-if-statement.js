@@ -8,22 +8,29 @@ export default function existentialAssignmentToIfStatement({source}, {jscodeshif
     return testLeftValue === consequentLeftValue && testLeftValue === alternateLeftValue;
   }
 
+  function isIdentifierOrMemberExpression(node) {
+    return j.Identifier.check(node) || j.MemberExpression.check(node);
+  }
+
   return j(source)
     .find(j.IfStatement, {
       test: {
         type: j.BinaryExpression.name,
-        left: (left) => j.Identifier.check(left) || j.MemberExpression.check(left),
+        left: isIdentifierOrMemberExpression,
         operator: '!=',
         right: {type: j.Literal.name, value: null},
       },
       consequent: {
         body: (body) => (
           body.length === 1 &&
-          (j.Identifier.check(body[0].expression) || j.MemberExpression.check(body[0].expression))
+          isIdentifierOrMemberExpression(body[0].expression)
         ),
       },
       alternate: {
-        body: (body) => body.length === 1 && j.AssignmentExpression.check(body[0].expression),
+        body: (body) => (
+          body.length === 1 &&
+          j.AssignmentExpression.check(body[0].expression)
+        ),
       },
     })
     .filter(hasMatchingLeftValues)
