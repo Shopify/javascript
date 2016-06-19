@@ -44,6 +44,7 @@ var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/strip-template-literal-parenthesis'},
   {path: 'js-codemod/transforms/object-shorthand'},
   {path: 'shopify-codemod/transforms/iife-to-ternary-expression'},
+  {path: 'shopify-codemod/transforms/existential-assignment-to-if-statement'},
   // These are run very late to ensure they catch any identifiers/ member expressions
   // added in earlier transforms
   {path: 'js-codemod/transforms/unquote-properties'},
