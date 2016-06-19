@@ -25,4 +25,8 @@ describe('splitReturnAssignments', () => {
   it('splits up non "=" operators', () => {
     expect(splitReturnAssignments).to.transform('split-return-assignments/operators');
   });
+
+  it('ignores returns without assignments', () => {
+    expect(splitReturnAssignments).to.transform('split-return-assignments/sanity');
+  });
 });

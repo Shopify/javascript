@@ -5,9 +5,11 @@ export default function splitReturnAssignments({source}, {jscodeshift: j}, {prin
   sourceAST
     .find(j.Function, {
       body: {
-        body: matchLast(j.ReturnStatement, {
-          type: 'ReturnStatement',
-          argument: j.AssignmentExpression,
+        body: matchLast({
+          type: j.ReturnStatement.name,
+          argument: {
+            type: j.AssignmentExpression.name,
+          },
         }),
       },
     })
