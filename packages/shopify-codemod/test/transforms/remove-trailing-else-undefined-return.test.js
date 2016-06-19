@@ -17,4 +17,7 @@ describe('removeTrailingElseUndefinedReturn', () => {
   it('doesn\'t remove the entire block in multi-lined blocks', () => {
     expect(removeTrailingElseUndefinedReturn).to.transform('remove-trailing-else-undefined-return/multi');
   });
+  it('ignores if-else with following statements', () => {
+    expect(removeTrailingElseUndefinedReturn).to.transform('remove-trailing-else-undefined-return/ignores-if-else-with-following-statements');
+  });
 });
