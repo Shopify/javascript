@@ -1,13 +1,7 @@
 export default function argumentsToArgsSpread({source}, {jscodeshift: j}, {printOptions = {quote: 'single'}}) {
-  function isArrowFunction(path) {
-    return j.match(path, {
-      type: j.ArrowFunctionExpression.name,
-    });
-  }
-
   function findNonArrowScope(path) {
     let scope = path.scope;
-    while (isArrowFunction(scope.path)) {
+    while (j.ArrowFunctionExpression.check(scope.node)) {
       scope = scope.parent;
     }
 
@@ -22,8 +16,8 @@ export default function argumentsToArgsSpread({source}, {jscodeshift: j}, {print
     );
   }
 
-  function hasNoArgsDeclaration({scope}) {
-    return scope.lookup('args') == null;
+  function hasNoArgsDeclaration(path) {
+    return !findNonArrowScope(path).scope.declares('args');
   }
 
   return j(source)
@@ -36,7 +30,7 @@ export default function argumentsToArgsSpread({source}, {jscodeshift: j}, {print
         rootScope.params = [j.restElement(j.identifier('args'))];
       }
 
-      argumentsPath.node.name = rootScope.params[0].argument.name;
+      argumentsPath.replace(rootScope.params[0].argument);
     })
     .toSource(printOptions);
 }
