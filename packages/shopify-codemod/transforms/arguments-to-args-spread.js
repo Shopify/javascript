@@ -1,65 +1,42 @@
 export default function argumentsToArgsSpread({source}, {jscodeshift: j}, {printOptions = {quote: 'single'}}) {
-  function isArglessIIFE(path) {
+  function isArrowFunction(path) {
     return j.match(path, {
-      type: j.CallExpression.name,
-      callee: {
-        type: j.ArrowFunctionExpression.name,
-        params: (params) => params.length === 0,
-      },
-      arguments: (args) => args.length === 0,
+      type: j.ArrowFunctionExpression.name,
     });
   }
 
-  function findNonIIFEScope(path) {
+  function findNonArrowScope(path) {
     let scope = path.scope;
-    while (isArglessIIFE(scope.path.parentPath)) {
+    while (isArrowFunction(scope.path)) {
       scope = scope.parent;
     }
 
     return scope.path;
   }
 
-  function isFunctionScopeWithNoParams({scope}) {
-    return scope.node.params.length === 0;
-  }
-
-  function isFunctionScopeWithArgsSpread({node: {params}}) {
+  function hasSpreadableRootScope(path) {
+    const rootScope = findNonArrowScope(path);
     return (
-      j.RestElement.check(params[0]) &&
-      params[0].argument.name === 'args'
+      rootScope.node.params.length === 0 ||
+      j.RestElement.check(rootScope.node.params[0])
     );
   }
 
-  function hasSpreadableRootScope(path) {
-    const rootScopePath = findNonIIFEScope(path);
-    return isFunctionScopeWithNoParams(rootScopePath) || isFunctionScopeWithArgsSpread(rootScopePath);
+  function hasNoArgsDeclaration({scope}) {
+    return scope.lookup('args') == null;
   }
 
-  function hasNoArgsVar(path) {
-    return path.scope.lookup('args') == null;
-  }
-
-  const sourceAST = j(source);
-
-  const argumentsReferences = sourceAST
+  return j(source)
     .find(j.Identifier, {name: 'arguments'})
     .filter(hasSpreadableRootScope)
-    .filter(hasNoArgsVar);
-
-  // Push `...args` into root scope param lists.
-  argumentsReferences
-    .map((path) => path.scope.path)
-    .map(findNonIIFEScope)
-    .filter(isFunctionScopeWithNoParams)
-    .forEach(({node: {params}}) => {
-      params.push(j.restElement(j.identifier('args')));
-    });
-
-  // Rename `arguments` => `args` in all eligible scopes.
-  argumentsReferences
+    .filter(hasNoArgsDeclaration)
     .forEach((argumentsPath) => {
-      argumentsPath.node.name = 'args';
-    });
+      const rootScope = findNonArrowScope(argumentsPath).node;
+      if (rootScope.params.length === 0) {
+        rootScope.params = [j.restElement(j.identifier('args'))];
+      }
 
-  return sourceAST.toSource(printOptions);
+      argumentsPath.node.name = rootScope.params[0].argument.name;
+    })
+    .toSource(printOptions);
 }
