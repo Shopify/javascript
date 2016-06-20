@@ -10,7 +10,7 @@ export default function removeTrailingElseUndefinedReturn({source}, {jscodeshift
             alternate: {
               body: matchLast({
                 type: 'ReturnStatement',
-                argument: (line) => isUndefined(line),
+                argument: (line) => line === null || isUndefined(line),
               }),
             },
           }),
