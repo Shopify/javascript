@@ -3,6 +3,7 @@ var jscodeshift = require('jscodeshift');
 require('babel-register')({ignore: false});
 
 var TRANSFORMS = [
+  {path: 'shopify-codemod/transforms/split-if-assignments'},
   {path: 'shopify-codemod/transforms/coffeescript-soak-to-condition'},
   {path: 'shopify-codemod/transforms/ternary-statement-to-if-statement'},
   {path: 'shopify-codemod/transforms/remove-useless-return-from-test', test: true},
@@ -52,6 +53,7 @@ var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/computed-literal-keys-to-dot-notation'},
   {path: 'shopify-codemod/transforms/rename-identifier'},
   {path: 'shopify-codemod/transforms/rename-property'},
+  {path: 'shopify-codemod/transforms/split-return-assignments'},
   // constant-function-expression-to-statement and global-reference-to-import need
   // `const` references, so they must happen after `no-vars`
   {path: 'js-codemod/transforms/no-vars'},
