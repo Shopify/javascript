@@ -20,6 +20,6 @@ All code is written in ES2015+ in the `transforms/` directory. Make sure to add 
 
 
 ### Development helpers
-`bin/create-transform your-transform-name-here` creates a transform file, a test file, and some empty test fixtures.
+`bin/create-transform your-transform-name-here` creates a transform file, a test file, some empty test fixtures, and a doc file.
 
-`bin/rename-transform old-transform-name new-transform-name` renames the transforms file, test file, and fixture directory.
+`bin/rename-transform old-transform-name new-transform-name` renames the transforms file, test file, fixture directory, and doc file.
