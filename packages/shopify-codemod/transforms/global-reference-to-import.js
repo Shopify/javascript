@@ -73,6 +73,7 @@ export default function globalReferenceToImport(
     if (extname(filename) === '.coffee') {
       return [];
     }
+    // eslint-disable-next-line no-sync
     const namedExports = j(fs.readFileSync(filename).toString())
       .find(j.ExportNamedDeclaration);
     return namedExports.paths();
@@ -110,7 +111,7 @@ export default function globalReferenceToImport(
           const file = getDeclaringFile(member);
           if (file === null) { return null; }
           const name = findLastMember(node).name;
-          const hasNamedExports = findNamedExports(file).length > 0;
+          const hasNamedExports = (findNamedExports(file).length > 0);
 
           imports.set(member, {file, name, hasNamedExports});
           return name;
@@ -163,7 +164,7 @@ export default function globalReferenceToImport(
         insertAfterDirectives(
           body,
           j.importDeclaration([
-            hasNamedExports ? j.importNamespaceSpecifier(identifier) : j.importDefaultSpecifier(identifier)
+            hasNamedExports ? j.importNamespaceSpecifier(identifier) : j.importDefaultSpecifier(identifier),
           ], j.literal(relativePath(file)))
         );
       }
