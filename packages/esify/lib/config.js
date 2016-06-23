@@ -35,6 +35,8 @@ module.exports = function loadConfig() {
         NProgress: 'NProgress',
         FastClick: 'shopify-fastclick',
         Clipboard: 'clipboard',
+        Twine: 'twine',
+        Bindings: 'twine',
       },
       renameIdentifiers: {
         jQuery: '$',
