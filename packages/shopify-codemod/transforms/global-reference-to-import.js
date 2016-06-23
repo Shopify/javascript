@@ -1,6 +1,7 @@
 import {spawnSync} from 'child_process';
 import {extname, dirname, resolve, relative, join, basename} from 'path';
 import {findFirstMember, findLastMember, insertAfterDirectives} from './utils';
+import fs from 'fs';
 
 function determineFileSearcher() {
   if (spawnSync('which', ['ag']).status === 0) {
@@ -68,6 +69,15 @@ export default function globalReferenceToImport(
     return fileForIdentifier[identifier];
   }
 
+  function findNamedExports(filename) {
+    if (extname(filename) === '.coffee') {
+      return [];
+    }
+    // eslint-disable-next-line no-sync
+    const namedExports = j(fs.readFileSync(filename).toString())
+      .find(j.ExportNamedDeclaration);
+    return namedExports.paths();
+  }
 
   function isGlobalReference(object) {
     return appGlobalIdentifiers.indexOf(findFirstMember(object).name) >= 0;
@@ -101,7 +111,9 @@ export default function globalReferenceToImport(
           const file = getDeclaringFile(member);
           if (file === null) { return null; }
           const name = findLastMember(node).name;
-          imports.set(member, {file, name});
+          const hasNamedExports = (findNamedExports(file).length > 0);
+
+          imports.set(member, {file, name, hasNamedExports});
           return name;
         }
       }
@@ -146,12 +158,13 @@ export default function globalReferenceToImport(
         });
 
       for (const anImport of imports.values()) {
-        const {file, name} = anImport;
+        const {file, name, hasNamedExports} = anImport;
         const {node: {body}} = path;
+        const identifier = j.identifier(name);
         insertAfterDirectives(
           body,
           j.importDeclaration([
-            j.importDefaultSpecifier(j.identifier(name)),
+            hasNamedExports ? j.importNamespaceSpecifier(identifier) : j.importDefaultSpecifier(identifier),
           ], j.literal(relativePath(file)))
         );
       }
