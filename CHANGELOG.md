@@ -3,6 +3,26 @@
 ## [Unreleased]
 
 
+## [12.3.3]
+### Added
+- Added an `existential-assignment-to-if-statement` transform that removes dead code from `decaf`'s `?=` output.
+- Added an `arguments-to-args-spread` transform that adds an `...args` spread to functions that reference `arguments`.
+- Added a `split-if-assignments` transform that moves assignments out of `if` conditions.
+- `arrow-body-style` guidance for a single multiline return.
+
+### Fixed
+- `ignores-if-else-with-following-statements` now handles argumentless `return` statements.
+- `README` now includes details of doc file generation/update for transforms managed by `create-transform`/`rename-transform` scripts.
+- `global-reference-to-import` now handles named exports.
+
+## [12.3.2]
+### Added
+- Added guidance for installing a search binary to `global-reference-to-import`'s error message.
+- Added an `iife-to-ternary-expression` transform that converts some IIFE assignments to ternary assignments.
+
+### Fixed
+- `global-assignment-to-default-export` now allows prototype assignments to the default export object.
+
 ## [12.3.1]
 ### Fixed
 - Fixed the naming of the `avoid-returning-unused-results` transform.
