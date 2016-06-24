@@ -40,6 +40,7 @@ module.exports = function loadConfig() {
       },
       renameIdentifiers: {
         jQuery: '$',
+        Bindings: 'Twine',
       },
       renameProperties: {
         _: {
