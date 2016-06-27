@@ -2,6 +2,7 @@
   "name": "javascript",
   "private": true,
   "description": "The home for all things JavaScript at Shopify.",
+  "license": "MIT",
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "test": "script/test",
