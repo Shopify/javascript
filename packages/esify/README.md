@@ -17,6 +17,7 @@ The tools on which `esify` is build have certain limitations that prevent us fro
 - Assignment to a global outside of the file creating that global will result in incorrect exports (e.g., `Shopify.UIPopover.foo = 'bar'` outside the file declaring `Shopify.UIPopover.foo`)
 - Strings and regular expressions with complex escapes might be converted improperly
 - Multiline CoffeeScript strings become a single-line string with newlines inserted as needed
+- Object keys that use interpolation are not handled correctly.
 
 Our CoffeeScript to JavaScript converter also makes a few assumptions that allow us to convert more files without user intervention, but which may not be true for your codebase:
 

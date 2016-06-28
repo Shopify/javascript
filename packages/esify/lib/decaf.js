@@ -5,6 +5,11 @@ function warn(message) {
   console.log(chalk.yellow('[warning]') + ' ' + message);
 }
 
+function error(message) {
+  console.log(chalk.red('[error]') + ' ' + message);
+  throw new Error();
+}
+
 var WARNING_CHECKS = [
   function checkForComments(source) {
     if (/#[^={]/.test(source)) {
@@ -25,6 +30,11 @@ var WARNING_CHECKS = [
   function checkForMultilineStrings(source) {
     if (/"""/.test(source)) {
       warn('Your file contains multiline strings. These get compiled down to a single-line string with spaces added; you may want to update the formatting to use an ES6 multiline string instead.');
+    }
+  },
+  function checkForInterpolatedKeys(source) {
+    if (/"[^"]*#{[^}]*}[^"]*":/.test(source)) {
+      error('Your file contains an interpolated object key, which are not currently converted by esify. Please convert these to two statements (one to set up the object, the other to use bracket notation to assign the interpolated key) before trying again.');
     }
   },
 ];
