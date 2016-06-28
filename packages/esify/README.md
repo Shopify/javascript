@@ -18,6 +18,39 @@ The tools on which `esify` is build have certain limitations that prevent us fro
 - Strings and regular expressions with complex escapes might be converted improperly
 - Multiline CoffeeScript strings become a single-line string with newlines inserted as needed
 
+Our CoffeeScript to JavaScript converter also makes a few assumptions that allow us to convert more files without user intervention, but which may not be true for your codebase:
+
+- Private variables inside of a class declaration are moved to the top of the scope in which the class is defined because JavaScript does not allow variables to be scoped to a class.
+
+  ```coffee
+  class A
+    b = 123
+    c = () ->
+  ```
+
+  Becomes:
+
+  ```js
+  var b = 123;
+  var c = function() {};
+
+  class A {}
+  ```
+
+- Function calls executed in a class block are moved to the bottom of the scope, after the class’s definition. This can cause problems if the function call was made with the assumption that the prototype of the class has not yet been set up, as the JavaScript conversion will run after the class has been fully constructed.
+
+  ```coffee
+  class A
+    _.extend(@prototype, B)
+  ```
+
+  Becomes:
+
+  ```js
+  class A {}
+  _.extend(A.prototype, B);
+  ```
+
 ## Usage
 
 From the root of the Shopify directory, run this script with a single, relative CoffeeScript file, or a glob pattern. Wait for it to finish, and marvel at the clean ESNext code that is spit out beside the original file! Note this script does not delete the original CoffeeScript file — you should review the output before pushing any changes.
