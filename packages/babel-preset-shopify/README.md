@@ -36,17 +36,15 @@ This preset exposes a preset specific to React that you can use with the followi
 
 ### Node
 
-This preset also exposes presets that transpile only the subset of ES2015 required for different versions of node.js. You can get the appropriate preset by extending the `shopify/node/<version number>` babel configuration:
+This preset also a preset for node.js projects. The node preset automatically detects the current version of node in use and uses only the plugins needed for that version. Versions of node.js greater than or equal to 4.0 are supported (for earlier versions, use the base preset).
 
 ```json
 {
   "babel": {
-    "presets": ["shopify/node/5"]
+    "presets": ["shopify/node"]
   }
 }
 ```
-
-The following node.js versions have a dedicated preset: `5`, `5.1`, `5.2`, `5.3`, `5.4`, `5.5`, `5.6`, `5.7`, `5.8`, `5.9`, `5.10`, `5.11`, `6`, `6.1`, and `6.2`.
 
 [npm-url]: https://npmjs.org/package/babel-preset-shopify
 [npm-image]: http://img.shields.io/npm/v/babel-preset-shopify.svg?style=flat-square
