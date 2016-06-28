@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+### Fixed
+- `global-reference-to-import` no longer reports export conflicts in `coffee`/`js` files with the same name (regression introduced in 12.3.0).
 
 ## [12.3.3]
 ### Added
