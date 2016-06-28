@@ -3,6 +3,10 @@ _.each(foo, () => {
 });
 
 _.each(() => {
+  if (foo) {
+    return;
+  }
+
   return foo.bar();
 }, someObj);
 
@@ -12,6 +16,12 @@ _.each(() => {
   }
 
   return foo.bar();
+});
+
+_.each(() => {
+  return _.each(() => {
+    return foo;
+  });
 });
 
 _._each(() => {

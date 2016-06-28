@@ -8,6 +8,7 @@
 
 ### Fixed
 - `global-reference-to-import` no longer reports export conflicts in `coffee`/`js` files with the same name (regression introduced in 12.3.0).
+- `avoid-returning-unused-results` now handles additional edge cases.
 
 ### Changed
 - `eslint-plugin-shopify/mocha` now disables some rules that did not work well with Chai’s `expect` syntax.

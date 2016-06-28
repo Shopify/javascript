@@ -18,11 +18,14 @@ export default function avoidReturningUnusedResults({source}, {jscodeshift: j}, 
 
           j(path)
             .find(j.ReturnStatement)
-            .filter((returnPath) => returnPath.scope.node === scopeNode)
+            .filter((returnPath) => (
+              (returnPath.scope.node === scopeNode) &&
+              (returnPath.node.argument != null)
+            ))
             .forEach((returnPath) => {
               const argument = returnPath.get('argument');
-              returnPath.insertBefore(j.expressionStatement(argument.node));
-              argument.replace();
+              returnPath.insertAfter(j.returnStatement(null));
+              returnPath.replace(j.expressionStatement(argument.node));
             });
         });
     })
