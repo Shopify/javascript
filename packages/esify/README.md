@@ -17,6 +17,40 @@ The tools on which `esify` is build have certain limitations that prevent us fro
 - Assignment to a global outside of the file creating that global will result in incorrect exports (e.g., `Shopify.UIPopover.foo = 'bar'` outside the file declaring `Shopify.UIPopover.foo`)
 - Strings and regular expressions with complex escapes might be converted improperly
 - Multiline CoffeeScript strings become a single-line string with newlines inserted as needed
+- Object keys that use interpolation are not handled correctly.
+
+Our CoffeeScript to JavaScript converter also makes a few assumptions that allow us to convert more files without user intervention, but which may not be true for your codebase:
+
+- Private variables inside of a class declaration are moved to the top of the scope in which the class is defined because JavaScript does not allow variables to be scoped to a class.
+
+  ```coffee
+  class A
+    b = 123
+    c = () ->
+  ```
+
+  Becomes:
+
+  ```js
+  var b = 123;
+  var c = function() {};
+
+  class A {}
+  ```
+
+- Function calls executed in a class block are moved to the bottom of the scope, after the class’s definition. This can cause problems if the function call was made with the assumption that the prototype of the class has not yet been set up, as the JavaScript conversion will run after the class has been fully constructed.
+
+  ```coffee
+  class A
+    _.extend(@prototype, B)
+  ```
+
+  Becomes:
+
+  ```js
+  class A {}
+  _.extend(A.prototype, B);
+  ```
 
 ## Usage
 

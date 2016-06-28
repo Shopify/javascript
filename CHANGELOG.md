@@ -3,12 +3,15 @@
 ## [Unreleased]
 ### Added
 - Added a node.js-specific Babel preset to `babel-preset-shopify`, usable by extending the `shopify/node` babel preset.
+- Added a `prefer-twine` rule to `eslint-plugin-shopify` to warn on the use of non-`Twine` local identifiers for twine imports.
+- Added additional warnings about esify limitations.
 
 ### Fixed
 - `global-reference-to-import` no longer reports export conflicts in `coffee`/`js` files with the same name (regression introduced in 12.3.0).
 
 ### Changed
-- Removed `babel-preset-react` from the default `babel-preset-shopify` preset. A new preset was added to get the default preset with React, which is usable by extending the `shopify/react` babel preset.
+- `eslint-plugin-shopify/mocha` now disables some rules that did not work well with Chai’s `expect` syntax.
+- `eslint-plugin-shopify` now ignores imports of style files to play nicely with CSS modules.
 
 ## [12.3.3]
 ### Added
