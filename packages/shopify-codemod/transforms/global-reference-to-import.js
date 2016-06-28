@@ -178,10 +178,14 @@ function filterEquivalentFiles(files) {
   );
 }
 
-function equivalentJavaScriptFile(coffeeFile) {
+function equivalentJavaScriptFile(file) {
+  if (file.match(/\.js$/)) {
+    return file;
+  }
+
   return join(
-    dirname(coffeeFile),
-    `${basename(coffeeFile, '.coffee').split('_').join('-')}.js`
+    dirname(file),
+    `${basename(file, '.coffee')}.js`
   );
 }
 

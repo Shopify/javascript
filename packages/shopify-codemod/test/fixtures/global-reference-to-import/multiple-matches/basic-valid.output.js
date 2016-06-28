@@ -1,2 +1,2 @@
-import ValidMultipleMatch from 'app/components/valid-multiple-match';
+import ValidMultipleMatch from 'app/components/valid_multiple_match';
 console.log(ValidMultipleMatch);
