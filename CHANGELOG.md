@@ -7,6 +7,10 @@
 ### Fixed
 - `global-reference-to-import` no longer reports export conflicts in `coffee`/`js` files with the same name (regression introduced in 12.3.0).
 
+### Changed
+- `eslint-plugin-shopify/mocha` now disables some rules that did not work well with Chai’s `expect` syntax.
+- `eslint-plugin-shopify` now ignores imports of style files to play nicely with CSS modules.
+
 ## [12.3.3]
 ### Added
 - Added an `existential-assignment-to-if-statement` transform that removes dead code from `decaf`'s `?=` output.
