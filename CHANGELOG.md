@@ -9,11 +9,15 @@
 - Added an `arguments-to-args-spread` transform that adds an `...args` spread to functions that reference `arguments`.
 - Added a `split-if-assignments` transform that moves assignments out of `if` conditions.
 - `arrow-body-style` guidance for a single multiline return.
+- Default options for the `global-identifier-to-import` transform to import `twine` when referencing `Bindings` or `Twine` in the original code.
 
 ### Fixed
 - `ignores-if-else-with-following-statements` now handles argumentless `return` statements.
 - `README` now includes details of doc file generation/update for transforms managed by `create-transform`/`rename-transform` scripts.
 - `global-reference-to-import` now handles named exports.
+
+### Changed
+- Added a looser peer dependency on ESLint for `eslint-plugin-shopify`.
 
 ## [12.3.2]
 ### Added
