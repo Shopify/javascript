@@ -1,9 +1,14 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Added a node.js-specific Babel preset to `babel-preset-shopify`, usable by extending the `shopify/node` babel preset.
 
 ### Fixed
 - `global-reference-to-import` no longer reports export conflicts in `coffee`/`js` files with the same name (regression introduced in 12.3.0).
+
+### Changed
+- Removed `babel-preset-react` from the default `babel-preset-shopify` preset. A new preset was added to get the default preset with React, which is usable by extending the `shopify/react` babel preset.
 
 ## [12.3.3]
 ### Added
