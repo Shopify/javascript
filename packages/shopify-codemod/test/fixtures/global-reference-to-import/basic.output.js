@@ -1,3 +1,4 @@
+import * as NamedExportsJSERB from 'app/components/named_exports_js_erb';
 import * as NamedExports from 'app/components/named_exports';
 import Element from 'app/components/element';
 import Widget from 'app/components/widget';
@@ -7,3 +8,4 @@ console.log(Widget);
 console.log(Element);
 console.log(App.Components.NonExistant);
 console.log(NamedExports, NamedExports.namedMember());
+console.log(NamedExportsJSERB, NamedExportsJSERB.namedMember());
