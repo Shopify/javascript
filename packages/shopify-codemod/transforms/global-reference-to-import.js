@@ -71,16 +71,14 @@ export default function globalReferenceToImport(
 
   function findNamedExports(filename) {
     let namedExports = [];
-    switch (filename.slice(filename.indexOf('.'))) {
-    case '.coffee':
-      break;
-    case '.js':
+    if (extname(filename) === '.js') {
       // eslint-disable-next-line no-sync
       namedExports = j(fs.readFileSync(filename).toString())
         .find(j.ExportNamedDeclaration)
         .paths();
+    } else if(extname(filename) === '.coffee') {
       break;
-    default: {
+    } else {
       const absolutePath = resolve(filename);
       const regex = '^export\\s+\\S+';
       const result = spawnSync(binary, [...args, regex, absolutePath]);
@@ -94,7 +92,6 @@ export default function globalReferenceToImport(
       const stdout = result.stdout.toString();
       const exportLines = stdout.trim().split('\n').map(getExportLine);
       namedExports = filterDefaultExports(exportLines);
-    }
     }
     return namedExports;
   }
