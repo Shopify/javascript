@@ -80,9 +80,9 @@ export default function globalReferenceToImport(
           .find(j.ExportNamedDeclaration)
           .paths();
         break;
-      default:
+      default: {
         const absolutePath = resolve(filename);
-        const regex = '^export\\s+\\S+'
+        const regex = '^export\\s+\\S+';
         const result = spawnSync(binary, [...args, regex, absolutePath]);
 
         if (result.error != null) {
@@ -94,6 +94,7 @@ export default function globalReferenceToImport(
         const stdout = result.stdout.toString();
         const exportLines = stdout.trim().split('\n').map(getExportLine);
         namedExports = filterDefaultExports(exportLines);
+      }
     }
     return namedExports;
   }
