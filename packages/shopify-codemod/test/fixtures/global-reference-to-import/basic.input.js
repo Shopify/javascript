@@ -3,3 +3,4 @@ console.log(App.Components.Widget);
 console.log(App.Components.Element);
 console.log(App.Components.NonExistant);
 console.log(App.Components.NamedExports, App.Components.NamedExports.namedMember());
+console.log(App.Components.NamedExportsJSERB, App.Components.NamedExportsJSERB.namedMember());

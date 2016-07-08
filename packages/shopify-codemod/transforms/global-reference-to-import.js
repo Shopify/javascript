@@ -29,7 +29,7 @@ export default function globalReferenceToImport(
 
   const sourceLocation = resolve(javascriptSourceLocation);
   function relativePath(file) {
-    return relative(sourceLocation, file).replace(/\.[a-z]+$/, '');
+    return relative(sourceLocation, file).replace(/(\.[a-z]+)+$/, '');
   }
 
   /*
@@ -70,13 +70,30 @@ export default function globalReferenceToImport(
   }
 
   function findNamedExports(filename) {
-    if (extname(filename) === '.coffee') {
-      return [];
+    let namedExports = [];
+    if (extname(filename) === '.js') {
+      // eslint-disable-next-line no-sync
+      namedExports = j(fs.readFileSync(filename).toString())
+        .find(j.ExportNamedDeclaration)
+        .paths();
+    } else if (extname(filename) === '.coffee') {
+      return namedExports;
+    } else {
+      const absolutePath = resolve(filename);
+      const regex = '^export\\s+\\S+';
+      const result = spawnSync(binary, [...args, regex, absolutePath]);
+
+      if (result.error != null) {
+        throw result.error;
+      } else if (result.status === 1) {
+        return namedExports;
+      }
+
+      const stdout = result.stdout.toString();
+      const exportLines = stdout.trim().split('\n').map(getExportLine);
+      namedExports = filterDefaultExports(exportLines);
     }
-    // eslint-disable-next-line no-sync
-    const namedExports = j(fs.readFileSync(filename).toString())
-      .find(j.ExportNamedDeclaration);
-    return namedExports.paths();
+    return namedExports;
   }
 
   function isGlobalReference(object) {
@@ -191,4 +208,14 @@ function equivalentJavaScriptFile(file) {
 
 function getFileName(grepResult) {
   return grepResult.split(':', 4)[0];
+}
+
+function filterDefaultExports(exportLines) {
+  return exportLines.filter(
+    (exportLine) => !exportLine.includes(' default ')
+  );
+}
+
+function getExportLine(grepResult) {
+  return grepResult.split(':', 4)[3];
 }
