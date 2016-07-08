@@ -77,7 +77,7 @@ export default function globalReferenceToImport(
         .find(j.ExportNamedDeclaration)
         .paths();
     } else if(extname(filename) === '.coffee') {
-      break;
+      return namedExports;
     } else {
       const absolutePath = resolve(filename);
       const regex = '^export\\s+\\S+';
@@ -86,7 +86,7 @@ export default function globalReferenceToImport(
       if (result.error != null) {
         throw result.error;
       } else if (result.status === 1) {
-        break;
+        return namedExports;
       }
 
       const stdout = result.stdout.toString();
