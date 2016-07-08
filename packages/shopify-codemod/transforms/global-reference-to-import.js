@@ -76,7 +76,7 @@ export default function globalReferenceToImport(
       namedExports = j(fs.readFileSync(filename).toString())
         .find(j.ExportNamedDeclaration)
         .paths();
-    } else if(extname(filename) === '.coffee') {
+    } else if (extname(filename) === '.coffee') {
       return namedExports;
     } else {
       const absolutePath = resolve(filename);
