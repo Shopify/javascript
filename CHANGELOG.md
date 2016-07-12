@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+
+## [12.3.4]
 ### Added
 - Added a node.js-specific Babel preset to `babel-preset-shopify`, usable by extending the `shopify/node` babel preset.
 - Added a `prefer-twine` rule to `eslint-plugin-shopify` to warn on the use of non-`Twine` local identifiers for twine imports.
@@ -8,6 +10,7 @@
 
 ### Fixed
 - `global-reference-to-import` no longer reports export conflicts in `coffee`/`js` files with the same name (regression introduced in 12.3.0).
+- `global-reference-to-import` discovers exports in files with a `.js.erb` suffix
 - `avoid-returning-unused-results` now handles additional edge cases.
 
 ### Changed
