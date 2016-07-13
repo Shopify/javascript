@@ -382,7 +382,7 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
   }
   ```
 
-- [4.8](#4.8) <a name="4.8"></a> Maintain a sensible ordering of methods in your component. At a high level, order the component as follows: statics, constructor, lifecycle methods, other methods (like handlers and helpers), and, finally, render (and any methods you have broken render up into).
+- [4.8](#4.8) <a name="4.8"></a> Maintain a sensible ordering of methods in your component. At a high level, order the component as follows: statics and instance class properties, constructor, lifecycle methods, other methods (like handlers and helpers), and, finally, render (and any methods you have broken render up into).
 
   > Why? A consistent ordering between components helps other developers find what they are looking for more quickly.
 
