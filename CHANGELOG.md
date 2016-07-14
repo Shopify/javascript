@@ -1,6 +1,13 @@
 # Changelog
 
 ## [Unreleased]
+### Changed
+- Removed the requirement to omit braces for arrow functions whose body is a single return statement. The styleguide now recommends omitting for simple, single-line return statements, and braces are permitted where they improve legibility.
+- Removed lint checks for sorting of properties in React components (the guidance on ordering remains, but the linting rule was too coarse to be useful in all situations).
+- Turned off the lint rule requiring a default export in modules exporting only a single binding to allow for modules that make sense as utilities but export only a single named binding.
+
+### Fixed
+- `shopify/require-flow` linting rule now understands flow directives in line comments (in addition to block comments).
 
 ## [12.3.4]
 ### Added

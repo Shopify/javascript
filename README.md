@@ -1339,41 +1339,27 @@ npm run lint
   (good) => 'fabulous'
   ```
 
-- [10.1](#10.1) <a name="10.1"></a> If the body of your arrow function takes only a single expression, omit the braces and make use of the implicit `return`. If you are returning an object, however, you must use braces and an explicit `return`.
-
-  > Why? It reads better when multiple such functions are chained together.
+- [10.1](#10.1) <a name="10.1"></a> If the body of your arrow function takes only a single expression, you can omit the braces and make use of the implicit `return`. If your function’s body has more than one expression, it returns an object, or it returns something that spans multiple lines, you can use braces and an explicit `return`.
 
   ESLint rule: [`arrow-body-style`](http://eslint.org/docs/rules/arrow-body-style.html)
 
   ```js
   // bad
-  [1, 2, 3]
+  const result = [1, 2, 3]
     .map((x) => {
       return (x * x) + 1;
     })
     .filter((x) => {
       return x < 6;
-    })
-    .filter((a) => {
-      return (
-        a &&
-        really &&
-        (long || expression)
-      );
     });
 
   // doesn't return an object with `foo` key, actually returns nothing!
   runCallback((foo) => {foo});
 
   // good
-  [1, 2, 3]
+  const result = [1, 2, 3]
     .map((x) => (x * x) + 1)
-    .filter((x) => x < 6)
-    .filter((a) => (
-      a &&
-      really &&
-      (long || expression)
-    ));
+    .filter((x) => x < 6);
 
   runCallback((foo) => {
     return {foo};
