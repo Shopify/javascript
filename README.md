@@ -1345,7 +1345,7 @@ npm run lint
 
   ```js
   // bad
-  [1, 2, 3]
+  const result = [1, 2, 3]
     .map((x) => {
       return (x * x) + 1;
     })
@@ -1357,7 +1357,9 @@ npm run lint
   runCallback((foo) => {foo});
 
   // good
-  [1, 2, 3].map((x) => (x * x) + 1).filter((x) => x < 6);
+  const result = [1, 2, 3]
+    .map((x) => (x * x) + 1)
+    .filter((x) => x < 6);
 
   runCallback((foo) => {
     return {foo};
