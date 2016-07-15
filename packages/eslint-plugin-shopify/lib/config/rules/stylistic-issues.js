@@ -75,10 +75,14 @@ module.exports = {
   'no-mixed-spaces-and-tabs': 'warn',
   // Disallow multiple empty lines
   'no-multiple-empty-lines': 'warn',
+  // Disallow negated conditions
+  'no-negated-condition': 'warn',
   // Disallow nested ternary expressions
   'no-nested-ternary': 'warn',
   // Disallow use of the Object constructor
   'no-new-object': 'warn',
+  // Disallow specified syntax
+  'no-restricted-syntax': 'off',
   // Disallow space between function identifier and application
   'no-spaced-func': 'warn',
   // Disallow the use of ternary operators
@@ -111,6 +115,8 @@ module.exports = {
   'quote-props': ['warn', 'as-needed'],
   // Specify whether backticks, double or single quotes should be used
   'quotes': ['warn', 'single', 'avoid-escape'],
+  // Require JSDoc comments
+  'require-jsdoc': 'off',
   // Enforce spacing before and after semicolons
   'semi-spacing': ['warn', {before: false, after: true}],
   // Require or disallow use of semicolons instead of ASI

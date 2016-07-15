@@ -5,6 +5,8 @@ module.exports = {
   'flowtype/require-parameter-type': 'warn',
   // Requires that functions have return type annotation.
   'flowtype/require-return-type': ['warn', 'always', {annotateUndefined: 'never'}],
+  // Makes sure that files have a valid @flow annotation.
+  'flowtype/require-valid-file-annotation': 'warn',
   // Enforces consistent spacing after the type annotation colon.
   'flowtype/space-after-type-colon': ['warn', 'always'],
   // Enforces consistent spacing before the type annotation colon.

@@ -21,17 +21,20 @@ module.exports = {
   'no-restricted-modules': 'off',
   // Disallow use of synchronous methods
   'no-sync': 'warn',
-
+  // Disallow deprecated API.
+  'node/no-deprecated-api': 'warn',
   // Disallow import and export declarations for files that don't exist.
-  'node/no-missing-import': 'off',
+  'node/no-missing-import': 'error',
   // Disallow require()s for files that don't exist.
   'node/no-missing-require': 'error',
   // Disallow import and export declarations for files that are not published.
-  'node/no-unpublished-import': 'off',
+  'node/no-unpublished-import': 'error',
   // Disallow require()s for files that are not published.
   'node/no-unpublished-require': 'error',
   // Disallow unsupported ECMAScript features on the specified version.
   'node/no-unsupported-features': 'off',
+  // If you turn this rule on, ESLint comes to address process.exit() as throw in code path analysis.
+  'node/process-exit-as-throw': 'off',
   // Suggest correct usage of shebang.
   'node/shebang': 'error',
 };
