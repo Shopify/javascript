@@ -45,6 +45,8 @@ module.exports = {
   'linebreak-style': 'off',
   // Enforces empty lines around comments
   'lines-around-comment': ['warn', {beforeBlockComment: true}],
+  // Enforce a maximum file length
+  'max-lines': 'off',
   // Specify the maximum depth callbacks can be nested
   'max-nested-callbacks': 'off',
   // Specify the maximum number of statements allowed per line
@@ -67,6 +69,8 @@ module.exports = {
   'no-inline-comments': 'off',
   // Disallow if as the only statement in an else block
   'no-lonely-if': 'warn',
+  // Disallow mixes of different operators
+  'no-mixed-operators': 'warn',
   // Disallow mixed spaces and tabs for indentation
   'no-mixed-spaces-and-tabs': 'warn',
   // Disallow multiple empty lines
@@ -87,6 +91,8 @@ module.exports = {
   'no-unneeded-ternary': 'warn',
   // Disallow whitespace before properties
   'no-whitespace-before-property': 'error',
+  // Enforce consistent line breaks inside braces
+  'object-curly-newline': ['warn', {multiline: true}],
   // Require or disallow padding inside curly braces
   'object-curly-spacing': ['warn', 'never'],
   // Enforce placing object properties on separate lines
@@ -125,6 +131,8 @@ module.exports = {
   'space-unary-ops': ['warn', {words: true, nonwords: false}],
   // Require or disallow a space immediately following the // or /* in a comment
   'spaced-comment': ['warn', 'always', {markers: ['=']}],
+  // Require or disallow the Unicode BOM
+  'unicode-bom': ['warn', 'never'],
   // Require regex literals to be wrapped in parentheses
   'wrap-regex': 'off',
 };

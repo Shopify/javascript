@@ -8,37 +8,42 @@ function commentIsFlowDirective(comment, regex) {
   return Boolean(comment) && comment.start === 0 && regex.test(comment.value);
 }
 
-module.exports = function(context) {
-  var config = context.options[0] || 'always';
+module.exports = {
+  meta: {
+    docs: {},
+    schema: [{
+      enum: ['always', 'explicit', 'never'],
+    }],
+  },
 
-  return {
-    Program: function(node) {
-      var commentNode = node.comments && node.comments[0];
-      var isFlowDirective = commentIsFlowDirective(commentNode, config === 'explicit' ? EXPLICIT_FLOW_REGEX : FLOW_REGEX);
+  create: function(context) {
+    var config = context.options[0] || 'always';
 
-      switch (config) {
-      case 'always':
-        if (!isFlowDirective) {
-          context.report(node, ALWAYS_MESSAGE);
+    return {
+      Program: function(node) {
+        var commentNode = node.comments && node.comments[0];
+        var isFlowDirective = commentIsFlowDirective(commentNode, config === 'explicit' ? EXPLICIT_FLOW_REGEX : FLOW_REGEX);
+
+        switch (config) {
+        case 'always':
+          if (!isFlowDirective) {
+            context.report(node, ALWAYS_MESSAGE);
+          }
+          break;
+
+        case 'explicit':
+          if (!isFlowDirective) {
+            context.report(node, EXPLICIT_MESSAGE);
+          }
+          break;
+
+        case 'never':
+          if (isFlowDirective) {
+            context.report(node, NEVER_MESSAGE);
+          }
+          break;
         }
-        break;
-
-      case 'explicit':
-        if (!isFlowDirective) {
-          context.report(node, EXPLICIT_MESSAGE);
-        }
-        break;
-
-      case 'never':
-        if (isFlowDirective) {
-          context.report(node, NEVER_MESSAGE);
-        }
-        break;
-      }
-    },
-  };
+      },
+    };
+  },
 };
-
-module.exports.schema = [{
-  enum: ['always', 'explicit', 'never'],
-}];

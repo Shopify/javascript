@@ -1,10 +1,14 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Updated ESLint to 3.0, which adds the following rules: `max-lines`, `no-mixed-operators`, `object-curly-newline`, `unicode-bom`, `no-prototype-builtins`, `no-useless-rename`, and `rest-spread-spacing`.
+
 ### Changed
 - Removed the requirement to omit braces for arrow functions whose body is a single return statement. The styleguide now recommends omitting for simple, single-line return statements, and braces are permitted where they improve legibility.
 - Removed lint checks for sorting of properties in React components (the guidance on ordering remains, but the linting rule was too coarse to be useful in all situations).
 - Turned off the lint rule requiring a default export in modules exporting only a single binding to allow for modules that make sense as utilities but export only a single named binding.
+- Updated all custom ESLint rules in `eslint-plugin-shopify` to use the new ESLint rule format.
 
 ### Fixed
 - `shopify/require-flow` linting rule now understands flow directives in line comments (in addition to block comments).
