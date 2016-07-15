@@ -11,7 +11,8 @@
   ],
   "author": "Chris Sauve <chris.sauve@shopify.com>",
   "scripts": {
-    "test": "../../node_modules/.bin/mocha tests/ --recursive --reporter spec --compilers js:babel-core/register",
+    "check-rules": "eslint-find-rules --unused lib/config/all.js",
+    "test": "npm run check-rules && ../../node_modules/.bin/mocha tests/ --recursive --reporter spec --compilers js:babel-core/register",
     "test:watch": "npm test -- --watch --reporter min",
     "test:cover": "../../node_modules/.bin/istanbul cover --dir coverage ../../node_modules/.bin/_mocha -- --compilers js:babel-core/register --recursive tests/"
   },
@@ -28,6 +29,7 @@
     ]
   },
   "devDependencies": {
+    "eslint-find-rules": "1.x",
     "eslint": "3.x"
   },
   "peerDependencies": {

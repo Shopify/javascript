@@ -17,6 +17,9 @@
 ### Fixed
 - `shopify/require-flow` linting rule now understands flow directives in line comments (in addition to block comments).
 
+### Build
+- Added a test for `eslint-plugin-shopify` to fail if it has unconfigured rules from ESLint or any depended-upon plugins.
+
 ## [12.3.4]
 ### Added
 - Added a node.js-specific Babel preset to `babel-preset-shopify`, usable by extending the `shopify/node` babel preset.
