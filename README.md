@@ -1875,6 +1875,10 @@ npm run lint
 
 ## Resources
 
+### Performance
+
+Writing performant JavaScript is our top priority. No amount of well-structured, clean JavaScript can compensate for the end user having a bad experience. You can find a collection of great performance-related resources on the [FED resources page](https://github.com/Shopify/fed-sandbox/blob/master/docs/FED-resources.md#performance).
+
 ### Tools
 
 - [ES6 Compatibility Table](https://kangax.github.io/compat-table/es6/) (shows browser, platform, and transpiler ES2015+ feature support)
