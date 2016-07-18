@@ -51,6 +51,8 @@ module.exports = {
   'max-nested-callbacks': 'off',
   // Specify the maximum number of statements allowed per line
   'max-statements-per-line': ['warn', {max: 2}],
+  // Enforce newlines between operands of ternary expressions
+  'multiline-ternary': 'off',
   // Require a capital letter for constructors
   'new-cap': ['error', {newIsCap: true, capIsNew: false}],
   // Disallow the omission of parentheses when invoking a constructor with no arguments

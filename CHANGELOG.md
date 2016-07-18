@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 ### Added
-- Updated ESLint to 3.0, which adds the following rules: `max-lines`, `no-mixed-operators`, `object-curly-newline`, `unicode-bom`, `no-prototype-builtins`, `no-useless-rename`, and `rest-spread-spacing`.
+- Updated ESLint to 3.1, which adds the following rules: `max-lines`, `no-mixed-operators`, `object-curly-newline`, `unicode-bom`, `no-prototype-builtins`, `no-useless-rename`, `multiline-ternary`, and `rest-spread-spacing`.
 - Added forgotten ESLint rules: `no-negated-condition`, `no-restricted-syntax`, and `require-jsdoc`.
 - Updated other linting plugins, which added the following rules: `babel/func-params-comma-dangle`, `import/no-restricted-paths`, `flowtype/require-valid-file-annotation`, `jsx-a11y/heading-has-content`, `jsx-a11y/html-has-lang`, `jsx-a11y/lang`, `jsx-a11y/no-marquee`, `jsx-a11y/scope`, `mocha/valid-suite-description`, `mocha/valid-test-description`, `node/no-deprecated-api`, `node/process-exit-as-throw`, `promise/no-native`, `react/no-comment-textnodes`, `react/require-optimization`, `react/jsx-handler-names`, `react/jsx-filename-extension`, and `react/no-render-return-value`.
 

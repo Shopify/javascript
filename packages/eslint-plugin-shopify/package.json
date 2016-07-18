@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "eslint-find-rules": "1.x",
-    "eslint": "3.x"
+    "eslint": "3.1.x"
   },
   "peerDependencies": {
     "eslint": "3.x"
