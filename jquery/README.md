@@ -2,6 +2,11 @@
 
 This guide provides a few guidelines on writing sensible jQuery.
 
+## Table of contents
+
+1. [Rules](#rules)
+1. [Resources](#resources)
+
 ## Rules
 
 - When starting a new project, make sure you really need jQuery before including it. DOM APIs have improved significantly, and most jQuery operations have [easy-to-use equivalents](http://youmightnotneedjquery.com) that avoid the need for a large library.
@@ -83,3 +88,13 @@ This guide provides a few guidelines on writing sensible jQuery.
     .on('ready', () => {})
     .on('click', () => {});
   ```
+
+[↑ scrollTo('#table-of-contents')](#table-of-contents)
+
+
+
+## Resources
+
+- [How JavaScript event delegation works](https://davidwalsh.name/event-delegate)
+
+[↑ scrollTo('#table-of-contents')](#table-of-contents)
