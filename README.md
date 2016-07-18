@@ -1890,6 +1890,7 @@ npm run lint
 - [You Don’t Know JS Book Series](https://github.com/getify/You-Dont-Know-JS) by Kyle Simpson
 - [Eloquent JavaScript](http://eloquentjavascript.net) by Marijn Haverbeke
 - [Exploring ES6](http://exploringjs.com) by Dr. Axel Rauschmayer
+- [Learning JavaScript Design Patterns](https://addyosmani.com/resources/essentialjsdesignpatterns/book/) by Addy Osmani
 
 ### Blogs
 
@@ -1899,6 +1900,10 @@ npm run lint
 - [2ality](http://www.2ality.com)
 - [Getify](http://blog.getify.com)
 - [Rebecca Murphy](http://rmurphey.com)
+ 
+### Articles
+
+- **Promises**: [We have a problem with Promises](https://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html) by Nolan Lawson
 
 ### Podcasts
 
@@ -1907,6 +1912,7 @@ npm run lint
 
 ### Other
 
+- [Understanding Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/?hl=en)
 - [ECMAScript current proposals](https://github.com/tc39/ecma262/blob/master/README.md), including the [stage 0 proposals](https://github.com/tc39/ecma262/blob/master/stage0.md)
 
 
