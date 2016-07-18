@@ -12,6 +12,7 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 1. [Components](#components)
 1. [Props](#props)
 1. [Testing](#testing)
+1. [Resources](#resources)
 
 
 
@@ -522,5 +523,13 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 ## Testing
 
 - [6.1](#6.1) <a name="6.1"></a> For complex assertions on the structure of a React component, use [Enzyme](http://airbnb.io/enzyme/index.html). It makes validating the rendered output and lifecycle hooks of your component easy, and has a great set of [chai assertions](https://github.com/producthunt/chai-enzyme).
+
+[↑ scrollTo('#table-of-contents')](#table-of-contents)
+
+
+
+## Resources
+
+- Explanation of the difference between [React Components, Elements, and instances](https://facebook.github.io/react/blog/2015/12/18/react-components-elements-and-instances.html).
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
