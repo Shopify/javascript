@@ -1879,6 +1879,7 @@ npm run lint
 
 - [ES6 Compatibility Table](https://kangax.github.io/compat-table/es6/) (shows browser, platform, and transpiler ES2015+ feature support)
 - [ES6 Katas](http://es6katas.org) (learn ES6 by fixing tests)
+- [Mocha](https://mochajs.org), [Chai](http://chaijs.com), and [Sinon](http://sinonjs.org), our preferred testing tools
 - Editor Linting Plugins
   - [SublimeLinter-eslint](https://github.com/roadhump/SublimeLinter-eslint)
   - [linter-eslint for Atom](https://atom.io/packages/linter-eslint)
@@ -1891,6 +1892,7 @@ npm run lint
 - [Eloquent JavaScript](http://eloquentjavascript.net) by Marijn Haverbeke
 - [Exploring ES6](http://exploringjs.com) by Dr. Axel Rauschmayer
 - [Learning JavaScript Design Patterns](https://addyosmani.com/resources/essentialjsdesignpatterns/book/) by Addy Osmani
+- [JavaScript Testing Recipes](https://jstesting.jcoglan.com) by James Coglan
 
 ### Blogs
 
@@ -1904,6 +1906,7 @@ npm run lint
 ### Articles
 
 - **Promises**: [We have a problem with Promises](https://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html) by Nolan Lawson
+- **Testing**: [Writing testable JavaScript](http://alistapart.com/article/writing-testable-javascript) by Rebecca Murphey
 
 ### Podcasts
 
