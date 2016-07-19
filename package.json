@@ -7,7 +7,7 @@
     "lint": "eslint . --max-warnings 0",
     "test": "script/test",
     "check": "npm run lint && npm test",
-    "setup": "npm install && lerna bootstrap",
+    "setup": "npm install && lerna bootstrap && linklocal -r",
     "updated": "lerna updated",
     "publish-all": "npm run check && lerna publish"
   },
@@ -34,6 +34,7 @@
     "istanbul": "^0.4.3",
     "jscodeshift": "^0.3.17",
     "lerna": "^1.1.1",
+    "linklocal": "^2.6.0",
     "mocha": "^2.4.5",
     "proxyquire": "^1.7.10",
     "shelljs": "^0.7.0",

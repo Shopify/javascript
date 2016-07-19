@@ -1,9 +1,9 @@
 import j from 'jscodeshift';
 
 export function createAssertion(assertionNameOrProperty, args) {
-  const assertionName = (assertionNameOrProperty.name != null)
-    ? assertionNameOrProperty.name
-    : assertionNameOrProperty;
+  const assertionName = (assertionNameOrProperty.name == null)
+    ? assertionNameOrProperty
+    : assertionNameOrProperty.name;
 
   return j.callExpression(
     j.memberExpression(j.identifier('assert'), j.identifier(assertionName), false),

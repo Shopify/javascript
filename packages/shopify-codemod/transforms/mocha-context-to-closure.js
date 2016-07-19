@@ -16,9 +16,7 @@ export default function mochaContextToClosure({source}, {jscodeshift: j}, {print
 
     let newName;
 
-    if (propertyFromUpperContext != null) {
-      newName = propertyFromUpperContext.name;
-    } else {
+    if (propertyFromUpperContext == null) {
       const declaredInScope = scope.lookup(propertyName);
       const declaredInCurrentScope = (declaredInScope === scope);
       const declaredInUpperScope = !declaredInCurrentScope && (declaredInScope != null);
@@ -31,6 +29,8 @@ export default function mochaContextToClosure({source}, {jscodeshift: j}, {print
       }
 
       currentContext.addPropertyDescriptor({original: propertyName, name: newName});
+    } else {
+      newName = propertyFromUpperContext.name;
     }
 
     return j.identifier(newName);

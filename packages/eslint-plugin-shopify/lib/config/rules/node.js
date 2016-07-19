@@ -24,11 +24,11 @@ module.exports = {
   // Disallow deprecated API.
   'node/no-deprecated-api': 'warn',
   // Disallow import and export declarations for files that don't exist.
-  'node/no-missing-import': 'error',
+  'node/no-missing-import': 'off',
   // Disallow require()s for files that don't exist.
   'node/no-missing-require': 'error',
   // Disallow import and export declarations for files that are not published.
-  'node/no-unpublished-import': 'error',
+  'node/no-unpublished-import': 'off',
   // Disallow require()s for files that are not published.
   'node/no-unpublished-require': 'error',
   // Disallow unsupported ECMAScript features on the specified version.

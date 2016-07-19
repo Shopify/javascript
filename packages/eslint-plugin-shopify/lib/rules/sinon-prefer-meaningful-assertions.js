@@ -57,7 +57,7 @@ module.exports = {
 
   create: function(context) {
     function getNearestFullExpression(node) {
-      while (node.parent && node.parent.type === 'MemberExpression' || node.parent.type === 'CallExpression') {
+      while (node.parent && (node.parent.type === 'MemberExpression' || node.parent.type === 'CallExpression')) {
         node = node.parent;
       }
 

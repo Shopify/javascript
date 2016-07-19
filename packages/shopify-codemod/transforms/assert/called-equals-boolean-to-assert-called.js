@@ -12,9 +12,9 @@ export default function calledEqualsBooleanToAssertCalled({source}, {jscodeshift
     .replaceWith(({node: {arguments: [actualArg, expectedArg]}}) => {
       const isPositiveAssertion = (actualArg.property.name === 'called');
       const isPositiveExpectation = expectedArg.value;
-      const newAssertName = (isPositiveAssertion !== isPositiveExpectation)
-        ? 'notCalled'
-        : 'called';
+      const newAssertName = (isPositiveAssertion === isPositiveExpectation)
+        ? 'called'
+        : 'notCalled';
 
       return createAssertion(newAssertName, [actualArg.object]);
     })

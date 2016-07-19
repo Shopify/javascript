@@ -15,8 +15,8 @@ module.exports = {
 
     function isSimpleLiteral(node) {
       return node.type === 'Literal' ||
-        (node.type === 'MemberExpression') && isSimpleLiteral(node.object) ||
-        (node.type === 'CallExpression') && isSimpleLiteral(node.callee) ||
+        ((node.type === 'MemberExpression') && isSimpleLiteral(node.object)) ||
+        ((node.type === 'CallExpression') && isSimpleLiteral(node.callee)) ||
         (node.type === 'ArrayExpression' && node.elements.every(isSimpleLiteral)) ||
         (node.type === 'ObjectExpression' && node.properties.every(isSimpleLiteralProperty));
     }
