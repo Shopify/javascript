@@ -1,7 +1,7 @@
+import fs from 'fs';
 import {spawnSync} from 'child_process';
 import {extname, dirname, resolve, relative, join, basename} from 'path';
 import {findFirstMember, findLastMember, insertAfterDirectives} from './utils';
-import fs from 'fs';
 
 function determineFileSearcher() {
   if (spawnSync('which', ['ag']).status === 0) {

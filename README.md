@@ -881,7 +881,7 @@ npm run lint
 
 - [7.3](#7.3) <a name="7.3"></a> Objects that span multiple lines should have one property per line with each property indented by one level. The closing brace should be on its own line, aligned with the column of the line on which the opening brace appeared.
 
-  ESLint rule: [`indent`](http://eslint.org/docs/rules/indent.html)
+  ESLint rules: [`indent`](http://eslint.org/docs/rules/indent.html) and [`object-curly-newline`](http://eslint.org/docs/rules/object-curly-newline.html)
 
   ```javascript
   // bad

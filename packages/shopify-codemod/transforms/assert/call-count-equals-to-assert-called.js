@@ -36,7 +36,7 @@ export default function callCountEqualsToAssertCalled({source}, {jscodeshift: j}
         1: (node) =>
           j.MemberExpression.check(node) ||
           j.Identifier.check(node) ||
-          j.Literal.check(node) && isFinite(node.value),
+          (j.Literal.check(node) && isFinite(node.value)),
       },
     })
     .replaceWith(({node: {arguments: [actualArg, expectedArg]}}) =>

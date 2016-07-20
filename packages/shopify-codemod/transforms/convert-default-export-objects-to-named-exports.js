@@ -26,7 +26,7 @@ export default function convertDefaultExportObjectsToNamedExports({source}, {jsc
           params,
           getBlockStatementFromFunction(value),
           generator,
-          false,
+          false
         )
       );
     }

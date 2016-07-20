@@ -1,13 +1,24 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Updated ESLint to 3.1, which adds the following rules: `max-lines`, `no-mixed-operators`, `object-curly-newline`, `unicode-bom`, `no-prototype-builtins`, `no-useless-rename`, `multiline-ternary`, and `rest-spread-spacing`.
+- Added forgotten ESLint rules: `no-negated-condition`, `no-restricted-syntax`, and `require-jsdoc`.
+- Updated other linting plugins, which added the following rules: `babel/func-params-comma-dangle`, `import/no-restricted-paths`, `flowtype/require-valid-file-annotation`, `jsx-a11y/heading-has-content`, `jsx-a11y/html-has-lang`, `jsx-a11y/lang`, `jsx-a11y/no-marquee`, `jsx-a11y/scope`, `mocha/valid-suite-description`, `mocha/valid-test-description`, `node/no-deprecated-api`, `node/process-exit-as-throw`, `promise/no-native`, `react/no-comment-textnodes`, `react/require-optimization`, `react/jsx-handler-names`, `react/jsx-filename-extension`, and `react/no-render-return-value`.
+
 ### Changed
 - Removed the requirement to omit braces for arrow functions whose body is a single return statement. The styleguide now recommends omitting for simple, single-line return statements, and braces are permitted where they improve legibility.
 - Removed lint checks for sorting of properties in React components (the guidance on ordering remains, but the linting rule was too coarse to be useful in all situations).
 - Turned off the lint rule requiring a default export in modules exporting only a single binding to allow for modules that make sense as utilities but export only a single named binding.
+- Updated all custom ESLint rules in `eslint-plugin-shopify` to use the new ESLint rule format.
+- `eslint-plugin-shopify/node` now has errors for missing and unpublished
+- `eslint-plugin-shopify/react` now warns when your component could be a functional component (that is, when it has no state and no lifecycle hooks).
 
 ### Fixed
 - `shopify/require-flow` linting rule now understands flow directives in line comments (in addition to block comments).
+
+### Build
+- Added a test for `eslint-plugin-shopify` to fail if it has unconfigured rules from ESLint or any depended-upon plugins.
 
 ## [12.3.4]
 ### Added

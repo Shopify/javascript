@@ -114,7 +114,7 @@ function possibleStringToRegex(val) {
 }
 
 export function createMemberExpressionMatcher(matchers) {
-  matchers = matchers.map((matcher) => ({
+  const finalMatchers = matchers.map((matcher) => ({
     object: possibleStringToRegex(matcher.object),
     methods: matcher.methods.map(possibleStringToRegex),
   }));
@@ -127,7 +127,7 @@ export function createMemberExpressionMatcher(matchers) {
       return false;
     }
 
-    return matchers.some((matcher) => (
+    return finalMatchers.some((matcher) => (
       matcher.object.test(object.name) &&
       matcher.methods.some((method) => method.test(property.name))
     ));
