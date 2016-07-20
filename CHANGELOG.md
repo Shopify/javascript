@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+
+
+## [13.0.0]
 ### Added
 - Updated ESLint to 3.1, which adds the following rules: `max-lines`, `no-mixed-operators`, `object-curly-newline`, `unicode-bom`, `no-prototype-builtins`, `no-useless-rename`, `multiline-ternary`, and `rest-spread-spacing`.
 - Added forgotten ESLint rules: `no-negated-condition`, `no-restricted-syntax`, and `require-jsdoc`.
