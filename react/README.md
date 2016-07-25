@@ -522,6 +522,8 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
 ## Testing
 
+> **Note**: make sure you are comfortable with the [testing guide](../testing). The recommendations laid out there are applicable to React applications as well unless otherwise noted below.
+
 - [6.1](#6.1) <a name="6.1"></a> For complex assertions on the structure of a React component, use [Enzyme](http://airbnb.io/enzyme/index.html). It makes validating the rendered output and lifecycle hooks of your component easy, and has a great set of [chai assertions](https://github.com/producthunt/chai-enzyme).
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)

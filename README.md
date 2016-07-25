@@ -25,12 +25,12 @@ This repository contains everything you should need for writing JavaScript at Sh
 1. [Project structure](#project-structure)
 1. [Resources](#resources)
 
-There are a few additional styleguides for libraries commonly used at Shopify that serve to augment this guide:
+In addition to the above, we have created a specific guide for the tools and conventions surrounding JavaScript testing: our [Testing styleguide](testing/). There are also a few additional guides for libraries commonly used at Shopify:
 
 - [jQuery styleguide](jquery/)
 - [React styleguide](react/)
 
-Have a legacy codebase? Can’t use ES2015? Our [legacy styleguide](legacy/) is available in this repo just for you. We also have a dedicated [CoffeeScript styleguide](https://github.com/Shopify/CoffeeScript-Style-Guide) for projects that are still using CoffeeScript (new projects should use ES2015+, though!).
+Have a legacy codebase? Can’t use ESNext? Our [legacy styleguide](legacy/) is available in this repo just for you. We also have a dedicated [CoffeeScript styleguide](https://github.com/Shopify/CoffeeScript-Style-Guide) for projects that are still using CoffeeScript (new projects should use ESNext, though!).
 
 
 
@@ -1906,7 +1906,7 @@ Writing performant JavaScript is our top priority. No amount of well-structured,
 - [2ality](http://www.2ality.com)
 - [Getify](http://blog.getify.com)
 - [Rebecca Murphy](http://rmurphey.com)
- 
+
 ### Articles
 
 - **Promises**: [We have a problem with Promises](https://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html) by Nolan Lawson
