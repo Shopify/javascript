@@ -1339,7 +1339,7 @@ npm run lint
   (good) => 'fabulous'
   ```
 
-- [10.1](#10.1) <a name="10.1"></a> If the body of your arrow function takes only a single expression, you can omit the braces and make use of the implicit `return`. If your function’s body has more than one expression, it returns an object, or it returns something that spans multiple lines, you can use braces and an explicit `return`.
+- [10.10](#10.10) <a name="10.10"></a> If the body of your arrow function takes only a single expression, you can omit the braces and make use of the implicit `return`. If your function’s body has more than one expression, it returns an object, or it returns something that spans multiple lines, you can use braces and an explicit `return`.
 
   ESLint rule: [`arrow-body-style`](http://eslint.org/docs/rules/arrow-body-style.html)
 
