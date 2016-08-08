@@ -12,6 +12,7 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 1. [Components](#components)
 1. [Props](#props)
 1. [Testing](#testing)
+1. [Modules](#modules)
 1. [Resources](#resources)
 
 
@@ -26,11 +27,11 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
   ```js
   // bad
-  class financialReport extends React.Component {}
+  class financialReport extends Component {}
   let MyReport = <financialReport />;
 
   // good
-  class FinancialReport extends React.Component {}
+  class FinancialReport extends Component {}
   let myReport = <FinancialReport />;
   ```
 
@@ -38,34 +39,14 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
   ```js
   // bad
-  class BadComponent extends React.Component {
-    static propTypes = {my_prop: React.PropTypes.bool}
+  class BadComponent extends Component {
+    static propTypes = {my_prop: PropTypes.bool}
   }
 
   // good
-  class GoodComponent extends React.Component {
-    static propTypes = {myProp: React.PropTypes.bool}
+  class GoodComponent extends Component {
+    static propTypes = {myProp: PropTypes.bool}
   }
-  ```
-
-- [1.3](#1.3) <a name="1.3"></a> Try to define only one React component per file. Name that file the same as the component it exports, unless your component has static components that it also exports. In those cases, use `index.js` as the file that contains the main component for the directory.
-
-  ```js
-  // in Button.js
-  export default class Button extends React.Component {}
-
-  // in Field/Label.js
-  export default class Label extends React.Component {}
-
-  // in Field/index.js
-  import Label from './Label';
-
-  export default class Field extends React.Component {}
-  export {Label};
-
-  // in some other file...
-  import Button from './Button';
-  import Field, {Label} from './Field';
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
@@ -246,7 +227,7 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
   // good
   // (you can also just extend `Component` if you explicitly imported it)
-  class GoodComponent extends React.Component {
+  class GoodComponent extends Component {
     render() {
       return <div />;
     }
@@ -257,14 +238,14 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
   ```js
   // bad
-  class BadComponent extends React.Component {
+  class BadComponent extends Component {
     render() {
       return React.createElement('div', {foo: 'bar'});
     }
   }
 
   // good
-  class GoodComponent extends React.Component {
+  class GoodComponent extends Component {
     render() {
       return <div foo="bar" />;
     }
@@ -273,7 +254,7 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
 - [4.3](#4.3) <a name="4.3"></a> Prefer React’s stateless components for components that do not have any state or lifecycle hooks.
 
-  > **Note:** as of this writing, stateless components do not play nicely with React’s testing utilities. Until this is resolved, continue to extend `React.Component` for new components.
+  > **Note:** as of this writing, stateless components do not play nicely with React’s testing utilities. Until this is resolved, continue to extend `Component` for new components.
 
   > Why? Such components are very easy to represent as pure functions, and doing so encourages more stateless components, which decreases application complexity.
 
@@ -281,7 +262,7 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
   ```js
   // bad
-  export default class BadComponent extends React.Component {
+  export default class BadComponent extends Component {
     render() {
       let {children, hidden} = this.props;
       return <div style={{opacity: hidden ? 0 : 1}}>{children}</div>;
@@ -300,21 +281,21 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
   ```js
   // bad
-  class BadComponent extends React.Component {
+  class BadComponent extends Component {
     _handleButtonClick() {}
   }
 
   // good
-  class GoodComponent extends React.Component {
+  class GoodComponent extends Component {
     handleButtonClick() {}
   }
   ```
 
-- [4.5](#4.5) <a name="4.5"></a> When overriding the constructor of `React.Component`, make sure to call `super` with all arguments passed to the constructor. It is easiest to do this using the rest/ spread operator (`...`).
+- [4.5](#4.5) <a name="4.5"></a> When overriding the constructor of `Component`, make sure to call `super` with all arguments passed to the constructor. It is easiest to do this using the rest/ spread operator (`...`).
 
   ```js
   // bad
-  class BadComponent extends React.Component {
+  class BadComponent extends Component {
     constructor() {
       super();
       this.doSomething();
@@ -322,7 +303,7 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
   }
 
   // good
-  class GoodComponent extends React.Component {
+  class GoodComponent extends Component {
     constructor(...args) {
       super(...args);
       this.doSomething();
@@ -336,7 +317,7 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
   ```js
   // bad
-  class BadComponent extends React.Component {
+  class BadComponent extends Component {
     onClickButton() {}
 
     render() {
@@ -345,7 +326,7 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
   }
 
   // good
-  class GoodComponent extends React.Component {
+  class GoodComponent extends Component {
     handleButtonClick() {}
 
     render() {
@@ -354,42 +335,13 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
   }
   ```
 
-- [4.7](#4.7) <a name="4.7"></a> If you need to bind any of your methods, do so in the constructor.
-
-  > Why? Binding in `render` means that the function will be re-bound and re-assigned on every render of the component.
-
-  ```js
-  // bad
-  class BadComponent extends React.Component {
-    handleButtonClick() {}
-
-    render() {
-      return <button onClick={this.handleButtonClick.bind(this)}>Button</button>;
-    }
-  }
-
-  // good
-  class GoodComponent extends React.Component {
-    constructor(...args) {
-      super(...args);
-      this.handleButtonClick = this.handleButtonClick.bind(this);
-    }
-
-    handleButtonClick() {}
-
-    render() {
-      return <button onClick={this.handleButtonClick}>Button</button>;
-    }
-  }
-  ```
-
-- [4.8](#4.8) <a name="4.8"></a> Maintain a sensible ordering of methods in your component. At a high level, order the component as follows: statics and instance class properties, constructor, lifecycle methods, other methods (like handlers and helpers), and, finally, render (and any methods you have broken render up into).
+- [4.7](#4.7) <a name="4.7"></a> Maintain a sensible ordering of methods in your component. At a high level, order the component as follows: statics and instance class properties, constructor, lifecycle methods, other methods (like handlers and helpers), and, finally, render (and any methods you have broken render up into).
 
   > Why? A consistent ordering between components helps other developers find what they are looking for more quickly.
 
   ESLint rule: [`sort-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/sort-comp.md)
 
-- [4.9](#4.9) <a name="4.9"></a> Avoid violating the principles of React by doing things like directly setting state (use `setState`), setting state during the wrong lifecycle hooks (`componentDidMount` and `componentDidUpdate`), and checking whether your component is mounted.
+- [4.8](#4.8) <a name="4.8"></a> Avoid violating the principles of React by doing things like directly setting state (use `setState`), setting state during the wrong lifecycle hooks (`componentDidMount` and `componentDidUpdate`), and checking whether your component is mounted.
 
   > Why? These make your component harder to understand, and these features are either not supported or likely to be removed from future versions of React.
 
@@ -401,15 +353,15 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
 ## Props
 
-- [5.1](#5.1) <a name="5.1"></a> Always include `propTypes` and `defaultProps` (where necessary).
+- [5.1](#5.1) <a name="5.1"></a> Always include `propTypes` and `defaultProps`, or use Flow to annotate these as appropriate.
 
-  > Why? `propTypes` provide a great way to enforce the type requirements of your component's API, and serve as documentation of what the component can do.
+  > Why? `propTypes`/ Flow types for `props` provide a great way to enforce the type requirements of your component's API, and serve as documentation of what the component can do.
 
   ESLint rule: [`prop-types`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md)
 
   ```js
   // bad
-  class BadComponent extends React.Component {
+  class BadComponent extends Component {
     render() {
       // what are these props?
       let {propOne, propTwo = 'defaultValue'} = this.props;
@@ -417,10 +369,10 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
   }
 
   // good
-  class GoodComponent extends React.Component {
+  class GoodComponent extends Component {
     static propTypes = {
-      propOne: React.PropTypes.bool,
-      propTwo: React.PropTypes.string,
+      propOne: PropTypes.bool,
+      propTwo: PropTypes.string,
     }
 
     static defaultProps = {propTwo: 'defaultValue'}
@@ -431,20 +383,20 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
   }
   ```
 
-- [5.2](#5.2) <a name="5.2"></a> Avoid generic `propTypes` that do not enforce type requirements, like `array` and `any`. Prefer more specific constraints, like `arrayOf`.
+- [5.2](#5.2) <a name="5.2"></a> Avoid generic `propTypes` that do not enforce type requirements, like `array` and `any` (or their Flow equivalents). Prefer more specific constraints, like `arrayOf`.
 
   ESLint rule: [`forbid-prop-types`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-prop-types.md)
 
   ```js
   // bad
-  class BadComponent extends React.Component {
-    static propTypes = {choices: React.PropTypes.array}
+  class BadComponent extends Component {
+    static propTypes = {choices: PropTypes.array}
   }
 
   // good
-  class BadComponent extends React.Component {
+  class BadComponent extends Component {
     static propTypes = {
-      choices: React.PropTypes.arrayOf(React.PropTypes.string),
+      choices: PropTypes.arrayOf(PropTypes.string),
     }
   }
   ```
@@ -455,16 +407,16 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
   ```js
   // bad
-  class BadComponent extends React.Component {
-    static propTypes = {visible: React.PropTypes.bool}
+  class BadComponent extends Component {
+    static propTypes = {visible: PropTypes.bool}
     static defaultProps = {visible: true}
   }
 
   let shouldBeHidden = <BadComponent visible={false} />
 
   // good
-  class GoodComponent extends React.Component {
-    static propTypes = {hidden: React.PropTypes.bool}
+  class GoodComponent extends Component {
+    static propTypes = {hidden: PropTypes.bool}
     static defaultProps = {hidden: false}
   }
 
@@ -498,22 +450,76 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
   <Good status="nice and clean" />
   ```
 
-- [5.6](#5.6) <a name="5.6"></a> Name props that act as event listeners `on<EventName`.
+- [5.6](#5.6) <a name="5.6"></a> Name props that act as event listeners `on<EventName>`, and methods that are called in response to events `handle<EventName>`.
 
   ```js
   // bad
-  class BadComponent extends React.Component {
-    static propTypes = {click: React.PropTypes.func}
+  class BadComponent extends Component {
+    static propTypes = {click: PropTypes.func}
   }
 
-  <BadComponent click={() => console.log('clicked')} />
+  class BadComponentUser extends Component {
+    _onClick() {
+      console.log('clicked');
+    }
+
+    render() {
+      return <BadComponent click={this._onClick} />
+    }
+  }
 
   // good
-  class GoodComponent extends React.Component {
-    static propTypes = {onClick: React.PropTypes.func}
+  class GoodComponent extends Component {
+    static propTypes = {onClick: PropTypes.func}
   }
 
-  <GoodComponent onClick={() => console.log('clicked')} />
+  class GoodComponentUser extends Component {
+    handleClick() {
+      console.log('clicked');
+    }
+
+    render() {
+      return <GoodComponent onClick={this.handleClick} />
+    }
+  }
+  ```
+
+- [5.7](#5.7) <a name="5.7"></a> Avoid passing bound methods or arrow functions in the props of rendered components. Bind these in the constructor or use class properties instead.
+
+  > Why? Passing a bound function or using an arrow function creates a new function for each render, which increases memory usage and prevents using shallow rendering on subcomponents.
+
+  ESLint rules: [`jsx-no-bind`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
+
+  ```js
+  // bad
+  class BadComponent extends Component {
+    render() {
+      return <button onClick={this.handleClick.bind(this)} onMouseEnter={() => this.handleMouseEnter()} />;
+    }
+  }
+
+  // good
+  class GoodComponent extends Component {
+    constructor(...args) {
+      super(...args);
+      this.handleClick = this.handleClick.bind(this);
+      this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    }
+
+    render() {
+      return <button onClick={this.handleClick} onMouseEnter={this.handleMouseEnter} />;
+    }
+  }
+
+  // also good
+  class GoodComponent extends Component {
+    handleClick = this.handleClick.bind(this);
+    handleMouseEnter = this.handleMouseEnter.bind(this);
+
+    render() {
+      return <button onClick={this.handleClick} onMouseEnter={this.handleMouseEnter} />;
+    }
+  }
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
@@ -523,6 +529,51 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 ## Testing
 
 - [6.1](#6.1) <a name="6.1"></a> For complex assertions on the structure of a React component, use [Enzyme](http://airbnb.io/enzyme/index.html). It makes validating the rendered output and lifecycle hooks of your component easy, and has a great set of [chai assertions](https://github.com/producthunt/chai-enzyme).
+
+[↑ scrollTo('#table-of-contents')](#table-of-contents)
+
+
+
+## Modules
+
+- [7.1](#7.1) <a name="7.1"></a> When importing from React, explicitly import the exact features you need (in addition to React, which will be a signal to the compiler to compile JSX).
+
+  > Why? Named imports explicitly indicate what you will be using at the top of the file, and reduce the duplication of accessing properties on `React`.
+
+  ```js
+  // bad
+  import React from 'react';
+
+  class MyComponent extends React.Component {
+    static propTypes = {object: React.PropTypes.object};
+  }
+
+  // good
+  import React, {Component, PropTypes} from 'react';
+
+  class MyComponent extends Component {
+    static propTypes = {object: PropTypes.object};
+  }
+  ```
+
+- [7.2](#7.2) <a name="7.2"></a> Try to define only one React component per file. Name that file the same as the component it exports. Any subcomponents can be exposed as statics on that component. Finally, use an `index.js` to make it easier for other components to import.
+
+  ```js
+  // in Card/Section.js
+  export default class Section extends Component {}
+
+  // in Card/Card.js
+  import Section from './Section';
+
+  export default class Card extends Component {
+    static Section = Section;
+  }
+
+  // in Card/index.js
+  import Card from './Card';
+
+  export default Card;
+  ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
 
