@@ -302,38 +302,73 @@ There are a variety of other tools you might need depending on your project. Her
 
 ## Best practices
 
+- Test the interface, not the implementation. Ideally, you should not expose methods that you wouldn’t want users of your object to call directly, just so you can test them. Try to find the smallest unit of functionality that you would expect someone to use directly, and test that. Your implementation of that functionality should be able to change without affecting consumers or your tests.
+
 - Try to limit the number of assertions made in a single test. For unit tests, you should only be testing one thing at a time (generally, an individual function, either standalone or as a method of an object), and more than one or two assertions is generally indicative that you should split your test into multiple tests.
 
-- Something something about how to organize suites (by method? by context?)
+- Use `suite`s to wrap tests related to a single subject under test (for example, a class or function). For simple subjects, simply list all `test`s within that one suite. For more complex subjects (for example, classes with many public methods, functions with many cases), first consider whether this complex subject can be broken up into simpler subjects. If you have broken it down as much as makes sense for your case, organize the different parts of your tests (methods, logical branches) into sub-`suite`s, and the `test`s for that part nested within.
+
+  ```js
+  suite('MyComponent', () => {
+    suite('.staticMethod', () => {
+      test('creates a new instance', () => {
+        assert.instanceOf(MyComponent.staticMethod(), MyComponent);
+      });
+    });
+
+    suite('#instanceMethod', () => {
+      test('returns the expected value', () => {
+        assert.equal(component.instanceMethod(), 'yes');
+      });
+    });
+  });
+  ```
 
 - In general, each test has three steps: setup, perform the action under test, and assert based on the result.
 
-- Don't rely too heavily on mocking — maybe dependency injection instead?
+- If your tests involve stubbing a lot of different objects, it can be a sign of a fragile technical design. Instead of having many external dependencies that are directly brought in by the module, it can be useful to rely on [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) instead. This design pattern can make code easier to understand and test.
 
 - Avoid using mocks.
 
   > Why? They reverse the typical order of tests (setup, do something, assertion), which makes them harder to read in the context of other tests. Generally, you can achieve the same thing with stubs instead.
 
+  ```js
+  // bad
+  const mock = sinon.mock(subject).expects('myMethod').once();
+  subject.doSomething();
+  mock.verify();
+
+  // good
+  const stub = sinon.spy(subject, 'myMethod');
+  subject.doSoemthing();
+  assert.calledOnce(stub);
+  ```
+
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
 
 
 
-## Approach and types of testing
+## Types of testing
 
-Like all software testing approaches, JavaScript testing can be divided into three types: unit testing, integration testing, and functional testing.
+The guide above is mostly focused on unit tests, where a "unit" of code (ideally, the smallest version of an API) is tested in isolation from the rest of the system. However, there are a few other types of testing that are important to consider when writing JavaScript: integration testing, functional testing, and UI testing.
 
-**Unit Testing** Unit testing checks whether a particular piece (unit/module) of code is working fine. The ‘unit’ is often a function (either as a method or a standalone function).
+### Integration testing
 
-**Integration Testing** Integration testing is performed when various units are integrated with each other to form a sub-system or a system. This mostly focuses in the design and construction of the software architecture.
+Integration tests ensure that various parts of a system work properly together. It mostly focuses on the design of an overall architecture rather than individual pieces. In writing integration tests, make sure to keep the following in mind:
 
-**Functional Testing** The software is tested for the functional requirements. This checks whether the application is behaving according to the specification.
+- Be careful not to do unit tests for the pieces of the system and integration tests for the system as a whole if the pieces are not part of the public interface. That is, if the pieces will only be used in combination as part of this system, the system is the actual unit of tests, and the pieces are an implementation detail that does not need direct tests (they are, of course, indirectly tested by the testing of the public interface to the system).
 
-We currently have no recommended approach to integration or functional testing. But here are some tips to keep in mind:
+### Functional testing
 
-* Avoid assertions on CSS selectors as much as possible. These types of tests are often too brittle.
-* Keep interaction elements like "click button" as open to change as possible.
-* Test more complex flows, for example:
-  * "Add a product" as opposed to the specifics of automatic variant generation or publish visibility toggling.
+In the context of developing web applications, functional testing is more accurately described as browser testing. The goal with these tests is to ensure that a part of the application works according to the specifications you have set. Keep the following in mind for these types of tests:
+
+- Avoid relying on class names for finding components on the page. CSS selectors are meant as styling hooks, and the visual appearance of the page should be able to change without breaking your functional tests.
+
+- If your test is merely ensuring that a particular visual element is on the page, or that a particular class is on a component, it is more appropriate to use a visual regression test (detailed below), as you are effectively testing the visuals of the page indirectly through the classes you are querying.
+
+### Visual regression testing
+
+Visual regression testing allows you to be confident that changes made to the components that make up your interface did not affect the visual appearance. This kind of testing is particularly useful when refactoring a particular component, as it can ensure that layout and other visual properties did not change without cause.
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
 
