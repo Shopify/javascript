@@ -7,14 +7,14 @@ export default function ternaryStatementToIfStatement({source}, {jscodeshift: j}
       let path;
       let statement;
       switch (parent.node.type) {
-      case 'ExpressionStatement':
-        path = parent.get('expression');
-        statement = j.expressionStatement;
-        break;
-      case 'ReturnStatement':
-        path = parent.get('argument');
-        statement = j.returnStatement;
-        break;
+        case 'ExpressionStatement':
+          path = parent.get('expression');
+          statement = j.expressionStatement;
+          break;
+        case 'ReturnStatement':
+          path = parent.get('argument');
+          statement = j.returnStatement;
+          break;
       }
 
       const consequent = j.blockStatement([statement(path.node.consequent)]);

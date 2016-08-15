@@ -34,7 +34,7 @@ module.exports = {
   // Require identifiers to match the provided regular expression
   'id-match': 'off',
   // This option sets a specific tab width for your code
-  'indent': ['warn', 2],
+  'indent': ['warn', 2, {SwitchCase: 1, MemberExpression: 1}],
   // Specify whether double or single quotes should be used in JSX attributes
   'jsx-quotes': ['warn', 'prefer-double'],
   // Enforces spacing between keys and values in object literal properties
