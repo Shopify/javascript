@@ -1,7 +1,14 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Updated dependencies which added the following rules: `no-tabs`, `sort-keys`, `no-template-curly-in-string`, `ava/no-nested-tests`, `ava/no-todo-implementation`, `ava/prefer-async-await`, `flowtype/define-flow-type`, `flowtype/use-flow-type`, `flowtype/valid-syntax`, `jsx-a11y/anchor-has-content`, `mocha/no-hooks`, `mocha/no-arrows`, `mocha/no-sibling-hooks`, `mocha/no-synchronous-tests`, `react/forbid-component-props`, and `react/no-danger-with-children`, `react/no-find-dom-node`.
 
+### Changed
+- Changed the `indent` linting rule to require one level of indenting (two spaces) for `case` statements and for member expressions on separate lines.
+- The following rules were renamed or removed based on deprecations in the updates noted above: `no-spaced-func` (to `func-call-spacing`), `no-negated-in-lhs` (to `no-unsafe-negation`), `no-native-reassign` (to `no-global-assign`), `react/no-comment-textnodes` (to `react/jsx-no-comment-textnodes`), `react/require-extension`, and `react/wrap-multilines` (to `react/jsx-wrap-multilines`).
+- Updated `flowtype/type-id-match` to allow for any type name ending in `Type`, `Props`, `State`, or `Context`.
+- Turned off `react/no-danger` in favor of enabling `react/no-danger-with-children`.
 
 ## [13.0.0]
 ### Added
