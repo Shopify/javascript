@@ -353,9 +353,9 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 
 ## Props
 
-- [5.1](#5.1) <a name="5.1"></a> Always include `propTypes` and `defaultProps`, or use Flow to annotate these as appropriate.
+- [5.1](#5.1) <a name="5.1"></a> Always include Flow types to annotate props. `propTypes` are also acceptable for projects not using Flow, particularly when they are also needed for `contextTypes`.
 
-  > Why? `propTypes`/ Flow types for `props` provide a great way to enforce the type requirements of your component's API, and serve as documentation of what the component can do.
+  > Why? Flow types/ `propTypes` for `props` provide a great way to enforce the type requirements of your component's API, and serve as documentation of what the component can do.
 
   ESLint rule: [`prop-types`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md)
 
@@ -364,7 +364,7 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
   class BadComponent extends Component {
     render() {
       // what are these props?
-      let {propOne, propTwo = 'defaultValue'} = this.props;
+      let {propOne, propTwo} = this.props;
     }
   }
 
@@ -375,7 +375,19 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
       propTwo: PropTypes.string,
     }
 
-    static defaultProps = {propTwo: 'defaultValue'}
+    render() {
+      let {propOne, propTwo} = this.props;
+    }
+  }
+
+  // even better
+  type Props = {
+    propOne?: boolean,
+    propTwo?: string,
+  };
+
+  class GoodComponent extends Component {
+    props: Props;
 
     render() {
       let {propOne, propTwo} = this.props;
@@ -390,14 +402,14 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
   ```js
   // bad
   class BadComponent extends Component {
-    static propTypes = {choices: PropTypes.array}
+    static propTypes = {choices: PropTypes.array};
   }
 
   // good
   class BadComponent extends Component {
     static propTypes = {
       choices: PropTypes.arrayOf(PropTypes.string),
-    }
+    };
   }
   ```
 
@@ -408,22 +420,40 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
   ```js
   // bad
   class BadComponent extends Component {
-    static propTypes = {visible: PropTypes.bool}
-    static defaultProps = {visible: true}
+    props: {visible: boolean};
+    static defaultProps = {visible: true};
   }
 
   let shouldBeHidden = <BadComponent visible={false} />
 
   // good
   class GoodComponent extends Component {
-    static propTypes = {hidden: PropTypes.bool}
-    static defaultProps = {hidden: false}
+    props: {visible: boolean};
+
+    // Or just omit because an unset value is falsey
+    static defaultProps = {hidden: false};
   }
 
   let shouldBeHidden = <GoodComponent hidden />
   ```
 
-- [5.4](#5.4) <a name="5.4"></a> Omit the value of a prop when it is explicitly true.
+- [5.4](#5.4) <a name="5.4"></a> For functional React components, use default values in the function’s parameters rather than setting `defaultProps`.
+
+```js
+// bad
+function BadComponent({disabled}) {
+  return <button disabled={disabled}>Button</button>;
+}
+
+BadComponent.defaultProps = {disabled: false};
+
+// good
+function GoodComponent({disabled = false}) {
+  return <button disabled={disabled}>Button</button>;
+}
+```
+
+- [5.5](#5.5) <a name="5.5"></a> Omit the value of a prop when it is explicitly true.
 
   > Why? It reduces visual noise and matches how we would write similar attributes in HTML.
 
@@ -438,7 +468,7 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
   <Good hidden={false} />
   ```
 
-- [5.5](#5.5) <a name="5.5"></a> Omit curly braces when the prop is a string.
+- [5.6](#5.6) <a name="5.6"></a> Omit curly braces when the prop is a string.
 
   > Why? It is cleaner and matches how most attributes are defined in HTML.
 
@@ -450,7 +480,7 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
   <Good status="nice and clean" />
   ```
 
-- [5.6](#5.6) <a name="5.6"></a> Name props that act as event listeners `on<EventName>`, and methods that are called in response to events `handle<EventName>`.
+- [5.7](#5.7) <a name="5.7"></a> Name props that act as event listeners `on<EventName>`, and methods that are called in response to events `handle<EventName>`.
 
   ```js
   // bad
@@ -484,7 +514,7 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
   }
   ```
 
-- [5.7](#5.7) <a name="5.7"></a> Avoid passing bound methods or arrow functions in the props of rendered components. Bind these in the constructor or use class properties instead.
+- [5.8](#5.8) <a name="5.8"></a> Avoid passing bound methods or arrow functions in the props of rendered components. Bind these in the constructor or use class properties instead.
 
   > Why? Passing a bound function or using an arrow function creates a new function for each render, which increases memory usage and prevents using shallow rendering on subcomponents.
 
@@ -503,21 +533,36 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
     constructor(...args) {
       super(...args);
       this.handleClick = this.handleClick.bind(this);
-      this.handleMouseEnter = this.handleMouseEnter.bind(this);
+    }
+
+    handleClick() {
+      console.log('clicked');
     }
 
     render() {
-      return <button onClick={this.handleClick} onMouseEnter={this.handleMouseEnter} />;
+      return <button onClick={this.handleClick} />;
     }
   }
 
   // also good
   class GoodComponent extends Component {
     handleClick = this.handleClick.bind(this);
-    handleMouseEnter = this.handleMouseEnter.bind(this);
+
+    handleClick() {
+      console.log('clicked');
+    }
 
     render() {
-      return <button onClick={this.handleClick} onMouseEnter={this.handleMouseEnter} />;
+      return <button onClick={this.handleClick} />;
+    }
+  }
+
+  // also good
+  class GoodComponent extends Component {
+    handleClick = () => { console.log('clicked'); };
+
+    render() {
+      return <button onClick={this.handleClick} />;
     }
   }
   ```
@@ -545,34 +590,32 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
   import React from 'react';
 
   class MyComponent extends React.Component {
-    static propTypes = {object: React.PropTypes.object};
+    static contextTypes = {object: React.PropTypes.object};
   }
 
   // good
   import React, {Component, PropTypes} from 'react';
 
   class MyComponent extends Component {
-    static propTypes = {object: PropTypes.object};
+    static contextTypes = {object: PropTypes.object};
   }
   ```
 
-- [7.2](#7.2) <a name="7.2"></a> Try to define only one React component per file. Name that file the same as the component it exports. Any subcomponents can be exposed as statics on that component. Finally, use an `index.js` to make it easier for other components to import.
+- [7.2](#7.2) <a name="7.2"></a> Try to define only one React component per file. Name that file the same as the component it exports. The "main" component should be the default export from an `index.js` file in that directory, and any subcomponents can be exported as named exports from that same file.
 
   ```js
   // in Card/Section.js
   export default class Section extends Component {}
 
   // in Card/Card.js
-  import Section from './Section';
-
-  export default class Card extends Component {
-    static Section = Section;
-  }
+  export default class Card extends Component {}
 
   // in Card/index.js
   import Card from './Card';
+  import Section from './Section';
 
   export default Card;
+  export {Section as CardSection};
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
