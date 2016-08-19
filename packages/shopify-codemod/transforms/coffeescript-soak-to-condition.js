@@ -200,11 +200,11 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
     // eslint-disable-next-line no-constant-condition
     while (currentExpression != null) {
       switch (currentExpression.type) {
-      case j.MemberExpression.name:
-        currentExpression = currentExpression.object;
-        break;
-      case j.CallExpression.name: return true;
-      default: return false;
+        case j.MemberExpression.name:
+          currentExpression = currentExpression.object;
+          break;
+        case j.CallExpression.name: return true;
+        default: return false;
       }
     }
 
