@@ -29,7 +29,7 @@ In addition to the testing framework, you generally need a test *runner*. Which 
 
 - For pure-JavaScript projects that do not need access to the DOM, avoid using a test runner and simply run the `mocha` CLI instead (if you need a simple DOM without actual rendering, you can also use [cheerio](https://github.com/cheeriojs/cheerio) to construct a fake DOM).
 
-- For Non-Rails projects that require a full DOM, use [Karma](https://karma-runner.github.io/1.0/index.html). It integrates well with other tools you are likely using, such as Webpack and code coverage tools.
+- For Non-Rails projects that require a full DOM, use [Karma](https://karma-runner.github.io/1.0/index.html). It integrates well with other tools you are likely using, such as bundlers and code coverage tools.
 
 - Rails projects should use [Teaspoon](https://github.com/modeset/teaspoon), which provides an excellent GUI for running tests in the browser. If you are also using [sprockets-commoner](https://github.com/Shopify/sprockets-commoner) to transpile your JavaScript, make sure to include [teaspoon-bundle](https://github.com/Shopify/teaspoon-bundle) to generate your test bundle.
 
@@ -52,6 +52,9 @@ There are a variety of other tools you might need depending on your project. Her
   > Why? This keeps JavaScript tests more in line with our style for writing Ruby tests, which helps everyone contribute to the test codebase more easily.
 
   ```js
+  // bring in Chai's assert, either per file or in a test helper
+  import {assert} from 'chai';
+  
   // bad
   expect(2 === 1).to.be.false;
   (2 === 1).should.be.false;
@@ -225,7 +228,7 @@ There are a variety of other tools you might need depending on your project. Her
   assert.isTrue(foo === bar);
 
   // good
-  assert.equal(foo, bar);
+  assert.strictEqual(foo, bar);
   ```
 
 - Use sinon’s custom spy assertions, exposed to chai’s `assert` object.
@@ -236,10 +239,10 @@ There are a variety of other tools you might need depending on your project. Her
   sinon.assert.expose(assert);
 
   // bad
-  assert.isTrue(spy.called);
+  assert.isTrue(spy.calledOnce);
 
   // good
-  assert.called(spy);
+  assert.calledOnce(spy);
   ```
 
 - Always use a test helper that sets up your global test state. This generally includes adding any chai plugins you need, setting up a global sinon sandbox, and any other global hooks you require. It is often useful to expose `sinon`/ `sandbox` and `assert` to the global object in this helper to avoid needing to import them in every test file.
@@ -362,7 +365,7 @@ Integration tests ensure that various parts of a system work properly together. 
 
 In the context of developing web applications, functional testing is more accurately described as browser testing. The goal with these tests is to ensure that a part of the application works according to the specifications you have set. Keep the following in mind for these types of tests:
 
-- Avoid relying on class names for finding components on the page. CSS selectors are meant as styling hooks, and the visual appearance of the page should be able to change without breaking your functional tests.
+- Avoid relying on class names for finding components on the page. CSS selectors are meant as styling hooks, and the visual appearance of the page should be able to change without breaking your functional tests. If you absolutely must find a particular DOM node, prefer IDs or `data-` attributes.
 
 - If your test is merely ensuring that a particular visual element is on the page, or that a particular class is on a component, it is more appropriate to use a visual regression test (detailed below), as you are effectively testing the visuals of the page indirectly through the classes you are querying.
 
