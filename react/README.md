@@ -518,7 +518,7 @@ function GoodComponent({disabled = false}) {
 
   > Why? Passing a bound function or using an arrow function creates a new function for each render, which increases memory usage and prevents using shallow rendering on subcomponents.
 
-  ESLint rules: [`jsx-no-bind`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
+  ESLint rule: [`jsx-no-bind`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
 
   ```js
   // bad
@@ -565,6 +565,28 @@ function GoodComponent({disabled = false}) {
       return <button onClick={this.handleClick} />;
     }
   }
+  ```
+  
+- [5.9](#5.9) <a name="5.9"></a> Components should not accept `style` or `className` as props. Prefer props that signal a particular variation on the component over allowing arbitrary customization.
+
+  > Why? Allowing custom styles or class names vastly increases the surface area of your component’s API. This makes the component harder to maintain since you must account for every set of class names, style objects, and their interplay with your component’s base styles. Meaningful variations are better suited to maintaining a design system, and make it simpler for consumers to use your component. [This article](https://medium.com/brigade-engineering/don-t-pass-css-classes-between-components-e9f7ab192785#.67kv95pms) provides additional details on why accepting classes or styles is a bad idea.
+  
+  ESLint rule: [`forbid-component-props`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-component-props.md)
+  
+  ```js
+  // bad
+  function BadComponent({className}) {
+    return <div className={['my-component', className].filter(Boolean).join(' ')} />;
+  }
+  
+  <BadComponent className="my-special-potentially-conflicting-classname" />
+  
+  // good
+  function GoodComponent({special}) {
+    return <div className={['my-component', special && 'my-component--special'].filter(Boolean).join(' ')} />;
+  }
+  
+  <GoodComponent special />
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
