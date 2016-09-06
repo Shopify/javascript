@@ -34,7 +34,7 @@ export default function mochaContextToGlobalReference({source}, {jscodeshift: j}
           } else {
             return j.memberExpression(
               propDetails.identifier,
-              memberPath.get('property').node
+              memberPath.get('property').node,
             );
           }
         });

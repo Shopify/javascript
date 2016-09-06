@@ -18,7 +18,7 @@ export default function constantFunctionValueToStatement({source}, {jscodeshift:
         params,
         getBlockStatementFromFunction(declarator.init),
         generator,
-        false
+        false,
       );
     })
     .toSource(printOptions);

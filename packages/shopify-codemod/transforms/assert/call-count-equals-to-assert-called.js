@@ -24,7 +24,7 @@ export default function callCountEqualsToAssertCalled({source}, {jscodeshift: j}
 
       return j.callExpression(
         j.memberExpression(j.identifier('assert'), j.identifier(assertionName), false),
-        [actualArg.object]
+        [actualArg.object],
       );
     });
 
@@ -40,7 +40,7 @@ export default function callCountEqualsToAssertCalled({source}, {jscodeshift: j}
       },
     })
     .replaceWith(({node: {arguments: [actualArg, expectedArg]}}) =>
-      createAssertion('callCount', [actualArg.object, expectedArg])
+      createAssertion('callCount', [actualArg.object, expectedArg]),
     )
     .toSource(printOptions);
 }

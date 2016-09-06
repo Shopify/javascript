@@ -44,30 +44,30 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
             j.variableDeclaration('var', [
               j.variableDeclarator(
                 parentPath.get('id').value,
-                finalExpression
+                finalExpression,
               ),
             ]),
-          ])
-        )
+          ]),
+        ),
       );
     } else if (j.ExpressionStatement.check(parentNode)) {
       parentPath.replace(
         j.ifStatement(
           condition,
-          j.blockStatement([j.expressionStatement(finalExpression)])
-        )
+          j.blockStatement([j.expressionStatement(finalExpression)]),
+        ),
       );
     } else if (j.ReturnStatement.check(parentNode)) {
       parentPath.replace(
         j.ifStatement(
           condition,
           j.blockStatement([j.returnStatement(finalExpression)]),
-          j.blockStatement([j.returnStatement(j.literal(null))])
-        )
+          j.blockStatement([j.returnStatement(j.literal(null))]),
+        ),
       );
     } else if (isConditionalTest(parentNode)) {
       path.replace(
-        j.logicalExpression('&&', condition, finalExpression)
+        j.logicalExpression('&&', condition, finalExpression),
       );
     } else if (j.BinaryExpression.check(parentNode) && hasDeterminableDefinedState(opposite(path).node)) {
       const matchesUndefined = isBinaryExpressionThatMatchesUndefined(parentNode);
@@ -81,23 +81,23 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
         j.logicalExpression(
           matchesUndefined ? '||' : '&&',
           matchesUndefined ? invertCondition(condition) : condition,
-          newBinaryExpression
-        )
+          newBinaryExpression,
+        ),
       );
     } else if (j.UnaryExpression.check(parentNode) && parentNode.operator === '!') {
       parentPath.replace(
-        j.logicalExpression('||', invertCondition(condition), j.unaryExpression('!', finalExpression))
+        j.logicalExpression('||', invertCondition(condition), j.unaryExpression('!', finalExpression)),
       );
     } else if (j.ConditionalExpression.check(parentNode) && j.ExpressionStatement.check(parentPath.parentPath.node)) {
       parentPath.parentPath.replace(
         j.ifStatement(
           condition,
-          j.blockStatement([j.expressionStatement(parentNode.consequent)])
-        )
+          j.blockStatement([j.expressionStatement(parentNode.consequent)]),
+        ),
       );
     } else {
       path.replace(
-        j.conditionalExpression(condition, finalExpression, j.identifier('undefined'))
+        j.conditionalExpression(condition, finalExpression, j.identifier('undefined')),
       );
     }
   }
@@ -177,7 +177,7 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
     if (j.AssignmentExpression.check(argument.object)) {
       argument = j.memberExpression(
         argument.object.right,
-        argument.property
+        argument.property,
       );
     }
 
@@ -228,13 +228,13 @@ export default function coffeescriptSoakToCondition({source}, {jscodeshift: j}, 
             } else {
               return j.memberExpression(expression, node.property, node.computed);
             }
-          }
+          },
         );
 
         currentNode = node.object;
       } else if (j.CallExpression.check(node)) {
         augmenters.unshift(
-          (expression) => j.callExpression(expression, node.arguments)
+          (expression) => j.callExpression(expression, node.arguments),
         );
 
         currentNode = node.callee;

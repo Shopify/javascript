@@ -18,7 +18,7 @@ export default function equalityComparisonsToAssertions({source}, {jscodeshift: 
 
       return createAssertion(
         assertionName,
-        [comparison.left, comparison.right, ...otherArgs]
+        [comparison.left, comparison.right, ...otherArgs],
       );
     })
     .toSource(printOptions);

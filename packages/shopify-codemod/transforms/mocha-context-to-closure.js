@@ -100,7 +100,7 @@ export default function mochaContextToClosure({source}, {jscodeshift: j}, {print
       ]),
       oldFunction.generator,
       oldFunction.expression,
-      oldFunction.async
+      oldFunction.async,
     );
   }
 
@@ -136,7 +136,7 @@ export default function mochaContextToClosure({source}, {jscodeshift: j}, {print
     const {arguments: args} = path.node;
     args[args.length - 1] = updateFunctionWithDeclarations(
       args[args.length - 1],
-      newDeclarations
+      newDeclarations,
     );
 
     return path.node;

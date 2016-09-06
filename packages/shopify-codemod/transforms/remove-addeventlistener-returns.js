@@ -27,7 +27,7 @@ export default function removeAddEventListenerReturns({source}, {jscodeshift: j}
         }
         body[body.length - 1] = j.expressionStatement(body[body.length - 1].argument);
         return node;
-      }
+      },
     )
     .toSource(printOptions);
 }

@@ -16,8 +16,8 @@ export default function calledMethodToAssertCalled({source}, {jscodeshift: j}, {
     .replaceWith(({node: {arguments: [callArg]}}) =>
       createAssertion(
         invertCalledAssertionName(callArg.property.name),
-        [callArg.object]
-      )
+        [callArg.object],
+      ),
     );
 
   return sourceAST
@@ -28,7 +28,7 @@ export default function calledMethodToAssertCalled({source}, {jscodeshift: j}, {
       },
     })
     .replaceWith(({node: {arguments: [callArg]}}) =>
-      createAssertion(callArg.property, [callArg.object])
+      createAssertion(callArg.property, [callArg.object]),
     )
     .toSource(printOptions);
 }

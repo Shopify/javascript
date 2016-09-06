@@ -51,8 +51,8 @@ export default function globalAssignmentToDefaultExport({source}, {jscodeshift: 
               j.assignmentExpression(
                 expression.operator,
                 removeFirstMember(left),
-                right
-              )
+                right,
+              ),
             );
           }
         });
@@ -61,7 +61,7 @@ export default function globalAssignmentToDefaultExport({source}, {jscodeshift: 
         const {node: {body}} = programPath;
         insertAfterDirectives(
           body,
-          j.expressionStatement(j.literal(`expose ${expose}`))
+          j.expressionStatement(j.literal(`expose ${expose}`)),
         );
       }
     })

@@ -182,7 +182,7 @@ export default function globalReferenceToImport(
           body,
           j.importDeclaration([
             hasNamedExports ? j.importNamespaceSpecifier(identifier) : j.importDefaultSpecifier(identifier),
-          ], j.literal(relativePath(file)))
+          ], j.literal(relativePath(file))),
         );
       }
     })
@@ -191,7 +191,7 @@ export default function globalReferenceToImport(
 
 function filterEquivalentFiles(files) {
   return files.filter(
-    (file) => extname(file) === '.js' || files.indexOf(equivalentJavaScriptFile(file)) < 0
+    (file) => extname(file) === '.js' || files.indexOf(equivalentJavaScriptFile(file)) < 0,
   );
 }
 
@@ -202,7 +202,7 @@ function equivalentJavaScriptFile(file) {
 
   return join(
     dirname(file),
-    `${basename(file, '.coffee')}.js`
+    `${basename(file, '.coffee')}.js`,
   );
 }
 
@@ -212,7 +212,7 @@ function getFileName(grepResult) {
 
 function filterDefaultExports(exportLines) {
   return exportLines.filter(
-    (exportLine) => !exportLine.includes(' default ')
+    (exportLine) => !exportLine.includes(' default '),
   );
 }
 
