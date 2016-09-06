@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+## [14.0.1]
+### Changed
+- Set `babel/func-params-comma-dangle` to `always-multiline` to be consistent with `comma-dangle`.
 
 ## [14.0.0]
 ### Added
