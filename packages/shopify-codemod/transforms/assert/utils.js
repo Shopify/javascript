@@ -7,7 +7,7 @@ export function createAssertion(assertionNameOrProperty, args) {
 
   return j.callExpression(
     j.memberExpression(j.identifier('assert'), j.identifier(assertionName), false),
-    args
+    args,
   );
 }
 

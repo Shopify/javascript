@@ -49,8 +49,8 @@ export default function constructorLiteralAssignmentToClassProperty({source}, {j
             statement.get('expression', 'left', 'property').node,
             statement.get('expression', 'right').node,
             null, // type annotation
-            statement.get('expression', 'left', 'object', 'type').value !== 'ThisExpression' // static
-          )
+            statement.get('expression', 'left', 'object', 'type').value !== 'ThisExpression', // static
+          ),
         );
         statement.replace();
       });

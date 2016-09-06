@@ -14,8 +14,8 @@ export default function calledWithMethodsToAssertCalledWith({source}, {jscodeshi
     .replaceWith(({node: {arguments: [callArg]}}) =>
       createAssertion(
         callArg.callee.property,
-        [callArg.callee.object, ...callArg.arguments]
-      )
+        [callArg.callee.object, ...callArg.arguments],
+      ),
     )
     .toSource(printOptions);
 }

@@ -22,8 +22,8 @@ export default function falsyCalledMethodToAssertNotCalled({source}, {jscodeshif
     .replaceWith(({node: {arguments: [{callee, arguments: callArgs}]}}) =>
       createAssertion(
         invertCalledAssertionName(callee.property.name),
-        [callee.object, ...callArgs]
-      )
+        [callee.object, ...callArgs],
+      ),
     )
     .toSource(printOptions);
 }

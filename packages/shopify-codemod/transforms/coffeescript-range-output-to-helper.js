@@ -93,13 +93,13 @@ export default function coffeescriptRangeOutputToHelper({source}, {jscodeshift: 
       const inclusive = INCLUSIVE_OPERATORS.has(
         isComplexTest
           ? forStatementTest.get('consequent', 'operator').value
-          : forStatementTest.get('operator').value
+          : forStatementTest.get('operator').value,
       );
 
       return j.callExpression(
         j.memberExpression(
           j.identifier('Shopify'),
-          j.identifier('range')
+          j.identifier('range'),
         ),
         [
           j.objectExpression([
@@ -107,7 +107,7 @@ export default function coffeescriptRangeOutputToHelper({source}, {jscodeshift: 
             j.property('init', j.identifier('to'), end.value),
             j.property('init', j.identifier('inclusive'), j.literal(inclusive)),
           ]),
-        ]
+        ],
       );
     })
     .toSource(printOptions);

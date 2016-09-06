@@ -26,15 +26,15 @@ export default function convertDefaultExportObjectsToNamedExports({source}, {jsc
           params,
           getBlockStatementFromFunction(value),
           generator,
-          false
-        )
+          false,
+        ),
       );
     }
 
     return j.exportNamedDeclaration(
       j.variableDeclaration('const', [
         j.variableDeclarator(j.identifier(getPropertyName(property)), value),
-      ])
+      ]),
     );
   }
 

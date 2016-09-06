@@ -36,7 +36,7 @@ export default function globalIdentifierToImport({source}, {jscodeshift: j}, {pr
           body,
           j.importDeclaration([
             j.importDefaultSpecifier(j.identifier(anImport)),
-          ], j.literal(globalIdentifiers[anImport]))
+          ], j.literal(globalIdentifiers[anImport])),
         );
       }
     })

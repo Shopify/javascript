@@ -15,7 +15,7 @@ export default function renameProperty({source}, {jscodeshift: j}, {printOptions
       const newName = renameProperties[object.name][property.name];
       const newNameIsValidIdentifier = isValidIdentifier(newName);
       path.get('property').replace(
-        newNameIsValidIdentifier ? j.identifier(newName) : j.literal(newName)
+        newNameIsValidIdentifier ? j.identifier(newName) : j.literal(newName),
       );
       path.get('computed').replace(!newNameIsValidIdentifier);
     })

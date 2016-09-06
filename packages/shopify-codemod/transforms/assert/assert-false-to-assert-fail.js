@@ -14,7 +14,7 @@ export default function assertFalseToAssertFail({source}, {jscodeshift: j}, {pri
         isStringArgument(args[1]),
     })
     .replaceWith(({node: {arguments: [, failMessage]}}) =>
-      createAssertion('fail', [failMessage])
+      createAssertion('fail', [failMessage]),
     )
     .toSource(printOptions);
 }

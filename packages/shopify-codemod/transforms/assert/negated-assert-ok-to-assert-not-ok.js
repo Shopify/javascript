@@ -12,7 +12,7 @@ export default function negatedAssertOkToAssertNotOk({source}, {jscodeshift: j},
       },
     })
     .replaceWith(({node: {arguments: [negation, ...otherArgs]}}) =>
-      createAssertion('notOk', [negation.argument, ...otherArgs])
+      createAssertion('notOk', [negation.argument, ...otherArgs]),
     )
     .toSource(printOptions);
 }

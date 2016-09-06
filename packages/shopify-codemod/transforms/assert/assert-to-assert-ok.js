@@ -9,7 +9,7 @@ export default function assertToAssertOk({source}, {jscodeshift: j}, {printOptio
       },
     })
     .replaceWith(({node}) =>
-      createAssertion('ok', node.arguments)
+      createAssertion('ok', node.arguments),
     )
     .toSource(printOptions);
 }
