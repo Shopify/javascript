@@ -518,6 +518,12 @@ npm run lint
   function fine() { return 'but don’t push it!'; }
   ```
 
+- [4.11](#4.11) <a name="4.11"></a> Line comments should appear above the line they are commenting, rather than at the end of the line or below it.
+
+  > Why? End-of-line comments can be harder to read since they lead to longer lines. Comments above the line you are documenting provides a more natural experience when reading the code, as it follows how we typically read other forms of text.
+
+  ESLint rule: [`line-comment-position`](http://eslint.org/docs/rules/line-comment-position.html)
+
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
 
 
@@ -1593,9 +1599,35 @@ npm run lint
 
 - [12.2](#12.2) <a name="12.2"></a> Limit use of generators and proxies, as these don’t transpile well (or at all) to ES5.
 
+- [12.3](#12.3) <a name="12.3"></a> Prefer binary, octal, and hexadecimal literals over using `parseInt`.
+
+  ESLint rule: [`prefer-numeric-literals`](http://eslint.org/docs/rules/prefer-numeric-literals.html)
+
+  ```js
+  // bad
+  const twoSixtyFiveInHex = parseInt('1F7', 16);
+
+  // good
+  const twoSixtyFiveInHex = 0x1F7;
+  ```
+
+- [12.4](#12.4) <a name="12.4"></a> Always provide a description when creating a `Symbol`.
+
+  > Why? You will get a more descriptive representation of that symbol in most developer tools.
+
+  ESLint rule: [`symbol-description`](http://eslint.org/docs/rules/symbol-description.html)
+
+  ```js
+  // bad
+  const badSymbol = Symbol();
+
+  // good
+  const goodSymbol = Symbol('Good!');
+  ```
+
 ### Destructuring
 
-- [12.3](#12.3) <a name="12.3"></a> Use object destructuring to retrieve multiple properties from an object.
+- [12.5](#12.5) <a name="12.5"></a> Use object destructuring to retrieve multiple properties from an object.
 
   > Why? Destructuring removes a lot of boilerplate and encourages you to refer to properties by the same name everywhere they are referenced.
 
@@ -1620,7 +1652,7 @@ npm run lint
   }
   ```
 
-- [12.4](#12.4) <a name="12.4"></a> Use array destructuring rather than manually accessing items by their index. If your array has more than a few entries, and you are selecting only a small number of them, continue to use index notation.
+- [12.6](#12.6) <a name="12.6"></a> Use array destructuring rather than manually accessing items by their index. If your array has more than a few entries, and you are selecting only a small number of them, continue to use index notation.
 
   ```js
   const array = [1, 2];
@@ -1639,7 +1671,7 @@ npm run lint
   const fifthLong = longArray[4];
   ```
 
-- [12.5](#12.5) <a name="12.5"></a> If you need to return multiple values from a function, return them using an object rather than an array.
+- [12.7](#12.7) <a name="12.7"></a> If you need to return multiple values from a function, return them using an object rather than an array.
 
   > Why? Call sites that use destructuring to access your return values need to care about the ordering when returning an array, making them fragile to change.
 
@@ -1661,7 +1693,7 @@ npm run lint
   const {left, top} = positionForNode(node);
   ```
 
-- [12.6](#12.6) <a name="12.6"></a> You can create highly readable functions by using one positional argument, followed by a destructured object. You can even provide different local names for the destructured arguments to have both an expressive external API and concise internal references.
+- [12.8](#12.8) <a name="12.8"></a> You can create highly readable functions by using one positional argument, followed by a destructured object. You can even provide different local names for the destructured arguments to have both an expressive external API and concise internal references.
 
   ```js
   // fine, but too many positional arguments, so it's hard for call sites to know what to do
@@ -1688,7 +1720,7 @@ npm run lint
 
 ### Classes
 
-- [12.7](#12.7) <a name="12.7"></a> Use classes with care: they do not behave in exactly the way you would expect in other languages, and JavaScript provides many mechanisms (closures, simple objects, etc) that solve problems for which you might use a class in another language. The rule of thumb is: use the right tool for the job!
+- [12.9](#12.9) <a name="12.9"></a> Use classes with care: they do not behave in exactly the way you would expect in other languages, and JavaScript provides many mechanisms (closures, simple objects, etc) that solve problems for which you might use a class in another language. The rule of thumb is: use the right tool for the job!
 
   ```js
   // bad
@@ -1731,7 +1763,7 @@ npm run lint
   const result = takeAction({first: 'foo', second: 'bar'});
   ```
 
-- [12.8](#12.8) <a name="12.8"></a> If you want to use constructor functions, use `class` syntax. Avoid creating them by manually updating the prototype.
+- [12.10](#12.10) <a name="12.10"></a> If you want to use constructor functions, use `class` syntax. Avoid creating them by manually updating the prototype.
 
   > Why? `class` syntax is more concise and will be more familiar for developers trained in other languages.
 
@@ -1755,7 +1787,7 @@ npm run lint
   }
   ```
 
-- [12.9](#12.9) <a name="12.9"></a> If you are subclassing, your subclass’s constructor should always call `super` before referencing `this`.
+- [12.11](#12.11) <a name="12.11"></a> If you are subclassing, your subclass’s constructor should always call `super` before referencing `this`.
 
   > Why? If your forget to call `super` in your subclass constructor, your object will be uninitialized and calling `this` will result in an exception.
 
@@ -1781,7 +1813,7 @@ npm run lint
   }
   ```
 
-- [12.10](#12.10) <a name="12.10"></a> When declaring static members or properties, prefer the `static` keyword to direct assignment to the class object. Put `static` members at the top of your class definition.
+- [12.12](#12.12) <a name="12.12"></a> When declaring static members or properties, prefer the `static` keyword to direct assignment to the class object. Put `static` members at the top of your class definition.
 
   > Why? Using the `static` keyword is more expressive and keeps the entire class definition in one place.
 
@@ -1805,9 +1837,39 @@ npm run lint
   }
   ```
 
+- [12.13](#12.13) <a name="12.13"></a> Instance methods that don’t refer to `this` don’t need to be instance methods. If they relate to the class, make them static methods; otherwise, make them functions in scope.
+
+  > Why? This pattern is generally a sign that you are providing a bad public API for the class, and should either hide this method (if it’s an implementation detail) or expose it as a utility method.
+
+  ESLint rule: [`class-methods-use-this`](http://eslint.org/docs/rules/class-methods-use-this.html)
+
+  ```js
+  // bad
+  class BadClass {
+    badMethod(string) {
+      console.log(string.toUpperCase());
+    }
+
+    anotherMethod() {
+      return this.badMethod('oops!');
+    }
+  }
+
+  // good
+  function goodFunction(string) {
+    console.log(string.toUpperCase());
+  }
+
+  class GoodClass {
+    anotherMethod() {
+      return goodFunction('oops!');
+    }
+  }
+  ```
+
 ### Modules
 
-- [12.11](#12.11) <a name="12.11"></a> Always use modules (`import`/ `export`) over a non-standard module system (CommonJS being the most popular of these).
+- [12.14](#12.14) <a name="12.14"></a> Always use modules (`import`/ `export`) over a non-standard module system (CommonJS being the most popular of these).
 
   > Why? Modules are the future, so let’s get a head start. You can always transpile to a preferred module system.
 
@@ -1821,7 +1883,7 @@ npm run lint
   export default feelGoodAboutIt();
   ```
 
-- [12.12](#12.12) <a name="12.12"></a> Avoid complex relative import paths. It is usually fairly easy and much clearer to add the root of your project to the load path.
+- [12.15](#12.15) <a name="12.15"></a> Avoid complex relative import paths. It is usually fairly easy and much clearer to add the root of your project to the load path.
 
   > Why? Relative paths are fragile and hard to parse for humans.
 
