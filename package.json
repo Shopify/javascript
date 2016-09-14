@@ -28,7 +28,7 @@
     "babel-preset-shopify": "file:./packages/babel-preset-shopify",
     "chai": "3.x",
     "coveralls": "2.x",
-    "eslint": "3.3.x",
+    "eslint": "3.5.x",
     "eslint-plugin-shopify": "file:./packages/eslint-plugin-shopify",
     "isparta": "4.x",
     "istanbul": "0.x",
