@@ -1839,7 +1839,7 @@ npm run lint
 
 - [12.13](#12.13) <a name="12.13"></a> Instance methods that don’t refer to `this` don’t need to be instance methods. If they relate to the class, make them static methods; otherwise, make them functions in scope.
 
-  > Why? This pattern is generally a sign that you are providing a bad public API for the class, and should either hide this method (if it’s an implementation detail) or expose it as a utility method.
+  > Why? This pattern is generally a sign that you are providing a bad public API for the class, and should either hide this method (if it’s an implementation detail) or export it as a utility method.
 
   ESLint rule: [`class-methods-use-this`](http://eslint.org/docs/rules/class-methods-use-this.html)
 
