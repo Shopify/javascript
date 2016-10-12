@@ -8,7 +8,7 @@ global.expect = expect;
 global.assert = assert;
 global.sinon = sinon.sandbox.create();
 
-// eslint-ignore-next-line mocha/no-top-level-hooks
+// eslint-disable-next-line mocha/no-top-level-hooks
 afterEach(() => {
   sinon.restore();
 });
