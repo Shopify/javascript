@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 
+## [15.0.0]
+### Added
+- Added separate React (`shopify/react`), Flow (`shopify/flow`), and Web (`shopify/web`) Babel presets to `babel-preset-shopify`.
+- Updated all ESLint dependencies, which add the following rules: `ava/no-async-fn-without-await`, `ava/no-duplicate-modifiers`, `class-methods-use-this`, `no-restricted-properties`, `prefer-numeric-literals`, `sort-imports`, `symbol-description`, `flowtype/boolean-style`, `flowtype/delimiter-dangle`, `flowtype/generic-spacing`, `flowtype/generic-spacing`, `flowtype/no-dupe-keys`, `flowtype/no-weak-types`, `flowtype/semi`, `flowtype/sort-keys`, `flowtype/space-before-generic-bracket`, `flowtype/union-intersection-spacing`, `import/no-dynamic-require`, `import/no-internal-modules`, `import/no-absolute-path`, `import/no-webpack-loader-syntax`, `import/unambiguous`, `import/first`, `import/max-dependencies`, `import/no-unassigned-import`, `jsx-a11y/click-events-have-key-events`, `jsx-a11y/no-static-element-interactions`, `mocha/no-hooks-for-single-case`, `mocha/no-identical-title`, `mocha/no-return-and-callback`, `mocha/no-top-level-hooks`, `mocha/no-nested-tests`, `mocha/max-top-level-suites`, `node/exports-style`, `node/no-unpublished-bin`, `react/no-children-prop`, `react/no-unescaped-entities`, `react/no-unused-prop-types`, `react/style-prop-object`, `lines-around-directive`, and `line-comment-position`.
+
+### Changed
+- The default Babel preset no longer includes React. If you are writing a web project that uses React, you should use `shopify/web` and `shopify/react` together instead of just using `shopify`.
+- The Node preset in `babel-preset-shopify` now accepts an options object specifying whether ES2015 modules should be converted to CommonJS (`modules`) and the target version of Node to transpile for (`version`, defaults to `process.version`).
+- Turned off the `no-sync` and `no-process-exit` rules for the Node ESLint config.
+
+### Fixed
+- `flowtype/type-id-match` now properly accepts `Props`, `State`, and `Context` as valid type names.
+
 ## [14.0.1]
 ### Changed
 - Set `babel/func-params-comma-dangle` to `always-multiline` to be consistent with `comma-dangle`.
