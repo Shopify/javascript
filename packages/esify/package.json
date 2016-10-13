@@ -1,7 +1,7 @@
 {
   "name": "esify",
   "main": "lib/index.js",
-  "version": "14.0.0",
+  "version": "15.0.0",
   "license": "MIT",
   "author": "Bouke van der Bijl <bouke@shopify.com>",
   "description": "A CLI for converting Shopify’s CoffeeScript to ESNext.",
