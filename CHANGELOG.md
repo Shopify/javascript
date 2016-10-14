@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [15.0.1]
+### Fixed
+- The Node Babel preset now includes the destructuring transform, which is required for object rest spread.
+
 ## [15.0.0]
 ### Added
 - Added separate React (`shopify/react`), Flow (`shopify/flow`), and Web (`shopify/web`) Babel presets to `babel-preset-shopify`.
