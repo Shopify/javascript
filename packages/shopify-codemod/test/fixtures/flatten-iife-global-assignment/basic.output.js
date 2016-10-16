@@ -1,0 +1,1 @@
+App.A = function A() {};
