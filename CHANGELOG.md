@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+## [15.0.2]
+### Changed
+- Removed the `flow/type-id-match` rule.
+- Temporarily disabled the `react/forbid-component-props` rule as it throws errors in some cases.
+
 ## [15.0.1]
 ### Fixed
 - The Node Babel preset now includes the destructuring transform, which is required for object rest spread.
