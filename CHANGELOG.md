@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [15.0.3]
+### Changed
+- The `react` ESLint config no longer warns about missing `this` in React lifecycle methods.
+
 ## [15.0.2]
 ### Changed
 - Removed the `flow/type-id-match` rule.
