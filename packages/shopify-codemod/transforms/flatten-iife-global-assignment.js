@@ -1,4 +1,8 @@
-import {findFirstMember, getBlockStatementFromFunction} from './utils';
+import {
+  findFirstMember,
+  getBlockStatementFromFunction,
+  matchLast,
+} from './utils';
 
 export default function flattenIifeGlobalAssignment(
   {source},
@@ -6,27 +10,6 @@ export default function flattenIifeGlobalAssignment(
   {printOptions = {}, appGlobalIdentifiers},
 ) {
   const root = j(source);
-
-  function findAssignments() {
-    return root
-      .find(j.ExpressionStatement, {
-        expression: {
-          type: 'AssignmentExpression',
-          operator: '=',
-          left: {
-            type: 'MemberExpression',
-            object: (object) =>
-              appGlobalIdentifiers.indexOf(findFirstMember(object).name) >= 0,
-          },
-          right: {
-            type: 'CallExpression',
-            callee: {
-              type: 'FunctionExpression',
-            },
-          },
-        },
-      });
-  }
 
   function nodeIsReturned(returnIdentifier, node) {
     return node.type === 'FunctionDeclaration' && node.id.name === returnIdentifier;
@@ -79,35 +62,39 @@ export default function flattenIifeGlobalAssignment(
     return newExpression;
   }
 
-  function flattenAssignment(path) {
-    const {left: member, right: statement} = path.node.expression;
-    const functionBlock = getBlockStatementFromFunction(statement.callee);
+  return root
+    .find(j.ExpressionStatement, {
+      expression: {
+        type: 'AssignmentExpression',
+        operator: '=',
+        left: {
+          type: 'MemberExpression',
+          object: (object) => appGlobalIdentifiers.indexOf(findFirstMember(object).name) >= 0,
+        },
+        right: {
+          type: 'CallExpression',
+          callee: {
+            type: 'FunctionExpression',
+            body: {
+              body: matchLast({type: 'ReturnStatement'}),
+            },
+          },
+        },
+      },
+    })
+    .replaceWith((path) => {
+      const {left: member, right: statement} = path.node.expression;
+      const functionBlock = getBlockStatementFromFunction(statement.callee);
+      const returnIdentifier = functionBlock.body.pop().argument.name;
 
-    let returnIdentifier;
-
-    function liftNode(result, node) {
-      if (node.type === 'ReturnStatement') {
-        returnIdentifier = node.argument.name;
-        return result;
-      }
-
-      if (!returnIdentifier) {
-        result.push(node);
-      } else if (nodeIsReturned(returnIdentifier, node)) {
-        result.push(createIifeReturnAssignment(member, node));
-      } else if (nodeIsAssignedToReturn(returnIdentifier, node)) {
-        result.push(createIifeReturnMemberAssignment(member, node));
-      } else {
-        result.push(node);
-      }
-
-      return result;
-    }
-
-    return functionBlock.body.reverse().reduce(liftNode, []).reverse();
-  }
-
-  return findAssignments()
-    .replaceWith(flattenAssignment)
+      return functionBlock.body.map((node) => {
+        if (nodeIsReturned(returnIdentifier, node)) {
+          return createIifeReturnAssignment(member, node);
+        } else if (nodeIsAssignedToReturn(returnIdentifier, node)) {
+          return createIifeReturnMemberAssignment(member, node);
+        }
+        return node;
+      });
+    })
     .toSource(printOptions);
 }

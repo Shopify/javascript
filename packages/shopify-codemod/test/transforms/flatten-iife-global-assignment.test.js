@@ -31,4 +31,16 @@ describe('flattenIifeGlobalAssignment', () => {
       globalIdentifiers: ['App'],
     });
   });
+
+  it('does not do anything if there is no return', () => {
+    expect(flattenIifeGlobalAssignment).to.transform('flatten-iife-global-assignment/no-return', {
+      globalIdentifiers: ['App'],
+    });
+  });
+
+  it('does not do anything if the last statement is not a return', () => {
+    expect(flattenIifeGlobalAssignment).to.transform('flatten-iife-global-assignment/statement-after-return', {
+      globalIdentifiers: ['App'],
+    });
+  });
 });
