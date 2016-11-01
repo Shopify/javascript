@@ -1,7 +1,9 @@
 import {
   findFirstMember,
+  findLastMember,
   getBlockStatementFromFunction,
   matchLast,
+  pathIsFirstMember,
 } from './utils';
 
 export default function flattenIifeGlobalAssignment(
@@ -9,8 +11,6 @@ export default function flattenIifeGlobalAssignment(
   {jscodeshift: j},
   {printOptions = {}, appGlobalIdentifiers},
 ) {
-  const root = j(source);
-
   function nodeIsReturned(returnIdentifier, node) {
     return node.type === 'FunctionDeclaration' && node.id.name === returnIdentifier;
   }
@@ -62,7 +62,7 @@ export default function flattenIifeGlobalAssignment(
     return newExpression;
   }
 
-  return root
+  return j(source)
     .find(j.ExpressionStatement, {
       expression: {
         type: 'AssignmentExpression',
@@ -87,7 +87,7 @@ export default function flattenIifeGlobalAssignment(
       const functionBlock = getBlockStatementFromFunction(statement.callee);
       const returnIdentifier = functionBlock.body.pop().argument.name;
 
-      return functionBlock.body.map((node) => {
+      const moduleBody = functionBlock.body.map((node) => {
         if (nodeIsReturned(returnIdentifier, node)) {
           return createGlobalIdentiferAssignment(member, node);
         } else if (nodeIsAssignedToReturn(returnIdentifier, node)) {
@@ -95,6 +95,16 @@ export default function flattenIifeGlobalAssignment(
         }
         return node;
       });
+
+      if (findLastMember(member).name !== returnIdentifier) {
+        return j(moduleBody)
+          .find(j.Identifier, {name: returnIdentifier})
+          .filter(pathIsFirstMember)
+          .replaceWith(() => member)
+          .toSource(printOptions);
+      }
+
+      return moduleBody;
     })
     .toSource(printOptions);
 }

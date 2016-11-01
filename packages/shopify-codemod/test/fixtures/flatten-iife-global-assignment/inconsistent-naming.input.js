@@ -5,5 +5,9 @@ App.A = (function() {
     return 'bar';
   };
 
+  function buzz() {
+    return new Q();
+  }
+
   return Q;
 })();
