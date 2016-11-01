@@ -23,7 +23,7 @@ export default function flattenIifeGlobalAssignment(
     );
   }
 
-  function createIifeReturnAssignment(member, node) {
+  function createGlobalIdentiferAssignment(member, node) {
     return j.expressionStatement(
       j.assignmentExpression(
         '=',
@@ -33,17 +33,17 @@ export default function flattenIifeGlobalAssignment(
     );
   }
 
-  function createIifeReturnMemberAssignment(member, node) {
+  function createGlobalIdentifierAssignmentMember(member, node) {
     return j.expressionStatement(
       j.assignmentExpression(
         node.expression.operator,
-        formatReturnAssignmentMemberExpression(node.expression.left, member),
+        prependToMemberExpression(node.expression.left, member),
         node.expression.right,
       ),
     );
   }
 
-  function formatReturnAssignmentMemberExpression(memberExpression, prependee) {
+  function prependToMemberExpression(memberExpression, prependee) {
     const identifiers = [];
     let currentNode = memberExpression;
 
@@ -89,9 +89,9 @@ export default function flattenIifeGlobalAssignment(
 
       return functionBlock.body.map((node) => {
         if (nodeIsReturned(returnIdentifier, node)) {
-          return createIifeReturnAssignment(member, node);
+          return createGlobalIdentiferAssignment(member, node);
         } else if (nodeIsAssignedToReturn(returnIdentifier, node)) {
-          return createIifeReturnMemberAssignment(member, node);
+          return createGlobalIdentifierAssignmentMember(member, node);
         }
         return node;
       });
