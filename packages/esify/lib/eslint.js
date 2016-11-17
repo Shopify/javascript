@@ -3,11 +3,11 @@
 
 try {
   // eslint-disable-next-line node/no-unpublished-require
-  var CLIEngine = require('eslint').CLIEngine;
+  var CLIEngine = require(`${process.cwd()}/node_modules/eslint`).CLIEngine;
   var engine = new CLIEngine({fix: true});
 
   module.exports = function runESLint(details) {
-    console.log(engine.executeOnText(details.source).results[0].output);
+    return engine.executeOnText(details.source).results[0].output;
   };
 } catch (err) {
   module.exports = function runESLint(details) {

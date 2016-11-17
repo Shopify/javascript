@@ -1,6 +1,6 @@
 var jscodeshift = require('jscodeshift');
 
-require('babel-register')({ignore: false});
+require('babel-register')({only: /node_modules\/(shopify-codemod|js-codemod)/});
 
 var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/split-if-assignments'},
