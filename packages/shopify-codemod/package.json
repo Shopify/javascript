@@ -36,6 +36,7 @@
     "jscodeshift": "^0.3.29"
   },
   "dependencies": {
+    "chalk": "^1.1.3",
     "babel-preset-shopify": "latest"
   }
 }

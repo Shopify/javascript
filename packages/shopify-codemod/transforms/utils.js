@@ -1,4 +1,63 @@
 import j from 'jscodeshift';
+import chalk from 'chalk';
+
+function range(file, node, source, color, CONTEXT = 2) {
+  if (file === null || node === null || source === null || color == null) {
+    return '';
+  }
+
+  const lines = source.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]/);
+
+  const sl = node.node.loc.start.line - 1;
+  const sc = node.node.loc.start.column;
+  const el = node.node.loc.end.line - 1;
+  const ec = node.node.loc.end.column;
+  const start = Math.max(0, sl - CONTEXT);
+  const end = Math.min(lines.length, el + CONTEXT);
+
+  let result = `(${file})\n`;
+
+  for (let i = start; i <= end; i++) {
+    const line = lines[i];
+    let paintStart = Number.MAX_SAFE_INTEGER;
+    let paintEnd = Number.MAX_SAFE_INTEGER;
+
+    if (sl <= i && i <= el) {
+      if (i === sl) {
+        paintStart = sc;
+      } else {
+        paintStart = 0;
+      }
+      if (i === el) {
+        paintEnd = ec;
+      } else {
+        paintEnd = Number.MAX_SAFE_INTEGER;
+      }
+    }
+
+    result += `    ${i + 1}`.slice(-4);
+    result += line.slice(0, paintStart);
+    result += color(line.slice(paintStart, paintEnd));
+    result += line.slice(paintEnd, Number.MAX_SAFE_INTEGER);
+    result += '\n';
+  }
+  return result;
+}
+
+export function info(message, file = null, node = null, source = null) {
+  // eslint-disable-next-line no-console
+  console.info(`${chalk.blue('[info]')} ${message} ${range(file, node, source, chalk.blue)}`);
+}
+
+export function warn(message, file = null, node = null, source = null) {
+  // eslint-disable-next-line no-console
+  console.warn(`${chalk.yellow('[warning]')} ${message} ${range(file, node, source, chalk.yellow)}`);
+}
+
+export function error(message, file = null, node = null, source = null) {
+  // eslint-disable-next-line no-console
+  console.error(`${chalk.red('[error]')} ${message} ${range(file, node, source, chalk.red)}`);
+}
 
 export function findFirstMember(node) {
   if (j.MemberExpression.check(node)) {
