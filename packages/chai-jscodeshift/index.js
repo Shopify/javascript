@@ -17,8 +17,7 @@ var config = {
 module.exports = function chaiJSCodeShift(options) {
   var finalConfig = merge({}, config, options || {});
 
-  // eslint-disable-next-line no-shadow, func-style, func-name-matching
-  var chaiHelper = function chaiJSCodeShift(chaiOptions) {
+  function chaiHelper(chaiOptions) {
     var Assertion = chaiOptions.Assertion;
     var assert = chaiOptions.assert;
 
@@ -55,7 +54,7 @@ module.exports = function chaiJSCodeShift(options) {
     assert.throwsWhileTransforming = function(transformer, fixture, error, transformerOptions) {
       return (new Assertion(transformer)).to.throwWhileTransforming(fixture, error, transformerOptions);
     };
-  };
+  }
 
   // Utilities to be able to actually test this
   chaiHelper.resetConfig = function resetConfig() {
