@@ -1,41 +1,44 @@
 import j from 'jscodeshift';
 import chalk from 'chalk';
 
-function range(file, node, source, color, CONTEXT = 2) {
-  if (file === null || node === null || source === null || color == null) {
-    return '';
-  }
+const NEWLINE_REGEX = /\r\n|[\n\v\f\r\x85\u2028\u2029]/;
+const CONTEXT_LINES = 2;
 
-  const lines = source.split(/\r\n|[\n\v\f\r\x85\u2028\u2029]/);
+function padLeft(text, length) {
+  return (' '.repeat(length) + text).slice(-length);
+}
 
-  const sl = node.node.loc.start.line - 1;
-  const sc = node.node.loc.start.column;
-  const el = node.node.loc.end.line - 1;
-  const ec = node.node.loc.end.column;
-  const start = Math.max(0, sl - CONTEXT);
-  const end = Math.min(lines.length, el + CONTEXT);
+function codeContext(node, source, color) {
+  const lines = source.split(NEWLINE_REGEX);
 
-  let result = `(${file})\n`;
+  const {start, end} = node.node.loc;
+  const startLine = start.line - 1;
+  const startColumn = start.column;
+  const endLine = end.line - 1;
+  const endColumn = end.column;
+  const contextStart = Math.max(0, startLine - CONTEXT_LINES);
+  const contextEnd = Math.min(lines.length, endLine + CONTEXT_LINES);
 
-  for (let i = start; i <= end; i++) {
+  let result = '';
+  for (let i = contextStart; i <= contextEnd; i++) {
     const line = lines[i];
     let paintStart = Number.MAX_SAFE_INTEGER;
     let paintEnd = Number.MAX_SAFE_INTEGER;
 
-    if (sl <= i && i <= el) {
-      if (i === sl) {
-        paintStart = sc;
+    if (startLine <= i && i <= endLine) {
+      if (i === startLine) {
+        paintStart = startColumn;
       } else {
         paintStart = 0;
       }
-      if (i === el) {
-        paintEnd = ec;
+      if (i === endLine) {
+        paintEnd = endColumn;
       } else {
         paintEnd = Number.MAX_SAFE_INTEGER;
       }
     }
 
-    result += `    ${i + 1}`.slice(-4);
+    result += `${chalk.gray(padLeft(i + 1, 4))}|`;
     result += line.slice(0, paintStart);
     result += color(line.slice(paintStart, paintEnd));
     result += line.slice(paintEnd, Number.MAX_SAFE_INTEGER);
@@ -44,19 +47,26 @@ function range(file, node, source, color, CONTEXT = 2) {
   return result;
 }
 
-export function info(message, file = null, node = null, source = null) {
-  // eslint-disable-next-line no-console
-  console.info(`${chalk.blue('[info]')} ${message} ${range(file, node, source, chalk.blue)}`);
+function logMessage(label, message, color, file, node, source) {
+  const coloredLabel = color(`[${label}]`);
+  const fileTag = file ? ` (${file.replace(/\.coffee$/, '.js')})` : '';
+  const context = node && source ? `\n${codeContext(node, source, color)}` : '';
+  return `${coloredLabel} ${message}${fileTag}${context}`;
 }
 
-export function warn(message, file = null, node = null, source = null) {
+export function info(message, file, node, source) {
   // eslint-disable-next-line no-console
-  console.warn(`${chalk.yellow('[warning]')} ${message} ${range(file, node, source, chalk.yellow)}`);
+  console.info(logMessage('info', message, chalk.blue, file, node, source));
 }
 
-export function error(message, file = null, node = null, source = null) {
+export function warn(message, file, node, source) {
   // eslint-disable-next-line no-console
-  console.error(`${chalk.red('[error]')} ${message} ${range(file, node, source, chalk.red)}`);
+  console.warn(logMessage('warning', message, chalk.yellow, file, node, source));
+}
+
+export function error(message, file, node, source) {
+  // eslint-disable-next-line no-console
+  console.error(logMessage('error', message, chalk.red, file, node, source));
 }
 
 export function findFirstMember(node) {
