@@ -1,7 +1,8 @@
 // This transform mostly mirrors the no-unused-expression ESLint rule:
 // https://github.com/eslint/eslint/blob/master/lib/rules/no-unused-expressions.js
 
-import {isDirective, warn} from './utils';
+import {isDirective} from './utils';
+import {warn} from './console-utils';
 
 export default function removeUnusedExpressions({path, source}, {jscodeshift: j}, {printOptions = {quote: 'single'}}) {
   const validUnaryOperators = new Set(['delete', 'void']);
