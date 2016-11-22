@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Eslint rules: `no-return-await`, `no-useless-return`, and `func-name-matching`.
 
 ## [15.0.3]
 ### Changed

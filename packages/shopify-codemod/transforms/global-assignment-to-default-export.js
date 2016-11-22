@@ -12,7 +12,7 @@ export default function globalAssignmentToDefaultExport({source}, {jscodeshift: 
   }
 
   function isDefaultExportMemberAssignment(defaultExportName, assignmentTargetString) {
-    return new RegExp(`^${defaultExportName}\..+`).test(assignmentTargetString);
+    return new RegExp(`^${defaultExportName}\\..+`).test(assignmentTargetString);
   }
 
   return j(source)
