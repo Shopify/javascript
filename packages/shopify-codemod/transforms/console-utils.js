@@ -36,7 +36,7 @@ function formatLine(line, lineNum) {
 
 function codeContext(node, source, color) {
   const lines = source.split(NEWLINE_REGEX);
-  const {start, end} = node.node.loc;
+  const {start, end} = node.get('loc').value;
 
   const startLine = start.line - 1;
   const startColumn = start.column;

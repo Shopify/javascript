@@ -4,6 +4,11 @@
 import {isDirective} from './utils';
 import {warn} from './console-utils';
 
+const WHITELIST = new Set([
+  'offsetHeight',
+  'offsetWidth',
+]);
+
 export default function removeUnusedExpressions({path, source}, {jscodeshift: j}, {printOptions = {quote: 'single'}}) {
   const validUnaryOperators = new Set(['delete', 'void']);
   function isValidUnaryExpression({node: {expression: {type, operator}}}) {
@@ -23,6 +28,10 @@ export default function removeUnusedExpressions({path, source}, {jscodeshift: j}
     return !isValidExpression(expressionPath);
   }
 
+  function isNotWhitelisted(expressionPath) {
+    return !WHITELIST.has(expressionPath.get('expression', 'property', 'name').value);
+  }
+
   function warnRemove(expressionPath) {
     warn('Removing unused expression:', path, expressionPath, source);
   }
@@ -30,6 +39,7 @@ export default function removeUnusedExpressions({path, source}, {jscodeshift: j}
   return j(source)
     .find(j.ExpressionStatement)
     .filter(isUnusedExpression)
+    .filter(isNotWhitelisted)
     .forEach(warnRemove)
     .replaceWith()
     .toSource(printOptions);
