@@ -1,8 +1,17 @@
 # Changelog
 
 ## [Unreleased]
+
+## [15.0.4]
 ### Added
-- Eslint rules: `no-return-await`, `no-useless-return`, and `func-name-matching`.
+- Updated all ESLint dependencies, which add the following rules: `no-return-await`, `no-useless-return`, and `func-name-matching`.
+- esify now applies ESlint fixes to all transformed code
+- Added a `split-assignment-sequences` transform to `shopify-codemod`; to provide a better conversion for decaf's destructuring syntax.
+
+## Updated
+- Fixed `split-if-assignments` codemod's handling of `else if` assignments.
+- `remove-unused-expressions` codemod now outputs the line of code being removed, plus some extra context
+- `remove-unused-expressions` codemod now whitelists some properties (`offsetHeight`, `offsetWidth`.)
 
 ## [15.0.3]
 ### Changed
