@@ -11,7 +11,7 @@ jscodeshift -t shopify-codemod/transforms/split-assignment-sequences <file>
 ```js
 foo = options.foo, bar = options.bar, options;
 
-this.foo = opts.foo, bar = opts.bar, options;
+this.foo = opts.foo, bar = opts.bar, opts;
 
 // BECOMES:
 
