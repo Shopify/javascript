@@ -41,7 +41,7 @@ var PRE_DECAF_CHECKS = [
 
 const POST_DECAF_CHECKS = [
   function checkForMistranslatedForLoops(source) {
-    var loopMatcher = /for \(.+ of Object\.(entries|keys)/g;
+    var loopMatcher = /for \(.+ of Object\.(entries|keys)\([^)]+ \|\| \{\}\)/g;
     var methods = new Set();
     var match = loopMatcher.exec(source);
     while (match != null) {
