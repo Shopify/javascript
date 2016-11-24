@@ -41,7 +41,7 @@ var PRE_DECAF_CHECKS = [
 
 const POST_DECAF_CHECKS = [
   function checkForMistranslatedForLoops(source) {
-    var loopMatcher = /for \(.+ of Object\.(entries|keys)\([^)]+ \|\| \{\}\)/g;
+    var loopMatcher = /for \(.+ of Object\.(entries|keys)\([^)]+ \|\| {}\)/g;
     var methods = new Set();
     var match = loopMatcher.exec(source);
     while (match != null) {
@@ -50,8 +50,8 @@ const POST_DECAF_CHECKS = [
     }
 
     methods.forEach((method) => {
-      warn('Your file contains a `for` loop that has been translated to loop over `Object.' + method + '`. Previously, CoffeeScript would translate this to a `for...in` loop, which loops through non-iterable properties.  If the object being passed into `entries` is not an array/map, please convert the loop back to a `for...in` loop.');
-      warn('A fallback `|| {}` value has been added to your `Object.' + method + '` call. If the values being passed into `' + method + '` is guaranteed to be non-null, it is safe to remove the fallback.');
+      warn('Your file contains a `for` loop that has been translated to loop over `Object.' + method + '`. Previously, CoffeeScript would translate this to a `for...in` loop, which loops through non-iterable properties.  If the object being passed into `' + method + '` is not an array/map, please convert the loop back to a `for...in` loop.');
+      warn('A fallback `|| {}` value has been added to your `Object.' + method + '` call. If the value being passed into `' + method + '` is guaranteed to be non-null, it is safe to remove the fallback.');
     });
   },
 ];
