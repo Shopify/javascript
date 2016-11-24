@@ -10,7 +10,7 @@ function error(message) {
   throw new Error();
 }
 
-var WARNING_CHECKS = [
+var PRE_DECAF_CHECKS = [
   function checkForComments(source) {
     if (/#[^={]/.test(source)) {
       warn('Your file contains comments. Unfortunately, the CoffeeScript compiler does not expose these comments. Make sure to copy over any important comments to the appropriate place in your new JavaScript file');
@@ -39,11 +39,31 @@ var WARNING_CHECKS = [
   },
 ];
 
+const POST_DECAF_CHECKS = [
+  function checkForMistranslatedForLoops(source) {
+    var loopMatcher = /for \(.+ of Object\.(entries|keys)\([^)]+ \|\| {}\)/g;
+    var methods = new Set();
+    var match = loopMatcher.exec(source);
+    while (match != null) {
+      methods.add(match[1]);
+      match = loopMatcher.exec(source);
+    }
+
+    methods.forEach((method) => {
+      warn('Your file contains a `for` loop that has been translated to loop over `Object.' + method + '`. Previously, CoffeeScript would translate this to a `for...in` loop, which loops through non-iterable properties.  If the object being passed into `' + method + '` is not an array/map, please convert the loop back to a `for...in` loop.');
+      warn('A fallback `|| {}` value has been added to your `Object.' + method + '` call. If the value being passed into `' + method + '` is guaranteed to be non-null, it is safe to remove the fallback.');
+    });
+  },
+];
+
 module.exports = function transform(details) {
   var source = details.source;
   var options = details.options;
 
-  WARNING_CHECKS.forEach(function(warningCheck) { warningCheck(source); });
+  PRE_DECAF_CHECKS.forEach(function(warningCheck) { warningCheck(source); });
 
-  return decaf.compile(source, options.printOptions);
+  const output = decaf.compile(source, options.printOptions);
+
+  POST_DECAF_CHECKS.forEach(function(warningCheck) { warningCheck(output); });
+  return output;
 };
