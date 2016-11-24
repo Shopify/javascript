@@ -14,7 +14,7 @@ export default function splitAssignmentSequences({source}, {jscodeshift: j}, {pr
           expression.right.object.name === lastExpression.name,
         );
     })
-    .replaceWith((path) => {
+    .forEach((path) => {
       const expressions = path.value.expression.expressions;
       expressions.pop();
       expressions.forEach((expression) => {
@@ -23,7 +23,7 @@ export default function splitAssignmentSequences({source}, {jscodeshift: j}, {pr
        );
       });
 
-      return null;
+      path.replace(null);
     })
     .toSource(printOptions);
 }
