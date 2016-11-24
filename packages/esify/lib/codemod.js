@@ -67,11 +67,11 @@ var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/remove-empty-statements'},
 ];
 
-function runTransform(code, name, options) {
+function runTransform(file, code, name, options) {
   var module = require(name);
   if (module.__esModule) { module = module.default; }
 
-  var newCode = module({path: null, source: code}, {jscodeshift: jscodeshift}, options);
+  var newCode = module({path: file, source: code}, {jscodeshift: jscodeshift}, options);
   return newCode == null ? code : newCode;
 }
 
@@ -82,7 +82,7 @@ module.exports = function transform(details) {
 
   TRANSFORMS.forEach(function(transformer) {
     if (transformer.test == null || transformer.test === testTransforms) {
-      source = runTransform(source, transformer.path, options);
+      source = runTransform(details.file, source, transformer.path, options);
     }
   });
 
