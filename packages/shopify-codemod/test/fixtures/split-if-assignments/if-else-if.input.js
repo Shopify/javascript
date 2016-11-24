@@ -9,3 +9,13 @@ if (a = 1) {
 } else {
   qux();
 }
+
+if (a = 1) {
+  if (b = 2) {
+
+  } else if (c = 3) {
+
+  }
+} else if (d = 4) {
+
+}
