@@ -4,6 +4,7 @@ require('babel-register')({only: /node_modules\/(shopify-codemod|js-codemod)/});
 
 var TRANSFORMS = [
   {path: 'shopify-codemod/transforms/split-if-assignments'},
+  {path: 'shopify-codemod/transforms/split-assignment-sequences'},
   {path: 'shopify-codemod/transforms/coffeescript-soak-to-condition'},
   {path: 'shopify-codemod/transforms/ternary-statement-to-if-statement'},
   {path: 'shopify-codemod/transforms/remove-useless-return-from-test', test: true},

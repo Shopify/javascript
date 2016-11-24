@@ -12,7 +12,7 @@ export default function removeUnusedExpressions({source}, {jscodeshift: j}, {pri
   function isValidExpression(expressionPath) {
     const type = expressionPath.get('expression', 'type').value;
     return (
-      /^(?:Assignment|Call|New|Update|Yield)Expression$/.test(type) ||
+      /^(?:Assignment|Call|New|Update|Yield|Sequence)Expression$/.test(type) ||
       isValidUnaryExpression(expressionPath) ||
       isDirective(expressionPath)
     );
