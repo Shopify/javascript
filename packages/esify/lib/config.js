@@ -8,6 +8,7 @@ module.exports = function loadConfig() {
       appGlobalIdentifiers: ['Shopify', 'Sello'],
       javascriptSourceLocation: path.join(process.cwd(), 'app/assets/javascripts'),
       printOptions: {
+        arrowParensAlways: true,
         quote: 'single',
         trailingComma: true,
         tabWidth: 2,

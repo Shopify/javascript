@@ -5,7 +5,10 @@ import chaiJSCodeShift from 'chai-jscodeshift';
 chai.use(chaiJSCodeShift({
   fixtureDirectory: path.join(__dirname, 'fixtures'),
   transformOptions: {
-    printOptions: {quote: 'single'},
+    printOptions: {
+      arrowParensAlways: true,
+      quote: 'single',
+    },
     javascriptSourceLocation: path.join(__dirname, 'fixtures', 'javascripts'),
     appGlobalIdentifiers: ['App'],
   },
