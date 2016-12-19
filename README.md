@@ -36,7 +36,17 @@ Have a legacy codebase? Can’t use ESNext? Our [legacy styleguide](legacy/) is 
 
 ## Using this guide
 
-Many of the following rules are enforced by our [shared ESLint config/ plugin](packages/eslint-plugin-shopify), which you can use in most editors and CI environments. To use it, you will need to have [Node.js >=5.7.0 and npm installed](https://docs.npmjs.com/getting-started/installing-node). Once these are installed, you must then install ESLint and the Shopify plugin:
+Many of the following rules are enforced by our [shared ESLint config/plugin](packages/eslint-plugin-shopify), which you can use in most editors and CI environments. To use it, you will need to have [Node.js >=5.7.0](https://docs.npmjs.com/getting-started/installing-node) and [Yarn](https://yarnpkg.com) installed. As an alternative to Yarn, you can use [npm](https://docs.npmjs.com/) which ships with Node.js.
+
+Once these are installed, you must then install ESLint and the Shopify plugin:
+
+**With Yarn**
+
+```bash
+yarn add --dev eslint eslint-plugin-shopify
+```
+
+**With npm**
 
 ```bash
 npm install eslint eslint-plugin-shopify --save-dev
@@ -68,6 +78,14 @@ You can now use ESLint. The easiest way to do this is by adding a linting script
 ```
 
 And, finally, run your new script:
+
+**With Yarn**
+
+```bash
+yarn run lint
+```
+
+**With npm**
 
 ```bash
 npm run lint
