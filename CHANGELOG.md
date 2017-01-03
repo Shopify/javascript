@@ -1,6 +1,8 @@
 # Changelog
 
 ## [Unreleased]
+### Moved
+- `esify` now has its own repository (https://github.com/Shopify/esify)
 
 ## [15.1.0]
 ### Added
