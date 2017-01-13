@@ -20,7 +20,7 @@ This guide does recommend some tools that you can use to get up and running quic
 
 ### Frameworks
 
-Your testing framework is main API you will be interacting with to write your tests (aside from the API of the code under test, of course!). It is important that the test runner you use has clear conventions around how to break up tests, good support for asynchronous tests, and is an established tool that is unlikely to have major changes in its API.
+Your testing framework is the main API you will be interacting with to write your tests (aside from the API of the code under test, of course!). It is important that the test runner you use has clear conventions around how to break up tests, good support for asynchronous tests, and is an established tool that is unlikely to have major changes in its API.
 
 If you don’t have any familiarity or preference with JavaScript testing, we recommend using the following tools in your tests:
 
@@ -44,7 +44,7 @@ If you feel that mocha/ sinon/ chai do not do a good job of addressing the way y
 
 In addition to the testing framework, you generally need a test *runner*. Which runner to use will depend on the nature of your project:
 
-- For pure-JavaScript projects that do not need access to the DOM, avoid using a test runner and simply run the CLI for your test framework instead instead (all of the projects listed above have some form of CLI). If you need a simple DOM without actual rendering, you can also use [JSDom](https://github.com/tmpvar/jsdom) to construct a fake DOM.
+- For pure-JavaScript projects that do not need access to the DOM, avoid using a test runner and simply run the CLI for your test framework instead (all of the projects listed above have some form of CLI). If you need a simple DOM without actual rendering, you can also use [JSDom](https://github.com/tmpvar/jsdom) to construct a fake DOM.
 
 - For Non-Rails projects that require a full DOM, we recommend [Karma](https://karma-runner.github.io/1.0/index.html). It integrates well with other tools you are likely using, such as bundlers and code coverage tools. Feel free to instead use [Testem](https://github.com/testem/testem), another great JavaScript test runner, if you would like to try something a little different.
 
@@ -133,7 +133,7 @@ There are a variety of other tools you might need depending on your project. Her
   });
   ```
 
-- Move any common setup/ teardown to dedicated functions. Most test frameworks, including mocha and AVA, provided dedicated hooks for these actions — use them if they are available!
+- Move any common setup/ teardown to dedicated functions. Most test frameworks, including mocha and AVA, provide dedicated hooks for these actions — use them if they are available!
 
   > Why? Setup and teardown in the test itself draws attention from whatever is being tested.
 
@@ -276,7 +276,7 @@ There are a variety of other tools you might need depending on your project. Her
   chai.use(chaiAsPromised);
   sinon.assert.expose(assert);
 
-  // This creats a sandbox that will automatically restore any
+  // This creates a sandbox that will automatically restore any
   // stubbed properties performed during tests.
   const sandbox = sinon.sandbox.create();
 

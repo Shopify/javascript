@@ -1178,7 +1178,7 @@ npm run lint
     'shepherds the weak through the valley of darkness';
   ```
 
-- [9.3](#9.3) <a name="9.3"></a> Use template strings instead of concatenation. When ambedding expressions in the template strings, never include spaces within the curly braces.
+- [9.3](#9.3) <a name="9.3"></a> Use template strings instead of concatenation. When embedding expressions in the template strings, never include spaces within the curly braces.
 
   > Why? The template string syntax is easier to read and consistent with how we build strings programatically in other languages.
 
