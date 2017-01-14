@@ -77,7 +77,7 @@ There are a variety of other tools you might need depending on your project. Her
   ```js
   // bring in assert, either per file or in a test helper
   import {assert} from 'chai';
-  
+
   // bad
   expect(2 === 1).to.be.false;
   (2 === 1).should.be.false;
@@ -344,7 +344,7 @@ There are a variety of other tools you might need depending on your project. Her
 
   // good
   const stub = sinon.spy(subject, 'myMethod');
-  subject.doSoemthing();
+  subject.doSomething();
   assert.calledOnce(stub);
   ```
 
