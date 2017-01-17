@@ -1,5 +1,0 @@
-class Foo {
-  shouldNotConvertToArrow() {
-    return;
-  }
-}

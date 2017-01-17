@@ -1,8 +1,0 @@
-import 'test-helper';
-import __CAMELIZED_NAME__ from '__DASHERIZED_NAME__';
-
-describe('__CAMELIZED_NAME__', () => {
-  it('CHANGE THIS', () => {
-    expect(__CAMELIZED_NAME__).to.transform('__DASHERIZED_NAME__/basic');
-  });
-});
