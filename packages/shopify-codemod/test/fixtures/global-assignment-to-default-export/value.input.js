@@ -1,1 +1,0 @@
-App.whatever = 1;

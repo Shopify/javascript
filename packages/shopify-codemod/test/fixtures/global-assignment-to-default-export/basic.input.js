@@ -1,3 +1,0 @@
-App.A = class A {
-
-};

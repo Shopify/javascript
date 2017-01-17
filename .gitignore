@@ -1,7 +1,1 @@
-node_modules
-reports
-coverage
 .DS_STORE
-npm-debug.log
-
-packages/generator-eslint-shopify/generators
