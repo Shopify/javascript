@@ -36,7 +36,7 @@ Have a legacy codebase? Can’t use ESNext? Our [legacy styleguide](legacy/) is 
 
 ## Using this guide
 
-Many of the following rules are enforced by our [shared ESLint config/plugin](packages/eslint-plugin-shopify), which you can use in most editors and CI environments. To use it, you will need to have [Node.js >=5.7.0](https://docs.npmjs.com/getting-started/installing-node) and [Yarn](https://yarnpkg.com) installed. As an alternative to Yarn, you can use [npm](https://docs.npmjs.com/) which ships with Node.js.
+Many of the following rules are enforced by our [shared ESLint config/plugin](https://github.com/Shopify/eslint-plugin-shopify), which you can use in most editors and CI environments. To use it, you will need to have [Node.js >=5.7.0](https://docs.npmjs.com/getting-started/installing-node) and [Yarn](https://yarnpkg.com) installed. As an alternative to Yarn, you can use [npm](https://docs.npmjs.com/) which ships with Node.js.
 
 Once these are installed, you must then install ESLint and the Shopify plugin:
 
