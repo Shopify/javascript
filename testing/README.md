@@ -176,28 +176,41 @@ There are a variety of other tools you might need depending on your project. Her
 
 ### mocha, sinon and chai
 
-- Use the Mocha-provided [TDD interface](https://mochajs.org/#tdd), which includes the `suite`, `test`, `setup`, and `teardown` functions.
+- Use the Mocha-provided [TDD interface](https://mochajs.org/#tdd), which includes the `suite()`, `test()`, `suiteSetup()`, `suiteTeardown()`, `setup()`, and `teardown()` functions.
 
   ```js
   // bad
   describe('myFunction', () => {
     beforeEach(() => {
+      // Execute before each test case.
       doSomeSetup();
     });
 
     it('is a function', () => {
       assert.isFunction(myFunction);
     });
+    
+    after(() => {
+      // Execute after running tests.
+      doSomeTear();
+    });
+    
   });
 
   // good
   suite('myFunction', () => {
     setup(() => {
+      // Execute before each test case.
       doSomeSetup();
     });
 
     test('it is a function', () => {
       assert.isFunction(myFunction);
+    });
+    
+    suiteTeardown(() => {
+      // Execute after the suite.
+      doSomeTear();
     });
   });
   ```
