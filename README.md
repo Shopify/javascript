@@ -102,7 +102,7 @@ npm run lint
   ```js
   // bad
   const bad_snake_name = 'Larry';
-  const UGLYname = 'this';
+  const BADname = 'this';
   const badObject = {some_prop: 'some-value'};
 
   // good
@@ -248,7 +248,7 @@ npm run lint
 
 - [3.2](#3.2) <a name="3.2"></a> Do not use leading commas.
 
-  > Why? It’s ugly to look at and trailing commas are a better solution to the same problems.
+  > Why? It’s difficult to interpret and format, and trailing commas are a better solution to the same problems.
 
   ESLint rule: [`comma-style`](http://eslint.org/docs/rules/comma-style.html)
 
