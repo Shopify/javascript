@@ -65,7 +65,7 @@ Once these are installed, you will need to add an ESLint configuration in your p
 }
 ```
 
-> Note: you can also provide an array of configurations, if you want to have linting rules for tools like lodash. See the [eslint-plugin-shopify](packages/eslint-plugin-shopify) repo for details.
+> Note: you can also provide an array of configurations, if you want to have linting rules for tools like lodash. See the [eslint-plugin-shopify](https://github.com/Shopify/eslint-plugin-shopify) repo for details.
 
 You can now use ESLint. The easiest way to do this is by adding a linting script to your `package.json`:
 
