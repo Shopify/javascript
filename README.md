@@ -1109,7 +1109,7 @@ npm run lint
   myArray.push('good');
   ```
 
-- [8.4](#8.4) <a name="8.4"></a> Use the spread operator (`...`) to copy arrays, rather than iterating over the array or using `Array#slice`. If you need subsections of the array, continue to use `Array#slice`.
+- [8.4](#8.4) <a name="8.4"></a> Use the spread syntax (`...`) to copy arrays, rather than iterating over the array or using `Array#slice`. If you need subsections of the array, continue to use `Array#slice`.
 
   ```javascript
   const originalArray = [1, 2, 3];
@@ -1123,16 +1123,16 @@ npm run lint
   const goodNewArray = [...originalArray];
   ```
 
-- [8.5](#8.5) <a name="8.5"></a> To convert from an array-like object to an array (for example, a `NodeList` returned by `document.querySelectorAll`, or a jQuery object), use `Array.from`.
+- [8.5](#8.5) <a name="8.5"></a> To convert from an object that is iterable to an array (for example, a `NodeList` returned by `document.querySelectorAll`, or a jQuery object), use the spread syntax (`...`). For objects without an iteration protocol, continue to use `Array.from`.
 
   ```javascript
   const nodes = document.querySelectorAll('.my-nodes');
 
   // bad
-  const badNodesArray = [].slice.apply(nodes);
+  const badNodesArray = Array.from(nodes);
 
   // good
-  const goodNodesArray = Array.from(nodes);
+  const goodNodesArray = [...nodes];
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
@@ -1306,7 +1306,7 @@ npm run lint
   }
   ```
 
-- [10.7](#10.7) <a name="10.7"></a> Instead of using `function#apply()` to call a function with an array of arguments, use the spread operator.
+- [10.7](#10.7) <a name="10.7"></a> Instead of using `function#apply()` to call a function with an array of arguments, use the spread syntax.
 
   > Why? It reduces redundancy since you don’t have to specify the object to apply against, and it mirrors the rest syntax when declaring variadic functions.
 
