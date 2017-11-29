@@ -41,17 +41,17 @@ If you feel that mocha/ sinon/ chai do not do a good job of addressing the way y
 
 - [testdouble](https://github.com/testdouble/testdouble.js) is a great alternative to sinon as a test double library.
 
-If your project is using [ReactJS](https://reactjs.org/) or is built with [Sewing-kit](https://github.com/Shopify/sewing-kit), we recommend using the following tools:
-- [Jest](http://facebook.github.io/jest/) for the test framework. 
-- [Enzyme](http://airbnb.io/enzyme/) for handling spies and mocks.
+If your project is using [ReactJS](https://reactjs.org/) or is built with [sewing-kit](https://github.com/Shopify/sewing-kit), we recommend using the following tools:
+- [Jest](http://facebook.github.io/jest/) for the test framework, which also handles spies and mocks.
+- [Enzyme](http://airbnb.io/enzyme/) for handling the rendering and manipulating React components.
 
 ### Test Runners
 
 In addition to the testing framework, you generally need a test *runner*. Which runner to use will depend on the nature of your project:
 
-- For projects using [Jest](http://facebook.github.io/jest/), you do not need an additional test runner. Just use Jest to run your tests and generate test coverage. See [Coverage](#coverage) for more information on test coverage with Jest.  
+- For projects using [Jest](http://facebook.github.io/jest/), you do not need an additional test runner - just use Jest to run your tests and generate test coverage. See [Coverage](#coverage) for more information on test coverage with Jest. Jest will default to providing you a "fake" browser environment with [JSDom](https://github.com/tmpvar/jsdom). If you want to test things in a true browser environment it will not be sufficient to rely on Jest alone as this is not currenlty supported.
 
-- For existing projects that already have tests written in mocha/sinon/chai, we recommend [Karma](https://karma-runner.github.io/1.0/index.html). It allows running tests in the browser and integrates well with other tools/frameworks you are likely using, such as bundlers and code coverage tools. See [Coverage](#coverage) for more information on test coverage with Karma. Feel free to instead use [Testem](https://github.com/testem/testem), another great JavaScript test runner, if you would like to try something a little different.
+- For existing projects that already have tests written in mocha/sinon/chai, we recommend [Karma](https://karma-runner.github.io/1.0/index.html). It allows running tests in the browser and integrates well with other tools/frameworks you are likely using, such as bundlers and code coverage tools. See [Coverage](#coverage) for more information on test coverage with Karma.
 
 ### Other
 
@@ -409,7 +409,7 @@ Here are some recommended ways to generate coverage:
 - **Jest**: You can use the built in coverage reporter by adding the `--coverage` argument when running tests. See (documentation)[https://facebook.github.io/jest/docs/en/cli.html#coverage].
 - **Other**: We recommend using [nyc](https://github.com/istanbuljs/nyc) as a standalone command line tool to generate coverage.
 
-It is best practice to generate coverage for all relevant JS files as opposed to only tested files. This will files are not inadvertently missed. There are a couple of ways to generate coverage for all files:
+It is best practice to generate coverage for all relevant JS files as opposed to only tested files. This will ensure files are not inadvertently missed. There are a couple of ways to generate coverage for all files:
 - **Karma**: Add the [`includeAllSources`](https://github.com/karma-runner/karma-coverage/blob/master/docs/configuration.md#includeallsources) option to your Karma `coverageReporter` config:
 ```js
 files: [
@@ -419,7 +419,7 @@ coverageReporter: {
   includeAllSources: true
 }
 ```
-- **Jest**: If you are using [Sewing-kit](https://github.com/Shopify/sewing-kit), coverage for all files should be enabled automatically. Otherwise, you can configure the [`collectCoverageFrom`](http://facebook.github.io/jest/docs/en/configuration.html#collectcoveragefrom-array) option:
+- **Jest**: If you are using [sewing-kit](https://github.com/Shopify/sewing-kit), coverage for all files should be enabled automatically. If you are not using sewing-kit, you might need to configure the [`collectCoverageFrom`](http://facebook.github.io/jest/docs/en/configuration.html#collectcoveragefrom-array) option:
 ```js
 {
   "collectCoverageFrom": [
