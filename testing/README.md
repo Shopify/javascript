@@ -401,7 +401,7 @@ If your project is using React, you can find React-specific testing recommendati
 
 ## Coverage
 
-Generating a test coverage report can help you identify areas of the code that are lacking tests. Coverage reports can be integrated with CodeCov and Circle CI to ensure sufficient coverage with every checkin. See the [CodeCov Integration Guide](https://vault.shopify.com/Codecov-integration) for more information.
+Generating a test coverage report can help you identify untested code. Coverage reports can be integrated with CodeCov and Circle CI to ensure team-specific coverage targets are met with every checkin. See the [CodeCov Integration Guide](https://vault.shopify.com/Codecov-integration) for more information.
 
 Here are some recommended ways to generate coverage:
 
