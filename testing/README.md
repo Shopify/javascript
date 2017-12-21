@@ -13,6 +13,7 @@ This guide does recommend some tools that you can use to get up and running quic
 1. [Best practices](#best-practices)
 1. [Types of testing](#types-of-testing)
 1. [React](#react)
+1. [Coverage](#coverage)
 
 
 
@@ -40,21 +41,23 @@ If you feel that mocha/ sinon/ chai do not do a good job of addressing the way y
 
 - [testdouble](https://github.com/testdouble/testdouble.js) is a great alternative to sinon as a test double library.
 
+If your project is using [ReactJS](https://reactjs.org/) or is built with [sewing-kit](https://github.com/Shopify/sewing-kit), we recommend using the following tools:
+- [Jest](http://facebook.github.io/jest/) for the test framework, which also handles spies and mocks.
+- [Enzyme](http://airbnb.io/enzyme/) for handling the rendering and manipulating React components.
+
 ### Test Runners
 
 In addition to the testing framework, you generally need a test *runner*. Which runner to use will depend on the nature of your project:
 
-- For pure-JavaScript projects that do not need access to the DOM, avoid using a test runner and simply run the CLI for your test framework instead (all of the projects listed above have some form of CLI). If you need a simple DOM without actual rendering, you can also use [JSDom](https://github.com/tmpvar/jsdom) to construct a fake DOM.
+- For projects using [Jest](http://facebook.github.io/jest/), you do not need an additional test runner - just use Jest to run your tests and generate test coverage. See [Coverage](#coverage) for more information on test coverage with Jest. Jest will default to providing you a "fake" browser environment with [JSDom](https://github.com/tmpvar/jsdom). If you want to test things in a true browser environment it will not be sufficient to rely on Jest alone as this is not currenlty supported.
 
-- For Non-Rails projects that require a full DOM, we recommend [Karma](https://karma-runner.github.io/1.0/index.html). It integrates well with other tools you are likely using, such as bundlers and code coverage tools. Feel free to instead use [Testem](https://github.com/testem/testem), another great JavaScript test runner, if you would like to try something a little different.
-
-- Rails projects should use [Teaspoon](https://github.com/modeset/teaspoon), which provides an excellent GUI for running tests in the browser. If you are also using [sprockets-commoner](https://github.com/Shopify/sprockets-commoner) to transpile your JavaScript, make sure to include [teaspoon-bundle](https://github.com/Shopify/teaspoon-bundle) to generate your test bundle.
+- For existing projects that already have tests written in mocha/sinon/chai, we recommend [Karma](https://karma-runner.github.io/1.0/index.html). It allows running tests in the browser and integrates well with other tools/frameworks you are likely using, such as bundlers and code coverage tools. See [Coverage](#coverage) for more information on test coverage with Karma.
 
 ### Other
 
 There are a variety of other tools you might need depending on your project. Here are some additional recommendations we make:
 
-- **Test coverage**: we recommend using [nyc](https://github.com/istanbuljs/nyc).
+- [Teaspoon](https://github.com/modeset/teaspoon) is the default test runner for Rails projects but it is no longer recommended due to the lack of code coverage, slowness, and inability to run tests continuously by auto-watching files for changes. However, if you are using Teaspoon and your project is using [sprockets-commoner](https://github.com/Shopify/sprockets-commoner) to transpile your JavaScript, make sure to include [teaspoon-bundle](https://github.com/Shopify/teaspoon-bundle) to generate your test bundle.
 
 - **Rails fixtures**: if you are testing a component that has a non-trivial HTML component, using the actual partial improves the test’s resilience. We recommend using [Magic Lamp](https://github.com/crismali/magic_lamp) if you need access to real partials in a Rails application (if you are writing a JavaScript application, you should be able to import your partials using JavaScript imports).
 
@@ -390,9 +393,55 @@ Visual regression testing allows you to be confident that changes made to the co
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
 
 
-
 ## React
 
 If your project is using React, you can find React-specific testing recommendations in the [React styleguide](https://github.com/Shopify/javascript/tree/master/react#testing).
+
+[↑ scrollTo('#table-of-contents')](#table-of-contents)
+
+## Coverage
+
+Generating a test coverage report can help you identify untested code. Coverage reports can be integrated with CodeCov and Circle CI to ensure team-specific coverage targets are met with every checkin. See the [CodeCov Integration Guide](https://vault.shopify.com/Codecov-integration) for more information.
+
+Here are some recommended ways to generate coverage:
+
+- **Karma**: You can use the [Karma Istanbul Reporter plugin](https://github.com/mattlewis92/karma-coverage-istanbul-reporter) to automatically generate coverage when tests are running.
+- **Jest**: You can use the built in coverage reporter by adding the `--coverage` argument when running tests. See (documentation)[https://facebook.github.io/jest/docs/en/cli.html#coverage].
+- **Other**: We recommend using [nyc](https://github.com/istanbuljs/nyc) as a standalone command line tool to generate coverage.
+
+It is best practice to generate coverage for all relevant JS files as opposed to only tested files. This will ensure files are not inadvertently missed. There are a couple of ways to generate coverage for all files:
+- **Karma**: Add the [`includeAllSources`](https://github.com/karma-runner/karma-coverage/blob/master/docs/configuration.md#includeallsources) option to your Karma `coverageReporter` config:
+```js
+files: [
+  'app/assets/javascripts/**/*.js', // Regexp matching relevant files
+],
+coverageReporter: { 
+  includeAllSources: true
+}
+```
+- **Jest**: If you are using [sewing-kit](https://github.com/Shopify/sewing-kit), coverage for all files should be enabled automatically. If you are not using sewing-kit, you might need to configure the [`collectCoverageFrom`](http://facebook.github.io/jest/docs/en/configuration.html#collectcoveragefrom-array) option:
+```js
+{
+  "collectCoverageFrom": [
+    '**/*.{js,jsx}', // Glob pattern for matching/excluding files
+    "!**/node_modules/**",
+    "!**/vendor/**"
+  ]
+}
+```
+- **Other**: Alternatively, you can use a single test entry file that loads all relevant JS modules. This is not recommended since the entry file would have to be updated whenever a new module is added.
+
+If you are writing code in ES6 and are bundling your code, it is best to generate coverage on non-bundled and non-transpiled code for better understandability. This should already be supported by default if you are using Webpack + Babel to bundle your code. If you are using Browserify for bundling, you might need to use the `es2016` preset along with the [browserify-istanbul plugin](https://github.com/devongovett/browserify-istanbul) to generate coverage for non-bundled and non-transpiled code. For example: 
+```js
+browserify: { 
+  extensions: ['.js'],
+  transform: [
+    ['babelify',
+    { presets: ['es2016'], ignore: /node_modules/,
+      plugins: ['istanbul', { exclude: ['**/test/**','**/node_modules/**']
+    }]
+  ]
+}
+```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
