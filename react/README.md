@@ -11,7 +11,6 @@ This guide provides a few guidelines on writing sensible React. Many of these ru
 1. [Punctuation](#punctuation)
 1. [Components](#components)
 1. [Props](#props)
-1. [Testing](#testing)
 1. [Modules](#modules)
 1. [Resources](#resources)
 
@@ -593,19 +592,9 @@ function GoodComponent({disabled = false}) {
 
 
 
-## Testing
-
-> **Note**: make sure you are comfortable with the [testing guide](../testing). The recommendations laid out there are applicable to React applications as well unless otherwise noted below.
-
-- [6.1](#6.1) <a name="6.1"></a> For complex assertions on the structure of a React component, use [Enzyme](http://airbnb.io/enzyme/index.html). It makes validating the rendered output and lifecycle hooks of your component easy, and has a great set of [chai assertions](https://github.com/producthunt/chai-enzyme).
-
-[↑ scrollTo('#table-of-contents')](#table-of-contents)
-
-
-
 ## Modules
 
-- [7.1](#7.1) <a name="7.1"></a> When importing from React, explicitly import the exact features you need (in addition to React, which will be a signal to the compiler to compile JSX).
+- [6.1](#6.1) <a name="6.1"></a> When importing from React, explicitly import the exact features you need (in addition to React, which will be a signal to the compiler to compile JSX).
 
   > Why? Named imports explicitly indicate what you will be using at the top of the file, and reduce the duplication of accessing properties on `React`.
 
@@ -625,7 +614,7 @@ function GoodComponent({disabled = false}) {
   }
   ```
 
-- [7.2](#7.2) <a name="7.2"></a> Try to define only one React component per file. Name that file the same as the component it exports. The "main" component should be the default export from an `index.js` file in that directory, and any subcomponents can be exported as named exports from that same file.
+- [6.2](#6.2) <a name="6.2"></a> Try to define only one React component per file. Name that file the same as the component it exports. The "main" component should be the default export from an `index.js` file in that directory, and any subcomponents can be exported as named exports from that same file.
 
   ```js
   // in Card/Section.js
