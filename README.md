@@ -6,8 +6,6 @@ This repository contains everything you should need for writing JavaScript at Sh
 
 > Why? All code in any code-base should look like a single person typed it, no matter how many people contributed. If we all follow along with the rules detailed below, we can focus our efforts on more meaningful problems.
 
-
-
 ## Table of contents
 
 1. [Using this guide](#using-this-guide)
@@ -22,6 +20,7 @@ This repository contains everything you should need for writing JavaScript at Sh
 1. [Functions](#functions)
 1. [Types and casting](#types-and-casting)
 1. [ESNext features](#esnext-features)
+1. [Async/await](#async-await)
 1. [Project structure](#project-structure)
 1. [Resources](#resources)
 
@@ -31,8 +30,6 @@ In addition to the above, we have created a specific guide for the tools and con
 - [React styleguide](react/)
 
 Have a legacy codebase? Can’t use ESNext? Our [legacy styleguide](legacy/) is available in this repo just for you. We also have a dedicated [CoffeeScript styleguide](https://github.com/Shopify/CoffeeScript-Style-Guide) for projects that are still using CoffeeScript (new projects should use ESNext, though!).
-
-
 
 ## Using this guide
 
@@ -91,8 +88,6 @@ yarn run lint
 npm run lint
 ```
 
-
-
 ## Naming
 
 - [2.1](#2.1) <a name="2.1"></a> Use camelCase when naming functions, objects, and instances. Snake case is acceptable when interacting with an external API that provides objects with snake-cased keys, like Rails.
@@ -101,17 +96,17 @@ npm run lint
 
   ```js
   // bad
-  const bad_snake_name = 'Larry';
-  const BADname = 'this';
-  const badObject = {some_prop: 'some-value'};
+  const bad_snake_name = "Larry";
+  const BADname = "this";
+  const badObject = { some_prop: "some-value" };
 
   // good
-  const goodSnakeName = 'Basilisk';
-  const prettyName = 'this';
-  const goodObject = {someProp: 'some-value'};
+  const goodSnakeName = "Basilisk";
+  const prettyName = "this";
+  const goodObject = { someProp: "some-value" };
 
   // not ideal, but sometimes necessary and acceptable
-  const objectProvidedByRails = {some_rails_provided_prop: 'some-value'};
+  const objectProvidedByRails = { some_rails_provided_prop: "some-value" };
   ```
 
 - [2.2](#2.2) <a name="2.2"></a> Use PascalCase when naming classes, factories, enumerations, or singletons (cases of enums are written in screaming snake case).
@@ -126,7 +121,7 @@ npm run lint
   const badType = {
     Water: 0,
     Fire: 1,
-    Ghost: 2,
+    Ghost: 2
   };
 
   // good
@@ -136,7 +131,7 @@ npm run lint
   const Type = {
     WATER: 0,
     FIRE: 1,
-    GHOST: 2,
+    GHOST: 2
   };
   ```
 
@@ -152,14 +147,14 @@ npm run lint
   // bad
   export const bad = {
     __privateOne__: 0,
-    privateTwo_: 1,
+    privateTwo_: 1
   };
 
   function _badPrivateFunctionInScope() {}
 
   // good
   export const good = {
-    _private: 0,
+    _private: 0
   };
 
   function goodPrivateFunctionInScope() {}
@@ -171,13 +166,13 @@ npm run lint
 
   ```js
   // bad
-  const b = 'BAD';
+  const b = "BAD";
 
   // good
-  const good = 'GOOD';
+  const good = "GOOD";
   const point = {
     x: 10,
-    y: 20,
+    y: 20
   };
   ```
 
@@ -192,23 +187,26 @@ npm run lint
         console.log(that);
       }, 500);
     }
-  }
+  };
 
   // better
   const betterObject = {
     logSelfAfterTimeout() {
-      setTimeout(function() {
-        console.log(this);
-      }.bind(this), 500);
+      setTimeout(
+        function() {
+          console.log(this);
+        }.bind(this),
+        500
+      );
     }
-  }
+  };
 
   // best
   const bestObject = {
     logSelfAfterTimeout() {
       setTimeout(() => console.log(this), 500);
     }
-  }
+  };
   ```
 
 - [2.6](#2.6) <a name="2.6"></a> When naming an event object, use `evt` (as opposed to `e` or `event`).
@@ -224,8 +222,6 @@ npm run lint
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
 
-
-
 ## Punctuation
 
 - [3.1](#3.1) <a name="3.1"></a> Always use semicolons.
@@ -235,13 +231,13 @@ npm run lint
   ```js
   // bad
   function bad() {
-    const badChoice = 'No semicolons'
-    return badChoice
+    const badChoice = "No semicolons";
+    return badChoice;
   }
 
   // good
   function good() {
-    const goodChoice = 'Semicolons';
+    const goodChoice = "Semicolons";
     return goodChoice;
   }
   ```
@@ -255,29 +251,21 @@ npm run lint
   ```js
   // bad
   const badOne = {
-      one: 1
-    , two: 2
-    , three: 3
+    one: 1,
+    two: 2,
+    three: 3
   };
 
-  const badTwo = [
-      1
-    , 2
-    , 3
-  ];
+  const badTwo = [1, 2, 3];
 
   // good
   const goodOne = {
     one: 1,
     two: 2,
-    three: 3,
+    three: 3
   };
 
-  const goodTwo = [
-    1,
-    2,
-    3,
-  ];
+  const goodTwo = [1, 2, 3];
   ```
 
 - [3.3](#3.3) <a name="3.3"></a> Objects and arrays should use trailing commas, unless they are on a single line. Commas should always be followed by a space, but never preceded by one.
@@ -295,27 +283,21 @@ npm run lint
     bar: 2
   };
 
-  const badTwo = {foo: 1, bar: 2,};
+  const badTwo = { foo: 1, bar: 2 };
 
-  const badThree = [
-    1,
-    2
-  ];
+  const badThree = [1, 2];
 
-  const badFour = [1,2];
+  const badFour = [1, 2];
 
   // good
   const good = {
     foo: 1,
-    bar: 2,
+    bar: 2
   };
 
-  const goodTwo = {foo: 1, bar: 2};
+  const goodTwo = { foo: 1, bar: 2 };
 
-  const goodThree = [
-    1,
-    2,
-  ];
+  const goodThree = [1, 2];
 
   const goodFour = [1, 2];
   ```
@@ -328,19 +310,19 @@ npm run lint
   let a;
 
   // bad
-  while (a = something(), a != null && a.length !== 0) {
+  while (((a = something()), a != null && a.length !== 0)) {
     // do something
   }
 
   // good
-  while (a = something()) {
-    if (a.length === 0) { break; }
+  while ((a = something())) {
+    if (a.length === 0) {
+      break;
+    }
   }
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
-
-
 
 ## Whitespace
 
@@ -377,12 +359,13 @@ npm run lint
 
   // bad
   if (condition) doSomething();
-  if (condition)
-    doSomething();
-    doSomethingElse(); // will run even if condition is false!
+  if (condition) doSomething();
+  doSomethingElse(); // will run even if condition is false!
 
   // good
-  if (condition) { doSomething(); }
+  if (condition) {
+    doSomething();
+  }
   if (condition) {
     doSomething();
     doSomethingElse();
@@ -395,17 +378,17 @@ npm run lint
 
   ```js
   // bad
-  function bad()
-  {
+  function bad() {
     doSomething();
   }
 
-  if (condition){ doSomething(); }
+  if (condition) {
+    doSomething();
+  }
 
   if (otherCondition) {
     doSomething();
-  }
-  else {
+  } else {
     doSomethingElse();
   }
 
@@ -414,7 +397,9 @@ npm run lint
     doSomething();
   }
 
-  if (condition) { doSomething(); }
+  if (condition) {
+    doSomething();
+  }
 
   if (otherCondition) {
     doSomething();
@@ -429,11 +414,11 @@ npm run lint
 
   ```js
   // bad
-  if(condition) {
-    doSomething ();
+  if (condition) {
+    doSomething();
   }
 
-  function doSomething () {}
+  function doSomething() {}
 
   // good
   if (condition) {
@@ -449,7 +434,7 @@ npm run lint
 
   ```js
   // bad
-  const bad=34+32;
+  const bad = 34 + 32;
 
   // good
   const good = 1 + 2;
@@ -487,12 +472,15 @@ npm run lint
   ESLint rules: [`dot-location`](http://eslint.org/docs/rules/dot-location.html), [`newline-per-chained-call`](http://eslint.org/docs/rules/newline-per-chained-call.html)
 
   ```js
-  const result = [1, 2, 3, 4, 5].filter((x) => x > 2).map((x) => x * x * x).reduce((total, x) => total + x, 0);
+  const result = [1, 2, 3, 4, 5]
+    .filter(x => x > 2)
+    .map(x => x * x * x)
+    .reduce((total, x) => total + x, 0);
 
   // good
   const result = [1, 2, 3, 4, 5]
-    .filter((x) => x > 2)
-    .map((x) => x * x * x)
+    .filter(x => x > 2)
+    .map(x => x * x * x)
     .reduce((total, x) => total + x, 0);
   ```
 
@@ -502,18 +490,22 @@ npm run lint
 
   ```js
   // bad
-  function badFunction( arg ) {return true;}
+  function badFunction(arg) {
+    return true;
+  }
 
   const badObject = { isBad: true };
-  badObject[ 'isBad' ];
+  badObject["isBad"];
 
-  const badArray = [ 1, 2, 3 ];
+  const badArray = [1, 2, 3];
 
   // good
-  function goodFunction(arg) { return true; }
+  function goodFunction(arg) {
+    return true;
+  }
 
-  const goodObject = {isGood: true};
-  goodObject['isGood'];
+  const goodObject = { isGood: true };
+  goodObject["isGood"];
 
   const goodArray = [1, 2, 3];
   ```
@@ -524,7 +516,10 @@ npm run lint
 
   ```js
   // bad
-  function bad() { dont = 'do this'; return please; }
+  function bad() {
+    dont = "do this";
+    return please;
+  }
 
   // good
   function good() {
@@ -533,7 +528,9 @@ npm run lint
   }
 
   // fine as well, as long as there is only one, short statement.
-  function fine() { return 'but don’t push it!'; }
+  function fine() {
+    return "but don’t push it!";
+  }
   ```
 
 - [4.11](#4.11) <a name="4.11"></a> Line comments should appear above the line they are commenting, rather than at the end of the line or below it.
@@ -543,8 +540,6 @@ npm run lint
   ESLint rule: [`line-comment-position`](http://eslint.org/docs/rules/line-comment-position.html)
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
-
-
 
 ## References
 
@@ -557,7 +552,7 @@ npm run lint
   bad = BadChoice();
 
   // good
-  const good = GoodChoice()
+  const good = GoodChoice();
   ```
 
 - [5.2](#5.2) <a name="5.2"></a> Use [`const`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const) for all references that do not need to be re-assigned. Use [`let`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) only for references that will be re-assigned. Never use `var`.
@@ -590,15 +585,15 @@ npm run lint
   // bad
   let bad = null;
   // ...
-  bad = 'bad';
+  bad = "bad";
 
   // good
-  const goodOne = 'good';
+  const goodOne = "good";
 
   // or, if you can't provide a value immediately:
   let goodTwo;
   // ...
-  goodTwo = 'good';
+  goodTwo = "good";
   ```
 
 - [5.4](#5.4) <a name="5.4"></a> don’t refer a reference before it is defined. The only exception to this rule is for functions; use the hoisting feature of functions liberally to allow the primary export of a file to appear first (and any helper or utility functions it uses to appear afterwards).
@@ -639,13 +634,14 @@ npm run lint
 
   ```javascript
   // bad
-  const badFooOne = 'bar', badBazOne = 'qux';
-  const badFooTwo = 'bar',
-      badBazTwo = 'qux';
+  const badFooOne = "bar",
+    badBazOne = "qux";
+  const badFooTwo = "bar",
+    badBazTwo = "qux";
 
   // good
-  const goodFoo = 'bar';
-  const goodBaz = 'qux';
+  const goodFoo = "bar";
+  const goodBaz = "qux";
   ```
 
 - [5.7](#5.7) <a name="5.7"></a> Never shadow variable names from outer scopes. Avoid shadowing of names with special meaning, like `arguments`.
@@ -688,14 +684,14 @@ npm run lint
   // bad
   let i = 0;
   const FOO = true;
-  const bar = 'bar';
+  const bar = "bar";
   someUnrelatedCall();
   const BAZ = false;
 
   // good
   const FOO = true;
   const BAZ = false;
-  const bar = 'bar';
+  const bar = "bar";
   let i = 0;
 
   someUnrelatedCall();
@@ -707,21 +703,23 @@ npm run lint
   // bad
   function checkName(hasName) {
     const name = getName(); // unnecessary function call if `hasName` is `false`
-    if (!hasName) { return false; }
+    if (!hasName) {
+      return false;
+    }
     return name.length > 0;
   }
 
   // good
   function checkName(hasName) {
-    if (!hasName) { return false; }
+    if (!hasName) {
+      return false;
+    }
     const name = getName();
     return name.length > 0;
   }
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
-
-
 
 ## Control flow
 
@@ -732,20 +730,20 @@ npm run lint
   ```js
   // bad
   switch (badVar) {
-  case 1:
-    doSomething();
-  case 2:
-    doSomethingElse();
+    case 1:
+      doSomething();
+    case 2:
+      doSomethingElse();
   }
 
   // good
   switch (goodVar) {
-  case 1:
-    doSomething();
-    break;
-  case 2:
-    doSomethingElse();
-    break;
+    case 1:
+      doSomething();
+      break;
+    case 2:
+      doSomethingElse();
+      break;
   }
   ```
 
@@ -762,14 +760,15 @@ npm run lint
   ESLint rule: [`no-cond-assign`](http://eslint.org/docs/rules/no-cond-assign.html)
 
   ```js
-
   // bad (did you mean `==`/ `===`?)
   let myVar;
-  if (myVar = doSomething()) {}
+  if ((myVar = doSomething())) {
+  }
 
   // good
   const myVar = doSomething();
-  if (myVar) {}
+  if (myVar) {
+  }
   ```
 
 - [6.4](#6.4) <a name="6.4"></a> Never have only a single `if` block within an `else` block; combine these into an `else if` block (or, if returning in the `if` block, as another `if` block).
@@ -779,27 +778,27 @@ npm run lint
   ```js
   // bad
   if (conditionOne) {
-    return 'Matched One!';
+    return "Matched One!";
   } else {
     if (conditionTwo) {
-      return 'Matched Two!';
+      return "Matched Two!";
     }
   }
 
   // better
   if (conditionOne) {
-    return 'Matched One!';
+    return "Matched One!";
   } else if (conditionTwo) {
-    return 'Matched Two!';
+    return "Matched Two!";
   }
 
   // best
   if (conditionOne) {
-    return 'Matched One!';
+    return "Matched One!";
   }
 
   if (conditionTwo) {
-    return 'Matched Two!';
+    return "Matched Two!";
   }
   ```
 
@@ -811,18 +810,32 @@ npm run lint
 
   ```js
   // bad
-  const bad = someCondition ? (someOtherCondition ? 'foo' : 'bar') : (someFinalCondition ? 'baz' : 'qux');
+  const bad = someCondition
+    ? someOtherCondition
+      ? "foo"
+      : "bar"
+    : someFinalCondition
+      ? "baz"
+      : "qux";
 
   // good
-  function calculateGood(someCondition, someOtherCondition, someFinalCondition) {
+  function calculateGood(
+    someCondition,
+    someOtherCondition,
+    someFinalCondition
+  ) {
     if (someCondition) {
-      return someOtherCondition ? 'foo' : 'bar';
+      return someOtherCondition ? "foo" : "bar";
     } else {
-      return someFinalCondition ? 'baz' : 'qux';
+      return someFinalCondition ? "baz" : "qux";
     }
   }
 
-  const good = calculateGood(someCondition, someOtherCondition, someFinalCondition);
+  const good = calculateGood(
+    someCondition,
+    someOtherCondition,
+    someFinalCondition
+  );
   ```
 
 - [6.5](#6.5) <a name="6.5"></a> Don’t nest an entire function body inside a conditional. Instead, return early using the opposite of the conditional.
@@ -842,15 +855,15 @@ npm run lint
 
   // good
   function goodFunc() {
-    if (!something) { return; }
+    if (!something) {
+      return;
+    }
     doThis();
     doThat();
   }
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
-
-
 
 ## Objects
 
@@ -866,40 +879,43 @@ npm run lint
   Object.setPrototypeOf(badTwo, badOne);
 
   const badThree = {};
-  Object.defineProperty(badThree, 'prop', {value: 10, enumerable: false});
+  Object.defineProperty(badThree, "prop", { value: 10, enumerable: false });
 
   // good
   const goodOne = {};
   const goodTwo = Object.create(goodOne);
-  const goodThree = Object.create({}, {
-    value: 10,
-    enumerable: false,
-  });
+  const goodThree = Object.create(
+    {},
+    {
+      value: 10,
+      enumerable: false
+    }
+  );
   ```
 
-- [7.2](#7.2) <a name="7.2"></a> Never include spaces before the colon in an object literal property declaration. Use one space after the colon or, if it improves readability to align values, indent the fewest number of spaces *after* the colon to align the values.
+- [7.2](#7.2) <a name="7.2"></a> Never include spaces before the colon in an object literal property declaration. Use one space after the colon or, if it improves readability to align values, indent the fewest number of spaces _after_ the colon to align the values.
 
   ```javascript
   // bad
   const badOne = {
-    foo : 1,
-    bar:   2,
+    foo: 1,
+    bar: 2
   };
 
   const badTwo = {
-    short        : 3,
-    longProperty : 4,
+    short: 3,
+    longProperty: 4
   };
 
   // good
   const goodOne = {
     foo: 1,
-    bar: 2,
+    bar: 2
   };
 
   const goodTwo = {
-    short:        3,
-    longProperty: 4,
+    short: 3,
+    longProperty: 4
   };
   ```
 
@@ -910,43 +926,51 @@ npm run lint
   ```javascript
   // bad
   const badOne = {
-    foo: 1, bar: 2,
+    foo: 1,
+    bar: 2
   };
 
   const badTwo = {
-      baz: 3, }
+    baz: 3
+  };
 
   // good
 
   const goodOne = {
     foo: 1,
-    bar: 2,
+    bar: 2
   };
 
   const goodTwo = {
-    baz: 3,
+    baz: 3
   };
   ```
 
 - [7.4](#7.4) <a name="7.4"></a> Single-line object literals are permissible, but beware objects with more than a few, short keys: they can quickly become unreadable. Object literals on a single line should not have any spaces after the opening brace or before the closing brace.
 
-  > Why? Objects on a single line use no interior spaces to differentiate them from functions (particular arrow functions) on a single line (which *should* have interior spaces between braces, if present).
+  > Why? Objects on a single line use no interior spaces to differentiate them from functions (particular arrow functions) on a single line (which _should_ have interior spaces between braces, if present).
 
   ESLint rules: [`object-curly-spacing`](http://eslint.org/docs/rules/object-curly-spacing.html), [`brace-style`](http://eslint.org/docs/rules/brace-style.html)
 
   ```javascript
   // bad
   const badOne = { foo: 1 };
-  const badTwo = {bar: 2, baz: 3, qux: 4, manyMoreKeys: 5, evenMoreNowItGetsHardToRead: 6};
+  const badTwo = {
+    bar: 2,
+    baz: 3,
+    qux: 4,
+    manyMoreKeys: 5,
+    evenMoreNowItGetsHardToRead: 6
+  };
 
   // good
-  const goodOne = {foo: 1};
+  const goodOne = { foo: 1 };
   const goodTwo = {
     bar: 2,
     baz: 3,
     qux: 4,
     manyMoreKeys: 5,
-    evenMoreNowItGetsHardToRead: 6,
+    evenMoreNowItGetsHardToRead: 6
   };
   ```
 
@@ -957,22 +981,22 @@ npm run lint
   ESLint rule: [`object-shorthand`](http://eslint.org/docs/rules/object-shorthand.html)
 
   ```javascript
-  const name = 'Fido';
+  const name = "Fido";
 
   // bad
   const bad = {
     name: name,
     action: function() {
-      return 'bite';
-    },
-  }
+      return "bite";
+    }
+  };
 
   // good
   const good = {
     name,
     action() {
       return "bark";
-    },
+    }
   };
   ```
 
@@ -981,7 +1005,7 @@ npm run lint
   > Why? It allows you to define all properties in one place, and mirrors the way you would access those properties.
 
   ```javascript
-  const propertyName = 'foo';
+  const propertyName = "foo";
 
   // bad
   const bad = {};
@@ -989,23 +1013,23 @@ npm run lint
 
   // good
   const good = {
-    [propertyName]: true,
+    [propertyName]: true
   };
   ```
 
 - [7.7](#7.7) <a name="7.7"></a> Use dot notation when possible. Use subscript notations (`[]`) only when your key is not a valid identifier or the key is stored in a variable.
 
   ```js
-  const obj = {fooBar: 1, 'baz-qux': 2};
+  const obj = { fooBar: 1, "baz-qux": 2 };
 
   // bad
-  const fooBar = obj['fooBar'];
+  const fooBar = obj["fooBar"];
 
   // good
   const fooBar = obj.fooBar;
-  const bazQux = obj['baz-qux'];
+  const bazQux = obj["baz-qux"];
 
-  const bazKey = 'baz-qux'
+  const bazKey = "baz-qux";
   const altBazQux = obj[bazKey];
   ```
 
@@ -1015,14 +1039,14 @@ npm run lint
 
   ```javascript
   const propertyOne = 1;
-  function propertyTwo() {};
+  function propertyTwo() {}
 
   // bad
   const bad = {
     doSomethingWithProperties() {},
     propertyOne,
     propertyThree: 3,
-    propertyTwo,
+    propertyTwo
   };
 
   // good
@@ -1030,8 +1054,8 @@ npm run lint
     propertyOne,
     propertyTwo,
     propertyThree: 3,
-    doSomethingWithProperties() {},
-  }
+    doSomethingWithProperties() {}
+  };
   ```
 
 - [7.9](#7.9) <a name="7.9"></a> Only quote properties that are invalid identifiers.
@@ -1043,22 +1067,20 @@ npm run lint
   ```javascript
   // bad
   const bad = {
-    'foo': 1,
-    'bar': 2,
-    'some-invalid-identifier': 3,
+    foo: 1,
+    bar: 2,
+    "some-invalid-identifier": 3
   };
 
   // good
   const good = {
     foo: 1,
     bar: 2,
-    'some-invalid-identifier': 3,
+    "some-invalid-identifier": 3
   };
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
-
-
 
 ## Arrays
 
@@ -1082,19 +1104,12 @@ npm run lint
 
   ```javascript
   // bad
-  const badOne = [ 1, 2 ];
-  const badTwo = [
-    3,
-    4, 5,
-    ]
+  const badOne = [1, 2];
+  const badTwo = [3, 4, 5];
 
   // good
   const goodOne = [1, 2];
-  const goodTwo = [
-    3,
-    4,
-    5,
-  ];
+  const goodTwo = [3, 4, 5];
   ```
 
 - [8.3](#8.3) <a name="8.3"></a> Use `Array#push` instead of direct assignment to add items to an array.
@@ -1103,10 +1118,10 @@ npm run lint
   const myArray = [];
 
   // bad
-  myArray[myArray.length] = 'bad';
+  myArray[myArray.length] = "bad";
 
   // good
-  myArray.push('good');
+  myArray.push("good");
   ```
 
 - [8.4](#8.4) <a name="8.4"></a> Use the spread syntax (`...`) to copy arrays, rather than iterating over the array or using `Array#slice`. If you need subsections of the array, continue to use `Array#slice`.
@@ -1116,7 +1131,7 @@ npm run lint
 
   // bad
   const badNewArray = [];
-  originalArray.forEach((item) => badNewArray.push(item));
+  originalArray.forEach(item => badNewArray.push(item));
   const otherBadNewArray = originalArray.slice();
 
   // good
@@ -1126,7 +1141,7 @@ npm run lint
 - [8.5](#8.5) <a name="8.5"></a> To convert from an object that is iterable to an array (for example, a `NodeList` returned by `document.querySelectorAll`, or a jQuery object), use the spread syntax (`...`). For objects without an iteration protocol, continue to use `Array.from`.
 
   ```javascript
-  const nodes = document.querySelectorAll('.my-nodes');
+  const nodes = document.querySelectorAll(".my-nodes");
 
   // bad
   const badNodesArray = Array.from(nodes);
@@ -1136,8 +1151,6 @@ npm run lint
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
-
-
 
 ## Strings
 
@@ -1151,11 +1164,11 @@ npm run lint
   // bad
   const badOne = "Sorry not sorry";
   const badTwo = `No interpolation, no need`;
-  const badThree = 'Escaping is \'no good\'';
+  const badThree = "Escaping is 'no good'";
 
   // good
-  const goodOne = 'Nice and clean';
-  const goodTwo = 'No interpolation, no backticks';
+  const goodOne = "Nice and clean";
+  const goodTwo = "No interpolation, no backticks";
   const goodThree = "Double quotes are 'fine' in this case.";
   ```
 
@@ -1163,7 +1176,8 @@ npm run lint
 
   ```javascript
   // bad
-  const badString = 'The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness'
+  const badString =
+    "The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness";
 
   // fine, if newlines are acceptable
   const fineString = `
@@ -1172,10 +1186,11 @@ npm run lint
   `;
 
   // good
-  const goodString = 'The path of the righteous man is beset on all sides ' +
-    'by the iniquities of the selfish and the tyranny of evil men. ' +
-    'Blessed is he who, in the name of charity and good will, ' +
-    'shepherds the weak through the valley of darkness';
+  const goodString =
+    "The path of the righteous man is beset on all sides " +
+    "by the iniquities of the selfish and the tyranny of evil men. " +
+    "Blessed is he who, in the name of charity and good will, " +
+    "shepherds the weak through the valley of darkness";
   ```
 
 - [9.3](#9.3) <a name="9.3"></a> Use template strings instead of concatenation. When embedding expressions in the template strings, never include spaces within the curly braces.
@@ -1185,20 +1200,18 @@ npm run lint
   ESLint rules: [`prefer-template`](http://eslint.org/docs/rules/prefer-template.html), [`template-curly-spacing`](http://eslint.org/docs/rules/template-curly-spacing.html)
 
   ```javascript
-  const name = 'Chris';
+  const name = "Chris";
 
   // bad
-  const badOne = 'DO NOT do it this way, ' + name + '!';
-  const badTwo = ['And definitely not this way, either, ', name, '!'].join('');
-  const badThree = `So close, ${ name }, but so far!`;
+  const badOne = "DO NOT do it this way, " + name + "!";
+  const badTwo = ["And definitely not this way, either, ", name, "!"].join("");
+  const badThree = `So close, ${name}, but so far!`;
 
   // good
   const goodOne = `Much better, ${name}!`;
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
-
-
 
 ## Functions
 
@@ -1210,7 +1223,7 @@ npm run lint
 
   ```js
   // bad
-  const add = new Function('a', 'b', 'return a + b');
+  const add = new Function("a", "b", "return a + b");
   ```
 
 - [10.2](#10.2) <a name="10.2"></a> Use function declarations instead of function expressions.
@@ -1221,7 +1234,7 @@ npm run lint
 
   ```js
   // bad
-  const bad = function() {}
+  const bad = function() {};
 
   // good
   function good() {}
@@ -1257,9 +1270,9 @@ npm run lint
 
   ```js
   // bad
-  function badOne(){}
-  function badTwo () {}
-  function badThree( arg1, arg2 ) {}
+  function badOne() {}
+  function badTwo() {}
+  function badThree(arg1, arg2) {}
 
   // good
   function goodOne() {}
@@ -1277,14 +1290,14 @@ npm run lint
   // bad
   if (true) {
     function bad() {
-      console.log('Please avoid this!');
+      console.log("Please avoid this!");
     }
   }
 
   // good
   let test;
   if (true) {
-    test = () => console.log('This is better!');
+    test = () => console.log("This is better!");
   }
   ```
 
@@ -1295,14 +1308,18 @@ npm run lint
   ```js
   // bad
   function badFunction(condition) {
-    if (!condition) { return; }
-    return 'Condition met!';
+    if (!condition) {
+      return;
+    }
+    return "Condition met!";
   }
 
   // good
   function goodFunction(condition) {
-    if (!condition) { return null; }
-    return 'Condition met!';
+    if (!condition) {
+      return null;
+    }
+    return "Condition met!";
   }
   ```
 
@@ -1337,31 +1354,31 @@ npm run lint
 
   // bad
   takesCallback(function() {
-    console.log('This is no good!');
-  });
-
-
-  // good
-  takesCallback(() => {
-    console.log('Much better!');
+    console.log("This is no good!");
   });
   ```
 
+// good
+takesCallback(() => {
+console.log('Much better!');
+});
+
+````
 - [10.9](#10.9) <a name="10.9"></a> Always leave one space on either side of the arrow.
 
-  ESLint rule: [`arrow-spacing`](http://eslint.org/docs/rules/arrow-spacing.html)
+ESLint rule: [`arrow-spacing`](http://eslint.org/docs/rules/arrow-spacing.html)
 
-  ```js
-  // bad
-  (bad)=>{}
-  (bad)=> {}
-  (bad) =>{}
-  (bad) =>'terrible'
+```js
+// bad
+(bad)=>{}
+(bad)=> {}
+(bad) =>{}
+(bad) =>'terrible'
 
-  // good
-  (good) => {}
-  (good) => 'fabulous'
-  ```
+// good
+(good) => {}
+(good) => 'fabulous'
+````
 
 - [10.10](#10.10) <a name="10.10"></a> If the body of your arrow function takes only a single expression, you can omit the braces and make use of the implicit `return`. If your function’s body has more than one expression, it returns an object, or it returns something that spans multiple lines, you can use braces and an explicit `return`.
 
@@ -1370,23 +1387,23 @@ npm run lint
   ```js
   // bad
   const result = [1, 2, 3]
-    .map((x) => {
-      return (x * x) + 1;
+    .map(x => {
+      return x * x + 1;
     })
-    .filter((x) => {
+    .filter(x => {
       return x < 6;
     });
 
   // doesn't return an object with `foo` key, actually returns nothing!
-  runCallback((foo) => {foo});
+  runCallback(foo => {
+    foo;
+  });
 
   // good
-  const result = [1, 2, 3]
-    .map((x) => (x * x) + 1)
-    .filter((x) => x < 6);
+  const result = [1, 2, 3].map(x => x * x + 1).filter(x => x < 6);
 
-  runCallback((foo) => {
-    return {foo};
+  runCallback(foo => {
+    return { foo };
   });
   ```
 
@@ -1401,7 +1418,7 @@ npm run lint
   [1, 2, 3].map(x => x * x);
 
   // good
-  [1, 2, 3].map((x) => x * x);
+  [1, 2, 3].map(x => x * x);
   ```
 
 ### Parameters
@@ -1416,12 +1433,12 @@ npm run lint
   // bad
   function allThe() {
     const bads = Array.from(arguments);
-    return bads.map((bad) => `${bad} is bad!`);
+    return bads.map(bad => `${bad} is bad!`);
   }
 
   // good
   function allThe(...goods) {
-    return goods.map((good) => `${good} is good!`);
+    return goods.map(good => `${good} is good!`);
   }
   ```
 
@@ -1432,11 +1449,12 @@ npm run lint
   ```js
   // bad
   function badOne(options) {
-    {}; // might not be what you want for falsey `options`
+    {
+    } // might not be what you want for falsey `options`
   }
 
   function badTwo(options) {
-    options = (options == null) ? {} : options;
+    options = options == null ? {} : options;
   }
 
   // good
@@ -1452,7 +1470,7 @@ npm run lint
 
   // bad
   function badOne(b = a++) {}
-  function badTwo(arg = [1, 2, 3].map((val) => val * 3)) {}
+  function badTwo(arg = [1, 2, 3].map(val => val * 3)) {}
 
   // good
   function goodOne(b) {}
@@ -1488,8 +1506,6 @@ npm run lint
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
 
-
-
 ## Types and casting
 
 - [11.1](#11.1) <a name="11.1"></a> Use the `String` function to convert a value to a string.
@@ -1500,7 +1516,7 @@ npm run lint
   const number = 15;
 
   // bad
-  const badStringNumOne = number + '';
+  const badStringNumOne = number + "";
   const badStringNumTwo = new String(number);
 
   // good
@@ -1514,7 +1530,7 @@ npm run lint
   ESLint rules: [`radix`](http://eslint.org/docs/rules/radix.html), [`no-implicit-coercion`](http://eslint.org/docs/rules/no-implicit-coercion.html), [`no-new-wrappers`](http://eslint.org/docs/rules/no-new-wrappers.html)
 
   ```js
-  const input = '43';
+  const input = "43";
 
   // bad
   const badOne = new Number(input);
@@ -1538,11 +1554,11 @@ npm run lint
   // bad
   const badOne = !!collection;
   const badTwo = new Boolean(collection);
-  const badThree = ~collection.indexOf('foo');
+  const badThree = ~collection.indexOf("foo");
 
   // good
   const goodOne = Boolean(collection);
-  const goodTwo = collection.indexOf('foo') >= 0
+  const goodTwo = collection.indexOf("foo") >= 0;
   ```
 
 - [11.4](#11.4) <a name="11.4"></a> Use `===` and `!==` over `==` and `!=`. The only exception to this rule is `== null`, which is allowed in order to check whether a reference is either `null` or `undefined`.
@@ -1553,10 +1569,12 @@ npm run lint
 
   ```js
   // bad
-  if (badValue == 3) {}
+  if (badValue == 3) {
+  }
 
   // good
-  if (goodValue === 3) {}
+  if (goodValue === 3) {
+  }
   ```
 
 - [11.5](#11.5) <a name="11.5"></a> Don’t use shorthand boolean comparisons.
@@ -1566,33 +1584,38 @@ npm run lint
   > Why? Using the shorthands relies on JavaScript’s questionable cooercion rules, which allow more values than you might expect to be treated as `false`. Using the explicit boolean check makes your code clearer to future readers.
 
   ```js
-  const name = '';
+  const name = "";
   const collection = [];
 
   // bad
-  if (name) {}
-  if (collection.length) {}
+  if (name) {
+  }
+  if (collection.length) {
+  }
 
   // good
-  if (name !== '') {}
-  if (name.length !== 0) {}
-  if (collection.length > 0) {}
+  if (name !== "") {
+  }
+  if (name.length !== 0) {
+  }
+  if (collection.length > 0) {
+  }
   ```
 
 - [11.6](#11.6) <a name="11.6"></a> Use the following patterns for type checking:
 
   ```js
   // String
-  typeof something === 'string';
+  typeof something === "string";
 
   // Number
-  typeof something === 'number';
+  typeof something === "number";
 
   // Boolean
-  typeof something === 'boolean';
+  typeof something === "boolean";
 
   // Object
-  something != null && typeof something === 'object';
+  something != null && typeof something === "object";
 
   // Array
   Array.isArray(something);
@@ -1609,8 +1632,6 @@ npm run lint
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
 
-
-
 ## ESNext Features
 
 - [12.1](#12.1) <a name="12.1"></a> When using features that are not natively supported in some target environments (typically, browsers), use [`core-js`](https://github.com/zloirock/core-js) to provide polyfills. **Do not** include the entire `core-js` shim; `core-js` is extremely modular and allows you to be selective of what polyfills you want to include based on the features you need and your [target environments' feature support](https://kangax.github.io/compat-table/es6/).
@@ -1623,10 +1644,10 @@ npm run lint
 
   ```js
   // bad
-  const twoSixtyFiveInHex = parseInt('1F7', 16);
+  const twoSixtyFiveInHex = parseInt("1F7", 16);
 
   // good
-  const twoSixtyFiveInHex = 0x1F7;
+  const twoSixtyFiveInHex = 0x1f7;
   ```
 
 - [12.4](#12.4) <a name="12.4"></a> Always provide a description when creating a `Symbol`.
@@ -1640,7 +1661,7 @@ npm run lint
   const badSymbol = Symbol();
 
   // good
-  const goodSymbol = Symbol('Good!');
+  const goodSymbol = Symbol("Good!");
   ```
 
 ### Destructuring
@@ -1660,12 +1681,12 @@ npm run lint
 
   // good
   function fullNameForUser(user) {
-    const {firstName, lastName} = user;
+    const { firstName, lastName } = user;
     return `${firstName} ${lastName}`;
   }
 
   // best
-  function fullNameForUser({firstName, lastName}) {
+  function fullNameForUser({ firstName, lastName }) {
     return `${firstName} ${lastName}`;
   }
   ```
@@ -1680,7 +1701,7 @@ npm run lint
   const first = array[0];
   const second = array[1];
 
-  const [secondLong,,,, fifthLong] = longArray;
+  const [secondLong, , , , fifthLong] = longArray;
 
   // good
   const [first, second] = array;
@@ -1705,10 +1726,10 @@ npm run lint
   // good
   function positionForNode(node) {
     // figure stuff out
-    return {left, right, top, bottom};
+    return { left, right, top, bottom };
   }
 
-  const {left, top} = positionForNode(node);
+  const { left, top } = positionForNode(node);
   ```
 
 - [12.8](#12.8) <a name="12.8"></a> You can create highly readable functions by using one positional argument, followed by a destructured object. You can even provide different local names for the destructured arguments to have both an expressive external API and concise internal references.
@@ -1722,18 +1743,27 @@ npm run lint
   horizontalPosition(node, node.parentNode, offset);
 
   // good: arguments are explicit
-  function horizontalPositionForNode(node, {inContainer, withOffset}) {
+  function horizontalPositionForNode(node, { inContainer, withOffset }) {
     return inContainer.offsetLeft + node.offsetLeft + withOffset.left;
   }
 
-  horizontalPositionForNode(node, {inContainer: node.parentNode, withOffset: offset});
+  horizontalPositionForNode(node, {
+    inContainer: node.parentNode,
+    withOffset: offset
+  });
 
   // also good: more concise internal names, same external API
-  function horizontalPositionForNode(node, {inContainer: container, withOffset: offset}) {
+  function horizontalPositionForNode(
+    node,
+    { inContainer: container, withOffset: offset }
+  ) {
     return container.offsetLeft + node.offsetLeft + offset.left;
   }
 
-  horizontalPositionForNode(node, {inContainer: node.parentNode, withOffset: offset});
+  horizontalPositionForNode(node, {
+    inContainer: node.parentNode,
+    withOffset: offset
+  });
   ```
 
 ### Classes
@@ -1744,18 +1774,18 @@ npm run lint
   // bad
   // all static members, no need for a class
   class BadSingleton {
-    static singletonProp = 'foo';
+    static singletonProp = "foo";
     static singletonMethod() {
-      return 'bar';
+      return "bar";
     }
   }
 
   // good
   const GoodSingleton = {
-    singletonProp: 'foo',
+    singletonProp: "foo",
     singletonMethod() {
-      return 'bar';
-    },
+      return "bar";
+    }
   };
 
   // bad
@@ -1771,14 +1801,14 @@ npm run lint
     }
   }
 
-  const result = new BadChoice('foo', 'bar').takeAction();
+  const result = new BadChoice("foo", "bar").takeAction();
 
   // good
-  function takeAction({first, second}) {
+  function takeAction({ first, second }) {
     return `The first: ${first}, the second: ${second}`;
   }
 
-  const result = takeAction({first: 'foo', second: 'bar'});
+  const result = takeAction({ first: "foo", second: "bar" });
   ```
 
 - [12.10](#12.10) <a name="12.10"></a> If you want to use constructor functions, use `class` syntax. Avoid creating them by manually updating the prototype.
@@ -1792,15 +1822,15 @@ npm run lint
   }
 
   BadClass.prototype.shouldIDoThis = function() {
-    return 'Definitely not';
-  }
+    return "Definitely not";
+  };
 
   // good
   class GoodClass {
     ideal = true;
 
     shouldIDoThis() {
-      return 'Yes!';
+      return "Yes!";
     }
   }
   ```
@@ -1818,14 +1848,14 @@ npm run lint
   class BadClass extends Base {
     constructor() {
       this.bad = bad();
-      super('I am bad :(');
+      super("I am bad :(");
     }
   }
 
   // good
   class GoodClass extends Base {
     constructor() {
-      super('I am good :)');
+      super("I am good :)");
       this.good = good();
     }
   }
@@ -1842,12 +1872,12 @@ npm run lint
     instanceMethod() {}
   }
 
-  BadClass.staticProperty = 'foo';
-  BadClass.staticMethod = function() {}
+  BadClass.staticProperty = "foo";
+  BadClass.staticMethod = function() {};
 
   // good
   class GoodClass {
-    static staticProperty = 'foo';
+    static staticProperty = "foo";
     static staticMethod() {}
 
     constructor() {}
@@ -1865,7 +1895,7 @@ npm run lint
     }
 
     anotherMethod() {
-      return this.badMethod('oops!');
+      return this.badMethod("oops!");
     }
   }
 
@@ -1876,7 +1906,7 @@ npm run lint
 
   class GoodClass {
     anotherMethod() {
-      return goodFunction('oops!');
+      return goodFunction("oops!");
     }
   }
   ```
@@ -1889,11 +1919,11 @@ npm run lint
 
   ```js
   // bad
-  const BadImport = require('./BadImport');
+  const BadImport = require("./BadImport");
   module.exports = BadImport.feelBadAboutIt();
 
   // good
-  import {feelGoodAboutIt} from './GoodImport';
+  import { feelGoodAboutIt } from "./GoodImport";
   export default feelGoodAboutIt();
   ```
 
@@ -1903,21 +1933,43 @@ npm run lint
 
   ```js
   // bad
-  export feelBadAboutIt from '../../../lib/BadImport';
+  export feelBadAboutIt from "../../../lib/BadImport";
 
   // good (with some path additions)
-  import feelGoodAboutIt from 'lib/GoodImport';
+  import feelGoodAboutIt from "lib/GoodImport";
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
 
+## Async await
 
+- [13.1](#13.1) Wrap async calls with a `try`/`catch` to improve error handling
+
+```
+// bad
+async function asyncTask(){
+  const thing = await asyncThing();
+  console.log(thing);
+}
+
+
+// good
+async function asyncTask(){
+  try {
+    const thing = await asyncThing();
+    console.log(thing);
+  } catch(error) {
+    // error handling
+    throw error;
+  }
+}
+```
 
 ## Project structure
 
-- [13.1](#13.1) <a name="13.1"></a> Prefer dash-/kebab-case for file names. Pascal case is acceptable for naming files that export React components. For projects that are transitioning from CoffeeScript to JavaScript, it is also acceptable to use snake case for the file names in order to retain consistency.
+- [14.1](#14.1) <a name="14.1"></a> Prefer dash-/kebab-case for file names. Pascal case is acceptable for naming files that export React components. For projects that are transitioning from CoffeeScript to JavaScript, it is also acceptable to use snake case for the file names in order to retain consistency.
 
-- [13.2](#13.2) <a name="13.2"></a> Most tools, including Babel, ESLint, and Stylelint, allow you to specify your configuration in dotfiles at the root of your project, or as special keys in your `package.json`. Where possible, prefer placing this configuration in `package.json`. Where not possible (for example, when providing a custom ESLint configuration for a subdirectory), prefer the JavaScript version of the configuration over the dotfile version. Use dotfiles only when you have no other option.
+- [14.2](#14.2) <a name="14.2"></a> Most tools, including Babel, ESLint, and Stylelint, allow you to specify your configuration in dotfiles at the root of your project, or as special keys in your `package.json`. Where possible, prefer placing this configuration in `package.json`. Where not possible (for example, when providing a custom ESLint configuration for a subdirectory), prefer the JavaScript version of the configuration over the dotfile version. Use dotfiles only when you have no other option.
 
   > Why? Placing configuration in package.json means that any developer can see all configuration in a single file, and cleans up the root of a directory.
 
@@ -1946,8 +1998,6 @@ npm run lint
   ```
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
-
-
 
 ## Resources
 
@@ -1997,6 +2047,5 @@ Writing performant JavaScript is our top priority. No amount of well-structured,
 
 - [Understanding Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/?hl=en)
 - [ECMAScript current proposals](https://github.com/tc39/ecma262/blob/master/README.md), including the [stage 0 proposals](https://github.com/tc39/ecma262/blob/master/stage0.md)
-
 
 [↑ scrollTo('#table-of-contents')](#table-of-contents)
