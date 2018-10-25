@@ -1225,6 +1225,9 @@ npm run lint
 
   // good
   function good() {}
+
+  // also good
+  const alsoGood = () => {}
   ```
 
 - [10.3](#10.3) <a name="10.3"></a> When using IIFEs, always wrap the function parentheses, with dangling parentheses for the function call.
