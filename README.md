@@ -1886,18 +1886,21 @@ npm run lint
 
 ### Modules
 
-- [12.14](#12.14) <a name="12.14"></a> Always use modules (`import`/ `export`) over a non-standard module system (CommonJS being the most popular of these).
+- [12.14](#12.14) <a name="12.14"></a> Always use modules (`import`/ `export`) with named exports over a different/non-standard module system (CommonJS being the most popular of these).
 
-  > Why? Modules are the future, so let’s get a head start. You can always transpile to a preferred module system.
+  Modules are the future, so let’s get a head start. You can always transpile to a preferred module system.
+
+  Avoid using `default` exports, consistently using named exports helps to keep naming and import style consistent across our repos.
 
   ```js
   // bad
   const BadImport = require('./BadImport');
   module.exports = BadImport.feelBadAboutIt();
+  export default BadImport();
 
   // good
-  import {feelGoodAboutIt} from './GoodImport';
-  export default feelGoodAboutIt();
+  export {feelGoodAboutIt, GoodImport} from './GoodImport';
+  export otherExport();
   ```
 
 - [12.15](#12.15) <a name="12.15"></a> Avoid complex relative import paths. It is usually fairly easy and much clearer to add the root of your project to the load path.
