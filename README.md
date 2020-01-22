@@ -1896,11 +1896,11 @@ npm run lint
   // bad
   const BadImport = require('./BadImport');
   module.exports = BadImport.feelBadAboutIt();
-  export default BadImport();
+  export default BadImport;
 
   // good
   export {feelGoodAboutIt, GoodImport} from './GoodImport';
-  export otherExport();
+  export otherExport;
   ```
 
 - [12.15](#12.15) <a name="12.15"></a> Avoid complex relative import paths. It is usually fairly easy and much clearer to add the root of your project to the load path.
