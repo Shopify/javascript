@@ -825,11 +825,11 @@ npm run lint
   const good = calculateGood(someCondition, someOtherCondition, someFinalCondition);
   ```
 
-- [6.5](#6.5) <a name="6.5"></a> Don’t nest an entire function body inside a conditional. Instead, return early using the opposite of the conditional.
+- [6.6](#6.6) <a name="6.6"></a> Don’t nest an entire function body inside a conditional. Instead, return early using the opposite of the conditional.
 
   > Why? This reduces indentation and makes the code easier to read.
 
-  ESLint rule: [`prefer-early-return`](packages/eslint-plugin-shopify/docs/rules/prefer-early-return.md)
+  ESLint rule: [`prefer-early-return`](https://github.com/Shopify/web-configs/blob/main/packages/eslint-plugin/docs/rules/prefer-early-return.md)
 
   ```js
   // bad
